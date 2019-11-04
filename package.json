@@ -1,0 +1,30 @@
+{
+  "name": "@oamk_pathfinder/group2",
+  "description": "OAMK Pathfinder Project - Group 2",
+  "version": "1.0.0",
+  "contributors": [
+    "Tim Pachmann (https://github.com/tpachmann)",
+    "Jakob Benkö (https://github.com/JakobBenkoe)",
+    "Simon Janik (https://github.com/simonjanik)"
+  ],
+  "license": "ISC",
+  "engines": {
+    "node": "12.x"
+  },
+  "main": "index.js",
+  "scripts": {
+    "build-frontend": "cd frontend && npm install --dev && npm run build",
+    "build": "npm run build-frontend",
+    "start": "node index.js",
+    "test": "node test.js"
+  },
+  "dependencies": {
+    "express": "^4.15.2",
+    "express-graphql": "^0.9.0",
+    "graphql": "^14.5.8"
+  },
+  "devDependencies": {
+    "request": "^2.81.0",
+    "tape": "^4.7.0"
+  }
+}
