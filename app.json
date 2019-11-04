@@ -1,0 +1,8 @@
+{
+    "name": "OAMK Pathfinder Project - Group 2",
+    "description": "OAMK Pathfinder Project - Group 2",
+    "website": "https://oamk-pathfinder.herokuapp.com/",
+    "repository": "https://github.com/OAMKpathfinder/group2",
+    "logo": "https://is5-ssl.mzstatic.com/image/thumb/Purple1/v4/01/07/f6/0107f66e-611b-c4f0-96da-bdef5ada1ca1/source/512x512bb.jpg",
+    "image": "heroku/nodejs"
+}

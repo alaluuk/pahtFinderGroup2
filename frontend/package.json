@@ -1,0 +1,37 @@
+{
+  "name": "@oamk_pathfinder/group2",
+  "description": "OAMK Pathfinder Project - Group 2",
+  "version": "1.0.0",
+  "contributors": [
+    "Tim Pachmann (https://github.com/tpachmann)",
+    "Jakob Benkö (https://github.com/JakobBenkoe)",
+    "Simon Janik (https://github.com/simonjanik)"
+  ],
+  "private": true,
+  "dependencies": {
+    "react": "^16.11.0",
+    "react-dom": "^16.11.0",
+    "react-scripts": "3.2.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
