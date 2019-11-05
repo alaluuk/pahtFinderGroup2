@@ -19,9 +19,11 @@
     "test": "node test.js"
   },
   "dependencies": {
+    "dotenv": "^8.2.0",
     "express": "^4.15.2",
     "express-graphql": "^0.9.0",
-    "graphql": "^14.5.8"
+    "graphql": "^14.5.8",
+    "pg-promise": "^9.3.3"
   },
   "devDependencies": {
     "request": "^2.81.0",
