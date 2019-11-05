@@ -1,4 +1,6 @@
 const { db } = require("../pg-adaptor");
+const pwHash = require("password-hash");
+const { House } = require("./house");
 
 class User {
   static getMany() {
@@ -29,10 +31,59 @@ class User {
     });
   }
 
+  static create(name, email, password, role) {
+    return new Promise(function(resolve, reject) {
+      db
+        .one(`INSERT INTO users(name, email, password_hash, role) VALUES ($1, $2, $3, $4) RETURNING *`, [
+          name, email, pwHash.generate(password), role
+        ])
+        .then(res => {
+          let user = new User(res);
+          resolve(user);
+        })
+        .catch(err => reject(err));
+    });
+  }
+
+  save() {
+    let user = this;
+    return new Promise(function(resolve, reject) {
+      db
+        .result(`UPDATE users SET id=$1, name=$2, email=$3, password_hash=$4, role=$5 WHERE id=$6`, [
+          user._id,
+          user._name,
+          user._email,
+          user._password_hash,
+          user._role,
+          user._id
+        ], r => r.rowCount)
+        .then(res => {
+          resolve((res > 0));
+        })
+        .catch(err => reject(err));
+    });
+  }
+
+  static delete(id) {
+    return new Promise(function(resolve, reject) {
+      db
+        .result(`DELETE FROM users WHERE id=$1`, [ id ], r => r.rowCount)
+        .then(res => {
+          resolve((res > 0));
+        })
+        .catch(err => reject(err));
+    });
+  }
+
+  delete() {
+    User.delete(this._id);
+  }
+
   constructor(data) {
     this._id = data.id;
     this._name = data.name;
     this._email = data.email;
+    this._password_hash = data.password_hash;
     this._role = data.role;
   }
 
@@ -47,16 +98,29 @@ class User {
     return this._name;
   }
 
+  set email(email) {
+    this._email = email;
+  }
   get email() {
     return this._email;
   }
 
+  set password(password) {
+    this._password_hash = pwHash.generate(password);
+  }
+  get passwordHash() {
+    return this._password_hash;
+  }
+
+  set role(role) {
+    this._role = role;
+  }
   get role() {
     return this._role;
   }
 
   get houses() {
-    return [];
+    return House.getManyByOwner(this._id);
   }
 }
 

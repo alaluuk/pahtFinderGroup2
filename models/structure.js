@@ -1,6 +1,6 @@
 const { db } = require("../pg-adaptor");
-const { StructureType } = require("../models/structure-type");
-const { StructureMaterial } = require("../models/structure-material");
+const { StructureType } = require("./structure-type");
+const { StructureMaterial } = require("./structure-material");
 
 class Structure {
   static getMany() {
