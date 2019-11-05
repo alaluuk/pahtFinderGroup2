@@ -4,4 +4,5 @@
 
 Participants: [Tim Pachmann](https://github.com/tpachmann), [Jakob Benkö](https://github.com/JakobBenkoe), [Simon Janik](https://github.com/simonjanik)
 
-URL: [https://oamk-pathfinder.herokuapp.com/](https://oamk-pathfinder.herokuapp.com/)
+Web-URL: [https://oamk-pathfinder.herokuapp.com/](https://oamk-pathfinder.herokuapp.com/)
+GraphQL: [https://oamk-pathfinder.herokuapp.com/graphql](https://oamk-pathfinder.herokuapp.com/graphql)
