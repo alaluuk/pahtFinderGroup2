@@ -1,6 +1,6 @@
 const { db } = require("../pg-adaptor");
-const { House } = require("../models/house");
-const { Structure } = require("../models/structure");
+const { House } = require("./house");
+const { Structure } = require("./structure");
 
 class HouseStructure {
   static getMany() {
