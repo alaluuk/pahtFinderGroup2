@@ -48,14 +48,19 @@ class House {
   }
 
   static create(name, country_code, construction_year, owner_id) {
+    try {
+      let user = User.getOne(owner_id);
+    } catch(err) {
+      throw new Error("The specified house owner could not be found.")
+    }
     return new Promise(function(resolve, reject) {
       db
-        .one(`INSERT INTO users(name, country_code, construction_year, owner_id) VALUES ($1, $2, $3, $4) RETURNING *`, [
+        .one(`INSERT INTO houses(name, country_code, construction_year, owner_id) VALUES ($1, $2, $3, $4) RETURNING *`, [
           name, country_code, construction_year, owner_id
         ])
         .then(res => {
-          let user = new User(res);
-          resolve(user);
+          let house = new House(res);
+          resolve(house);
         })
         .catch(err => reject(err));
     });
@@ -114,14 +119,29 @@ class House {
     return this._name;
   }
 
+  set countryCode(countryCode) {
+    if(countryCode.length !== 2) {
+      throw new Error("Invalid country code (must be 2 characters long).");
+    }
+    this._country_code = countryCode;
+  }
   get countryCode() {
     return this._country_code;
   }
 
+  set constructionYear(constructionYear) {
+    if(constructionYear < 0 || constructionYear > (new Date()).getFullYear()) {
+      throw new Error("Invalid construction year (the value must be positive and in the future).");
+    }
+    this._construction_year = constructionYear;
+  }
   get constructionYear() {
     return this._construction_year;
   }
 
+  set owner(user) {
+    this._owner_id = user.id;
+  }
   get owner() {
     return User.getOne(this._owner_id);
   }
