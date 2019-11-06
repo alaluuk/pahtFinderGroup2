@@ -29,6 +29,51 @@ class StructureType {
     });
   }
 
+  static create(title) {
+    return new Promise(function(resolve, reject) {
+      db
+        .one(`INSERT INTO structure_types(title) VALUES ($1) RETURNING *`, [
+          title
+        ])
+        .then(res => {
+          let structure_type = new StructureType(res);
+          resolve(structure_type);
+        })
+        .catch(err => reject(err));
+    });
+  }
+
+  save() {
+    let structure_type = this;
+    return new Promise(function(resolve, reject) {
+      db
+        .result(`UPDATE structure_types SET id=$1, title=$2 WHERE id=$6`, [
+          structure_type._id,
+          structure_type._title,
+          structure_type._id
+        ], r => r.rowCount)
+        .then(res => {
+          resolve((res > 0));
+        })
+        .catch(err => reject(err));
+    });
+  }
+
+  static delete(id) {
+    return new Promise(function(resolve, reject) {
+      db
+        .result(`DELETE FROM structure_types WHERE id=$1`, [ id ], r => r.rowCount)
+        .then(res => {
+          resolve((res > 0));
+        })
+        .catch(err => reject(err));
+    });
+  }
+
+  delete() {
+    StructureType.delete(this._id);
+  }
+
   constructor(data) {
     this._id = data.id;
     this._title = data.title;

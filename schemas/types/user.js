@@ -9,6 +9,7 @@ const UserType = new GraphQLObjectType({
     name: { type: new GraphQLNonNull(GraphQLString) },
     email: { type: new GraphQLNonNull(GraphQLString) },
     role: { type: new GraphQLNonNull(GraphQLString) },
+    permissions: { type: new GraphQLList(GraphQLString) },
     // houses: { type: new GraphQLList(HouseType) }
   }
 });
