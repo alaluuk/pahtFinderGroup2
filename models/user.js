@@ -1,6 +1,7 @@
 const { db } = require("../pg-adaptor");
 const pwHash = require("password-hash");
 const { House } = require("./house");
+const { Roles, getPermissions } = require("../permissions");
 
 class User {
   static getMany() {
@@ -31,7 +32,22 @@ class User {
     });
   }
 
+  static getOneByEmail(email) {
+    return new Promise(function(resolve, reject) {
+      db
+        .one(`SELECT * FROM users WHERE email=$1`, [ email ])
+        .then(res => {
+          let user = new User(res);
+          resolve(user);
+        })
+        .catch(err => reject(err));
+    });
+  }
+
   static create(name, email, password, role) {
+    if(!Roles.hasOwnProperty(role)) {
+      throw new Error("The specified role is invalid ('"+role+"').")
+    }
     return new Promise(function(resolve, reject) {
       db
         .one(`INSERT INTO users(name, email, password_hash, role) VALUES ($1, $2, $3, $4) RETURNING *`, [
@@ -113,14 +129,25 @@ class User {
   }
 
   set role(role) {
+    if(!Roles.hasOwnProperty(role)) {
+      throw new Error("The specified role is invalid ('"+role+"').")
+    }
     this._role = role;
   }
   get role() {
     return this._role;
   }
 
+  get permissions() {
+    return getPermissions(this._role);
+  }
+
   get houses() {
     return House.getManyByOwner(this._id);
+  }
+
+  checkPassword(password) {
+    return pwHash.verify(password, this._password_hash);
   }
 }
 

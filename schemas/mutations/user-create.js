@@ -1,8 +1,17 @@
+const Joi = require('@hapi/joi');
 const { GraphQLNonNull, GraphQLString } = require("graphql");
 const { User } = require("../../models/user");
 const { UserType } = require("../types");
+const { checkPermission } = require("../../permissions");
 
-exports.UserCreateMutation = {
+const UserCreateSchema = Joi.object({
+  name: Joi.string().min(3).max(255).required(),
+  email: Joi.string().email().max(255).required(),
+  password: Joi.string().min(6).max(255).required(),
+  role: Joi.string().required(),
+});
+
+const UserCreateMutation = {
   type: UserType,
   args: {
     name: { type: new GraphQLNonNull(GraphQLString) },
@@ -10,8 +19,18 @@ exports.UserCreateMutation = {
     password: { type: new GraphQLNonNull(GraphQLString) },
     role: { type: new GraphQLNonNull(GraphQLString) }
   },
-  resolve(parentValue, args) {
-    // TODO: Check permissions, sanitize & check all inputs
-    return User.create(args.name, args.email, args.password, args.role);
+  resolve(parentValue, args, { user }) {
+    if(!user) throw new Error("You must be logged in to perform this action.");
+    let values = Joi.attempt(args, UserCreateSchema);
+    if(!checkPermission(user.role, "user_create")) {
+      throw new Error("You don't have sufficient permissions to create users.");
+    }
+    if(!checkPermission(user.role, "user_create_role_"+values.role)) {
+      throw new Error("You don't have sufficient permissions to create users with the role '"+values.role+"'.");
+    }
+    return User.create(values.name, values.email, values.password, values.role);
   }
-}
+};
+
+exports.UserCreateSchema = UserCreateSchema;
+exports.UserCreateMutation = UserCreateMutation;
