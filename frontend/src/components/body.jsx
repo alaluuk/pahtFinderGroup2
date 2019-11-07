@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { Button} from 'react-bootstrap';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 
 
 class Body extends Component {
@@ -18,14 +19,19 @@ class Body extends Component {
                                                     So you not only save energy, but do the planet something good.</p>
                 
                 
-                
-                <input className = "inputUserName" type="text" name="UserName" placeholder="User Name"/><br></br>
-                <input className = "inputUserMail" type="text" name="UserMail" placeholder="Email address"/><br></br>
-                <input className = "inputUserPassword" type="text" name="UserPassword" placeholder="Your Password"/><br></br>
+            
 
-                <Button className = "googleSignUp"> Sign up with Google</Button>
-                <Button className = "facebookSignUp"> Sign up with Facebook</Button>
-                <Button className = "emailSignUp"> Sign up with Email</Button>
+                <TextField id="outlined-basic" className= "inputUserName" label="User Name" margin="normal" variant="outlined" /> <br></br>
+                <TextField id="outlined-basic" className= "inputUserMail" label="Email address" margin="normal" variant="outlined" /> <br></br>
+                <TextField id="outlined-basic" className= "inputUserPassword" label="Your Password" margin="normal" variant="outlined"/> <br></br>
+
+
+                
+                
+
+                <Button variant="contained" className= "googleSignUp">Sign up with Google </Button>
+                <Button variant="contained" className = "facebookSignUp"> Sign up with Facebook</Button>
+                <Button variant="contained" className = "emailSignUp"> Sign up with Email</Button>
 
                
 
