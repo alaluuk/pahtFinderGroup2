@@ -1,6 +1,6 @@
 const Joi = require('@hapi/joi');
 const { GraphQLNonNull, GraphQLString, GraphQLInt } = require("graphql");
-const { House } = require("../../models/house");
+const { House } = require("../../models");
 const { HouseType } = require("../types");
 const { checkPermission } = require("../../permissions");
 
@@ -8,7 +8,7 @@ const HouseCreateSchema = Joi.object({
   name: Joi.string().min(3).max(255).required(),
   countryCode: Joi.string().alphanum().length(2).required(),
   constructionYear: Joi.number().min(0).max((new Date()).getFullYear()).required(),
-  ownerId: Joi.number().positive().required()
+  ownerId: Joi.string().guid()
 });
 
 const HouseCreateMutation = {
