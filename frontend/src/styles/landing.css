@@ -74,7 +74,7 @@
 .landingPageBody{
   background-color: white;
   position: unset;
-  height: 600px;
+  height: 750px;
   width: 600px;
   float: right;
   text-align: left;
@@ -85,7 +85,9 @@
 
 }
 
-.inputUserName, .inputUserMail, .inputUserPassword, .googleSignUp, .facebookSignUp, .emailSignUp{
+button.MuiButtonBase-root.MuiButton-root.MuiButton-contained.googleSignUp, 
+button.MuiButtonBase-root.MuiButton-root.MuiButton-contained.facebookSignUp, 
+button.MuiButtonBase-root.MuiButton-root.MuiButton-contained.emailSignUp{
   margin-bottom: 10px;
   width: 100%;
   padding-left: 10px;
@@ -93,23 +95,28 @@
   padding-bottom: 10px;
 }
 
-.inputUserName, .inputUserMail, .inputUserPassword{
-  width: 97%;
+.MuiButton-contained{
+  margin-bottom: 20px;
 }
 
-.googleSignUp{
+.inputUserName, .inputUserMail, .inputUserPassword{
+  width: 100%;
+}
+
+button.MuiButtonBase-root.MuiButton-root.MuiButton-contained.googleSignUp{
+  margin-top: 10px;
   background-color: #CE4231;
   color: white;
 
 }
 
-.facebookSignUp{
+button.MuiButtonBase-root.MuiButton-root.MuiButton-contained.facebookSignUp{
   background-color: #3B65C3;
   color: white;
 
 }
 
-.emailSignUp{
+button.MuiButtonBase-root.MuiButton-root.MuiButton-contained.emailSignUp{
   margin-top: 15px;
   background-color: #2699FB;
   color: white;
@@ -122,9 +129,59 @@
 
 
 
-
-
-
-
-
 /* FOOTER */
+
+
+
+
+/* ADD_NEW_BUILDING_COMP */
+
+.addBuildingComp{
+border: 1px solid #707070;
+border-radius: 50px;
+margin: 40px;
+padding: 50px;
+display: inline-grid;
+width: 1500px;
+
+}
+
+.addBuildHead, .addBuildText{
+  float: left;
+  margin-left: 40px;
+  text-align: left;
+
+}
+.addBuildBody{
+  display: flex;
+  margin-left: 40px;
+}
+
+.left, .center, .right{
+  width: 100%;
+  display: inline-grid;
+}
+
+.MuiFormControl-root.MuiTextField-root.addBuildField.MuiFormControl-marginNormal,
+.MuiFormControl-root.simpleSelector{
+  width: 80%;
+  float: left;
+}
+
+
+
+.addBuildField{
+  width: 50%;
+}
+
+.imageUploader{
+width: 400px;
+height: 300px;
+
+}
+
+.googleMaps{
+  width: 400px;
+height: 300px;
+
+}
