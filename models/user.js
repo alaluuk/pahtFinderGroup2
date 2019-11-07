@@ -1,13 +1,13 @@
 const { db } = require("../pg-adaptor");
 const pwHash = require("password-hash");
-const { House } = require("./house");
+const { House } = require(".");
 const { Roles, getPermissions } = require("../permissions");
 
 class User {
-  static getMany() {
+  static getAny() {
     return new Promise(function(resolve, reject) {
       db
-        .many(`SELECT * FROM users`)
+        .any(`SELECT * FROM users`)
         .then(res => {
           let users = [];
           res.forEach(user_data => {
@@ -92,7 +92,7 @@ class User {
   }
 
   delete() {
-    User.delete(this._id);
+    return User.delete(this._id);
   }
 
   constructor(data) {
@@ -143,7 +143,7 @@ class User {
   }
 
   get houses() {
-    return House.getManyByOwner(this._id);
+    return House.getAnyByOwner(this._id);
   }
 
   checkPassword(password) {

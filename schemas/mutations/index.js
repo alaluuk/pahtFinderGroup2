@@ -1,0 +1,11 @@
+exports.CustomerSignupMutation = require("./customer-signup").CustomerSignupMutation;
+exports.CustomerLoginMutation = require("./customer-login").CustomerLoginMutation;
+exports.UserCreateMutation = require("./user-create").UserCreateMutation;
+exports.UserUpdateMutation = require("./user-update").UserUpdateMutation;
+exports.UserDeleteMutation = require("./user-delete").UserDeleteMutation;
+exports.HouseCreateMutation = require("./house-create").HouseCreateMutation;
+exports.HouseUpdateMutation = require("./house-update").HouseUpdateMutation;
+exports.HouseDeleteMutation = require("./house-delete").HouseDeleteMutation;
+exports.StructureTypeCreateMutation = require("./structure-type-create").StructureTypeCreateMutation;
+exports.StructureTypeUpdateMutation = require("./structure-type-update").StructureTypeUpdateMutation;
+exports.StructureTypeDeleteMutation = require("./structure-type-delete").StructureTypeDeleteMutation;

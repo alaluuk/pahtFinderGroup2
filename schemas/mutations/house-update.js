@@ -1,15 +1,15 @@
 const Joi = require('@hapi/joi');
 const { GraphQLNonNull, GraphQLID, GraphQLString, GraphQLInt } = require("graphql");
-const { House } = require("../../models/user");
+const { House } = require("../../models");
 const { HouseType } = require("../types");
 const { checkPermission } = require("../../permissions");
 
 const HouseUpdateSchema = Joi.object({
-  id: Joi.number().positive().required(),
+  id: Joi.string().guid(),
   name: Joi.string().min(3).max(255),
   countryCode: Joi.string().alphanum().length(2),
   constructionYear: Joi.number().min(0).max((new Date()).getFullYear()),
-  ownerId: Joi.number().positive()
+  ownerId: Joi.string().guid()
 });
 
 const HouseUpdateMutation = {
@@ -19,7 +19,7 @@ const HouseUpdateMutation = {
     name: { type: GraphQLString },
     countryCode: { type: GraphQLString },
     constructionYear: { type: GraphQLInt },
-    ownerId: { type: GraphQLInt }
+    ownerId: { type: GraphQLID }
   },
   resolve(parentValue, args, { user }) {
     if(!user) throw new Error("You must be logged in to perform this action.");

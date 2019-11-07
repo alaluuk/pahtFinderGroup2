@@ -1,12 +1,11 @@
 const { db } = require("../pg-adaptor");
-const { StructureType } = require("./structure-type");
-const { StructureMaterial } = require("./structure-material");
+const { StructureType, StructureMaterial } = require(".");
 
 class Structure {
-  static getMany() {
+  static getAny() {
     return new Promise(function(resolve, reject) {
       db
-        .many(`SELECT * FROM structures`)
+        .any(`SELECT * FROM structures`)
         .then(res => {
           let structures = [];
           res.forEach(structure_data => {

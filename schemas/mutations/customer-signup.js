@@ -1,6 +1,6 @@
 const Joi = require('@hapi/joi');
 const { GraphQLNonNull, GraphQLString } = require("graphql");
-const { User } = require("../../models/user");
+const { User } = require("../../models");
 const { AuthPayloadType } = require("../types");
 
 const CustomerSignupSchema = Joi.object({

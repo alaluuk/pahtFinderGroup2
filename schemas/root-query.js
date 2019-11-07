@@ -1,7 +1,7 @@
 const { GraphQLObjectType, GraphQLNonNull, GraphQLID, GraphQLList } = require("graphql");
 const { UserType, HouseType } = require("./types");
-const { User } = require("../models/user");
-const { House } = require("../models/house");
+const { User } = require("../models");
+const { House } = require("../models");
 const { checkPermission } = require("../permissions");
 
 const RootQuery = new GraphQLObjectType({
@@ -25,7 +25,7 @@ const RootQuery = new GraphQLObjectType({
             // TODO: Instead limit the output to only the user himself
             throw new Error("You don't have sufficient permissions to query other users.");
           }
-          return User.getMany();
+          return User.getAny();
         }
       }
     },
@@ -46,17 +46,16 @@ const RootQuery = new GraphQLObjectType({
           if(args.owner_id !== user.id && !checkPermission(user.role, "house_query_owner_other")) {
             throw new Error("You don't have sufficient permissions to query houses that are owned by others.");
           }
-          return House.getManyByOwner(args.owner_id);
+          return House.getAnyByOwner(args.owner_id);
         } else {
           if(!checkPermission(user.role, "house_query_owner_other")) {
-            // TODO: Instead limit the output to houses owned by the user
-            throw new Error("You don't have sufficient permissions to query houses that are owned by others.");
+            return House.getAnyByOwner(args.owner_id);
           }
-          return House.getMany();
+          return House.getAny();
         }
       }
     }
   }
 });
 
-exports.query = RootQuery;
+exports.RootQuery = RootQuery;

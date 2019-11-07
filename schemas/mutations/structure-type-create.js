@@ -1,6 +1,6 @@
 const Joi = require('@hapi/joi');
 const { GraphQLNonNull, GraphQLString } = require("graphql");
-const { StructureType } = require("../../models/structure-type");
+const { StructureType } = require("../../models");
 const { StructureTypeType } = require("../types");
 const { checkPermission } = require("../../permissions");
 

@@ -1,12 +1,11 @@
 const { db } = require("../pg-adaptor");
-const { House } = require("./house");
-const { Structure } = require("./structure");
+const { House, Structure } = require(".");
 
 class HouseStructure {
-  static getMany() {
+  static getAny() {
     return new Promise(function(resolve, reject) {
       db
-        .many(`SELECT * FROM house_structures`)
+        .any(`SELECT * FROM house_structures`)
         .then(res => {
           let house_structures = [];
           res.forEach(house_structure_data => {
@@ -19,10 +18,10 @@ class HouseStructure {
     });
   }
 
-  static getManyByHouse(house_id) {
+  static getAnyByHouse(house_id) {
     return new Promise(function(resolve, reject) {
       db
-        .many(`SELECT * FROM house_structures WHERE house_id=$1`, [ house_id ])
+        .any(`SELECT * FROM house_structures WHERE house_id=$1`, [ house_id ])
         .then(res => {
           let house_structures = [];
           res.forEach(house_structure_data => {

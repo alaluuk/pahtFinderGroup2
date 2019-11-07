@@ -1,10 +1,10 @@
 const { db } = require("../pg-adaptor");
 
 class StructureType {
-  static getMany() {
+  static getAny() {
     return new Promise(function(resolve, reject) {
       db
-        .many(`SELECT * FROM structure_types`)
+        .any(`SELECT * FROM structure_types`)
         .then(res => {
           let structure_types = [];
           res.forEach(structure_type_data => {
@@ -71,7 +71,7 @@ class StructureType {
   }
 
   delete() {
-    StructureType.delete(this._id);
+    return StructureType.delete(this._id);
   }
 
   constructor(data) {
