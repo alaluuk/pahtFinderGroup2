@@ -5,7 +5,7 @@ const { StructureTypeType } = require("../types");
 const { checkPermission } = require("../../permissions");
 
 const StructureTypeUpdateSchema = Joi.object({
-  id: Joi.string().guid(),
+  id: Joi.string().guid().required(),
   title: Joi.string().min(3).max(255)
 });
 

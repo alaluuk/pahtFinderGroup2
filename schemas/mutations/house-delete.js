@@ -4,7 +4,7 @@ const { House } = require("../../models");
 const { checkPermission } = require("../../permissions");
 
 const HouseDeleteSchema = Joi.object({
-  id: Joi.string().guid(),
+  id: Joi.string().guid().required()
 });
 
 const HouseDeleteMutation = {

@@ -9,6 +9,8 @@ const UserType = new GraphQLObjectType({
     email: { type: new GraphQLNonNull(GraphQLString) },
     role: { type: new GraphQLNonNull(GraphQLString) },
     permissions: { type: new GraphQLList(GraphQLString) },
+    createdAt: { type: new GraphQLNonNull(GraphQLString) },
+    updatedAt: { type: new GraphQLNonNull(GraphQLString) }
   }
 });
 

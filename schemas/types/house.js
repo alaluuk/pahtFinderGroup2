@@ -10,7 +10,9 @@ const HouseType = new GraphQLObjectType({
     owner: { type: new GraphQLNonNull(UserType) },
     countryCode: { type: GraphQLString },
     constructionYear: { type: GraphQLInt },
-    structures: { type: new GraphQLList(HouseStructureType) }
+    structures: { type: new GraphQLList(HouseStructureType) },
+    createdAt: { type: new GraphQLNonNull(GraphQLString) },
+    updatedAt: { type: new GraphQLNonNull(GraphQLString) }
   }
 });
 

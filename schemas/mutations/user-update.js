@@ -5,7 +5,7 @@ const { UserType } = require("../types");
 const { checkPermission } = require("../../permissions");
 
 const UserUpdateSchema = Joi.object({
-  id: Joi.string().guid(),
+  id: Joi.string().guid().required(),
   name: Joi.string().min(3).max(255),
   email: Joi.string().email().max(255),
   password: Joi.string().min(6).max(255),

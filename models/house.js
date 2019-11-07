@@ -77,6 +77,7 @@ class House {
           house._id
         ], r => r.rowCount)
         .then(res => {
+          // TODO: Reload updated_at timestamp
           resolve((res > 0));
         })
         .catch(err => reject(err));
@@ -104,6 +105,8 @@ class House {
     this._country_code = data.country_code;
     this._construction_year = data.construction_year;
     this._owner_id = data.owner_id;
+    this._created_at = data.created_at;
+    this._updated_at = data.updated_at;
   }
 
   get id() {
@@ -146,6 +149,14 @@ class House {
 
   get structures() {
     return HouseStructure.getAnyByHouse(this._id);
+  }
+
+  get createdAt() {
+    return this._created_at.toISOString();
+  }
+
+  get updatedAt() {
+    return this._updated_at.toISOString();
   }
 }
 

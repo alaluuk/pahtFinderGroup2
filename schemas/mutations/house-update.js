@@ -5,7 +5,7 @@ const { HouseType } = require("../types");
 const { checkPermission } = require("../../permissions");
 
 const HouseUpdateSchema = Joi.object({
-  id: Joi.string().guid(),
+  id: Joi.string().guid().required(),
   name: Joi.string().min(3).max(255),
   countryCode: Joi.string().alphanum().length(2),
   constructionYear: Joi.number().min(0).max((new Date()).getFullYear()),

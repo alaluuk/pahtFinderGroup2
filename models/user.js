@@ -74,6 +74,7 @@ class User {
           user._id
         ], r => r.rowCount)
         .then(res => {
+          // TODO: Reload updated_at timestamp
           resolve((res > 0));
         })
         .catch(err => reject(err));
@@ -101,6 +102,8 @@ class User {
     this._email = data.email;
     this._password_hash = data.password_hash;
     this._role = data.role;
+    this._created_at = data.created_at;
+    this._updated_at = data.updated_at;
   }
 
   get id() {
@@ -144,6 +147,14 @@ class User {
 
   get houses() {
     return House.getAnyByOwner(this._id);
+  }
+
+  get createdAt() {
+    return this._created_at.toISOString();
+  }
+
+  get updatedAt() {
+    return this._updated_at.toISOString();
   }
 
   checkPassword(password) {

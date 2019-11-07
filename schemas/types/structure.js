@@ -9,7 +9,9 @@ const StructureType = new GraphQLObjectType({
     title: { type: GraphQLString },
     type: { type: new GraphQLNonNull(StructureTypeType) },
     uValue: { type: GraphQLFloat },
-    material: { type: StructureMaterialType }
+    material: { type: StructureMaterialType },
+    createdAt: { type: new GraphQLNonNull(GraphQLString) },
+    updatedAt: { type: new GraphQLNonNull(GraphQLString) }
   }
 });
 

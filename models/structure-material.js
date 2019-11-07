@@ -29,10 +29,59 @@ class StructureMaterial {
     });
   }
 
+  static create(name, u_value) {
+    return new Promise(function(resolve, reject) {
+      db
+        .one(`INSERT INTO structure_materials(name, u_value) VALUES ($1, $2) RETURNING *`, [
+          name, u_value
+        ])
+        .then(res => {
+          let structure_material = new StructureType(res);
+          resolve(structure_material);
+        })
+        .catch(err => reject(err));
+    });
+  }
+
+  save() {
+    let structure_material = this;
+    return new Promise(function(resolve, reject) {
+      db
+        .result(`UPDATE structure_materials SET id=$1, name=$2, u_value=$3 WHERE id=$4`, [
+          structure_material._id,
+          structure_material._name,
+          structure_material._u_value,
+          structure_material._id
+        ], r => r.rowCount)
+        .then(res => {
+          // TODO: Reload updated_at timestamp
+          resolve((res > 0));
+        })
+        .catch(err => reject(err));
+    });
+  }
+
+  static delete(id) {
+    return new Promise(function(resolve, reject) {
+      db
+        .result(`DELETE FROM structure_materials WHERE id=$1`, [ id ], r => r.rowCount)
+        .then(res => {
+          resolve((res > 0));
+        })
+        .catch(err => reject(err));
+    });
+  }
+
+  delete() {
+    return StructureMaterial.delete(this._id);
+  }
+
   constructor(data) {
     this._id = data.id;
     this._name = data.name;
     this._u_value = data.u_value;
+    this._created_at = data.created_at;
+    this._updated_at = data.updated_at;
   }
 
   get id() {
@@ -51,6 +100,14 @@ class StructureMaterial {
   }
   get uValue() {
     return this._u_value;
+  }
+
+  get createdAt() {
+    return this._created_at.toISOString();
+  }
+
+  get updatedAt() {
+    return this._updated_at.toISOString();
   }
 }
 

@@ -4,7 +4,7 @@ const { User } = require("../../models");
 const { checkPermission } = require("../../permissions");
 
 const UserDeleteSchema = Joi.object({
-  id: Joi.string().guid(),
+  id: Joi.string().guid().required()
 });
 
 const UserDeleteMutation = {

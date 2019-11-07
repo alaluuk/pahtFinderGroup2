@@ -6,7 +6,9 @@ const StructureMaterialType = new GraphQLObjectType({
   fields: {
     id: { type: new GraphQLNonNull(GraphQLID) },
     name: { type: new GraphQLNonNull(GraphQLString) },
-    uValue: { type: new GraphQLNonNull(GraphQLFloat) }
+    uValue: { type: new GraphQLNonNull(GraphQLFloat) },
+    createdAt: { type: new GraphQLNonNull(GraphQLString) },
+    updatedAt: { type: new GraphQLNonNull(GraphQLString) }
   }
 });
 

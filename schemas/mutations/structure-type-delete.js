@@ -4,7 +4,7 @@ const { StructureType } = require("../../models");
 const { checkPermission } = require("../../permissions");
 
 const StructureTypeDeleteSchema = Joi.object({
-  id: Joi.string().guid(),
+  id: Joi.string().guid().required()
 });
 
 const StructureTypeDeleteMutation = {

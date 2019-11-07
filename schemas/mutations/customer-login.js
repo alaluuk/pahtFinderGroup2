@@ -1,5 +1,5 @@
 const Joi = require('@hapi/joi');
-const JWT = require('jsonwebtoken')
+const JWT = require('jsonwebtoken');
 const { GraphQLNonNull, GraphQLString, GraphQLBoolean } = require("graphql");
 const { User } = require("../../models");
 const { AuthPayloadType } = require("../types");
