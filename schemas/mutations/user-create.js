@@ -1,6 +1,6 @@
 const Joi = require('@hapi/joi');
 const { GraphQLNonNull, GraphQLString } = require("graphql");
-const { User } = require("../../models/user");
+const { User } = require("../../models");
 const { UserType } = require("../types");
 const { checkPermission } = require("../../permissions");
 

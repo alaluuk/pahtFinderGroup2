@@ -1,10 +1,10 @@
 const { db } = require("../pg-adaptor");
 
 class StructureType {
-  static getMany() {
+  static getAny() {
     return new Promise(function(resolve, reject) {
       db
-        .many(`SELECT * FROM structure_types`)
+        .any(`SELECT * FROM structure_types`)
         .then(res => {
           let structure_types = [];
           res.forEach(structure_type_data => {
@@ -47,12 +47,13 @@ class StructureType {
     let structure_type = this;
     return new Promise(function(resolve, reject) {
       db
-        .result(`UPDATE structure_types SET id=$1, title=$2 WHERE id=$6`, [
+        .result(`UPDATE structure_types SET id=$1, title=$2 WHERE id=$3`, [
           structure_type._id,
           structure_type._title,
           structure_type._id
         ], r => r.rowCount)
         .then(res => {
+          // TODO: Reload updated_at timestamp
           resolve((res > 0));
         })
         .catch(err => reject(err));
@@ -71,12 +72,14 @@ class StructureType {
   }
 
   delete() {
-    StructureType.delete(this._id);
+    return StructureType.delete(this._id);
   }
 
   constructor(data) {
     this._id = data.id;
     this._title = data.title;
+    this._created_at = data.created_at;
+    this._updated_at = data.updated_at;
   }
 
   get id() {
@@ -88,6 +91,14 @@ class StructureType {
   }
   get title() {
     return this._title;
+  }
+
+  get createdAt() {
+    return this._created_at.toISOString();
+  }
+
+  get updatedAt() {
+    return this._updated_at.toISOString();
   }
 }
 

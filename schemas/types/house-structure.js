@@ -1,13 +1,15 @@
-const { GraphQLObjectType, GraphQLNonNull, GraphQLInt, GraphQLFloat } = require("graphql");
-const { StructureType } = require("./structure");
+const { GraphQLObjectType, GraphQLNonNull, GraphQLID, GraphQLFloat, GraphQLString } = require("graphql");
+const { StructureType } = require(".");
 
 const HouseStructureType = new GraphQLObjectType({
     name: "HouseStructure",
     type: "Query",
     fields: {
-      id: { type: new GraphQLNonNull(GraphQLInt) },
+      id: { type: new GraphQLNonNull(GraphQLID) },
       structure: { type: new GraphQLNonNull(StructureType) },
-      area: { type: GraphQLFloat }
+      area: { type: GraphQLFloat },
+      createdAt: { type: new GraphQLNonNull(GraphQLString) },
+      updatedAt: { type: new GraphQLNonNull(GraphQLString) }
     }
   });
 

@@ -1,6 +1,7 @@
 const Joi = require('@hapi/joi');
+const JWT = require('jsonwebtoken');
 const { GraphQLNonNull, GraphQLString } = require("graphql");
-const { User } = require("../../models/user");
+const { User } = require("../../models");
 const { AuthPayloadType } = require("../types");
 
 const CustomerSignupSchema = Joi.object({

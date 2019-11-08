@@ -1,11 +1,11 @@
 const Joi = require('@hapi/joi');
 const { GraphQLNonNull, GraphQLID, GraphQLString } = require("graphql");
-const { User } = require("../../models/user");
+const { User } = require("../../models");
 const { UserType } = require("../types");
 const { checkPermission } = require("../../permissions");
 
 const UserUpdateSchema = Joi.object({
-  id: Joi.number().positive().required(),
+  id: Joi.string().guid().required(),
   name: Joi.string().min(3).max(255),
   email: Joi.string().email().max(255),
   password: Joi.string().min(6).max(255),

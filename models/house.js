@@ -1,12 +1,11 @@
 const { db } = require("../pg-adaptor");
-const { User } = require("./user");
-const { HouseStructure } = require("./house-structure");
+const { User, HouseStructure } = require(".");
 
 class House {
-  static getMany() {
+  static getAny() {
     return new Promise(function(resolve, reject) {
       db
-        .many(`SELECT * FROM houses`)
+        .any(`SELECT * FROM houses`)
         .then(res => {
           let houses = [];
           res.forEach(house_data => {
@@ -19,10 +18,10 @@ class House {
     });
   }
 
-  static getManyByOwner(owner_id) {
+  static getAnyByOwner(owner_id) {
     return new Promise(function(resolve, reject) {
       db
-        .many(`SELECT * FROM house_structures WHERE owner_id=$1`, [ owner_id ])
+        .any(`SELECT * FROM houses WHERE owner_id=$1`, [ owner_id ])
         .then(res => {
           let houses = [];
           res.forEach(house_data => {
@@ -48,21 +47,20 @@ class House {
   }
 
   static create(name, country_code, construction_year, owner_id) {
-    try {
-      let user = User.getOne(owner_id);
-    } catch(err) {
-      throw new Error("The specified house owner could not be found.")
-    }
     return new Promise(function(resolve, reject) {
-      db
-        .one(`INSERT INTO houses(name, country_code, construction_year, owner_id) VALUES ($1, $2, $3, $4) RETURNING *`, [
-          name, country_code, construction_year, owner_id
-        ])
-        .then(res => {
-          let house = new House(res);
-          resolve(house);
+      User.getOne(owner_id)
+        .then(user => {
+          db
+          .one(`INSERT INTO houses(name, country_code, construction_year, owner_id) VALUES ($1, $2, $3, $4) RETURNING *`, [
+            name, country_code, construction_year, user.id
+          ])
+          .then(res => {
+            let house = new House(res);
+            resolve(house);
+          })
+          .catch(err => reject(err));
         })
-        .catch(err => reject(err));
+        .catch(err => reject(new Error("The specified house owner could not be found.")));
     });
   }
 
@@ -79,6 +77,7 @@ class House {
           house._id
         ], r => r.rowCount)
         .then(res => {
+          // TODO: Reload updated_at timestamp
           resolve((res > 0));
         })
         .catch(err => reject(err));
@@ -97,7 +96,7 @@ class House {
   }
 
   delete() {
-    House.delete(this._id);
+    return House.delete(this._id);
   }
 
   constructor(data) {
@@ -106,6 +105,8 @@ class House {
     this._country_code = data.country_code;
     this._construction_year = data.construction_year;
     this._owner_id = data.owner_id;
+    this._created_at = data.created_at;
+    this._updated_at = data.updated_at;
   }
 
   get id() {
@@ -147,7 +148,15 @@ class House {
   }
 
   get structures() {
-    return HouseStructure.getManyByHouse(this._id);
+    return HouseStructure.getAnyByHouse(this._id);
+  }
+
+  get createdAt() {
+    return this._created_at.toISOString();
+  }
+
+  get updatedAt() {
+    return this._updated_at.toISOString();
   }
 }
 

@@ -1,5 +1,5 @@
 const { GraphQLObjectType, GraphQLNonNull, GraphQLString } = require("graphql");
-const { UserType } = require("./user");
+const { UserType } = require(".");
 
 const AuthPayloadType = new GraphQLObjectType({
   name: "AuthPayload",
