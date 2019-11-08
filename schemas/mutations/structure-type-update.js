@@ -15,7 +15,7 @@ const StructureTypeUpdateMutation = {
     id: { type: new GraphQLNonNull(GraphQLID) },
     title: { type: GraphQLString }
   },
-  resolve(parentValue, args, { user }) {
+  resolve(_, args, { user }) {
     if(!user) throw new Error("You must be logged in to perform this action.");
     let values = Joi.attempt(args, StructureTypeUpdateSchema);
     if(!checkPermission(user.role, "structure_type_update")) {

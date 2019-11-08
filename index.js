@@ -3,6 +3,7 @@ const path = require("path");
 const express = require("express");
 const expressGraphQl = require("express-graphql");
 const expressJWT = require("express-jwt");
+const cors = require("cors");
 const { GraphQLSchema, printSchema } = require("graphql");
 const { RootQuery } = require("./schemas/root-query");
 const { RootMutation } = require("./schemas/root-mutation");
@@ -12,11 +13,14 @@ const schema = new GraphQLSchema({
   mutation: RootMutation
 });
 
-console.log("-- GraphQL Schema (Start) --");
-console.log(printSchema(schema));
-console.log("-- GraphQL Schema (End) --");
+if(process.env.NODE_ENV === 'development') {
+  console.log("-- GraphQL Schema (Start) --");
+  console.log(printSchema(schema));
+  console.log("-- GraphQL Schema (End) --");
+}
 
 var app = express();
+app.use(cors());
 app.use(express.static(path.join(__dirname, "./frontend/build")));
 app.use(
   "/graphql",
@@ -29,6 +33,12 @@ app.use(
   expressGraphQl({
     schema: schema,
     graphiql: true,
+    customFormatErrorFn: (process.env.NODE_ENV === 'development') ? error => ({
+      message: error.message,
+      locations: error.locations,
+      stack: error.stack ? error.stack.split('\n') : [],
+      path: error.path,
+    }) : undefined
   }),
   function(err, req, res, next) {
     res.setHeader("Content-Type", "application/json");

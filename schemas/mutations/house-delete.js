@@ -12,7 +12,7 @@ const HouseDeleteMutation = {
   args: {
     id: { type: new GraphQLNonNull(GraphQLID) },
   },
-  resolve(parentValue, args, { user }) {
+  resolve(_, args, { user }) {
     if(!user) throw new Error("You must be logged in to perform this action.");
     let values = Joi.attempt(args, HouseDeleteSchema);
     return new Promise(function(resolve, reject) {

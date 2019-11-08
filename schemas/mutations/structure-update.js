@@ -21,7 +21,7 @@ const StructureUpdateMutation = {
     uValue: { type: GraphQLFloat },
     materialId: { type: GraphQLID }
   },
-  resolve(parentValue, args, { user }) {
+  resolve(_, args, { user }) {
     if(!user) throw new Error("You must be logged in to perform this action.");
     let values = Joi.attempt(args, StructureUpdateSchema);
     if(!checkPermission(user.role, "structure_update")) {

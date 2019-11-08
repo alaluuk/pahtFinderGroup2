@@ -17,7 +17,7 @@ const StructureMaterialUpdateMutation = {
     name: { type: GraphQLString },
     uValue: { type: GraphQLFloat }
   },
-  resolve(parentValue, args, { user }) {
+  resolve(_, args, { user }) {
     if(!user) throw new Error("You must be logged in to perform this action.");
     let values = Joi.attempt(args, StructureMaterialUpdateSchema);
     if(!checkPermission(user.role, "structure_material_update")) {

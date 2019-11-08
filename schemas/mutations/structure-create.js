@@ -19,7 +19,7 @@ const StructureCreateMutation = {
     uValue: { type: GraphQLFloat },
     materialId: { type: GraphQLID }
   },
-  resolve(parentValue, args, { user }) {
+  resolve(_, args, { user }) {
     if(!user) throw new Error("You must be logged in to perform this action.");
     if(!checkPermission(user.role, "structure_create")) {
       throw new Error("You don't have sufficient permissions to create structures.");
