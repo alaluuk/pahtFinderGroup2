@@ -1,21 +1,23 @@
 const Joi = require('@hapi/joi');
-const JWT = require('jsonwebtoken')
-const { GraphQLNonNull, GraphQLString } = require("graphql");
-const { User } = require("../../models/user");
+const JWT = require('jsonwebtoken');
+const { GraphQLNonNull, GraphQLString, GraphQLBoolean } = require("graphql");
+const { User } = require("../../models");
 const { AuthPayloadType } = require("../types");
 
 const CustomerLoginSchema = Joi.object({
   email: Joi.string().max(255).email().required(),
   password: Joi.string().min(6).max(255).required(),
+  longLived: Joi.boolean()
 });
 
 const CustomerLoginMutation = {
   type: AuthPayloadType,
   args: {
     email: { type: new GraphQLNonNull(GraphQLString) },
-    password: { type: new GraphQLNonNull(GraphQLString) }
+    password: { type: new GraphQLNonNull(GraphQLString) },
+    longLived: { type: GraphQLBoolean }
   },
-  resolve(parentValue, args, { user }) {
+  resolve(_, args, { user }) {
     let values = Joi.attempt(args, CustomerLoginSchema);
     return new Promise(function(resolve, reject) {
       User.getOneByEmail(values.email)
@@ -34,7 +36,7 @@ const CustomerLoginMutation = {
             {
               audience: process.env.JWT_AUDIENCE,
               issuer: process.env.JWT_ISSUER,
-              expiresIn: '1d'
+              expiresIn: (values.longLived) ? '1y' : '1d'
             }
           ),
           user: user

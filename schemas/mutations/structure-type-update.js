@@ -1,11 +1,11 @@
 const Joi = require('@hapi/joi');
 const { GraphQLNonNull, GraphQLID, GraphQLString } = require("graphql");
-const { StructureType } = require("../../models/structure-type");
+const { StructureType } = require("../../models");
 const { StructureTypeType } = require("../types");
 const { checkPermission } = require("../../permissions");
 
 const StructureTypeUpdateSchema = Joi.object({
-  id: Joi.number().positive().required(),
+  id: Joi.string().guid().required(),
   title: Joi.string().min(3).max(255)
 });
 
@@ -15,7 +15,7 @@ const StructureTypeUpdateMutation = {
     id: { type: new GraphQLNonNull(GraphQLID) },
     title: { type: GraphQLString }
   },
-  resolve(parentValue, args, { user }) {
+  resolve(_, args, { user }) {
     if(!user) throw new Error("You must be logged in to perform this action.");
     let values = Joi.attempt(args, StructureTypeUpdateSchema);
     if(!checkPermission(user.role, "structure_type_update")) {

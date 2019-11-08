@@ -1,6 +1,6 @@
 const Joi = require('@hapi/joi');
 const { GraphQLNonNull, GraphQLString } = require("graphql");
-const { StructureType } = require("../../models/structure-type");
+const { StructureType } = require("../../models");
 const { StructureTypeType } = require("../types");
 const { checkPermission } = require("../../permissions");
 
@@ -13,7 +13,7 @@ const StructureTypeCreateMutation = {
   args: {
     title: { type: new GraphQLNonNull(GraphQLString) }
   },
-  resolve(parentValue, args, { user }) {
+  resolve(_, args, { user }) {
     if(!user) throw new Error("You must be logged in to perform this action.");
     if(!checkPermission(user.role, "structure_type_create")) {
       throw new Error("You don't have sufficient permissions to create structure types.");
