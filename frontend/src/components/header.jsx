@@ -9,7 +9,7 @@ class Header extends Component {
         <div className = "header">
 
             <div className = "landingHeader"> 
-            <img className = "loginLogo" src = "https://www.svgrepo.com/show/81219/user-symbol-of-thin-outline.svg"></img>
+            <img className = "loginLogo" src = "https://www.svgrepo.com/show/81219/user-symbol-of-thin-outline.svg" alt="login"></img>
 
             <h3 className = "loginText">Sign In</h3>
             </div>

@@ -1,13 +1,16 @@
 import React from 'react';
 import '../styles/overview.css';
 import Card from '../components/card';
+import Header from '../components/header';
+import Footer from '../components/footer';
 
 class Overview extends React.Component {
     render() {
         return (
             <div>
-            <h1>Overview</h1>
+            <Header></Header>
             <Card></Card>
+            <Footer></Footer>
             </div>
         );
     }
