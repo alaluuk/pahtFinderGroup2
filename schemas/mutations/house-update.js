@@ -1,6 +1,6 @@
 const Joi = require('@hapi/joi');
 const { GraphQLNonNull, GraphQLID, GraphQLString, GraphQLInt, GraphQLFloat, GraphQLBoolean } = require("graphql");
-const { House } = require("../../models");
+const { House, User } = require("../../models");
 const { HouseType } = require("../types");
 const { checkPermission } = require("../../permissions");
 
@@ -32,7 +32,7 @@ const HouseUpdateMutation = {
     let values = Joi.attempt(args, HouseUpdateSchema);
     return new Promise(function(resolve, reject) {
       House.getOne(values.id)
-        .then(house => {
+        .then(async function(house) {
           if(house._owner_id == user.id && !checkPermission(user.role, "house_update_owner_self")) {
             throw new Error("You don't have sufficient permissions to edit houses you own.");
           }
@@ -43,7 +43,14 @@ const HouseUpdateMutation = {
             throw new Error("You don't have sufficient permissions to transfer the ownership of houses.");
           }
           if(values.name) house.name = values.name;
-          if(values.ownerId) house._owner_id = values.ownerId; // TODO: check if owner id is a valid user
+          if(values.ownerId) {
+            try {
+              let owner = await User.getOne(values.ownerId);
+              house._owner_id = owner.id;
+            } catch(err) {
+              reject(new Error("The specified owner ID is invalid because there is no user with this ID."));
+            }
+          }
           if(values.countryCode) house.countryCode = values.countryCode;
           if(values.constructionYear) house.constructionYear = values.constructionYear;
           if(values.heatingSystem) house.heatingSystem = values.heatingSystem;

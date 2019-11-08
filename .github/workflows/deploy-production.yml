@@ -1,4 +1,5 @@
 name: Build & Deploy
+# TODO: Seperate pull request builds/tests and deployment into separate workflows?
 
 on:
   push:
@@ -9,6 +10,7 @@ on:
 
 jobs:
   build:
+    if: github.event_name == 'pull_request'
     name: Build & test the application
     runs-on: ubuntu-latest
     steps:
@@ -23,7 +25,7 @@ jobs:
   deploy:
     if: github.event_name == 'push' && github.ref == 'refs/heads/master'
     name: Deploy the application to Heroku
-    needs: build
+    # needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1

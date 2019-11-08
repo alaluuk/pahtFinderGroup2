@@ -27,7 +27,8 @@
     "express-jwt": "^5.3.1",
     "graphql": "^14.5.8",
     "password-hash": "^1.2.2",
-    "pg-promise": "^9.3.3"
+    "pg-promise": "^9.3.3",
+    "winston": "^3.2.1"
   },
   "devDependencies": {
     "request": "^2.81.0",
