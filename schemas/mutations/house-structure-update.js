@@ -19,7 +19,7 @@ const HouseStructureUpdateMutation = {
     structureId: { type: GraphQLID },
     area: { type: GraphQLFloat }
   },
-  resolve(parentValue, args, { user }) {
+  resolve(_, args, { user }) {
     if(!user) throw new Error("You must be logged in to perform this action.");
     let values = Joi.attempt(args, HouseStructureUpdateSchema);
     if(!checkPermission(user.role, "house_structure_update")) {

@@ -36,7 +36,7 @@ class StructureMaterial {
           name, u_value
         ])
         .then(res => {
-          let structure_material = new StructureType(res);
+          let structure_material = new StructureMaterial(res);
           resolve(structure_material);
         })
         .catch(err => reject(err));

@@ -17,7 +17,7 @@ const CustomerLoginMutation = {
     password: { type: new GraphQLNonNull(GraphQLString) },
     longLived: { type: GraphQLBoolean }
   },
-  resolve(parentValue, args, { user }) {
+  resolve(_, args, { user }) {
     let values = Joi.attempt(args, CustomerLoginSchema);
     return new Promise(function(resolve, reject) {
       User.getOneByEmail(values.email)
