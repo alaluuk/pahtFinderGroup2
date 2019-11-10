@@ -1,0 +1,52 @@
+.addBuildingComp{
+    border: 1px solid #707070;
+    border-radius: 50px;
+    margin: 40px;
+    padding: 50px;
+    display: inline-grid;
+    width: 1500px;
+    margin-left: 80px;
+    background-color: white;
+    
+    
+    }
+    
+    .addBuildHead, .addBuildText{
+      float: left;
+      margin-left: 40px;
+      text-align: left;
+    
+    }
+    .addBuildBody{
+      display: flex;
+      margin-left: 40px;
+    }
+    
+    .left, .center, .right{
+      width: 100%;
+      display: inline-grid;
+    }
+    
+    .MuiFormControl-root.MuiTextField-root.addBuildField.MuiFormControl-marginNormal,
+    .MuiFormControl-root.simpleSelector{
+      width: 80%;
+      float: left;
+    }
+    
+    
+    
+    .addBuildField{
+      width: 50%;
+    }
+    
+    .imageUploader{
+    width: 400px;
+    height: 300px;
+    
+    }
+    
+    .googleMaps{
+      width: 400px;
+    height: 300px;
+    
+    }

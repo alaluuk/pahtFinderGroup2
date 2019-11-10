@@ -8,24 +8,16 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
+import '../styles/card.css'
 
-const useStyles = makeStyles({
-  card: {
-    maxWidth: 345,
-  },
-  media: {
-    height: 300,
-  }
-});
 
 export default function MediaCard() {
-  const classes = useStyles();
 
   return (
-    <Card className={classes.card}>
+    <Card className="card">
       <CardActionArea>
         <CardMedia
-          className={classes.media}
+          className="media"
           image="https://jooinn.com/images/old-house-35.jpg"
           title="Good House"
         />
@@ -42,7 +34,7 @@ export default function MediaCard() {
             <Slider
                 defaultValue={80}
                 aria-labelledby="discrete-slider-always"
-                valueLabelDisplay="off"
+                valueLabelDisplay="on"
                 disabled={true}
             />
         </CardContent>
