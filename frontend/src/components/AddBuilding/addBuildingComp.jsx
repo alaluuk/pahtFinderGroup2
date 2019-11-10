@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import TextField from '@material-ui/core/TextField';
 import ImageUploader from './imageUploader';
 import Selector from './simpleSelector';
-
+import Structure from './structure';
+import '../../styles/addBuilding.css';
 
 class AddBuilding extends Component {
     state = {  }  
@@ -11,8 +12,8 @@ class AddBuilding extends Component {
         return (  
             
             
-
-                <div className = "addBuildingComp"> 
+        <div className = "addBuildingBackground">
+            <div className = "addBuildingComp"> 
                 <h2 className = "addBuildHead">Add a new building</h2> <br></br>
                 
                 <h3 className = "addBuildText"> General Information</h3> <br></br>
@@ -35,18 +36,13 @@ class AddBuilding extends Component {
                     <img className = "googleMaps" src = "https://lh3.googleusercontent.com/gRixG4OCS4S7Fb0Ztm8UQVkIaj3z5gKECXOiR2D2ldvS6oZEVfmNuii4tvh-_DjI_qNRJOGO=w640-h400-e365"></img>
                     </div>
                    </div>
+
+                   <Structure></Structure>
                 
                 </div>
 
+        </div>
                 
-                
-
-
-            
-               
- 
-
-           
 
             
         );

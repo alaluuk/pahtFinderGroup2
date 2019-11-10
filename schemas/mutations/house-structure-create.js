@@ -17,7 +17,7 @@ const HouseStructureCreateMutation = {
     structureId: { type: new GraphQLNonNull(GraphQLID) },
     uValue: { type: GraphQLFloat }
   },
-  resolve(parentValue, args, { user }) {
+  resolve(_, args, { user }) {
     if(!user) throw new Error("You must be logged in to perform this action.");
     if(!checkPermission(user.role, "house_structure_create")) {
       throw new Error("You don't have sufficient permissions to create house structures.");

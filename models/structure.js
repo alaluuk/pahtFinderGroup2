@@ -55,10 +55,10 @@ class Structure {
           structure._u_value,
           structure._material_id,
           structure._id
-        ], r => r.rowCount)
+        ])
         .then(res => {
-          // TODO: Reload updated_at timestamp
-          resolve((res > 0));
+          structure._updated_at = res.rows[0].updated_at;
+          resolve((res.rowCount > 0));
         })
         .catch(err => reject(err));
     });

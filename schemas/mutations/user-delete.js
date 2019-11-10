@@ -12,7 +12,7 @@ const UserDeleteMutation = {
   args: {
     id: { type: new GraphQLNonNull(GraphQLID) },
   },
-  resolve(parentValue, args, { user }) {
+  resolve(_, args, { user }) {
     if(!user) throw new Error("You must be logged in to perform this action.");
     let values = Joi.attempt(args, UserDeleteSchema);
     if(values.id == user.id && !checkPermission(user.role, "user_delete_self")) {

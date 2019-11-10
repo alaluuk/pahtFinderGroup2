@@ -1,7 +1,6 @@
 const { GraphQLObjectType, GraphQLNonNull, GraphQLID, GraphQLList } = require("graphql");
-const { UserType, HouseType } = require("./types");
-const { User } = require("../models");
-const { House } = require("../models");
+const { UserType, HouseType, StructureTypeType, StructureMaterialType, StructureType } = require("./types");
+const { User, House, StructureType: StructureTypeModel, StructureMaterial, Structure } = require("../models");
 const { checkPermission } = require("../permissions");
 
 const RootQuery = new GraphQLObjectType({
@@ -13,7 +12,7 @@ const RootQuery = new GraphQLObjectType({
       args: {
         id: { type: GraphQLID }
       },
-      resolve(parentValue, args, { user }) {
+      resolve(_, args, { user }) {
         if(!user) throw new Error("You must be logged in to perform this action.");
         if(args.id) {
           if(!checkPermission(user.role, "user_query_self")) {
@@ -35,7 +34,7 @@ const RootQuery = new GraphQLObjectType({
         id: { type: GraphQLID },
         owner_id: { type: GraphQLID }
       },
-      resolve(parentValue, args, { user }) {
+      resolve(_, args, { user }) {
         if(!user) throw new Error("You must be logged in to perform this action.");
         if(args.id) {
           if(!checkPermission(user.role, "house_query_owner_self")) {
@@ -54,7 +53,58 @@ const RootQuery = new GraphQLObjectType({
           return House.getAny();
         }
       }
-    }
+    },
+    structureTypes: {
+      type: new GraphQLList(StructureTypeType),
+      args: {
+        id: { type: GraphQLID }
+      },
+      resolve(_, args, { user }) {
+        if(!user) throw new Error("You must be logged in to perform this action.");
+        if(!checkPermission(user.role, "structure_type_query")) {
+          throw new Error("You don't have sufficient permissions to query structure types.");
+        }
+        if(args.id) {
+          return [ StructureTypeModel.getOne(args.id) ];
+        } else {
+          return StructureTypeModel.getAny();
+        }
+      }
+    },
+    structureMaterials: {
+      type: new GraphQLList(StructureMaterialType),
+      args: {
+        id: { type: GraphQLID }
+      },
+      resolve(_, args, { user }) {
+        if(!user) throw new Error("You must be logged in to perform this action.");
+        if(!checkPermission(user.role, "structure_materials_query")) {
+          throw new Error("You don't have sufficient permissions to query structure materials.");
+        }
+        if(args.id) {
+          return [ StructureMaterial.getOne(args.id) ];
+        } else {
+          return StructureMaterial.getAny();
+        }
+      }
+    },
+    structures: {
+      type: new GraphQLList(StructureType),
+      args: {
+        id: { type: GraphQLID }
+      },
+      resolve(_, args, { user }) {
+        if(!user) throw new Error("You must be logged in to perform this action.");
+        if(!checkPermission(user.role, "structures_query")) {
+          throw new Error("You don't have sufficient permissions to query structures.");
+        }
+        if(args.id) {
+          return [ Structure.getOne(args.id) ];
+        } else {
+          return Structure.getAny();
+        }
+      }
+    },
   }
 });
 

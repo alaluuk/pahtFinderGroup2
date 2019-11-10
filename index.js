@@ -3,6 +3,8 @@ const path = require("path");
 const express = require("express");
 const expressGraphQl = require("express-graphql");
 const expressJWT = require("express-jwt");
+const cors = require("cors");
+const { logger } = require("./log-adaptor");
 const { GraphQLSchema, printSchema } = require("graphql");
 const { RootQuery } = require("./schemas/root-query");
 const { RootMutation } = require("./schemas/root-mutation");
@@ -12,11 +14,14 @@ const schema = new GraphQLSchema({
   mutation: RootMutation
 });
 
-console.log("-- GraphQL Schema (Start) --");
-console.log(printSchema(schema));
-console.log("-- GraphQL Schema (End) --");
+if(process.env.NODE_ENV !== 'production') {
+  console.log("-- GraphQL Schema (Start) --");
+  console.log(printSchema(schema));
+  console.log("-- GraphQL Schema (End) --");
+}
 
 var app = express();
+app.use(cors());
 app.use(express.static(path.join(__dirname, "./frontend/build")));
 app.use(
   "/graphql",
@@ -29,8 +34,18 @@ app.use(
   expressGraphQl({
     schema: schema,
     graphiql: true,
+    customFormatErrorFn: function(err) {
+      logger.error("GraphQL error: %s", err, { service: 'nodejs-graphql' });
+      return {
+        message: err.message,
+        locations: err.locations,
+        stack: err.stack ? err.stack.split('\n') : [],
+        path: (process.env.NODE_ENV !== 'production') ? err.path : undefined,
+      };
+    }
   }),
   function(err, req, res, next) {
+    logger.error("Express error: %s", err, { service: 'nodejs-express' });
     res.setHeader("Content-Type", "application/json");
     res.status(500);
     res.send(JSON.stringify({ errors: [ err ] }));

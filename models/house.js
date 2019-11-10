@@ -46,13 +46,13 @@ class House {
     });
   }
 
-  static create(name, country_code, construction_year, owner_id) {
+  static create(name, country_code, construction_year, owner_id, heating_system, cost_of_heating, warm_water_pipe) {
     return new Promise(function(resolve, reject) {
       User.getOne(owner_id)
         .then(user => {
           db
-          .one(`INSERT INTO houses(name, country_code, construction_year, owner_id) VALUES ($1, $2, $3, $4) RETURNING *`, [
-            name, country_code, construction_year, user.id
+          .one(`INSERT INTO houses(name, country_code, construction_year, owner_id, heating_system, cost_of_heating, warm_water_pipe) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`, [
+            name, country_code, construction_year, owner_id, heating_system, cost_of_heating, warm_water_pipe
           ])
           .then(res => {
             let house = new House(res);
@@ -68,17 +68,20 @@ class House {
     let house = this;
     return new Promise(function(resolve, reject) {
       db
-        .result(`UPDATE houses SET id=$1, name=$2, country_code=$3, construction_year=$4, owner_id=$5 WHERE id=$6`, [
+        .result(`UPDATE houses SET id=$1, name=$2, country_code=$3, construction_year=$4, owner_id=$5, heating_system=$6, cost_of_heating=$7, warm_water_pipe=$8 WHERE id=$9 RETURNING *`, [
           house._id,
           house._name,
           house._country_code,
           house._construction_year,
           house._owner_id,
+          house._heating_system,
+          house._cost_of_heating,
+          house._warm_water_pipe,
           house._id
-        ], r => r.rowCount)
+        ])
         .then(res => {
-          // TODO: Reload updated_at timestamp
-          resolve((res > 0));
+          house._updated_at = res.rows[0].updated_at;
+          resolve((res.rowCount > 0));
         })
         .catch(err => reject(err));
     });
@@ -102,9 +105,12 @@ class House {
   constructor(data) {
     this._id = data.id;
     this._name = data.name;
+    this._owner_id = data.owner_id;
     this._country_code = data.country_code;
     this._construction_year = data.construction_year;
-    this._owner_id = data.owner_id;
+    this._heating_system = data.heating_system;
+    this._cost_of_heating = data.cost_of_heating;
+    this._warm_water_pipe = data.warm_water_pipe;
     this._created_at = data.created_at;
     this._updated_at = data.updated_at;
   }
@@ -138,6 +144,27 @@ class House {
   }
   get constructionYear() {
     return this._construction_year;
+  }
+
+  set heatingSystem(heating_system) {
+    this._heating_system = heating_system;
+  }
+  get heatingSystem() {
+    return this._heating_system;
+  }
+
+  set costOfHeating(cost_of_heating) {
+    this._cost_of_heating = cost_of_heating;
+  }
+  get costOfHeating() {
+    return this._cost_of_heating;
+  }
+
+  set warmWaterPipe(warm_water_pipe) {
+    this._warm_water_pipe = warm_water_pipe;
+  }
+  get warmWaterPipe() {
+    return this._warm_water_pipe;
   }
 
   set owner(user) {

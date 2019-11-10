@@ -17,7 +17,7 @@ const CustomerSignupMutation = {
     email: { type: new GraphQLNonNull(GraphQLString) },
     password: { type: new GraphQLNonNull(GraphQLString) }
   },
-  resolve(parentValue, args) {
+  resolve(_, args) {
     let values = Joi.attempt(args, CustomerSignupSchema);
     return new Promise(function(resolve, reject) {
       User.create(values.name, values.email, values.password, "customer")
