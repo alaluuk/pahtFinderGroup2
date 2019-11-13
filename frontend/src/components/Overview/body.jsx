@@ -18,7 +18,7 @@ class Body extends Component {
                         </div>
 
                         <div className = "bottomContent">
-                            <h1>hello</h1>
+                            <img className = "map" src="https://miro.medium.com/max/4064/1*qYUvh-EtES8dtgKiBRiLsA.png"></img>
                             <h1>hello</h1>
 
                         </div>

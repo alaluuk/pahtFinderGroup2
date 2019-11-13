@@ -27,59 +27,7 @@
 
 /* HEADER */
 
-.header{
-  padding: 20px;
-  display: inline-flex;
-}
 
-.header_logo{
-  font-family: Georgia, Times, "Times New Roman", serif; 
-  font-size: 40px; 
-  font-weight: bold;
-  text-align: left;
-  margin-left: 40px;
-  margin-bottom: 30px;
-  
-}
-
-.menu{
-  display: inline-flex;
-  align-items: center;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.menuItem{
-  margin-left: 90px;
-  width: 100px;
-  text-decoration: solid;
-  color: black;
-}
-
-
-.login{
-    margin-right: 40px;
-    
-}
-
-.loginText{
-  float: right;
-  font-weight: 200;
-  padding-top: 10px;
-  width: 100px;
-}
- 
-.loginLogo{
-  float: right;
-  width: 3%;
-  padding-top: 23px;
-  margin-left: -30px;
-}  
-
-.menuItem:hover,
-.loginText:hover{
-  text-decoration: underline;
-}
 
 /* BODY */
 

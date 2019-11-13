@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom';
 import Overview from '../pages/overview';
 import { Link } from 'react-router-dom'
+import '../styles/header.css'
+import { FaRegUser } from "react-icons/fa"
 
 
 class Header extends Component {
@@ -32,11 +34,9 @@ class Header extends Component {
                 <Link to="/overview" className = "menuItem">Shop</Link>
             </div>
 
-            <div className = "login"> 
-            <img className = "loginLogo" src = "https://www.svgrepo.com/show/81219/user-symbol-of-thin-outline.svg"></img>
-
-            
+            <div className = "loginArea"> 
             <h3 className = "loginText">Sign In</h3>
+            <h3 className ="loginLogo"><FaRegUser/></h3>
             </div>
 
             

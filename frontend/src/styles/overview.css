@@ -8,7 +8,7 @@ h1{
 
 
 .bodyOverview{
-    height: 875px;
+    height: 1200px;
     background-image: url("https://s19.directupload.net/images/191113/kwtv4hna.jpg");
     background-position: center; 
     background-repeat: no-repeat; 
@@ -18,7 +18,6 @@ h1{
 
 .overlay{
     position: absolute;
-  
     opacity: 90%;
   }
 
@@ -31,8 +30,13 @@ h1{
 }
 
 .bottomContent{
-    display: flex;
+    padding-left: 30px;
+    padding-right: 60px;
+    padding-top: 40px;
+    padding-bottom: 20px;
+
 }
+
 
 .scrollBars{
     width: 100%;
@@ -45,6 +49,10 @@ h1{
     margin-bottom: 40px;
 }
 
+
+.map{
+    height: 400px;
+}
 
 
 
