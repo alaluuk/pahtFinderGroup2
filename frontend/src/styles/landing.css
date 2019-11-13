@@ -29,6 +29,7 @@
 
 .header{
   padding: 20px;
+  display: inline-flex;
 }
 
 .header_logo{
@@ -41,9 +42,20 @@
   
 }
 
+.menu{
+  display: inline-flex;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.menuItem{
+  margin-left: 90px;
+  width: 100px;
+}
 
 
-.landingHeader{
+.login{
     margin-right: 40px;
     
 }
@@ -51,15 +63,21 @@
 .loginText{
   float: right;
   font-weight: 200;
-  padding-right: 40px;
   padding-top: 10px;
+  width: 100px;
 }
  
 .loginLogo{
   float: right;
-  width: 2%;
-  padding-top: 20px;
+  width: 3%;
+  padding-top: 23px;
+  margin-left: -30px;
 }  
+
+.menuItem:hover,
+.loginText:hover{
+  text-decoration: underline;
+}
 
 /* BODY */
 
