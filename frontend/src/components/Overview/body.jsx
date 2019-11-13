@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import Card from '../card';
 import AddCard from '../addCard';
+import '../../styles/overview.css';
 
 class Body extends Component {
     state = {  }
     render() { 
-        return ( <div className = "body">
+        return ( <div className = "bodyOverview">
+            <div className = "overlay">
                     <div className = "content">
                         <h1 className = "overviewHeader">My buildings</h1>
                         <div className = "scrollBars">
@@ -21,6 +23,7 @@ class Body extends Component {
 
                         </div>
                         
+                    </div>
                     </div>
         
                 </div> );

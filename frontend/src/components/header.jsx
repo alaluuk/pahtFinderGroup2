@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom';
 import Overview from '../pages/overview';
-import Link from 'react-router-dom';
+import { Link } from 'react-router-dom'
 
 
 class Header extends Component {
@@ -27,10 +27,9 @@ class Header extends Component {
             <h1 className = "header_logo">greenHouse</h1>
 
             <div className = "menu">
-            
-                <p className = "menuItem" onClick={this.loadOverview}>My buildings</p>
-                <p className = "menuItem" onClick={this.loadMarketplace} >Marketplace</p>
-                <p className = "menuItem" onClick={this.loadShop}>Shop</p>
+                <Link to="/overview" className = "menuItem">My buildings</Link>
+                <Link to="/overview" className = "menuItem">Marketplace</Link>
+                <Link to="/overview" className = "menuItem">Shop</Link>
             </div>
 
             <div className = "login"> 

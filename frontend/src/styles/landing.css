@@ -52,6 +52,8 @@
 .menuItem{
   margin-left: 90px;
   width: 100px;
+  text-decoration: solid;
+  color: black;
 }
 
 
