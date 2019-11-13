@@ -68,7 +68,7 @@ class House {
     let house = this;
     return new Promise(function(resolve, reject) {
       db
-        .result(`UPDATE houses SET id=$1, name=$2, country_code=$3, construction_year=$4, owner_id=$5, heating_system=$6, cost_of_heating=$7, warm_water_pipe=$8 WHERE id=$9`, [
+        .result(`UPDATE houses SET id=$1, name=$2, country_code=$3, construction_year=$4, owner_id=$5, heating_system=$6, cost_of_heating=$7, warm_water_pipe=$8 WHERE id=$9 RETURNING *`, [
           house._id,
           house._name,
           house._country_code,
@@ -78,10 +78,10 @@ class House {
           house._cost_of_heating,
           house._warm_water_pipe,
           house._id
-        ], r => r.rowCount)
+        ])
         .then(res => {
-          // TODO: Reload updated_at timestamp
-          resolve((res > 0));
+          house._updated_at = res.rows[0].updated_at;
+          resolve((res.rowCount > 0));
         })
         .catch(err => reject(err));
     });

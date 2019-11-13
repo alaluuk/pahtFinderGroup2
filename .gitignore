@@ -7,7 +7,7 @@ vendor
 libs
 node_modules
 coverage
-logs/*
+logs
 *.env
 .pnp
 .pnp.js

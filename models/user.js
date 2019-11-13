@@ -72,10 +72,10 @@ class User {
           user._password_hash,
           user._role,
           user._id
-        ], r => r.rowCount)
+        ])
         .then(res => {
-          // TODO: Reload updated_at timestamp
-          resolve((res > 0));
+          user._updated_at = res.rows[0].updated_at;
+          resolve((res.rowCount > 0));
         })
         .catch(err => reject(err));
     });
