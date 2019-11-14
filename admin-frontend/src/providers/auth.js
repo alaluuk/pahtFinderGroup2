@@ -1,6 +1,9 @@
 import Cookies from 'js-cookie';
 import GraphQLClient from './graphql';
 
+let cachedUser = null;
+let cachedUserTTL = 0;
+
 export const getJWT = () => {
   return Cookies.get('__session_jwt');
 }
@@ -37,6 +40,7 @@ export const performLogin = (email, password, longLived = false) => {
           user {
             id
             name
+            email
             role
             permissions
           }
@@ -49,6 +53,9 @@ export const performLogin = (email, password, longLived = false) => {
     })
       .then(data => {
         Cookies.set('__session_jwt', data.login.token);
+        cachedUser = data.user;
+        cachedUserTTL = Date.now() + 60000;
+        refreshBearer();
         resolve(data.login);
       })
       .catch(err => {
@@ -58,5 +65,46 @@ export const performLogin = (email, password, longLived = false) => {
 }
 
 export const performLogout = () => {
-  Cookies.remove('__session_jwt');
+  return new Promise((resolve, reject) => {
+    Cookies.remove('__session_jwt');
+    cachedUser = null;
+    cachedUserTTL = Date.now();
+    refreshBearer();
+    resolve(true);
+  });
+}
+
+export const fetchUser = (disableCache = false) => {
+  return new Promise((resolve, reject) => {
+    let session = getSession();
+    if(session === null) reject(new Error("No authentication provided."))
+    if(!disableCache && (cachedUser !== null && cachedUserTTL <= Date.now())) {
+      resolve(cachedUser);
+    }
+    GraphQLClient.request(`
+      query($id: ID!) {
+        users(id: $id) {
+          id
+          name
+          email
+          role
+          permissions
+        }
+      }
+    `, {
+      id: session.id // TODO: Rename to user id
+    })
+      .then(data => {
+        cachedUser = data.users[0];
+        cachedUserTTL = Date.now();
+        resolve(cachedUser);
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
+}
+
+export const refreshBearer = () => {
+  GraphQLClient.options.headers.authorization = (getJWT()) ? 'Bearer ' + getJWT() : '';
 }

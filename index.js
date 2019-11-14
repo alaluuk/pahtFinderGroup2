@@ -39,7 +39,7 @@ app.use(
       return {
         message: err.message,
         locations: err.locations,
-        stack: err.stack ? err.stack.split('\n') : [],
+        stack: (err.stack && process.env.NODE_ENV !== 'production') ? err.stack.split('\n') : [],
         path: (process.env.NODE_ENV !== 'production') ? err.path : undefined,
       };
     }
