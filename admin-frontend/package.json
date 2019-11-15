@@ -1,9 +1,10 @@
 {
-  "name": "admin-app",
-  "version": "0.1.0",
+  "name": "pathfinder-admin",
+  "version": "1.0.0-dev",
   "private": true,
   "dependencies": {
     "@blueprintjs/core": "^3.19.1",
+    "@blueprintjs/select": "^3.11.2",
     "@types/jest": "24.0.22",
     "@types/node": "12.12.7",
     "@types/react": "16.9.11",

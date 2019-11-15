@@ -83,6 +83,7 @@ class LoginView extends React.Component {
                 placeholder="Email Address"
                 disabled={this.state.isLoading}
                 onChange={(e) => { this.setState({email: e.target.value})}}
+                // leftIcon="person"
                 intent={this.state.emailError ? Intent.DANGER : Intent.NONE }
               />
             </FormGroup>
@@ -103,6 +104,7 @@ class LoginView extends React.Component {
                 type={this.state.showPassword ? "text" : "password"}
                 disabled={this.state.isLoading}
                 onChange={(e) => { this.setState({password: e.target.value})}}
+                // leftIcon="key"
                 intent={this.state.passwordError ? Intent.DANGER : Intent.NONE }
                 rightElement={
                   <Tooltip content={`${this.state.showPassword ? "Hide" : "Show"} Password`}>

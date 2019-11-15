@@ -1,4 +1,5 @@
 import React from "react";
+import { AppName, AppVersion } from "../../App";
 import { H3, Text } from "@blueprintjs/core";
 import HeaderComponent from "../../components/header";
 import "./styles.scss";
@@ -11,7 +12,8 @@ class SettingsView extends React.Component {
         <div className="content-wrapper">
           <H3>Settings View</H3>
           <Text>
-            This is the protected Settings view.<br/>
+            This is the protected Settings view.<br/><br/>
+            <code className="bp3-text-muted">{AppName} (v{AppVersion})</code>
           </Text>
         </div>
       </div>

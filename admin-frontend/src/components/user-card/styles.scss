@@ -1,27 +1,44 @@
-.HeaderComponent + .content-wrapper {
-  padding-top: 1.5rem;
-  padding-bottom: 1.5rem;
-}
+@import "../../../node_modules/@blueprintjs/core/lib/scss/variables.scss";
 
-.HeaderComponentLogo {
-  display: block;
-  max-height: 100%;
-  height: 25px;
-  cursor: pointer;
+.UserCard {
+    display: flex;
+    justify-content: stretch;
+    align-items: center;
+    padding: .6rem !important;
 }
-
-.HeaderComponentUser {
-  display: block;
-  border-radius: 2px;
-  padding: 5px 7px;
-  -webkit-user-select: none;
-  user-select: none;
+.UserCardAvatarWrapper {
+    display: flex;
+    position: relative;
+    width: 2.5rem;
+    height: 2.5rem;
+    margin-right: .75rem;
+    flex: 0 0 auto;
+    justify-content: center;
+    align-items: flex-end;
+    color: $gray4;
+    background-color: $light-gray3;
+    border-radius: $pt-border-radius;
 }
-
-.HeaderComponentUser > h5 {
-  margin-bottom: .25rem;
+.bp3-dark .UserCardAvatarWrapper {
+    color: $gray3;
+    background-color: $gray1;
 }
-
-.HeaderComponentUser > .bp3-tag {
-  margin-top: .35rem;
+.UserCardAvatarWrapper::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: $pt-border-radius;
+    box-shadow: inset 0 0 0 1px rgba($dark-gray2, .15);
+}
+.UserCardInfoWrapper {
+    display: block;
+    margin-right: .5rem;
+    flex: 1 1 auto;
+}
+.UserCardInfoWrapper .bp3-heading {
+    margin-bottom: .2em !important;
 }

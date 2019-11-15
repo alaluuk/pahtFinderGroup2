@@ -1,7 +1,10 @@
 import React from "react";
-import GraphQLClient from '../../providers/graphql';
+import GraphQLClient from "../../providers/graphql";
 import HeaderComponent from "../../components/header";
-import { H3, H5, Text, Tag, Spinner, NonIdealState, Card, Elevation, Icon, Intent } from "@blueprintjs/core";
+import FilterableSubheaderComponent from "../../components/filterable-subheader";
+import UserCardComponent from "../../components/user-card";
+import UserCreateModal from "../../modals/user-create";
+import { H5, Text, Spinner, NonIdealState, Icon, Intent } from "@blueprintjs/core";
 import "./styles.scss";
 
 class UsersView extends React.Component {
@@ -11,7 +14,8 @@ class UsersView extends React.Component {
     this.state = {
       isLoading: false,
       fetchError: null,
-      users: []
+      users: [],
+      isUserCreateModalOpen: false
     };
 
     this.fetchUsers = this.fetchUsers.bind(this);
@@ -71,23 +75,33 @@ class UsersView extends React.Component {
       let rows = [];
       this.state.users.forEach(user => {
         rows.push(
-        <Card elevation={Elevation.TWO}>
-          <H5>{user.name} <Tag className={"role-tag-"+user.role} minimal={true}>{user.role}</Tag></H5>
-          <Text className="bp3-text-muted" ellipsize={true}>{user.email}</Text>
-          {/* <pre>{JSON.stringify(user, null, 2)}</pre> */}
-        </Card>
+          <UserCardComponent
+            user={user}
+            key={user.id}
+          ></UserCardComponent>
         );
       });
-    view = <div className="UsersViewGrid">{rows}</div>;
+      view = <div className="UsersViewGrid">{rows}</div>;
     }
 
     return (
       <div className="UsersView">
-        <HeaderComponent user={this.props.user}></HeaderComponent>
+        <HeaderComponent user={this.props.user} />
+        <FilterableSubheaderComponent
+          heading="User Management"
+          primaryIcon="new-person"
+          primaryText="Add new user"
+          primaryOnClick={() => { this.setState({ isUserCreateModalOpen: true }) }}
+        />
         <div className="content-wrapper">
-          <H3>Users View</H3>
+          <H5>All users ({this.state.users.length})</H5>
           {view}
         </div>
+        <UserCreateModal
+          isOpen={this.state.isUserCreateModalOpen}  
+          handleOpen={() => { this.setState({ isUserCreateModalOpen: true }) }}
+          handleClose={() => { this.setState({ isUserCreateModalOpen: false }) }}
+        />
       </div>
     );
   }

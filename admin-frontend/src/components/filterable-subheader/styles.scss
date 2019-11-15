@@ -1,0 +1,13 @@
+.FilterableSubheaderComponent {
+  z-index: 9 !important;
+  background-color: #f7f9f9 !important;
+}
+
+.bp3-dark .FilterableSubheaderComponent {
+  background-color: #30404D !important;
+}
+
+.FilterableSubheaderComponent + .content-wrapper {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}

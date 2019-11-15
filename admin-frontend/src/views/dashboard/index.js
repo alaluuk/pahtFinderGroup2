@@ -1,7 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { H3, Text, Button, Intent } from "@blueprintjs/core";
-import { AppToaster } from "../../App";
+import { H3, Text } from "@blueprintjs/core";
 import HeaderComponent from "../../components/header";
 import "./styles.scss";
 
@@ -17,13 +15,7 @@ class DashboardView extends React.Component {
             {/* TODO: <b>LIMIT LOGIN ROLE (GraphQL)</b>, Gradient bg, card for content wrapper, quick actions, stats */}
           </Text>
           <br/>
-          <pre>{JSON.stringify(this.props.user, null, 2)}</pre>
-          <br/><br/>
-          <Link to="/login">/login</Link>
-          <br/><br/>
-          <Button
-            onClick={() => { AppToaster.show({ icon: "tick", intent: Intent.SUCCESS, message: "Test" }); }}
-          >Launch Toast</Button>
+          <pre className="bp3-code-block"><code>{JSON.stringify(this.props.user, null, 2)}</code></pre>
         </div>
       </div>
     );

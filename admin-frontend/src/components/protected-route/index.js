@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
-import { AppToaster } from "../../App";
+import { AppName, AppToaster } from "../../App";
 import { fetchUser } from "../../providers/auth";
 import { Spinner, Intent } from "@blueprintjs/core";
 
@@ -12,7 +12,9 @@ class ProtectedRoute extends React.Component {
       isLoading: true,
       user: null
     };
-    
+  }
+
+  componentDidMount() {
     fetchUser()
       .then(fetchedUser => {
         this.setState({user: fetchedUser});
@@ -25,6 +27,7 @@ class ProtectedRoute extends React.Component {
 
   render() {
     let { component: Component, ...rest } = this.props;
+    document.title = this.props.title + " | " + AppName;
     return (
       <Route {...rest} render={(props) => {
         props.user = this.state.user;
