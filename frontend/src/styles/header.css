@@ -3,6 +3,7 @@
     width: 100%;
     justify-content: space-between;
     display: flex;
+    align-items: center;
     
   }
   
@@ -17,17 +18,38 @@
   }
   
   .menu{
-    display: inline-flex;
+    display: inline;
     align-items: center;
     margin-left: auto;
-    margin-right: auto;
   }
   
   .menuItem,  .loginText{
-    margin-left: 90px;
-    width: 100px;
+    font-size: 24px;
     font-weight: 200;
-    color: black;
+    
+
+    margin-left: 90px;
+  color: black;
+  flex: 1;
+  line-height: 1.2;
+  text-decoration: none;
+  background-image: linear-gradient(to right, yellow 0, yellow 100%);
+  background-position: 0 1.2em;
+  background-size: 0 100%;
+  background-repeat: no-repeat;
+  transition: background .5s;
+  background-position: 0 0.9em;
+  background-image: linear-gradient(to right, yellow 0, lightgreen 100%);
+  }
+
+  .menuItem:hover, .loginText:hover{
+    background-size: 100% 50%;
+    
+  }
+
+  .loginText{
+    text-align: right;
+    
   }
   
   
@@ -39,9 +61,9 @@
       
   }
   
+  
 
   .loginLogo{
-    align-self: end;
     margin-top: 22px;
   }  
   

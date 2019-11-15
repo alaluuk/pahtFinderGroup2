@@ -1,16 +1,25 @@
+.bodyAdd{
+  background-image: url("https://s19.directupload.net/images/191113/kwtv4hna.jpg");
+  background-position: center; 
+  background-repeat: no-repeat; 
+  background-size: cover;
+  position: relative;
+}
+
+.overlay{
+  opacity: 90%;
+}
+
 .addBuildingComp{
-    border: 1px solid #707070;
+    border: 1px solid lightgray;
     border-radius: 50px;
-    margin: 40px;
-    padding: 50px;
     display: inline-grid;
-    width: 1500px;
-    margin-left: 80px;
+    width: 90%;
+   padding: 40px;
+   margin: 40px;
     background-color: white;
-    
-    
     }
-    
+
     .addBuildHead, .addBuildText{
       float: left;
       margin-left: 40px;

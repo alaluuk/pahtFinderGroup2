@@ -11,8 +11,8 @@ class AddBuilding extends Component {
     render() { 
         return (  
             
-            
-        <div className = "addBuildingBackground">
+            <div className = "bodyAdd">
+            <div className = "overlay">
             <div className = "addBuildingComp"> 
                 <h2 className = "addBuildHead">Add a new building</h2> <br></br>
                 
@@ -42,6 +42,8 @@ class AddBuilding extends Component {
                 </div>
 
         </div>
+        </div>
+        
                 
 
             

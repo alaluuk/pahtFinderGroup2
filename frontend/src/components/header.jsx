@@ -30,8 +30,8 @@ class Header extends Component {
 
             <div className = "menu">
                 <Link to="/overview" className = "menuItem">My buildings</Link>
-                <Link to="/overview" className = "menuItem">Marketplace</Link>
-                <Link to="/overview" className = "menuItem">Shop</Link>
+                <Link to="/marketplace" className = "menuItem">Marketplace</Link>
+                <Link to="/wishlist" className = "menuItem">Wishlist</Link>
             </div>
 
             <div className = "loginArea"> 
