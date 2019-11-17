@@ -1,21 +1,21 @@
 import React from 'react';
-import '../styles/addBuilding.css';
 import Header from '../components/header';
 import Footer from '../components/footer';
-import AddNewBuilding from '../components/AddBuilding/body';
+import Body from '../components/Wishlist/body';
 
 
-class AddBuilding extends React.Component {
+
+class Wishlist extends React.Component {
     render() {
         return (
-            <div className="AddBuilding">
+            <div className="Wishlist">
               
               <Header></Header>
-              <AddNewBuilding></AddNewBuilding>
+              <Body></Body>
               <Footer></Footer>
             </div>
           );
     }
 }
 
-export default AddBuilding
+export default Wishlist

@@ -4,18 +4,96 @@
 
 h1{
     color: black;
+    font-weight: 300;
+    
 }
 
 
 .bodyOverview{
-    height: 875px;
-    background-image: url("https://images.unsplash.com/photo-1551524164-687a55dd1126?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=925&q=80");
+    height: 1200px;
+    background-image: url("https://s19.directupload.net/images/191113/kwtv4hna.jpg");
     background-position: center; 
     background-repeat: no-repeat; 
     background-size: cover;
+    position: relative;
 }
+
+.overlay{
+    opacity: 90%;
+  }
+
+.headLine{
+    display: flex;
+    align-items: center;
+    margin-bottom: 40px;
+  }
+
+  .addNewPlusButton{
+      margin-left: 20px;
+      text-decoration: none;
+  }
 
 
 .content{
-    margin-left: 60px;
+    padding-left: 60px;
+    padding-right: 60px;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
+
+.bottomContent{
+    padding-left: 30px;
+    padding-top: 40px;
+    padding-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+
+}
+
+
+.scrollBars{
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    border-radius: 5px;
+}
+
+
+.map{
+    height: 400px;
+    width: 48%;
+    float: left;
+    box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12);
+    border-radius: 5px;
+}
+
+.chart{
+    background-color: limegreen;
+    color: white;
+    height: 400px;
+    width: 48%;
+    float: right;
+    box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12);   
+    border-radius: 5px; 
+    text-align: center;
+    position: relative;   
+}
+
+.chartText{
+    font-size: 40px;
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    height: 30%;
+    width: 50%;
+    margin: -15% 0 0 -25%;
+    color: white;
+}
+
+
+
+
+
+
+  

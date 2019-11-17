@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Card from '../card';
-import AddCard from '../addCard';
 import Slider from '@material-ui/core/Slider';
 import '../../styles/structure.css'
 
@@ -26,7 +25,6 @@ class StructureComp extends Component {
                             </div>
                             <div className = "scrollBar">
                             <Card className = "card" ></Card>
-                              <AddCard className = "card"></AddCard>
                             </div>
                   </div>
 
@@ -42,7 +40,6 @@ class StructureComp extends Component {
                             </div>
                             <div className = "scrollBar">
                             <Card className = "card" ></Card>
-                              <AddCard className = "card"></AddCard>
                             </div>
                   </div>
                   <div className = "addStructureComp">
@@ -57,7 +54,6 @@ class StructureComp extends Component {
                             </div>
                             <div className = "scrollBar">
                             <Card className = "card" ></Card>
-                              <AddCard className = "card"></AddCard>
                             </div>
                   </div>
                   <div className = "addStructureComp">
@@ -72,7 +68,6 @@ class StructureComp extends Component {
                             </div>
                             <div className = "scrollBar">
                             <Card className = "card" ></Card>
-                              <AddCard className = "card"></AddCard>
                             </div>
                   </div>
                   <div className = "addStructureComp">
@@ -87,7 +82,6 @@ class StructureComp extends Component {
                             </div>
                             <div className = "scrollBar">
                             <Card className = "card" ></Card>
-                              <AddCard className = "card"></AddCard>
                             </div>
                   </div>
 
