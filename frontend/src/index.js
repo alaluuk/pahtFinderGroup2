@@ -1,19 +1,30 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import CustomRouter from './components/CustomRouter';
+import CustomRouter from './components/customRouter';
 import * as serviceWorker from './serviceWorker';
-import ApolloClient from 'apollo-boost';
+import ApolloClient, { InMemoryCache } from 'apollo-boost';
 import { ApolloProvider } from '@apollo/react-hooks';
 
+const cache = new InMemoryCache;
 const client = new ApolloClient({
-  uri: 'https://oamk-pathfinder.herokuapp.com/graphql'
+  cache,
+  uri: 'https://oamk-pathfinder.herokuapp.com/graphql',
+  headers: {
+    authorization: localStorage.getItem('token'),
+  },
 });
 
+cache.writeData({
+  data: {
+    isLoggedIn: !!localStorage.getItem('token'),
+    cartItems: [],
+  },
+});
 
 ReactDOM.render(
   <CustomRouter>
-  <ApolloProvider client={client}><routing/></ApolloProvider>
+  <ApolloProvider client={client}></ApolloProvider>
   </CustomRouter>
   ,document.getElementById('root'));
 
