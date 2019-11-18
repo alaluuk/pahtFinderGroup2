@@ -9,10 +9,7 @@ import { ApolloProvider } from '@apollo/react-hooks';
 const cache = new InMemoryCache;
 const client = new ApolloClient({
   cache,
-  uri: 'https://oamk-pathfinder.herokuapp.com/graphql',
-  headers: {
-    authorization: localStorage.getItem('token'),
-  },
+  uri: 'https://oamk-pathfinder.herokuapp.com/graphql'
 });
 
 cache.writeData({
@@ -23,9 +20,11 @@ cache.writeData({
 });
 
 ReactDOM.render(
-  <CustomRouter>
-  <ApolloProvider client={client}></ApolloProvider>
-  </CustomRouter>
+  
+  <ApolloProvider client={client}>
+    <CustomRouter></CustomRouter>
+  </ApolloProvider>
+
   ,document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
