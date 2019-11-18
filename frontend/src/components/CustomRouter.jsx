@@ -5,6 +5,7 @@ import Landing from '../pages/landing';
 import AddBuilding from '../pages/addBuilding';
 import Marketplace from '../pages/marketplace';
 import Wishlist from '../pages/wishlist';
+import Building from '../pages/building';
 
 class CustomRouter extends Component {
     state = {  }
@@ -17,6 +18,7 @@ class CustomRouter extends Component {
               <Route exact path ="/addbuilding" component={AddBuilding}/>
               <Route exact path ="/marketplace" component={Marketplace}/>
               <Route exact path ="/wishlist" component={Wishlist}/>
+              <Route exact path ="/building123" component={Building}/>
 
             </div>
           </Router>

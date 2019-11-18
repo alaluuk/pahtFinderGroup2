@@ -6,13 +6,16 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
+import { Link } from 'react-router-dom'
 import '../styles/card.css'
+
 
 
 export default function MediaCard() {
 
   return (
-    <Card className="card">
+    <Link to="/building123">
+    <Card className="card" >
       <CardActionArea>
         <CardMedia
           className="media"
@@ -38,5 +41,7 @@ export default function MediaCard() {
         </CardContent>
       </CardActionArea>
     </Card>
+    </Link>
+    
   );
 }

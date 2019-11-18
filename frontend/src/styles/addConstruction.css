@@ -1,0 +1,58 @@
+
+
+.modal {
+    font-size: 12px;
+    padding: 30px;
+  }
+  
+  .modal > .actions {
+    width: 100%;
+    padding: 10px 5px;
+    margin: auto;
+    text-align: center;
+  }
+  .modal > .close {
+    cursor: pointer;
+    position: absolute;
+    display: block;
+    padding: 2px 5px;
+    line-height: 20px;
+    right: -10px;
+    top: -10px;
+    font-size: 24px;
+    background: #ffffff;
+    border-radius: 18px;
+    border: 1px solid #cfcece;
+  }
+
+  .popup-content{
+    position: relative;
+    background: rgb(255, 255, 255);
+    width: 80%;
+    margin: auto;
+    padding: 30px;
+    border-radius: 20px;
+    border: 1px solid lightgray;
+}
+
+.popup{
+    width: 100%;
+  }
+
+  .addConstructionContent{
+      display: grid;
+  }
+
+  .addConstructionTable{
+    margin-left: 40px;
+  }
+
+  .MuiButtonBase-root.MuiButton-root.MuiButton-contained.saveConstructionButton.MuiButton-containedPrimary{
+    margin-left: 40px;
+    margin-top: 50px;
+    background-color: #2699FB;
+    width: 400px;
+    padding: 20px;
+
+  }
+ 

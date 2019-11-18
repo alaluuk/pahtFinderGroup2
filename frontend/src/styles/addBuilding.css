@@ -14,25 +14,41 @@
     border: 1px solid lightgray;
     border-radius: 50px;
     display: inline-grid;
-    width: 90%;
+    width: 2000px;
    padding: 40px;
    margin: 40px;
     background-color: white;
     }
 
-    .addBuildHead, .addBuildText{
+    .addBuildHead{
+      margin-bottom: 60px;
+    }
+    .addBuildHead, .addBuildText, .addConstructionText{
       float: left;
       margin-left: 40px;
+      margin-right: 20px;
       text-align: left;
+      color: black;
+     font-weight: 300;
     
     }
-    .addBuildBody{
-      display: flex;
+    .generalInfo{
+      margin-left: 30px;
+      border: 1px solid lightgray;
+      padding: 40px;
+      border-radius: 20px;
+      width: 1850px;
+      display: inline-grid;
+    }
+
+    .generalContent{
+      display: inline-flex;
       margin-left: 40px;
+      margin-top: 40px;
     }
     
     .left, .center, .right{
-      width: 100%;
+      width: 29%;
       display: inline-grid;
     }
     
@@ -59,3 +75,57 @@
     height: 300px;
     
     }
+
+    .allStructures{
+      margin-left: 25px;
+    }
+
+    .MuiButtonBase-root.MuiButton-root.MuiButton-contained.saveBuildButton.MuiButton-containedPrimary{
+      margin-left: 70px;
+      margin-top: 50px;
+      background-color: #2699FB;
+      width: 400px;
+      padding: 20px;
+      
+    }
+
+
+    .addStructureComp{
+      display: inherit;
+      margin-top: 100px;
+      border: 1px solid lightgray;
+      border-radius: 20px;
+      padding: 40px;
+      width: 80%;
+  }
+  
+  .addStructureHead{
+      display: flex;
+      align-items: center;
+      margin-bottom: 40px;
+  }
+  
+  .scrollBar{
+      display: flex;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+  }
+  
+  
+  .mainSlider{
+      margin-left: 40px;
+      margin-bottom: 40px
+  }
+  
+  .MuiPaper-root.MuiPaper-elevation1.MuiCard-root.makeStyles-card-197.MuiPaper-rounded,
+  .MuiPaper-root.MuiPaper-elevation1.MuiCard-root.makeStyles-card-102.MuiPaper-rounded,
+  .card{
+      margin-left: inherit;
+      width: 100%;
+      float: left;
+      width: 345px;
+      height: 450px;
+      margin-left: 30px;
+  
+  }
+  
