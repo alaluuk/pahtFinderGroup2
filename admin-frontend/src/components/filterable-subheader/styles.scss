@@ -7,6 +7,15 @@
   background-color: #30404D !important;
 }
 
+.FilterableSubheaderComponent .bp3-navbar-heading {
+  font-weight: 600;
+  color: #293742;
+}
+
+.bp3-dark .FilterableSubheaderComponent .bp3-navbar-heading {
+  color: #CED9E0;
+}
+
 .FilterableSubheaderComponent + .content-wrapper {
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;

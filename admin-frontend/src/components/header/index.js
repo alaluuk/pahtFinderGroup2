@@ -28,6 +28,12 @@ class HeaderComponent extends React.Component {
                 text="Users"
                 onClick={() => this.props.history.push('/users')}
               />
+              <Button
+                className="bp3-minimal"
+                icon="layers"
+                text="Structures"
+                onClick={() => this.props.history.push('/structures')}
+              />
           </Navbar.Group>
           <Navbar.Group align={Alignment.RIGHT}>
               <Navbar.Divider />
@@ -67,7 +73,7 @@ class HeaderComponent extends React.Component {
                   />
                 </Menu>
               } position={Position.BOTTOM_RIGHT} lazy="false">
-              <Button icon="user" text={this.props.user.name} />
+                <Button icon="user" text={this.props.user.name} />
               </Popover>
           </Navbar.Group>
         </div>

@@ -13,7 +13,7 @@ class SettingsView extends React.Component {
           <H3>Settings View</H3>
           <Text>
             This is the protected Settings view.<br/><br/>
-            <code className="bp3-text-muted">{AppName} (v{AppVersion})</code>
+            <small className="bp3-text-muted">{AppName} (v{AppVersion})</small>
           </Text>
         </div>
       </div>

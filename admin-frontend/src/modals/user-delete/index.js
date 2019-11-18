@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Intent, Dialog, Classes } from "@blueprintjs/core";
+import { Button, Intent, Dialog, Classes, Colors } from "@blueprintjs/core";
 import "./styles.scss";
 
 class UserDeleteModal extends React.Component {
@@ -38,7 +38,7 @@ class UserDeleteModal extends React.Component {
           <p>
             Are you sure you want to delete the user "{this.props.user.name}" permanently
             <br/><br/>
-            <strong>Warning: </strong> If the user owns houses, these get deleted too.
+            <strong style={{ color: Colors.RED4 }}>Warning: </strong> If the user owns houses, these get removed too.
           </p>
         </div>
         <div className={Classes.DIALOG_FOOTER}>

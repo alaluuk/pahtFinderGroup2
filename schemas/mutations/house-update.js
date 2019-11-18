@@ -8,7 +8,9 @@ const HouseUpdateSchema = Joi.object({
   id: Joi.string().guid().required(),
   name: Joi.string().min(3).max(255),
   ownerId: Joi.string().guid(),
-  countryCode: Joi.string().alphanum().length(2),
+  addressCountry: Joi.string().alphanum().length(2),
+  addressCity: Joi.string().max(255),
+  addressStreet: Joi.string().max(255),
   constructionYear: Joi.number().min(0).max((new Date()).getFullYear()),
   heatingSystem: Joi.string().min(1),
   costOfHeating: Joi.number(),
@@ -21,7 +23,9 @@ const HouseUpdateMutation = {
     id: { type: new GraphQLNonNull(GraphQLID) },
     name: { type: GraphQLString },
     ownerId: { type: GraphQLID },
-    countryCode: { type: GraphQLString },
+    addressCountry: { type: GraphQLString },
+    addressCity: { type: GraphQLString },
+    addressStreet: { type: GraphQLString },
     constructionYear: { type: GraphQLInt },
     heatingSystem: { type: GraphQLString },
     costOfHeating: { type: GraphQLFloat },
@@ -51,7 +55,9 @@ const HouseUpdateMutation = {
               reject(new Error("The specified owner ID is invalid because there is no user with this ID."));
             }
           }
-          if(values.countryCode) house.countryCode = values.countryCode;
+          if(values.addressCountry) house.addressCountry = values.addressCountry;
+          if(values.addressCity) house.addressCity = values.addressCity;
+          if(values.addressStreet) house.addressStreet = values.addressStreet;
           if(values.constructionYear) house.constructionYear = values.constructionYear;
           if(values.heatingSystem) house.heatingSystem = values.heatingSystem;
           if(values.costOfHeating) house.costOfHeating = values.costOfHeating;

@@ -18,7 +18,8 @@ body {
 
 .content-wrapper.with-sidebar {
   display: grid;
-  grid-template-columns: 1fr 200px;
+  grid-template-columns: 1fr 250px;
+  grid-gap: 1.5rem;
 }
 
 .content-wrapper.with-sidebar main {
@@ -50,10 +51,20 @@ body {
 .role-tag-admin {
   background-color: rgba(219, 55, 55, 0.15) !important;
   color: #c23030 !important;
+  font-weight: 600;
+}
+.bp3-dark .role-tag-admin {
+  background-color: rgba(219,55,55,.25) !important;
+  color: #ff7373 !important;
 }
 .role-tag-customer {
   background-color: rgba(19, 124, 189, 0.15) !important;
   color: #106ba3 !important;
+  font-weight: 600;
+}
+.bp3-dark .role-tag-customer {
+  background-color: rgba(19,124,189,.25) !important;
+  color: #48aff0 !important;
 }
 
 .bp3-icon.bp3-icon-more { transform: rotate(90deg); }

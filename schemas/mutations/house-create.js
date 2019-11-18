@@ -7,7 +7,9 @@ const { checkPermission } = require("../../permissions");
 const HouseCreateSchema = Joi.object({
   name: Joi.string().min(3).max(255).required(),
   ownerId: Joi.string().guid(),
-  countryCode: Joi.string().alphanum().length(2),
+  addressCountry: Joi.string().alphanum().length(2),
+  addressCity: Joi.string().max(255),
+  addressStreet: Joi.string().max(255),
   constructionYear: Joi.number().min(0).max((new Date()).getFullYear()),
   heatingSystem: Joi.string().min(1),
   costOfHeating: Joi.number(),
@@ -19,7 +21,9 @@ const HouseCreateMutation = {
   args: {
     name: { type: new GraphQLNonNull(GraphQLString) },
     ownerId: { type: GraphQLInt },
-    countryCode: { type: GraphQLString },
+    addressCountry: { type: GraphQLString },
+    addressCity: { type: GraphQLString },
+    addressStreet: { type: GraphQLString },
     constructionYear: { type: GraphQLInt },
     heatingSystem: { type: GraphQLString },
     costOfHeating: { type: GraphQLFloat },
@@ -36,7 +40,9 @@ const HouseCreateMutation = {
     }
     return House.create(
       values.name,
-      values.countryCode,
+      values.addressCountry,
+      values.addressCity,
+      values.addressStreet,
       values.constructionYear,
       values.ownerId,
       values.heatingSystem,

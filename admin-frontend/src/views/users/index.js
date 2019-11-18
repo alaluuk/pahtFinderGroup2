@@ -58,7 +58,7 @@ class UsersView extends React.Component {
         <NonIdealState
           icon={<Spinner size="30"></Spinner>}
           title="Fetching Users..."
-          description={<Text className="bp3-text-muted">Please wait while the users get loaded.</Text>}
+          description={<Text className="bp3-text-muted">Please wait while the users are getting loaded.</Text>}
         />
       );
     } else if(this.state.fetchError) {
@@ -90,11 +90,11 @@ class UsersView extends React.Component {
         <FilterableSubheaderComponent
           heading="User Management"
           primaryIcon="new-person"
-          primaryText="Add new user"
+          primaryText="New User"
           primaryOnClick={() => { this.setState({ isUserCreateModalOpen: true }) }}
         />
         <div className="content-wrapper">
-          <H5>All users ({this.state.users.length})</H5>
+          <H5>All Users ({this.state.users.length})</H5>
           {view}
         </div>
         <UserCreateModal

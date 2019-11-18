@@ -46,13 +46,36 @@ class House {
     });
   }
 
-  static create(name, country_code, construction_year, owner_id, heating_system, cost_of_heating, warm_water_pipe) {
-    return new Promise(function(resolve, reject) {
+  static create(name, address_country, address_city, address_street, construction_year, owner_id, heating_system, cost_of_heating, warm_water_pipe) {
+    return new Promise(async function(resolve, reject) {
+      let coords = await House.addressToLatLng(address_street +', '+address_city +', '+address_country);
       User.getOne(owner_id)
         .then(user => {
           db
-          .one(`INSERT INTO houses(name, country_code, construction_year, owner_id, heating_system, cost_of_heating, warm_water_pipe) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`, [
-            name, country_code, construction_year, owner_id, heating_system, cost_of_heating, warm_water_pipe
+          .one(`INSERT INTO houses(
+              name,
+              address_country,
+              address_city,
+              address_street,
+              address_lat,
+              address_lng,
+              construction_year,
+              owner_id,
+              heating_system,
+              cost_of_heating,
+              warm_water_pipe
+            ) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`, [
+              name,
+              address_country,
+              address_city,
+              address_street,
+              coords[0],
+              coords[1],
+              construction_year,
+              owner_id,
+              heating_system,
+              cost_of_heating,
+              warm_water_pipe
           ])
           .then(res => {
             let house = new House(res);
@@ -67,11 +90,30 @@ class House {
   save() {
     let house = this;
     return new Promise(function(resolve, reject) {
-      db
-        .result(`UPDATE houses SET id=$1, name=$2, country_code=$3, construction_year=$4, owner_id=$5, heating_system=$6, cost_of_heating=$7, warm_water_pipe=$8 WHERE id=$9 RETURNING *`, [
+      house.updateAddressLatLng()
+      .then(coords => {
+        db
+        .result(`UPDATE houses SET id=$1,
+          name=$2,
+          address_country=$3,
+          address_city=$4,
+          address_street=$5,
+          address_lat=$6,
+          address_lng=$7,
+          construction_year=$8,
+          owner_id=$9,
+          heating_system=$10,
+          cost_of_heating=$11,
+          warm_water_pipe=$12
+          WHERE id=$13 RETURNING *
+        `, [
           house._id,
           house._name,
-          house._country_code,
+          house._address_country,
+          house._address_city,
+          house._address_street,
+          house._address_lat,
+          house._address_lng,
           house._construction_year,
           house._owner_id,
           house._heating_system,
@@ -84,6 +126,8 @@ class House {
           resolve((res.rowCount > 0));
         })
         .catch(err => reject(err));
+      })
+      .catch(err => reject(err));
     });
   }
 
@@ -106,7 +150,11 @@ class House {
     this._id = data.id;
     this._name = data.name;
     this._owner_id = data.owner_id;
-    this._country_code = data.country_code;
+    this._address_country = data.address_country;
+    this._address_city = data.address_city;
+    this._address_street = data.address_street;
+    this._address_lat = data.address_lat;
+    this._address_lng = data.address_lng;
     this._construction_year = data.construction_year;
     this._heating_system = data.heating_system;
     this._cost_of_heating = data.cost_of_heating;
@@ -126,14 +174,83 @@ class House {
     return this._name;
   }
 
-  set countryCode(countryCode) {
-    if(countryCode.length !== 2) {
+  set addressCountry(addressCountry) {
+    if(addressCountry.length !== 2) {
       throw new Error("Invalid country code (must be 2 characters long).");
     }
-    this._country_code = countryCode;
+    this._address_country = addressCountry;
+    this.updateAddressCoordinates();
   }
-  get countryCode() {
-    return this._country_code;
+  get addressCountry() {
+    return this._address_country;
+  }
+
+  set addressCity(addressCity) {
+    this._address_city = addressCity;
+    this.updateAddressCoordinates();
+  }
+  get addressCity() {
+    return this._address_city;
+  }
+
+  set addressStreet(addressStreet) {
+    this._address_street = addressStreet;
+    this.updateAddressCoordinates();
+  }
+  get addressStreet() {
+    return this._address_street;
+  }
+
+  get addressLat() {
+    return this._address_lat;
+  }
+
+  get addressLng() {
+    return this._address_lng;
+  }
+
+  get addressFull() {
+    return this._address_street +', '+this._address_city +', '+this._address_country;
+  }
+
+  static addressToLatLng() {
+    // TODO
+    // this.mapboxClient = new MapboxClient({ accessToken: this.mapboxToken });
+    // this.mapboxClient.forwardGeocode({
+    //   query: 'Ylioppilaantie 4, 90100 Oulu, Finland',
+    //   autocomplete: false,
+    //   limit: 1
+    // })
+    // .send()
+    // .then(response => {
+    //   if(response && response.body && response.body.features && response.body.features.length) {
+    //     var feature = response.body.features[0];
+    //     console.log(feature);
+    //     this.setState(prevState => ({
+    //       markers: [...prevState.markers, {
+    //         lat: feature.center[1],
+    //         long: feature.center[0]
+    //       }]
+    //     }));
+    //   }
+    // });
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(65.009621, 25.503339);
+      }, 500);
+    });
+  }
+
+  updateAddressLatLng() {
+    return new Promise((resolve, reject) => {
+      House.addressToLatLng(this.addressFull())
+      .then(coords => {
+        this._address_lat = coords[0];
+        this._address_lng = coords[1];
+        resolve(coords);
+      })
+      .catch(err => reject(err))
+    });
   }
 
   set constructionYear(constructionYear) {

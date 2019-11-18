@@ -4,13 +4,14 @@ import { refreshBearer } from "./providers/auth";
 import LoginView from "./views/login";
 import DashboardView from "./views/dashboard";
 import UsersView from "./views/users";
+import StructuresView from "./views/structures";
 import SettingsView from "./views/settings";
 import PublicRoute from './components/public-route';
 import ProtectedRoute from './components/protected-route';
 import { Toaster, Position } from "@blueprintjs/core";
 
 const packageConfig = require('../package.json');
-export const AppName = packageConfig.name;
+export const AppName = "Pathfinder Admin";
 export const AppVersion = packageConfig.version;
 
 export const AppToaster = Toaster.create({
@@ -45,6 +46,7 @@ class App extends React.Component<AppProps, AppState> {
             <PublicRoute path="/login" component={LoginView} title="Login"></PublicRoute>
             <ProtectedRoute exact path="/" component={DashboardView} title="Dashboard"></ProtectedRoute>
             <ProtectedRoute exact path="/users" component={UsersView} title="Users"></ProtectedRoute>
+            <ProtectedRoute exact path="/structures" component={StructuresView} title="Structures"></ProtectedRoute>
             <ProtectedRoute exact path="/settings" component={SettingsView} title="Settings"></ProtectedRoute>
             <Redirect to="/" />
           </Switch>
