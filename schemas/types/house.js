@@ -11,6 +11,8 @@ const HouseType = new GraphQLObjectType({
     addressCountry: { type: GraphQLString },
     addressCity: { type: GraphQLString },
     addressStreet: { type: GraphQLString },
+    addressLat: { type: GraphQLFloat },
+    addressLng: { type: GraphQLFloat },
     constructionYear: { type: GraphQLInt },
     heatingSystem: { type: GraphQLString },
     costOfHeating: { type: GraphQLFloat },

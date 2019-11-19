@@ -1,3 +1,4 @@
+require('dotenv').config();
 const { db } = require("../pg-adaptor");
 const { User, HouseStructure } = require(".");
 
@@ -215,6 +216,13 @@ class House {
 
   static addressToLatLng() {
     // TODO
+    return new Promise((resolve, reject) => {
+      // request('https://api.mapbox.com/geocoding/v5/mapbox.places/Los%20Angeles.json?access_token='+process.env.MAPBOX_API_TOKEN, { json: true }, (err, res, body) => {
+      //   if(err) { return console.log(err); }
+      //   console.log(body);
+      // });
+      reject(new Error("Missing reverse geocoding functionality."));
+    });
     // this.mapboxClient = new MapboxClient({ accessToken: this.mapboxToken });
     // this.mapboxClient.forwardGeocode({
     //   query: 'Ylioppilaantie 4, 90100 Oulu, Finland',

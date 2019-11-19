@@ -8,7 +8,6 @@ class UserDeleteModal extends React.Component {
 
     this.state = {
       isOpen: props.isOpen || false,
-      handleOpen: props.handleOpen || undefined,
       handleClose: props.handleClose || undefined,
       handleDeleted: props.handleDeleted || undefined,
       user: props.user || null
@@ -18,7 +17,6 @@ class UserDeleteModal extends React.Component {
   static getDerivedStateFromProps(props, state) {
     return {
       isOpen: props.isOpen || false,
-      handleOpen: props.handleOpen || undefined,
       handleClose: props.handleClose || undefined,
       handleDeleted: props.handleDeleted || undefined,
       user: props.user || null

@@ -17,6 +17,11 @@ class DashboardView extends React.Component {
           <aside>
             <Menu className={Classes.ELEVATION_1}>
               <Menu.Item
+                icon="new-person"
+                text="New User"
+                onClick={() => { this.props.history.push('/users/create') }}
+              />
+              <Menu.Item
                 icon="new-layers"
                 text="New Structure Template"
               />

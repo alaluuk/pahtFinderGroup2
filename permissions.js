@@ -6,6 +6,7 @@ const Roles = {
         "user_update_role_customer",
         "user_delete_self",
         "structures_query",
+        "structure_template_query",
         "structure_type_query",
         "structure_materials_query",
         "house_create",

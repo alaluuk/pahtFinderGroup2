@@ -45,9 +45,9 @@ class App extends React.Component<AppProps, AppState> {
           <Switch>
             <PublicRoute path="/login" component={LoginView} title="Login"></PublicRoute>
             <ProtectedRoute exact path="/" component={DashboardView} title="Dashboard"></ProtectedRoute>
-            <ProtectedRoute exact path="/users" component={UsersView} title="Users"></ProtectedRoute>
-            <ProtectedRoute exact path="/structures" component={StructuresView} title="Structures"></ProtectedRoute>
-            <ProtectedRoute exact path="/settings" component={SettingsView} title="Settings"></ProtectedRoute>
+            <ProtectedRoute path="/users" component={UsersView} title="Users"></ProtectedRoute>
+            <ProtectedRoute path="/structures" component={StructuresView} title="Structures"></ProtectedRoute>
+            <ProtectedRoute path="/settings" component={SettingsView} title="Settings"></ProtectedRoute>
             <Redirect to="/" />
           </Switch>
         </Router>

@@ -1,6 +1,6 @@
 const { GraphQLObjectType, GraphQLNonNull, GraphQLID, GraphQLList } = require("graphql");
-const { UserType, HouseType, StructureTypeType, StructureMaterialType, StructureType } = require("./types");
-const { User, House, StructureType: StructureTypeModel, StructureMaterial, Structure } = require("../models");
+const { UserType, HouseType, StructureTypeType, StructureTemplateType, StructureMaterialType, StructureType } = require("./types");
+const { User, House, StructureType: StructureTypeModel, StructureTemplate, StructureMaterial, Structure } = require("../models");
 const { checkPermission } = require("../permissions");
 
 const RootQuery = new GraphQLObjectType({
@@ -68,6 +68,23 @@ const RootQuery = new GraphQLObjectType({
           return [ StructureTypeModel.getOne(args.id) ];
         } else {
           return StructureTypeModel.getAny();
+        }
+      }
+    },
+    structureTemplates: {
+      type: new GraphQLList(StructureTemplateType),
+      args: {
+        id: { type: GraphQLID }
+      },
+      resolve(_, args, { user }) {
+        if(!user) throw new Error("You must be logged in to perform this action.");
+        if(!checkPermission(user.role, "structure_template_query")) {
+          throw new Error("You don't have sufficient permissions to query structure templates.");
+        }
+        if(args.id) {
+          return [ StructureTemplate.getOne(args.id) ];
+        } else {
+          return StructureTemplate.getAny();
         }
       }
     },

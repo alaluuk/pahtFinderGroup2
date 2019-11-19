@@ -8,16 +8,16 @@ class UserCreateModal extends React.Component {
 
     this.state = {
       isOpen: props.isOpen || false,
-      handleOpen: props.handleOpen || undefined,
-      handleClose: props.handleClose || undefined
+      handleClose: props.handleClose || undefined,
+      handleCreated: props.handleCreated || undefined
     };
   }
 
   static getDerivedStateFromProps(props, state) {
     return {
       isOpen: props.isOpen || false,
-      handleOpen: props.handleOpen || undefined,
-      handleClose: props.handleClose || undefined
+      handleClose: props.handleClose || undefined,
+      handleCreated: props.handleCreated || undefined
     };
   }
 

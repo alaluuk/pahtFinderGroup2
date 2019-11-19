@@ -1,4 +1,5 @@
 import React from "react";
+import { Route } from "react-router-dom";
 import GraphQLClient from "../../providers/graphql";
 import HeaderComponent from "../../components/header";
 import FilterableSubheaderComponent from "../../components/filterable-subheader";
@@ -91,16 +92,23 @@ class UsersView extends React.Component {
           heading="User Management"
           primaryIcon="new-person"
           primaryText="New User"
-          primaryOnClick={() => { this.setState({ isUserCreateModalOpen: true }) }}
+          primaryOnClick={() => { this.props.history.replace(this.props.match.url+'/create') }}
         />
         <div className="content-wrapper">
           <H5>All Users ({this.state.users.length})</H5>
           {view}
         </div>
-        <UserCreateModal
-          isOpen={this.state.isUserCreateModalOpen}  
-          handleOpen={() => { this.setState({ isUserCreateModalOpen: true }) }}
-          handleClose={() => { this.setState({ isUserCreateModalOpen: false }) }}
+
+        <Route
+          path={`${this.props.match.url}/create`}
+          render={() => {
+            return (
+              <UserCreateModal
+                isOpen={true}  
+                handleClose={() => { this.props.history.replace(this.props.match.url) }}
+              />
+            );
+          }}
         />
       </div>
     );
