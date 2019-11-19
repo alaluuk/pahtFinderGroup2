@@ -6,6 +6,7 @@ import AddBuilding from '../pages/addBuilding';
 import Marketplace from '../pages/marketplace';
 import Wishlist from '../pages/wishlist';
 import Login from '../requests/login'
+import SignIn from '../pages/signin';
 
 class CustomRouter extends Component {
     state = {  }
@@ -18,7 +19,8 @@ class CustomRouter extends Component {
               <Route exact path ="/addbuilding" component={AddBuilding}/>
               <Route exact path ="/marketplace" component={Marketplace}/>
               <Route exact path ="/wishlist" component={Wishlist}/>
-              <Route exact path="/login2" component={Login} />
+              <Route exact path="/login" component={Login} />
+              <Route exact path="/signin" component={SignIn} />
             </div>
           </Router>
         );
