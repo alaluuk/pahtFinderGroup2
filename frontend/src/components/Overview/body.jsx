@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Card from '../card';
 import Chart from '../Overview/chart'
 import { Link } from 'react-router-dom'
-import { FiPlusSquare } from "react-icons/fi"
 import Button from '@material-ui/core/Button';
 import '../../styles/overview.scss';
 

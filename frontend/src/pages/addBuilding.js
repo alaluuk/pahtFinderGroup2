@@ -1,6 +1,6 @@
 import React from 'react';
 import '../styles/addBuilding.scss';
-import Header from '../components/header';
+import Header from '../components/Header/header';
 import Footer from '../components/footer';
 import AddNewBuilding from '../components/AddBuilding/body';
 
