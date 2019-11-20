@@ -7,8 +7,8 @@ import Slider from "@material-ui/core/Slider";
 import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import AddConstruction from "./addConstruction";
-import "../../styles/addBuilding.css";
 import "../../styles/addConstruction.css";
+import '../../styles/addBuilding.scss';
 
 
 

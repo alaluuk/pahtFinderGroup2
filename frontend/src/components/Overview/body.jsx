@@ -3,7 +3,7 @@ import Card from '../card';
 import Chart from '../Overview/chart'
 import { Link } from 'react-router-dom'
 import Button from '@material-ui/core/Button';
-import '../../styles/overview.css';
+import '../../styles/overview.scss';
 
 class Body extends Component {
     state = {  }
