@@ -12,6 +12,9 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { AUTH_TOKEN } from '../constants'
+import { Mutation } from 'react-apollo'
+import gql from 'graphql-tag'
 
 function Copyright() {
   return (
@@ -25,6 +28,14 @@ function Copyright() {
     </Typography>
   );
 }
+
+const LOGIN_MUTATION = gql`
+  mutation LoginMutation($email: String!, $password: String!) {
+    login(email: $email, password: $password) {
+      token
+    }
+  }
+`
 
 const useStyles = makeStyles(theme => ({
   '@global': {
@@ -51,8 +62,20 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function SignIn() {
+
+export default function SignIn(props) {
   const classes = useStyles();
+  //State in hook
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+  const [errorMessage, setErrorMessage] = React.useState('');
+  //save token after login was successful
+  const signInClicked = (data) => {
+    const { token } = data.login
+    localStorage.setItem(AUTH_TOKEN, token)
+    props.history.push(`/overview`)
+  };
+
 
   return (
     <Container component="main" maxWidth="xs">
@@ -74,6 +97,7 @@ export default function SignIn() {
             label="Email Address"
             name="email"
             autoComplete="email"
+            onChange={e => setEmail(e.target.value)}
             autoFocus
           />
           <TextField
@@ -86,20 +110,36 @@ export default function SignIn() {
             type="password"
             id="password"
             autoComplete="current-password"
+            onChange={e => setPassword(e.target.value)}
           />
+          <Typography variant="subtitle1" component="p" style={{ color: 'red' }} >
+            {errorMessage}
+          </Typography>
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
           />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
+          <Mutation
+            mutation={LOGIN_MUTATION}
+            variables={{ email, password }}
+            onCompleted={data => signInClicked(data)}
+            onError={data => setErrorMessage(data.graphQLErrors[0].message)}
           >
-            Sign In
+
+            {mutation => (
+              <Button
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+                onClick={mutation}
+              >
+                Sign In
           </Button>
+            )}
+
+          </Mutation>
+
           <Grid container>
             <Grid item xs>
               <Link href="#" variant="body2">
@@ -107,7 +147,7 @@ export default function SignIn() {
               </Link>
             </Grid>
             <Grid item>
-              <Link href="/landing" variant="body2">
+              <Link href="/" variant="body2">
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>
