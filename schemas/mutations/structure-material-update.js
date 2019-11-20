@@ -17,10 +17,10 @@ const StructureMaterialUpdateMutation = {
     name: { type: GraphQLString },
     uValue: { type: GraphQLFloat }
   },
-  resolve(_, args, { user }) {
-    if(!user) throw new Error("You must be logged in to perform this action.");
+  resolve(_, args, { auth }) {
+    if(!auth.user) throw new Error("You must be logged in to perform this action.");
     let values = Joi.attempt(args, StructureMaterialUpdateSchema);
-    if(!checkPermission(user.role, "structure_material_update")) {
+    if(!checkPermission(auth.user.role, "structure_material_update")) {
       throw new Error("You don't have sufficient permissions to edit structure materials.");
     }
     return new Promise(function(resolve, reject) {

@@ -37,6 +37,22 @@ class StructureTemplate {
     });
   }
 
+  static getAnyByType(structure_type_id) {
+    return new Promise(function(resolve, reject) {
+      db
+        .any(`SELECT * FROM structure_templates WHERE type_id=$1`, [ structure_type_id ])
+        .then(res => {
+          let structure_templates = [];
+          res.forEach(structure_data => {
+            let structure = new StructureTemplate(structure_data);
+            structure_templates.push(structure);
+          });
+          resolve(structure_templates);
+        })
+        .catch(err => reject(err));
+    });
+  }
+
   static getOne(id) {
     return new Promise(function(resolve, reject) {
       db

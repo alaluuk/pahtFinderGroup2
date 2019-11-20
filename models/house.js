@@ -217,7 +217,7 @@ class House {
   static addressToLatLng() {
     // TODO
     return new Promise((resolve, reject) => {
-      // request('https://api.mapbox.com/geocoding/v5/mapbox.places/Los%20Angeles.json?access_token='+process.env.MAPBOX_API_TOKEN, { json: true }, (err, res, body) => {
+      // request('https://api.mapbox.com/geocoding/v5/mapbox.places/Los%20Angeles.json?types=place&limit=1&access_token='+process.env.MAPBOX_API_TOKEN, { json: true }, (err, res, body) => {
       //   if(err) { return console.log(err); }
       //   console.log(body);
       // });

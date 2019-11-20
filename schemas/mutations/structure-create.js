@@ -19,9 +19,9 @@ const StructureCreateMutation = {
     uValue: { type: GraphQLFloat },
     materialId: { type: GraphQLID }
   },
-  resolve(_, args, { user }) {
-    if(!user) throw new Error("You must be logged in to perform this action.");
-    if(!checkPermission(user.role, "structure_create")) {
+  resolve(_, args, { auth }) {
+    if(!auth.user) throw new Error("You must be logged in to perform this action.");
+    if(!checkPermission(auth.user.role, "structure_create")) {
       throw new Error("You don't have sufficient permissions to create structures.");
     }
     let values = Joi.attempt(args, StructureCreateSchema);

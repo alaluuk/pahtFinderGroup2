@@ -33,7 +33,8 @@ app.use(
     secret: process.env.JWT_SECRET,
     audience: process.env.JWT_AUDIENCE,
     issuer: process.env.JWT_ISSUER,
-    credentialsRequired: false
+    credentialsRequired: false,
+    requestProperty: 'auth'
   }),
   expressGraphQl({
     schema: schema,

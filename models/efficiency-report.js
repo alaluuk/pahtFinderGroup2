@@ -5,7 +5,16 @@ class EfficiencyReport {
   // IDEA: Add a caching mechanism for the generated reports
 
   constructor(structure_template) {
+    // TODO: Add option to specify report type (short/in-depth) so house reports are more performant
     this.structure_template = structure_template;
+  }
+
+  static fromUValue(uValue, type, db_table = 'structure_templates') {
+    // TODO
+  }
+  
+  static fromStructureTemplate(structure_template) {
+    // TODO
   }
 
   async generate() {

@@ -1,7 +1,7 @@
 import React from "react";
 import UserDeleteModal from "../../modals/user-delete";
 import { rolesFormatter } from "../../providers/auth";
-import { Card, Tag, H5, Button, Elevation, Popover, Position, Menu, Intent, Icon } from "@blueprintjs/core";
+import { Card, Tag, H5, Button, Elevation, Popover, Position, Menu, Intent, Icon, Classes } from "@blueprintjs/core";
 import "./styles.scss";
 
 class UserCardComponent extends React.Component {
@@ -20,8 +20,8 @@ class UserCardComponent extends React.Component {
           <Icon icon="person" iconSize={32} />
         </div>
         <div className="UserCardInfoWrapper">
-          <H5>{this.props.user.name}</H5>
-          <Tag className={"role-tag-"+this.props.user.role} minimal={true}>{rolesFormatter(this.props.user.role)}</Tag>
+          <H5 className={Classes.TEXT_OVERFLOW_ELLIPSIS}>{this.props.user.name}</H5>
+          <Tag className={"role-tag-"+this.props.user.role+" "+Classes.TEXT_OVERFLOW_ELLIPSIS} minimal={true}>{rolesFormatter(this.props.user.role)}</Tag>
         </div>
         <div className="UserCardActionWrapper">
           <Popover content={

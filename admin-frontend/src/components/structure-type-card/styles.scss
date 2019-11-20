@@ -1,0 +1,21 @@
+.StructureTypeCard {
+    padding: 0 !important;
+    margin-bottom: 1rem;
+}
+
+.StructureTypeCardHeader {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    border-radius: 3px 3px 0 0;
+    box-shadow: 0 1px 0 rgba(16, 22, 26, 0.15);
+    background: #ffffff;
+    min-height: 40px;
+    padding-right: 5px;
+    padding-left: 20px;
+}
+
+.StructureTypeCardHeader > h5 {
+    margin: 0 1rem 0 0;
+    flex: 1 1 auto;
+}

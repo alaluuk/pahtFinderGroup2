@@ -1,4 +1,6 @@
 .FilterableSubheaderComponent {
+  position: fixed !important;
+  top: 50px;
   z-index: 9 !important;
   background-color: #f7f9f9 !important;
 }
@@ -17,6 +19,6 @@
 }
 
 .FilterableSubheaderComponent + .content-wrapper {
-  padding-top: 1.5rem;
+  padding-top: calc(100px + 1.5rem);
   padding-bottom: 1.5rem;
 }

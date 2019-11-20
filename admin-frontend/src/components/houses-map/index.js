@@ -30,47 +30,42 @@ class HousesMapComponent extends React.Component {
   }
 
   render() {
-    let markers = [];
-    this.state.markers.forEach(marker => {
-      markers.push(
-        <Marker latitude={marker.lat} longitude={marker.lng} key={marker.lat+marker.lng}>
-          <Popover content={
-            <Menu>
-              <li>
-                <div className="MapHouseMarkerInfo">
-                  <H5>Demo-House 1</H5>
-                  <Text className="bp3-text-muted" ellipsize={true}>Owner: Demo User</Text>
-                </div>
-              </li>
-              <Menu.Divider />
-              <Menu.Item
-                icon="document-open"
-                text="Show House"
-              />
-            </Menu>
-          } position={Position.TOP_CENTER}>
-            <Button icon="home" className="MapHouseMarker" />
-          </Popover>
-        </Marker>
-      );
-    });
-
     return (
       <Card className="HousesMapCard" elevation={Elevation.ONE}>
         <ReactMapGL
           ref={this.mapElem}
+          {...this.state.mapViewport}
           mapOptions={{
             style: (true) ? "mapbox://styles/mapbox/streets-v11" : "mapbox://styles/mapbox/dark-v10" // TODO: Toggle map style by dark mode
           }}
           mapboxApiAccessToken={this.mapboxToken}
-          {...this.state.mapViewport}
           onLoad={() => this.setState({ mapLoading: false })}
           onViewportChange={(viewport) => this.setState({ mapViewport: viewport })}
         >
           <div style={{position: 'absolute', top: '1rem', right: '1rem'}}>
             <NavigationControl />
           </div>
-          {markers}
+          {this.state.markers.map((marker) => (
+            <Marker latitude={marker.lat} longitude={marker.lng} key={marker.lat+marker.lng}>
+              <Popover content={
+                <Menu>
+                  <li>
+                    <div className="MapHouseMarkerInfo">
+                      <H5>Demo-House 1</H5>
+                      <Text className="bp3-text-muted" ellipsize={true}>Owner: Demo User</Text>
+                    </div>
+                  </li>
+                  <Menu.Divider />
+                  <Menu.Item
+                    icon="document-open"
+                    text="Show House"
+                  />
+                </Menu>
+              } position={Position.TOP_CENTER}>
+                <Button icon="home" className="MapHouseMarker" />
+              </Popover>
+            </Marker>
+          ))}
         </ReactMapGL>
       </Card>
     );

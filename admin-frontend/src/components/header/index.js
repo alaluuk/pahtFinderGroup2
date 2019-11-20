@@ -1,6 +1,6 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
-import { Button, Intent, Navbar, Alignment, Popover, Menu, Position, Tag, H5, Text } from "@blueprintjs/core";
+import { Button, Intent, Navbar, Alignment, Popover, Menu, Position, Tag, H5, Text, Classes } from "@blueprintjs/core";
 import { performLogout, rolesFormatter } from "../../providers/auth";
 import { AppToaster, setAppNightmode } from "../../App";
 import brandLogo from "../../assets/brand-logo.svg";
@@ -41,7 +41,7 @@ class HeaderComponent extends React.Component {
                 <Menu>
                   <li>
                     <div className="HeaderComponentUser">
-                      <H5>{this.props.user.name}</H5>
+                      <H5 className={Classes.TEXT_OVERFLOW_ELLIPSIS}>{this.props.user.name}</H5>
                       <Text className="bp3-text-muted" ellipsize={true}>{this.props.user.email}</Text>
                       <Tag className={"role-tag-"+this.props.user.role} minimal={true}>{rolesFormatter(this.props.user.role)}</Tag>
                     </div>

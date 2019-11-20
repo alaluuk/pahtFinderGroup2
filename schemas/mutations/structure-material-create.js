@@ -15,9 +15,9 @@ const StructureMaterialCreateMutation = {
     name: { type: new GraphQLNonNull(GraphQLString) },
     uValue: { type: new GraphQLNonNull(GraphQLFloat) }
   },
-  resolve(_, args, { user }) {
-    if(!user) throw new Error("You must be logged in to perform this action.");
-    if(!checkPermission(user.role, "structure_material_create")) {
+  resolve(_, args, { auth }) {
+    if(!auth.user) throw new Error("You must be logged in to perform this action.");
+    if(!checkPermission(auth.user.role, "structure_material_create")) {
       throw new Error("You don't have sufficient permissions to create structure materials.");
     }
     let values = Joi.attempt(args, StructureMaterialCreateSchema);

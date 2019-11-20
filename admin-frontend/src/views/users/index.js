@@ -73,16 +73,12 @@ class UsersView extends React.Component {
         />
       );
     } else {
-      let rows = [];
-      this.state.users.forEach(user => {
-        rows.push(
-          <UserCardComponent
-            user={user}
-            key={user.id}
-          ></UserCardComponent>
-        );
-      });
-      view = <div className="UsersViewGrid">{rows}</div>;
+      view = <div className="UsersViewGrid">{this.state.users.map(user =>
+        <UserCardComponent
+          user={user}
+          key={user.id}
+        ></UserCardComponent>
+      )}</div>;
     }
 
     return (

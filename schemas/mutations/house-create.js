@@ -29,13 +29,13 @@ const HouseCreateMutation = {
     costOfHeating: { type: GraphQLFloat },
     warmWaterPipe: { type: GraphQLBoolean }
   },
-  resolve(_, args, { user }) {
-    if(!user) throw new Error("You must be logged in to perform this action.");
-    if(!checkPermission(user.role, "house_create")) {
+  resolve(_, args, { auth }) {
+    if(!auth.user) throw new Error("You must be logged in to perform this action.");
+    if(!checkPermission(auth.auth.user.role, "house_create")) {
       throw new Error("You don't have sufficient permissions to create houses.");
     }
     let values = Joi.attempt(args, HouseCreateSchema);
-    if(user.id != values.ownerId && !checkPermission(user.role, "house_create_owner_others")) {
+    if(auth.user.id != values.ownerId && !checkPermission(auth.auth.user.role, "house_create_owner_others")) {
       throw new Error("You don't have sufficient permissions to create houses owned by others.");
     }
     return House.create(

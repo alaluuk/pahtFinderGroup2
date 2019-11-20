@@ -101,7 +101,7 @@ export const fetchUser = (disableCache = false) => {
         }
       }
     `, {
-      id: session.id // TODO: Rename to user id
+      id: session.user.id
     })
       .then(data => {
         cachedUser = data.users[0];
@@ -109,6 +109,7 @@ export const fetchUser = (disableCache = false) => {
         resolve(cachedUser);
       })
       .catch(err => {
+        performLogout();
         reject(err);
       });
   });

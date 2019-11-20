@@ -12,10 +12,10 @@ const StructureMaterialDeleteMutation = {
   args: {
     id: { type: new GraphQLNonNull(GraphQLID) },
   },
-  resolve(_, args, { user }) {
-    if(!user) throw new Error("You must be logged in to perform this action.");
+  resolve(_, args, { auth }) {
+    if(!auth.user) throw new Error("You must be logged in to perform this action.");
     let values = Joi.attempt(args, StructureMaterialDeleteSchema);
-    if(!checkPermission(user.role, "structure_material_delete")) {
+    if(!checkPermission(auth.user.role, "structure_material_delete")) {
       throw new Error("You don't have sufficient permissions to delete structure materials.");
     }
     return StructureMaterial.delete(values.id);

@@ -1,5 +1,9 @@
+.HeaderComponent {
+  position: fixed !important;
+}
+
 .HeaderComponent + .content-wrapper {
-  padding-top: 1.5rem;
+  padding-top: calc(50px + 1.5rem);
   padding-bottom: 1.5rem;
 }
 

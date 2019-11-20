@@ -17,12 +17,12 @@ const CustomerLoginMutation = {
     password: { type: new GraphQLNonNull(GraphQLString) },
     longLived: { type: GraphQLBoolean }
   },
-  resolve(_, args, { user }) {
+  resolve(_, args, { auth }) {
     let values = Joi.attempt(args, CustomerLoginSchema);
     return new Promise(function(resolve, reject) {
       User.getOneByEmail(values.email)
       .then(user => {
-        if(!user.checkPassword(values.password)) {
+        if(!auth.user.checkPassword(values.password)) {
           reject(new Error("Invalid email address and/or password. Please try again."));
         }
         resolve({
