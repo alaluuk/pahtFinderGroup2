@@ -3,8 +3,8 @@ import Card from './cardBuilding'
 import Chart from '../Overview/chart'
 import { Link } from 'react-router-dom'
 import Button from '@material-ui/core/Button';
+import '../../styles/overview.scss';
 import Map from '../Maps/mapOverview';
-import '../../styles/overview.css';
 
 class Body extends Component {
     state = {  }
