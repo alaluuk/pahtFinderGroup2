@@ -2,20 +2,38 @@ import React, { Component } from "react";
 import TextField from "@material-ui/core/TextField";
 import ImageUploader from "./imageUploader";
 import Selector from "./selector_BuildingType";
-import Card from "../card";
+import ConstructionCard from "../cardConstruction";
 import Slider from "@material-ui/core/Slider";
+import Map from "../Maps/mapAddBuilding";
 import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import AddConstruction from "./addConstruction";
 import "../../styles/addBuilding.css";
-import "../../styles/addConstruction.css";
-
-
 
 class AddBuilding extends Component {
-  state = {};
+  state = {
+
+    roofEE: 1,
+    outerWallEE : 20,
+    doorsEE: 50,
+    windowsEE: 100,
+    groundFloorEE: 70,
+    roof: "Roof Construction",
+    wall: "Outer Wall",
+    door: "Door",
+    window: "Window",
+    groundFloor: "Ground Floor"
+
+  };
+
+
+  constructor(props){
+    super(props)
+    
+  }
 
   render() {
+
     return (
       <div className="bodyAdd">
         <div className="overlay">
@@ -75,130 +93,191 @@ class AddBuilding extends Component {
                 </div>
                 <div className="right">
                   <Selector></Selector>
-                  <img
-                    className="googleMaps"
-                    src="https://lh3.googleusercontent.com/gRixG4OCS4S7Fb0Ztm8UQVkIaj3z5gKECXOiR2D2ldvS6oZEVfmNuii4tvh-_DjI_qNRJOGO=w640-h400-e365"
-                  ></img>
+                  <Map></Map>
                 </div>
               </div>
             </div>
             <div className="allStructures">
               <div className="addStructureComp">
                 <div className="addStructureHead">
-                  <h2 className="addBuildText"> Roof Construction</h2>
-                <AddConstruction type = {"Roof Construction"}></AddConstruction>
+                  <h2 className="addBuildText"> {this.state.roof}</h2>
+                <AddConstruction type = {this.state.roof}></AddConstruction>
                 
                 </div>
 
                 <div className="mainSlider">
                   <Slider
-                    defaultValue={80}
+                    defaultValue={this.state.roofEE}
                     aria-labelledby="discrete-slider-always"
                     valueLabelDisplay="on"
                     disabled={true}
                   />
                 </div>
                 <div className="scrollBar">
-                  <Card className="card"></Card>
-                  <Card className="card"></Card>
-                  <Card className="card"></Card>
-                  <Card className="card"></Card>
-                  <Card className="card"></Card>
-                  <Card className="card"></Card>
+    
+                  <ConstructionCard 
+                title = "Roof Y6798 Vollholz"
+                amount = "1"
+                type = {this.state.roof}
+                manufacture = "Roof GmbH"
+                serial_number = "1"
+                u_value = "1.2"
+                area ="2"
+                production_year ="1984"
+                price = "" 
+                ></ConstructionCard>
+                <ConstructionCard 
+                title = "Roof Y6798 Vollholz"
+                amount = "1"
+                type = "Door"
+                manufacture = "Roof GmbH"
+                serial_number = "1"
+                u_value = "1.2"
+                area ="2"
+                production_year ="1984"
+                price = "" 
+                ></ConstructionCard>
+                 <ConstructionCard 
+                title = "Roof Y6798 Vollholz"
+                amount = "1"
+                type = "Door"
+                manufacture = "Roof GmbH"
+                serial_number = "1"
+                u_value = "1.2"
+                area ="2"
+                production_year ="1984"
+                price = "300" 
+                ></ConstructionCard>
+                 <ConstructionCard 
+                title = "Roof Y6798 Vollholz"
+                amount = "1"
+                type = "Door"
+                manufacture = "Roof GmbH"
+                serial_number = "1"
+                u_value = "1.2"
+                area ="2"
+                production_year ="1984"
+                price = "" 
+                ></ConstructionCard>
+                 <ConstructionCard 
+                title = "Roof Y6798 Vollholz"
+                amount = "1"
+                type = "Door"
+                manufacture = "Roof GmbH"
+                serial_number = "1"
+                u_value = "1.2"
+                area ="2"
+                production_year ="1984"
+                price = "" 
+                ></ConstructionCard>
+                 <ConstructionCard 
+                title = "Roof Y6798 Vollholz"
+                amount = "1"
+                type = "Door"
+                manufacture = "Roof GmbH"
+                serial_number = "1"
+                u_value = "1.2"
+                area ="2"
+                production_year ="1984"
+                price = "" 
+                ></ConstructionCard>
+                 <ConstructionCard 
+                title = "Roof Y6798 Vollholz"
+                amount = "1"
+                type = "Door"
+                manufacture = "Roof GmbH"
+                serial_number = "1"
+                u_value = "1.2"
+                area ="2"
+                production_year ="1984"
+                price = "" 
+                ></ConstructionCard>
+                  
                 </div>
               </div>
 
               <div className="addStructureComp">
                 <div className="addStructureHead">
-                  <h2 className="addBuildText"> Outer Wall</h2>
-                  <AddConstruction type = {"Outer Wall"}></AddConstruction>
+                  <h2 className="addBuildText"> {this.state.wall}</h2>
+                  <AddConstruction type = {this.state.wall}></AddConstruction>
                 </div>
 
                 <div className="mainSlider">
                   <Slider
-                    defaultValue={80}
+                    defaultValue={this.state.outerWallEE}
                     aria-labelledby="discrete-slider-always"
                     valueLabelDisplay="on"
                     disabled={true}
                   />
                 </div>
                 <div className="scrollBar">
-                  <Card className="card"></Card>
-                  <Card className="card"></Card>
-                  <Card className="card"></Card>
-                  <Card className="card"></Card>
-                  <Card className="card"></Card>
-                  <Card className="card"></Card>
+                <ConstructionCard 
+                title = "Roof Y6798 Vollholz"
+                amount = "1"
+                type = {this.state.roof}
+                manufacture = "Roof GmbH"
+                serial_number = "1"
+                u_value = "1.2"
+                area ="2"
+                production_year ="1984"
+                price = "" 
+                ></ConstructionCard>
                 </div>
               </div>
 
               <div className="addStructureComp">
                 <div className="addStructureHead">
-                  <h2 className="addBuildText"> Doors</h2>
-                  <AddConstruction type = {"Door"}></AddConstruction>
+                  <h2 className="addBuildText"> {this.state.door}s</h2>
+                  <AddConstruction type = {this.state.door}></AddConstruction>
                 </div>
 
                 <div className="mainSlider">
                   <Slider
-                    defaultValue={80}
+                    defaultValue={this.state.doorsEE}
                     aria-labelledby="discrete-slider-always"
                     valueLabelDisplay="on"
                     disabled={true}
                   />
                 </div>
                 <div className="scrollBar">
-                  <Card className="card"></Card>
-                  <Card className="card"></Card>
-                  <Card className="card"></Card>
-                  <Card className="card"></Card>
-                  <Card className="card"></Card>
-                  <Card className="card"></Card>
+                  
+                  
                 </div>
               </div>
               <div className="addStructureComp">
                 <div className="addStructureHead">
-                  <h2 className="addBuildText"> Windows</h2>
-                  <AddConstruction type = {"Window"}></AddConstruction>
+                  <h2 className="addBuildText"> {this.state.window}s</h2>
+                  <AddConstruction type = {this.state.window}></AddConstruction>
                 </div>
 
                 <div className="mainSlider">
                   <Slider
-                    defaultValue={80}
+                    defaultValue={this.state.windowsEE}
                     aria-labelledby="discrete-slider-always"
                     valueLabelDisplay="on"
                     disabled={true}
                   />
                 </div>
                 <div className="scrollBar">
-                  <Card className="card"></Card>
-                  <Card className="card"></Card>
-                  <Card className="card"></Card>
-                  <Card className="card"></Card>
-                  <Card className="card"></Card>
-                  <Card className="card"></Card>
+                 
                 </div>
               </div>
               <div className="addStructureComp">
                 <div className="addStructureHead">
-                  <h2 className="addBuildText"> Ground Floor</h2>
-                  <AddConstruction type = {"Ground Floor"}></AddConstruction>
+                  <h2 className="addBuildText"> {this.state.groundFloor}</h2>
+                  <AddConstruction type = {this.state.groundFloor}></AddConstruction>
                 </div>
 
                 <div className="mainSlider">
                   <Slider
-                    defaultValue={80}
+                    defaultValue={this.state.groundFloorEE}
                     aria-labelledby="discrete-slider-always"
                     valueLabelDisplay="on"
                     disabled={true}
                   />
                 </div>
                 <div className="scrollBar">
-                  <Card className="card"></Card>
-                  <Card className="card"></Card>
-                  <Card className="card"></Card>
-                  <Card className="card"></Card>
-                  <Card className="card"></Card>
-                  <Card className="card"></Card>
+                  
                 </div>
               </div>
 

@@ -1,0 +1,140 @@
+.building {
+  padding-top: 20px;
+  margin-left: 60px;
+  margin-right: 60px;
+  margin-bottom: 60px;
+}
+
+.buildingHeader {
+  display: flex;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.buildin
+
+.buildingSlider {
+  margin-left: 40px;
+}
+
+.MuiSlider-root.MuiSlider-colorPrimary.material-Slider.Mui-disabled {
+  margin-left: 40px;
+  width: 400px;
+  background: linear-gradient(to right, red, orange, yellow, green);
+  border-radius: 10px;
+}
+#root
+  > div
+  > div
+  > div.bodyOverview
+  > div
+  > div
+  > div.buildingHeader
+  > div
+  > span
+  > span.MuiSlider-rail {
+  background: linear-gradient(to right, red, orange, yellow, green);
+}
+#root
+  > div
+  > div
+  > div.bodyOverview
+  > div
+  > div
+  > div.buildingHeader
+  > div
+  > span
+  > span.MuiSlider-track {
+  opacity: 0%;
+}
+#root
+  > div
+  > div
+  > div.bodyOverview
+  > div
+  > div
+  > div.buildingHeader
+  > div
+  > span
+  > span.MuiSlider-thumb.MuiSlider-thumbColorPrimary.Mui-disabled {
+  background-color: lightgrey;
+  height: 20px;
+  width: 20px;
+}
+
+#root
+  > div
+  > div
+  > div.bodyOverview
+  > div
+  > div
+  > div.buildingHeader
+  > div
+  > span
+  > span.MuiSlider-thumb
+  > span
+  > span {
+  background-color: dimgray;
+}
+
+.buildingsContent {
+  margin-left: 30px;
+}
+
+.buildingInfo {
+  display: flex;
+  margin-bottom: 60px;
+}
+
+.buildInfoLeft {
+  margin-right: 60px;
+}
+
+.buildInfoCenter {
+  margin-top: -10px;
+}
+
+.MuiFormControl-root.MuiTextField-root.buildingSingleInfo.MuiFormControl-marginNormal {
+  width: 400px;
+  margin-right: 60px;
+  margin-bottom: 40px;
+  padding-top: 10px;
+}
+
+.buildingPicture,
+.buildingMap {
+  border-radius: 10px;
+}
+
+.buildingPicture {
+  width: 500px; 
+  height: 300px;
+}
+
+.buildingMap {
+  width: 400px;
+  height: 300px;
+}
+
+.MuiButtonBase-root.MuiButton-root.MuiButton-outlined.buildingEdit {
+  margin-left: 20px;
+}
+
+.buildingRecommendations {
+  border: 1px solid lightgray;
+  border-radius: 20px;
+  width: 95%;
+  height: 100%;
+ 
+  padding: 40px;
+}
+
+
+.recommendationColumn{
+    width: 600px;
+    text-align: left;
+    border-right: 1px dotted gray;
+    border-left: 1px dotted gray;
+    padding-left: 20px;
+
+}
