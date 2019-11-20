@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom';
 import Overview from '../pages/overview';
 import { Link } from 'react-router-dom'
-import '../styles/header.css'
+import '../styles/header.scss'
 import { FaRegUser } from "react-icons/fa"
 
 

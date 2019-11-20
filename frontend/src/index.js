@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import './index.scss';
 import CustomRouter from './components/customRouter';
 import * as serviceWorker from './serviceWorker';
 import ApolloClient, { InMemoryCache } from 'apollo-boost';

@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/overview.css';
+import '../styles/overview.scss';
 import Card from '../components/card';
 import Header from '../components/header';
 import Body from '../components/Overview/body';

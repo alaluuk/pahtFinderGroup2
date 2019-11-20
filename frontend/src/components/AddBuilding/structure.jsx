@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Card from '../card';
 import Slider from '@material-ui/core/Slider';
-import '../../styles/structure.css'
+import '../../styles/structure.scss'
 
 
 

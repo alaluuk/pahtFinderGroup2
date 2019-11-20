@@ -6,7 +6,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
-import '../styles/card.css'
+import '../styles/card.scss'
 
 
 export default function MediaCard() {

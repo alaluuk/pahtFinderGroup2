@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../../styles/overview.css';
+import '../../styles/overview.scss';
 
 class Chart extends Component {
     state = {  }

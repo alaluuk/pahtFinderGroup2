@@ -3,7 +3,7 @@ import TextField from '@material-ui/core/TextField';
 import ImageUploader from './imageUploader';
 import Selector from './simpleSelector';
 import Structure from './structure';
-import '../../styles/addBuilding.css';
+import '../../styles/addBuilding.scss';
 
 class AddBuilding extends Component {
     state = {  }  

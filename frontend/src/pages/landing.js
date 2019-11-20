@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/landing.css';
+import '../styles/landing.scss';
 import Header from '../components/header';
 import Body from '../components/LandingPage/body';
 import Footer from '../components/footer';

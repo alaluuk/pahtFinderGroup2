@@ -4,7 +4,7 @@ import Chart from '../Overview/chart'
 import { Link } from 'react-router-dom'
 import { FiPlusSquare } from "react-icons/fi"
 import Button from '@material-ui/core/Button';
-import '../../styles/overview.css';
+import '../../styles/overview.scss';
 
 class Body extends Component {
     state = {  }
