@@ -1,14 +1,16 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import '../../styles/header.css';
+import '../../styles/header.scss';
 import { FaRegUser } from "react-icons/fa"
 import UserMenu from './userMenu';
+import { AUTH_TOKEN } from '../../constants'
 
 
 class Header extends Component {
     state = {  }
 
-    render() { 
+    render() {
+        const authToken = localStorage.getItem(AUTH_TOKEN) 
         return ( 
 
         <div className = "header">
@@ -21,13 +23,20 @@ class Header extends Component {
                 <Link to="/wishlist" className = "menuItem">Wishlist</Link>
             </div>
 
-            <div className = "loginArea"> 
-            <h3 className = "loginText">Sign In</h3>
-            <UserMenu></UserMenu>
-
-            
-
-            </div>
+            {authToken ? (
+                    <div className="loginArea">
+                        <Link to="/" className="menuItem" onClick={() => {
+                            localStorage.removeItem(AUTH_TOKEN)
+                        }}>
+                        Sign Out
+                        </Link>
+                        <UserMenu></UserMenu>
+                    </div>
+                ) : (
+                    <div className="loginArea">
+                        <Link to="/signin" className="menuItem">Sign In</Link>
+                    </div>
+                    )}
             
             
             
