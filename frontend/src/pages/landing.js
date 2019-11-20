@@ -1,6 +1,6 @@
 import React from 'react';
 import '../styles/landing.css';
-import Header from '../components/header';
+import Header from '../components/Header/header';
 import Body from '../components/LandingPage/body';
 import Footer from '../components/footer';
 import ApolloClient from 'apollo-boost';

@@ -1,28 +1,15 @@
 import React, { Component } from 'react'
-import ReactDOM from 'react-dom';
-import Overview from '../pages/overview';
 import { Link } from 'react-router-dom'
-import '../styles/header.css'
+import '../../styles/header.css';
 import { FaRegUser } from "react-icons/fa"
+import UserMenu from './userMenu';
 
 
 class Header extends Component {
     state = {  }
 
-    loadOverview = () => {
-       ReactDOM.render(Overview, document.getElementById('root'));
-      }
-
-    loadMarketplace = () => {
-    console.log('this is:', this);
-    }
-
-    loadShop = () => {
-        console.log('this is:', this);
-        }
-
     render() { 
-        return (
+        return ( 
 
         <div className = "header">
 
@@ -36,10 +23,11 @@ class Header extends Component {
 
             <div className = "loginArea"> 
             <h3 className = "loginText">Sign In</h3>
-            <h3 className ="loginLogo"><FaRegUser/></h3>
-            </div>
+            <UserMenu></UserMenu>
 
             
+
+            </div>
             
             
             
