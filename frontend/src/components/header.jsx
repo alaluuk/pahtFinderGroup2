@@ -4,6 +4,8 @@ import Overview from '../pages/overview';
 import { Link } from 'react-router-dom'
 import '../styles/header.scss'
 import { FaRegUser } from "react-icons/fa"
+import { AUTH_TOKEN } from '../constants'
+
 
 
 class Header extends Component {
@@ -22,6 +24,7 @@ class Header extends Component {
     }
 
     render() {
+        const authToken = localStorage.getItem(AUTH_TOKEN)
         return (
 
             <div className="header">
@@ -34,16 +37,21 @@ class Header extends Component {
                     <Link to="/wishlist" className="menuItem">Wishlist</Link>
                 </div>
 
-                <div className="loginArea">
-                    <Link to="/signin" className="menuItem">Sign In</Link>
-                    <h3 className="loginLogo"><FaRegUser /></h3>
-                </div>
-
-
+                {authToken ? (
+                    <div className="loginArea">
+                        <Link to="/" className="menuItem" onClick={() => {
+                            localStorage.removeItem(AUTH_TOKEN)
+                        }}>
+                        Sign Out
+                        </Link>
+                        <h3 className="loginLogo"><FaRegUser /></h3>
+                    </div>
+                ) : (
+                    <div className="loginArea">
+                        <Link to="/signin" className="menuItem">Sign In</Link>
+                    </div>
+                    )}
             </div>
-
-
-
         );
     }
 }

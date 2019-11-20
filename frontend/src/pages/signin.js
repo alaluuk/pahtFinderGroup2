@@ -12,6 +12,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { useApolloClient, useMutation } from '@apollo/react-hooks';
 import { AUTH_TOKEN } from '../constants'
 import { Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
@@ -65,6 +66,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function SignIn(props) {
   const classes = useStyles();
+  const client = useApolloClient();
   //State in hook
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
@@ -73,6 +75,7 @@ export default function SignIn(props) {
   const signInClicked = (data) => {
     const { token } = data.login
     localStorage.setItem(AUTH_TOKEN, token)
+    client.writeData({ data: { isLoggedIn: true } });
     props.history.push(`/overview`)
   };
 
