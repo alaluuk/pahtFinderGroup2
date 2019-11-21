@@ -22,7 +22,7 @@ const CustomerLoginMutation = {
     return new Promise(function(resolve, reject) {
       User.getOneByEmail(values.email)
       .then(user => {
-        if(!auth.user.checkPassword(values.password)) {
+        if(!user.checkPassword(values.password)) {
           reject(new Error("Invalid email address and/or password. Please try again."));
         }
         resolve({

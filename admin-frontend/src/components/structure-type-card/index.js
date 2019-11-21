@@ -9,7 +9,8 @@ class StructureTypeCard extends React.Component {
 
     this.state = {
       structureType: this.props.structureType,
-      isCollapsed: false
+      isCollapsed: false,
+      templateCount: null
     };
   }
 
@@ -17,7 +18,10 @@ class StructureTypeCard extends React.Component {
     return (
       <Card className="StructureTypeCard" elevation={Elevation.ONE}>
         <div className="StructureTypeCardHeader">
-          <H5 className={Classes.TEXT_OVERFLOW_ELLIPSIS}>{this.state.structureType.title}</H5>
+          <H5 className={Classes.TEXT_OVERFLOW_ELLIPSIS}>
+            {this.state.structureType.title}
+            {(this.state.templateCount !== null) ? <span className="bp3-text-muted"> ({this.state.templateCount})</span> : ''}
+          </H5>
           <Popover content={
             <Menu>
               <Menu.Item
@@ -38,7 +42,10 @@ class StructureTypeCard extends React.Component {
           </Popover>
         </div>
         <Collapse isOpen={!this.state.isCollapsed}>
-          <StructureTemplateTable structureType={this.state.structureType} />
+          <StructureTemplateTable
+            structureType={this.state.structureType}
+            onFetchedData={(data) => this.setState({ templateCount: data.structureTemplates.length, isCollapsed: (data.structureTemplates.length <= 0) })}
+          />
         </Collapse>
       </Card>
     );

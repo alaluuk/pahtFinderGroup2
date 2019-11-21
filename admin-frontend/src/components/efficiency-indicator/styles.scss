@@ -11,18 +11,30 @@
     background-color: #30404D !important;
 }
 
-.EfficiencyIndicator {
+.EfficiencyIndicatorContainer {
     display: block;
     position: relative;
     width: 100%;
     height: 100%;
+    overflow: hidden;
+}
+
+$indicator-padding: 4px;
+
+.EfficiencyIndicator {
+    display: block;
+    position: relative;
+    width: calc(100% - #{$indicator-padding * 2});
+    height: 100%;
+    margin: 0 $indicator-padding;
 }
 
 .EfficiencyIndicator::before {
     content: "";
     display: block;
-    width: 100%;
+    width: calc(100% + #{$indicator-padding * 2});
     height: 100%;
+    margin: 0 #{-$indicator-padding};
     background: linear-gradient(90deg, rgba(67,191,77,1) 0%, rgba(255,210,97,1) 50%,rgba(235,83,45,1) 100%);
     box-shadow: inset 0 0 0 1px rgba(0,0,0,0.2);
     border-radius: 3px;
