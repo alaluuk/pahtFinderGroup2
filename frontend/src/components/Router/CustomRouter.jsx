@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'; 
-import Overview from '../pages/overview';
-import Landing from '../pages/landing';
-import AddBuilding from '../pages/addBuilding';
-import Marketplace from '../pages/marketplace';
-import Wishlist from '../pages/wishlist';
-import Building from '../pages/building';
-import SignIn from '../pages/signin';
+import Overview from '../../pages/overview';
+import Landing from '../../pages/landing';
+import AddBuilding from '../../pages/addBuilding';
+import Marketplace from '../../pages/marketplace';
+import Wishlist from '../../pages/wishlist';
+import Building from '../../pages/building';
+import SignIn from '../../pages/signin';
+import PageNotFound from './pageNotFound';
 
 class CustomRouter extends Component {
   state = {}
@@ -22,7 +23,7 @@ class CustomRouter extends Component {
             <Route exact path="/wishlist" component={Wishlist} />
             <Route exact path="/signin" component={SignIn} />
             <Route exact path="/building123" component={Building} />
-            <Route path="*" component={Landing} />
+            <Route path="*" component={PageNotFound} />
         </Switch>
       </BrowserRouter>
       </div>
