@@ -2,8 +2,7 @@
     border: 1px dotted gray;
     border-radius: 10px;
     width: 400px;
-    height: 100%;
-    margin-right: 40px;
+    height: 500px;
   
 
 }
@@ -16,14 +15,15 @@
     object-fit: cover;
 }
 
-.MuiButtonBase-root.MuiButton-root.MuiButton-outlined.constructionEdit,
-.MuiButtonBase-root.MuiIconButton-root.constructionDelete{
+.MuiButtonBase-root.MuiButton-root.MuiButton-outlined.conEdit,
+.MuiButtonBase-root.MuiButton-root.MuiButton-outlined.conDelete{
 margin-top: 20px;
 }
 
 .conContent{
     display: flex;
     justify-content: space-around;
+    margin-bottom: 20px;
 } 
 
 .conTitle{
@@ -42,20 +42,7 @@ margin-top: 20px;
 }
 
 .conButtons{
-    margin-top: 30px;
+ 
     margin-left: 20px;
 }
 
-
-/* SLIDER 
-
-.MuiButtonBase-root.MuiFab-root.conEE.MuiFab-primary{
-    box-shadow: none;
-    background-color: green;
-}
-
-*/
-
-.material-Slider-ConstructionCard{
-    background: linear-gradient(to right, red, orange, yellow, green);
-}

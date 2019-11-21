@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import Button from "@material-ui/core/Button";
-import "../styles/cardConstruction.scss";
-import DeleteIcon from "@material-ui/icons/Delete";
-import EditIcon from "@material-ui/icons/Edit";
+import "../../styles/cardRecommendation.scss";
+
 
 class Card extends Component {
   state = {
@@ -19,7 +18,7 @@ class Card extends Component {
     color: "white",
     green: "darkgreen",
     orange: "orange",
-    red: "red"
+    red: "red",
   };
 
   constructor(props) {
@@ -33,6 +32,10 @@ class Card extends Component {
     this.state.production_year = this.props.production_year;
     this.state.price = this.props.price;
     this.state.EE = this.props.EE;
+    this.state.isReco = this.props.isReco;
+
+    console.log("Props: " + this.props.EE);
+    console.log("State: " + this.state.EE);
 
     if (this.state.EE <= 35) {
       this.state.color = this.state.red;
@@ -42,43 +45,49 @@ class Card extends Component {
       this.state.color = this.state.green;
       console.log("Over 70");
     }
+
   }
 
   render() {
+
     return (
-      <div className="constructionCard">
+      <div className="recommendationCard">
         <img
-          className="constructionPicture"
+          className="recommendationPicture"
           src="https://images.unsplash.com/photo-1509644851169-2acc08aa25b5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=900&q=80"
         ></img>
 
-        <div className="conButtons">
-          <Button className="conEdit" variant="outlined">
-            <EditIcon />
-          </Button>
-          <Button className="conDelete" variant="outlined">
-            <DeleteIcon />
-          </Button>
-        </div>
 
-        <div className="conContent">
-          <div className="conLeft">
-            <h3 className="conTitle"> {this.state.type} </h3>
+
+                     <div className = "recoButtons">
+                     <Button className="recoOffer" variant="outlined">
+                       Show on marketplace
+                     </Button>
+    
+                   </div>
+
+       
+
+        <div className="recoContent">
+          <div className="recoLeft">
+            <h3 className="recoTitle"> {this.state.type} </h3>
             <h4>{this.state.title}</h4>
             <h4>{this.state.manufacture}</h4>
             <h4>U-Value: {this.state.u_value}</h4>
             <h4>Size: {this.state.area} qm2</h4>
           </div>
-          <div className="conRight">
-            <div
-              className="conCircle"
+          <div className="recoRight">
+          <div
+              className="recoCircle"
               style={{ backgroundColor: this.state.color }}
             >
               {this.state.EE}%
             </div>
-            <h3 className="conTitle"> {this.state.amount}x</h3>
+            <h3 className="recoTitle"> {this.state.amount}x</h3>
             <h4> {this.state.production_year}</h4>
             <h4> {this.state.price}</h4>
+
+            
           </div>
         </div>
       </div>

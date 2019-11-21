@@ -7,13 +7,13 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
 import { Link } from 'react-router-dom'
-import '../styles/cardBuilding.scss'
+import '../../styles/cardBuilding.scss';
 
 
 class MediaCard extends Component {
   state = {  }
 
-  constructor(props){
+  constructor(props){ 
     super(props)
     this.state = {
       

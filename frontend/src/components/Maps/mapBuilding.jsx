@@ -8,9 +8,9 @@ class MapContainer extends Component {
     render() {   
         const style = {
             width: '500px',
-            height: '300px'
+            height: '300px',
           }
-        return ( <Map google={this.props.google} zoom={14}
+        return ( <Map  google={this.props.google} zoom={14}
                     style={style}>
             <Marker onClick={this.onMarkerClick}
                     name={'Current location'} />

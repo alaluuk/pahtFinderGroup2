@@ -8,7 +8,7 @@ import Map from "../Maps/mapAddBuilding";
 import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import AddConstruction from "./addConstruction";
-import "../../styles/addConstruction.css";
+import "../../styles/addConstruction.scss";
 import '../../styles/addBuilding.scss';
 
 class AddBuilding extends Component {

@@ -2,14 +2,17 @@ import React, { Component } from "react";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Slider from "@material-ui/core/Slider";
+import DoubleArrowIcon from "@material-ui/icons/DoubleArrow";
 import RecommendationRow from "./recommendationRow";
+import RecommendationCard from "./cardRecommendation";
 import ConstructionCard from "../cardConstruction";
+import DiyCard from "./cardDIY";
 import Map from "../Maps/mapBuilding";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
-import EditIcon from '@material-ui/icons/Edit';
-import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from "@material-ui/icons/Edit";
+import DeleteIcon from "@material-ui/icons/Delete";
 
-import "../../styles/building.css";
+import "../../styles/building.scss";
 
 class Body extends Component {
   state = {};
@@ -48,16 +51,16 @@ class Body extends Component {
     })(Slider);
 
     return (
-      <div className="bodyOverview">
+      <div className="bodyBuilding">
         <div className="overlay">
           <div className="building">
             <div className="buildingHeader">
               <h1>Building ABC</h1>
               <Button className="buildingEdit" variant="outlined">
-              <EditIcon />
+                <EditIcon />
               </Button>
               <Button className="buildingDelete" variant="outlined">
-              <DeleteIcon />
+                <DeleteIcon />
               </Button>
               <div className="buildingSlider">
                 <PrettoSlider
@@ -148,41 +151,179 @@ class Body extends Component {
                   </table>
                 </div>
                 <div className="buildInfoRight">
-                  <Map></Map>
+                  <div className="buildingMap">
+                    <Map></Map>
+                  </div>
                 </div>
               </div>
 
               <div className="buildingRecommendations">
-                  <table>
-                      <th className = "recommendationColumn"> <h2>Currently Installed</h2></th>
-                      <th className = "recommendationColumn"> <h2>Recommendations</h2></th>
-                      <th className = "recommendationColumn" ><h2>DIY Tips</h2></th>
-                  </table>
-                <ConstructionCard
-                title = "Roof Y6798 Vollholz"
-                amount = "1"
-                type = "Door"
-                manufacture = "Roof GmbH"
-                serial_number = "1"
-                u_value = "1.2"
-                area ="2"
-                production_year ="1984"
-                price = "" 
-                EE = "71"
-                ></ConstructionCard>
+                <div className="buildingRecoHeader">
+                  <h2 className="recoSingleHead"> Currently Installed</h2>
+                  <h2 className="recoSingleHeadReco">Recommendations</h2>
+                  <h2 className="recoSingleHead"> DIY Tips</h2>
+                </div>
+                <div className="recoContentAll">
 
 
-{/*  title: "Roof Y6798 Vollholz",
-      amount: 1,
-      type: "Door",
-      manufacture: "Roof GmbH",
-      serial_number: 1,
-      u_value: 1.2,
-      area: 2,
-      production_year: 1984,
-      price: 200 */}
+                  <div className="recoSingleRow">
+                    <div className="currentlyCard">
+                      <ConstructionCard
+                        title="Roof Y6798 Vollholz"
+                        amount="1"
+                        type="Door"
+                        manufacture="Roof GmbH"
+                        serial_number="1"
+                        u_value="1.2"
+                        area="2"
+                        production_year="1984"
+                        price=""
+                        EE="22"
+                      ></ConstructionCard>
+                    </div>
+                    <div className="recoSpace">
+                      <p className="recoImproveText">+ 20 %</p>
+                      <DoubleArrowIcon className="recoImproveIcon"></DoubleArrowIcon>
+                    </div>
+                    <div className="recoCard">
+                      <RecommendationCard
+                        title="Roof Y6798 Vollholz"
+                        amount="1"
+                        type="Door"
+                        manufacture="Roof GmbH"
+                        serial_number="1"
+                        u_value="1.2"
+                        area="2"
+                        production_year="1984"
+                        price=""
+                        EE="71"
+                        isReco="false"
+                      ></RecommendationCard>
+                    </div>
+                    <div className="diy">
+                      <DiyCard></DiyCard>{" "}
+                    </div>
+                  </div>
+
+                  <div className="recoSingleRow">
+                    <div className="currentlyCard">
+                      <ConstructionCard
+                        title="Roof Y6798 Vollholz"
+                        amount="1"
+                        type="Door"
+                        manufacture="Roof GmbH"
+                        serial_number="1"
+                        u_value="1.2"
+                        area="2"
+                        production_year="1984"
+                        price=""
+                        EE="22"
+                      ></ConstructionCard>
+                    </div>
+                    <div className="recoSpace">
+                      <p className="recoImproveText">+ 20 %</p>
+                      <DoubleArrowIcon className="recoImproveIcon"></DoubleArrowIcon>
+                    </div>
+                    <div className="recoCard">
+                      <RecommendationCard
+                        title="Roof Y6798 Vollholz"
+                        amount="1"
+                        type="Door"
+                        manufacture="Roof GmbH"
+                        serial_number="1"
+                        u_value="1.2"
+                        area="2"
+                        production_year="1984"
+                        price=""
+                        EE="71"
+                        isReco="false"
+                      ></RecommendationCard>
+                    </div>
+                    <div className="diy">
+                      <DiyCard></DiyCard>{" "}
+                    </div>
+                  </div>
+
+                  <div className="recoSingleRow">
+                    <div className="currentlyCard">
+                      <ConstructionCard
+                        title="Roof Y6798 Vollholz"
+                        amount="1"
+                        type="Door"
+                        manufacture="Roof GmbH"
+                        serial_number="1"
+                        u_value="1.2"
+                        area="2"
+                        production_year="1984"
+                        price=""
+                        EE="22"
+                      ></ConstructionCard>
+                    </div>
+                    <div className="recoSpace">
+                      <p className="recoImproveText">+ 20 %</p>
+                      <DoubleArrowIcon className="recoImproveIcon"></DoubleArrowIcon>
+                    </div>
+                    <div className="recoCard">
+                      <RecommendationCard
+                        title="Roof Y6798 Vollholz"
+                        amount="1"
+                        type="Door"
+                        manufacture="Roof GmbH"
+                        serial_number="1"
+                        u_value="1.2"
+                        area="2"
+                        production_year="1984"
+                        price=""
+                        EE="71"
+                        isReco="false"
+                      ></RecommendationCard>
+                    </div>
+                    <div className="diy">
+                      <DiyCard></DiyCard>{" "}
+                    </div>
+                  </div>
+
+                  <div className="recoSingleRow">
+                    <div className="currentlyCard">
+                      <ConstructionCard
+                        title="Roof Y6798 Vollholz"
+                        amount="1"
+                        type="Door"
+                        manufacture="Roof GmbH"
+                        serial_number="1"
+                        u_value="1.2"
+                        area="2"
+                        production_year="1984"
+                        price=""
+                        EE="22"
+                      ></ConstructionCard>
+                    </div>
+                    <div className="recoSpace">
+                      <p className="recoImproveText">+ 20 %</p>
+                      <DoubleArrowIcon className="recoImproveIcon"></DoubleArrowIcon>
+                    </div>
+                    <div className="recoCard">
+                      <RecommendationCard
+                        title="Roof Y6798 Vollholz"
+                        amount="1"
+                        type="Door"
+                        manufacture="Roof GmbH"
+                        serial_number="1"
+                        u_value="1.2"
+                        area="2"
+                        production_year="1984"
+                        price=""
+                        EE="71"
+                        isReco="false"
+                      ></RecommendationCard>
+                    </div>
+                    <div className="diy">
+                      <DiyCard></DiyCard>{" "}
+                    </div>
+                  </div>
 
 
+                </div>
               </div>
             </div>
           </div>
