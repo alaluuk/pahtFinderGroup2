@@ -5,7 +5,6 @@ import Selector from "./selector_BuildingType";
 import ConstructionCard from "../cardConstruction";
 import Slider from "@material-ui/core/Slider";
 import Map from "../Maps/mapAddBuilding";
-import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import AddConstruction from "./addConstruction";
 import "../../styles/addConstruction.scss";
@@ -27,11 +26,6 @@ class AddBuilding extends Component {
 
   };
 
-
-  constructor(props){
-    super(props)
-    
-  }
 
   render() {
 
