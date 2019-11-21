@@ -1,0 +1,48 @@
+.constructionCard{
+    border: 1px dotted gray;
+    border-radius: 10px;
+    width: 400px;
+    height: 500px;
+  
+
+}
+
+.constructionPicture{
+    width: 400px;
+    height: 200px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    object-fit: cover;
+}
+
+.MuiButtonBase-root.MuiButton-root.MuiButton-outlined.conEdit,
+.MuiButtonBase-root.MuiButton-root.MuiButton-outlined.conDelete{
+margin-top: 20px;
+}
+
+.conContent{
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+} 
+
+.conTitle{
+    margin-left: 0px;
+}
+
+.conCircle{
+    height: 25px;
+    width: 25px;
+    padding: 40px;
+    color: white;
+    border-radius: 50%;
+    display: inline-block;
+    margin-top: 20px;
+    margin-right: 20px;
+}
+
+.conButtons{
+ 
+    margin-left: 20px;
+}
+

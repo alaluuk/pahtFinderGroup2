@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -7,14 +7,20 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
 import { Link } from 'react-router-dom'
-import '../styles/card.scss'
+import '../../styles/cardBuilding.scss';
 
 
+class MediaCard extends Component {
+  state = {  }
 
-export default function MediaCard() {
-
-  return (
-    <Link to="/building123">
+  constructor(props){ 
+    super(props)
+    this.state = {
+      
+    }
+  }
+  render() { 
+    return ( <Link to="/building123">
     <Card className="card" >
       <CardActionArea>
         <CardMedia
@@ -41,7 +47,10 @@ export default function MediaCard() {
         </CardContent>
       </CardActionArea>
     </Card>
-    </Link>
-    
-  );
+    </Link> );
+  }
 }
+ 
+export default MediaCard;
+
+

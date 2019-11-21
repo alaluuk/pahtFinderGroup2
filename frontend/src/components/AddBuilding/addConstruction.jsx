@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Popup from "reactjs-popup";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import "../../styles/addConstruction.css";
+import "../../styles/addConstruction.scss";
 import Selector from "./selector_ProductionYear";
 
 

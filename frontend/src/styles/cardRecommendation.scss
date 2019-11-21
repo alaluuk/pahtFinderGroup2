@@ -1,0 +1,46 @@
+.recommendationCard{
+    border: 1px dotted gray;
+    border-radius: 10px;
+    width: 400px;
+    height: 500px;
+    margin-right: 40px;
+  
+
+}
+
+.recommendationPicture{
+    width: 400px;
+    height: 200px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    object-fit: cover;
+}
+
+.MuiButtonBase-root.MuiButton-root.MuiButton-outlined.recoOffer{
+margin-top: 20px;
+}
+
+.recoContent{
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+} 
+
+.recoTitle{
+    margin-left: 0px;
+}
+
+.recoCircle{
+    height: 25px;
+    width: 25px;
+    padding: 40px;
+    color: white;
+    border-radius: 50%;
+    display: inline-block;
+    margin-top: 20px;
+    margin-right: 20px;
+}
+
+.recoButtons{
+    margin-left: 20px;
+}

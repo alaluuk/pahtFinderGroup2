@@ -42,7 +42,7 @@
     }
 
     .generalContent{
-      display: inline-flex;
+      display: initial;
       margin-left: 40px;
       margin-top: 40px;
     }
@@ -58,26 +58,23 @@
       float: left;
     }
     
-    
-    
     .addBuildField{
       width: 50%;
+      margin-bottom: 50px;
     }
-    
+   
+
     .imageUploader{
     width: 400px;
     height: 300px;
     
     }
-    
-    .googleMaps{
-      width: 400px;
-    height: 300px;
-    
-    }
+   
 
     .allStructures{
       margin-left: 25px;
+      width: 1850px;
+
     }
 
     .MuiButtonBase-root.MuiButton-root.MuiButton-contained.saveBuildButton.MuiButton-containedPrimary{
@@ -96,7 +93,7 @@
       border: 1px solid lightgray;
       border-radius: 20px;
       padding: 40px;
-      width: 80%;
+      width: 100%;
   }
   
   .addStructureHead{
