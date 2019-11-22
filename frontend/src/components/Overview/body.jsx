@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import Card from '../card';
+import Card from './cardBuilding'
 import Chart from '../Overview/chart'
 import { Link } from 'react-router-dom'
 import Button from '@material-ui/core/Button';
 import '../../styles/overview.scss';
+import Map from '../Maps/mapOverview';
 
 class Body extends Component {
     state = {  }
@@ -31,7 +32,7 @@ class Body extends Component {
                         </div>
 
                         <div className = "bottomContent">
-                            <img className = "map" src="https://miro.medium.com/max/4064/1*qYUvh-EtES8dtgKiBRiLsA.png"></img>
+                            <Map></Map>
                             <Chart></Chart>
 
                         </div>
