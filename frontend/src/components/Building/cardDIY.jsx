@@ -1,13 +1,10 @@
-import React, { Component, FixedSizeList } from "react";
-import "../../styles/cardDIY.scss";
+import React, { Component} from "react";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import PropTypes from "prop-types";
-import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import IconButton from "@material-ui/core/IconButton";
 import FavoriteIcon from "@material-ui/icons/Favorite";
+import "../../styles/cardDIY.scss";
 
 class Card extends Component {
   state = {
@@ -20,17 +17,10 @@ class Card extends Component {
     
   };
 
-  constructor(props) {
-    super(props);
 
-  }
 
   render() {
 
-
-    function loadTips(){
-
-    }
 
     return (
       <div className = "diyCard">

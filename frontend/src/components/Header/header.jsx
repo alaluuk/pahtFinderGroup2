@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import '../../styles/header.scss';
-import { FaRegUser } from "react-icons/fa"
 import UserMenu from './userMenu';
 import { AUTH_TOKEN } from '../../constants'
 

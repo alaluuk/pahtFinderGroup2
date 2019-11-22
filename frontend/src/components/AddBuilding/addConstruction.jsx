@@ -12,13 +12,6 @@ class AddConstruction extends Component {
     }
 
     
-
-    constructor(props) {
-        super(props);
-    
-     
-        
-      }
     render() { 
 
         return (  <div>
@@ -42,6 +35,7 @@ class AddConstruction extends Component {
                           </h2>
 
                           <table className ="addConstructionTable">
+                          <tbody>
                             <tr>
                               <td>
                                 <TextField
@@ -98,6 +92,7 @@ class AddConstruction extends Component {
                               </td>
                               <td></td>
                             </tr>
+                            </tbody>
                           </table>
 
                           <Button 
@@ -105,7 +100,6 @@ class AddConstruction extends Component {
                             color="primary"
                             className="saveConstructionButton"
                             onClick={() => {
-                              console.log("modal closed ");
                               close();
                             }}
                           >

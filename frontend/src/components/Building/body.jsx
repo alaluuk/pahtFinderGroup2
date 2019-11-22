@@ -3,12 +3,11 @@ import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Slider from "@material-ui/core/Slider";
 import DoubleArrowIcon from "@material-ui/icons/DoubleArrow";
-import RecommendationRow from "./recommendationRow";
 import RecommendationCard from "./cardRecommendation";
 import ConstructionCard from "../cardConstruction";
 import DiyCard from "./cardDIY";
 import Map from "../Maps/mapBuilding";
-import { withStyles, makeStyles } from "@material-ui/core/styles";
+import { withStyles} from "@material-ui/core/styles";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 
@@ -16,10 +15,6 @@ import "../../styles/building.scss";
 
 class Body extends Component {
   state = {};
-
-  constructor(props) {
-    super(props);
-  }
 
   render() {
     const PrettoSlider = withStyles({
@@ -76,12 +71,14 @@ class Body extends Component {
               <div className="buildingInfo">
                 <div className="buildInfoLeft">
                   <img
-                    className="buildingPicture"
+                    className="buildingPicture" 
                     src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80"
+                    alt="buildingPicture"
                   ></img>
                 </div>
                 <div className="buildInfoCenter">
                   <table>
+                  <tbody>
                     <tr>
                       <td>
                         <TextField
@@ -148,6 +145,7 @@ class Body extends Component {
                         />
                       </td>
                     </tr>
+                    </tbody>
                   </table>
                 </div>
                 <div className="buildInfoRight">
