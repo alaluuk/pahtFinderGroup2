@@ -5,10 +5,6 @@ import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 class MapContainer extends Component {
     state = {  }
 
-    constructor(props){
-      super(props)
-        
-    }
 
     render() { 
 
@@ -31,7 +27,6 @@ class MapContainer extends Component {
     }
      
     export default GoogleApiWrapper({
-      apiKey: ({/*API_KEY*/})
+      apiKey: (process.env.GOOGLE_MAP_API_KEY)
     })(MapContainer)
 
-    /*"AIzaSyCtjE1Gp9fMruTlx_lBK367VySTtQDMeWU"*/

@@ -48,7 +48,7 @@ class Card extends Component {
     return (
       <div className="constructionCard">
         <img
-          className="constructionPicture"
+          className="constructionPicture" alt="constructionpicture"
           src="https://images.unsplash.com/photo-1509644851169-2acc08aa25b5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=900&q=80"
         ></img>
 
