@@ -26,10 +26,11 @@
 }
 
 .MuiSlider-root.MuiSlider-colorPrimary.material-Slider.Mui-disabled {
-  margin-left: 40px;
+  
   width: 400px;
   background: linear-gradient(to right, red, orange, yellow, green);
   border-radius: 10px;
+  box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0);
 }
 
   
@@ -89,16 +90,26 @@
 .buildingPicture {
   width: 500px; 
   height: 300px;
+  box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12);
+
 }
 
 .buildingMap {
-  width: 400px;
+  width: 500px;
   height: 300px;
   position: relative;
+  box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12);
+
 }
 
 .MuiButtonBase-root.MuiButton-root.MuiButton-outlined.buildingEdit {
-  margin-left: 20px;
+  margin-left: 30px;
+  border: none;
+  margin-right: 20px;
+}
+
+.MuiButtonBase-root.MuiButton-root.MuiButton-outlined.buildingDelete{
+  border: none;
 }
 
 .buildingRecommendations {

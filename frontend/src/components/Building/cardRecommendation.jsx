@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import Button from "@material-ui/core/Button";
+import IconButton from "@material-ui/core/IconButton";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import LocalGroceryStoreIcon from "@material-ui/icons/LocalGroceryStore";
 import "../../styles/cardRecommendation.scss";
-
 
 class Card extends Component {
   state = {
@@ -19,6 +21,10 @@ class Card extends Component {
     green: "darkgreen",
     orange: "orange",
     red: "red",
+    liked: false,
+    likeColor: "disabled",
+    likeColorDefault: "rgba(0, 0, 0, 0.54)",
+    likeColorLike: "error"
   };
 
   constructor(props) {
@@ -32,7 +38,8 @@ class Card extends Component {
     this.state.production_year = this.props.production_year;
     this.state.price = this.props.price;
     this.state.EE = this.props.EE;
-    this.state.isReco = this.props.isReco;
+    this.state.isReco = this.props.isReco;  
+
 
     console.log("Props: " + this.props.EE);
     console.log("State: " + this.state.EE);
@@ -48,26 +55,28 @@ class Card extends Component {
 
   }
 
+
   render() {
 
+   
     return (
       <div className="recommendationCard">
         <img
           className="recommendationPicture"
           src="https://images.unsplash.com/photo-1509644851169-2acc08aa25b5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=900&q=80"
-          alt = "recommendationPicture"
-       ></img>
+          alt="recommendationPicture"
+          
+        ></img>
 
-
-
-                     <div className = "recoButtons">
-                     <Button className="recoOffer" variant="outlined">
-                       Show on marketplace
-                     </Button>
-    
-                   </div>
-
-       
+        <div className="recoButtons">
+          <Button className="recoOffer" variant="outlined">
+            <LocalGroceryStoreIcon></LocalGroceryStoreIcon> &nbsp; Show on marketplace
+          </Button>
+          <Button className="recoLike" variant="outlined" onClick = {this.like}>
+            <FavoriteIcon color={this.state.likeColor}/>  &nbsp; Like
+          </Button>
+          
+        </div>
 
         <div className="recoContent">
           <div className="recoLeft">
@@ -78,7 +87,7 @@ class Card extends Component {
             <h4>Size: {this.state.area} qm2</h4>
           </div>
           <div className="recoRight">
-          <div
+            <div
               className="recoCircle"
               style={{ backgroundColor: this.state.color }}
             >
@@ -87,8 +96,6 @@ class Card extends Component {
             <h3 className="recoTitle"> {this.state.amount}x</h3>
             <h4> {this.state.production_year}</h4>
             <h4> {this.state.price}</h4>
-
-            
           </div>
         </div>
       </div>

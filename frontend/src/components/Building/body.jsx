@@ -7,9 +7,10 @@ import RecommendationCard from "./cardRecommendation";
 import ConstructionCard from "../cardConstruction";
 import DiyCard from "./cardDIY";
 import Map from "../Maps/mapBuilding";
-import { withStyles} from "@material-ui/core/styles";
+import { withStyles } from "@material-ui/core/styles";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
+import DeleteButton from "../Deletion/body";
 
 import "../../styles/building.scss";
 
@@ -50,13 +51,15 @@ class Body extends Component {
         <div className="overlay">
           <div className="building">
             <div className="buildingHeader">
-              <h1>Building ABC</h1>
+              <h1 className="buildingHeaderText">Building ABC</h1>
               <Button className="buildingEdit" variant="outlined">
-                <EditIcon />
+                <EditIcon /> &nbsp; Edit
               </Button>
-              <Button className="buildingDelete" variant="outlined">
-                <DeleteIcon />
-              </Button>
+              <DeleteButton
+                className="buildingDelete"
+                id=""
+                type="Building"
+              ></DeleteButton>
               <div className="buildingSlider">
                 <PrettoSlider
                   className="material-Slider"
@@ -71,80 +74,80 @@ class Body extends Component {
               <div className="buildingInfo">
                 <div className="buildInfoLeft">
                   <img
-                    className="buildingPicture" 
+                    className="buildingPicture"
                     src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80"
                     alt="buildingPicture"
                   ></img>
                 </div>
                 <div className="buildInfoCenter">
                   <table>
-                  <tbody>
-                    <tr>
-                      <td>
-                        <TextField
-                          disabled
-                          id="standard-disabled"
-                          label="Name Of Building"
-                          defaultValue="Building ABC"
-                          className="buildingSingleInfo"
-                          margin="normal"
-                        />
-                      </td>
-                      <td>
-                        <TextField
-                          disabled
-                          id="standard-disabled"
-                          label="Street"
-                          defaultValue="Valkyliäly 324"
-                          className="buildingSingleInfo"
-                          margin="normal"
-                        />
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <TextField
-                          disabled
-                          id="standard-disabled"
-                          label="Construction Year"
-                          defaultValue="1950"
-                          className="buildingSingleInfo"
-                          margin="normal"
-                        />
-                      </td>
-                      <td>
-                        <TextField
-                          disabled
-                          id="standard-disabled"
-                          label="City"
-                          defaultValue="Oulu"
-                          className="buildingSingleInfo"
-                          margin="normal"
-                        />
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <TextField
-                          disabled
-                          id="standard-disabled"
-                          label="Type of Building"
-                          defaultValue="Single House"
-                          className="buildingSingleInfo"
-                          margin="normal"
-                        />
-                      </td>
-                      <td>
-                        <TextField
-                          disabled
-                          id="standard-disabled"
-                          label="Country"
-                          defaultValue="Finnland"
-                          className="buildingSingleInfo"
-                          margin="normal"
-                        />
-                      </td>
-                    </tr>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <TextField
+                            disabled
+                            id="standard-disabled"
+                            label="Name Of Building"
+                            defaultValue="Building ABC"
+                            className="buildingSingleInfo"
+                            margin="normal"
+                          />
+                        </td>
+                        <td>
+                          <TextField
+                            disabled
+                            id="standard-disabled"
+                            label="Street"
+                            defaultValue="Valkyliäly 324"
+                            className="buildingSingleInfo"
+                            margin="normal"
+                          />
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <TextField
+                            disabled
+                            id="standard-disabled"
+                            label="Construction Year"
+                            defaultValue="1950"
+                            className="buildingSingleInfo"
+                            margin="normal"
+                          />
+                        </td>
+                        <td>
+                          <TextField
+                            disabled
+                            id="standard-disabled"
+                            label="City"
+                            defaultValue="Oulu"
+                            className="buildingSingleInfo"
+                            margin="normal"
+                          />
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <TextField
+                            disabled
+                            id="standard-disabled"
+                            label="Type of Building"
+                            defaultValue="Single House"
+                            className="buildingSingleInfo"
+                            margin="normal"
+                          />
+                        </td>
+                        <td>
+                          <TextField
+                            disabled
+                            id="standard-disabled"
+                            label="Country"
+                            defaultValue="Finnland"
+                            className="buildingSingleInfo"
+                            margin="normal"
+                          />
+                        </td>
+                      </tr>
                     </tbody>
                   </table>
                 </div>
@@ -162,8 +165,6 @@ class Body extends Component {
                   <h2 className="recoSingleHead"> DIY Tips</h2>
                 </div>
                 <div className="recoContentAll">
-
-
                   <div className="recoSingleRow">
                     <div className="currentlyCard">
                       <ConstructionCard
@@ -180,6 +181,13 @@ class Body extends Component {
                       ></ConstructionCard>
                     </div>
                     <div className="recoSpace">
+                      <br></br>
+                      <br></br>
+                      <br></br>
+                      <br></br>
+                      <br></br>
+                      <br></br>
+                      <br></br>
                       <p className="recoImproveText">+ 20 %</p>
                       <DoubleArrowIcon className="recoImproveIcon"></DoubleArrowIcon>
                     </div>
@@ -219,6 +227,13 @@ class Body extends Component {
                       ></ConstructionCard>
                     </div>
                     <div className="recoSpace">
+                      <br></br>
+                      <br></br>
+                      <br></br>
+                      <br></br>
+                      <br></br>
+                      <br></br>
+                      <br></br>
                       <p className="recoImproveText">+ 20 %</p>
                       <DoubleArrowIcon className="recoImproveIcon"></DoubleArrowIcon>
                     </div>
@@ -258,6 +273,13 @@ class Body extends Component {
                       ></ConstructionCard>
                     </div>
                     <div className="recoSpace">
+                      <br></br>
+                      <br></br>
+                      <br></br>
+                      <br></br>
+                      <br></br>
+                      <br></br>
+                      <br></br>
                       <p className="recoImproveText">+ 20 %</p>
                       <DoubleArrowIcon className="recoImproveIcon"></DoubleArrowIcon>
                     </div>
@@ -297,6 +319,13 @@ class Body extends Component {
                       ></ConstructionCard>
                     </div>
                     <div className="recoSpace">
+                      <br></br>
+                      <br></br>
+                      <br></br>
+                      <br></br>
+                      <br></br>
+                      <br></br>
+                      <br></br>
                       <p className="recoImproveText">+ 20 %</p>
                       <DoubleArrowIcon className="recoImproveIcon"></DoubleArrowIcon>
                     </div>
@@ -316,11 +345,9 @@ class Body extends Component {
                       ></RecommendationCard>
                     </div>
                     <div className="diy">
-                      <DiyCard></DiyCard>{" "}
+                      <DiyCard></DiyCard>
                     </div>
                   </div>
-
-
                 </div>
               </div>
             </div>
