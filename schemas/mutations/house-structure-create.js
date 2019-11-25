@@ -17,19 +17,19 @@ const HouseStructureCreateMutation = {
     structureId: { type: new GraphQLNonNull(GraphQLID) },
     uValue: { type: GraphQLFloat }
   },
-  resolve(_, args, { user }) {
-    if(!user) throw new Error("You must be logged in to perform this action.");
-    if(!checkPermission(user.role, "house_structure_create")) {
+  resolve(_, args, { auth }) {
+    if(!auth.user) throw new Error("You must be logged in to perform this action.");
+    if(!checkPermission(auth.user.role, "house_structure_create")) {
       throw new Error("You don't have sufficient permissions to create house structures.");
     }
     let values = Joi.attempt(args, HouseStructureCreateSchema);
     return new Promise(function(resolve, reject) {
       House.getOne(values.houseId)
         .then(house => {
-          if(house._owner_id == user.id && !checkPermission(user.role, "house_structure_create_owner_self")) {
+          if(house._owner_id == auth.user.id && !checkPermission(auth.user.role, "house_structure_create_owner_self")) {
             throw new Error("You don't have sufficient permissions to create structures for houses you own.");
           }
-          if(house._owner_id != user.id && !checkPermission(user.role, "house_structure_create_owner_other")) {
+          if(house._owner_id != auth.user.id && !checkPermission(auth.user.role, "house_structure_create_owner_other")) {
             throw new Error("You don't have sufficient permissions to create structures for houses you don't own.");
           }
           HouseStructure.create(values.houseId, values.structureId, values.area)

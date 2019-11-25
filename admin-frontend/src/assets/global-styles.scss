@@ -1,0 +1,71 @@
+@import "../../node_modules/@blueprintjs/core/lib/scss/variables.scss";
+
+body {
+  display: block;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.content-wrapper {
+  display: block;
+  position: relative;
+  width: 100%;
+  max-width: calc(1024px + 2rem);
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.content-wrapper.with-sidebar {
+  display: grid;
+  grid-template-columns: 1fr 250px;
+  grid-gap: 1.5rem;
+}
+
+.content-wrapper.with-sidebar main {
+  display: block;
+}
+
+.content-wrapper.with-sidebar aside {
+  display: block;
+}
+
+.App {
+  display: block;
+  min-height: 100vh;
+  color: $dark-gray1;
+  background-color: $light-gray4;
+  -webkit-transition: background-color .1s cubic-bezier(.4,1,.75,.9);
+  transition: background-color .1s cubic-bezier(.4,1,.75,.9);
+}
+
+.bp3-dark .App {
+  color: $light-gray5;
+  background-color: $dark-gray3;
+}
+
+.LoadingViewSpinner {
+  height: 100vh;
+}
+
+.role-tag-admin {
+  background-color: rgba(219, 55, 55, 0.15) !important;
+  color: #c23030 !important;
+  font-weight: 600;
+}
+.bp3-dark .role-tag-admin {
+  background-color: rgba(219,55,55,.25) !important;
+  color: #ff7373 !important;
+}
+.role-tag-customer {
+  background-color: rgba(19, 124, 189, 0.15) !important;
+  color: #106ba3 !important;
+  font-weight: 600;
+}
+.bp3-dark .role-tag-customer {
+  background-color: rgba(19,124,189,.25) !important;
+  color: #48aff0 !important;
+}
+
+.bp3-icon.bp3-icon-more { transform: rotate(90deg); }
+.bp3-non-ideal-state-visual { font-size: 20px !important; }

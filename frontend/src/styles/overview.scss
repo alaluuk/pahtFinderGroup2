@@ -28,9 +28,13 @@ h1{
     margin-bottom: 40px;
   }
 
-  .addNewPlusButton{
-      margin-left: 20px;
-      text-decoration: none;
+  .addNewPlusLink{
+    margin-left: 20px;
+    text-decoration: none;
+  }
+  .MuiButtonBase-root.MuiButton-root.MuiButton-outlined.addNewPlusButton{
+      
+      border: none;
   }
 
 

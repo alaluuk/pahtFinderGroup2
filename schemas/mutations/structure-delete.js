@@ -12,10 +12,10 @@ const StructureDeleteMutation = {
   args: {
     id: { type: new GraphQLNonNull(GraphQLID) },
   },
-  resolve(_, args, { user }) {
-    if(!user) throw new Error("You must be logged in to perform this action.");
+  resolve(_, args, { auth }) {
+    if(!auth.user) throw new Error("You must be logged in to perform this action.");
     let values = Joi.attempt(args, StructureDeleteSchema);
-    if(!checkPermission(user.role, "structure_delete")) {
+    if(!checkPermission(auth.user.role, "structure_delete")) {
       throw new Error("You don't have sufficient permissions to delete structures.");
     }
     return Structure.delete(values.id);

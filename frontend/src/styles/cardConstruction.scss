@@ -1,11 +1,11 @@
 .constructionCard{
-    border: 1px dotted gray;
     border-radius: 10px;
+    background-color: ghostwhite;
     width: 400px;
-    height: 500px;
-  
-
+    height: 550px;
+    box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12);
 }
+
 
 .constructionPicture{
     width: 400px;
@@ -17,7 +17,11 @@
 
 .MuiButtonBase-root.MuiButton-root.MuiButton-outlined.conEdit,
 .MuiButtonBase-root.MuiButton-root.MuiButton-outlined.conDelete{
-margin-top: 20px;
+border: none
+}
+
+.MuiButtonBase-root.MuiButton-root.MuiButton-outlined.conDelete{
+    margin-right: 20px;
 }
 
 .conContent{
@@ -42,7 +46,13 @@ margin-top: 20px;
 }
 
 .conButtons{
- 
     margin-left: 20px;
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid darkgrey;
+    margin-right: 20px;
 }
+
 

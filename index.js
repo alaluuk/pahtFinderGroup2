@@ -9,6 +9,8 @@ const { GraphQLSchema, printSchema } = require("graphql");
 const { RootQuery } = require("./schemas/root-query");
 const { RootMutation } = require("./schemas/root-mutation");
 
+const PORT = process.env.PORT || 5000;
+
 const schema = new GraphQLSchema({
   query: RootQuery,
   mutation: RootMutation
@@ -20,6 +22,8 @@ if(process.env.NODE_ENV !== 'production') {
   console.log("-- GraphQL Schema (End) --");
 }
 
+logger.info("Server started on port %s.", PORT, { service: 'nodejs' });
+
 var app = express();
 app.use(cors());
 app.use(express.static(path.join(__dirname, "./frontend/build")));
@@ -29,7 +33,8 @@ app.use(
     secret: process.env.JWT_SECRET,
     audience: process.env.JWT_AUDIENCE,
     issuer: process.env.JWT_ISSUER,
-    credentialsRequired: false
+    credentialsRequired: false,
+    requestProperty: 'auth'
   }),
   expressGraphQl({
     schema: schema,
@@ -39,7 +44,7 @@ app.use(
       return {
         message: err.message,
         locations: err.locations,
-        stack: err.stack ? err.stack.split('\n') : [],
+        stack: (err.stack && process.env.NODE_ENV !== 'production') ? err.stack.split('\n') : [],
         path: (process.env.NODE_ENV !== 'production') ? err.path : undefined,
       };
     }
@@ -51,5 +56,5 @@ app.use(
     res.send(JSON.stringify({ errors: [ err ] }));
   }
 );
-const PORT = process.env.PORT || 5000;
+
 app.listen(PORT, () => console.log(`Express is listening on ${ PORT }`));

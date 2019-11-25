@@ -11,17 +11,23 @@
 }
 
 .addBuildingComp{
-    border: 1px solid lightgray;
     border-radius: 50px;
     display: inline-grid;
     width: 2000px;
-   padding: 40px;
-   margin: 40px;
-    background-color: white;
+    padding-left: 60px;
+    padding-right: 60px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+
     }
 
-    .addBuildHead{
-      margin-bottom: 60px;
+    .addBuildHeader{
+      margin-bottom: 40px;
+      
+    }
+
+    .addBuildHeaderText{
+      float: left;
     }
     .addBuildHead, .addBuildText, .addConstructionText{
       float: left;
@@ -106,6 +112,11 @@
       display: flex;
       flex-wrap: nowrap;
       overflow-x: auto;
+      height: 570px;
+  }
+
+  .scrollItem{
+    margin-left: 40px;
   }
   
   

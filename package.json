@@ -31,7 +31,7 @@
     "winston": "^3.2.1"
   },
   "devDependencies": {
-    "request": "^2.81.0",
+    "request": "^2.88.0",
     "tape": "^4.7.0"
   }
 }

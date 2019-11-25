@@ -1,12 +1,12 @@
 .recommendationCard{
-    border: 1px dotted gray;
     border-radius: 10px;
+    background-color: ghostwhite;
     width: 400px;
-    height: 500px;
+    height: 550px;
     margin-right: 40px;
-  
-
+    box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12);
 }
+
 
 .recommendationPicture{
     width: 400px;
@@ -16,8 +16,24 @@
     object-fit: cover;
 }
 
-.MuiButtonBase-root.MuiButton-root.MuiButton-outlined.recoOffer{
-margin-top: 20px;
+
+.recoButtons{
+    margin-left: 20px;
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid darkgrey;
+    margin-right: 20px;
+}
+
+.MuiButtonBase-root.MuiButton-root.MuiButton-outlined.recoOffer,
+.MuiButtonBase-root.MuiButton-root.MuiButton-outlined.recoLike{
+border: none;
+}
+
+.MuiButtonBase-root.MuiButton-root.MuiButton-outlined.recoLike{
+    margin-left: 20px;
 }
 
 .recoContent{
@@ -41,6 +57,4 @@ margin-top: 20px;
     margin-right: 20px;
 }
 
-.recoButtons{
-    margin-left: 20px;
-}
+

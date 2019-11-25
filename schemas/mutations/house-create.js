@@ -7,7 +7,9 @@ const { checkPermission } = require("../../permissions");
 const HouseCreateSchema = Joi.object({
   name: Joi.string().min(3).max(255).required(),
   ownerId: Joi.string().guid(),
-  countryCode: Joi.string().alphanum().length(2),
+  addressCountry: Joi.string().alphanum().length(2),
+  addressCity: Joi.string().max(255),
+  addressStreet: Joi.string().max(255),
   constructionYear: Joi.number().min(0).max((new Date()).getFullYear()),
   heatingSystem: Joi.string().min(1),
   costOfHeating: Joi.number(),
@@ -19,24 +21,28 @@ const HouseCreateMutation = {
   args: {
     name: { type: new GraphQLNonNull(GraphQLString) },
     ownerId: { type: GraphQLInt },
-    countryCode: { type: GraphQLString },
+    addressCountry: { type: GraphQLString },
+    addressCity: { type: GraphQLString },
+    addressStreet: { type: GraphQLString },
     constructionYear: { type: GraphQLInt },
     heatingSystem: { type: GraphQLString },
     costOfHeating: { type: GraphQLFloat },
     warmWaterPipe: { type: GraphQLBoolean }
   },
-  resolve(_, args, { user }) {
-    if(!user) throw new Error("You must be logged in to perform this action.");
-    if(!checkPermission(user.role, "house_create")) {
+  resolve(_, args, { auth }) {
+    if(!auth.user) throw new Error("You must be logged in to perform this action.");
+    if(!checkPermission(auth.auth.user.role, "house_create")) {
       throw new Error("You don't have sufficient permissions to create houses.");
     }
     let values = Joi.attempt(args, HouseCreateSchema);
-    if(user.id != values.ownerId && !checkPermission(user.role, "house_create_owner_others")) {
+    if(auth.user.id != values.ownerId && !checkPermission(auth.auth.user.role, "house_create_owner_others")) {
       throw new Error("You don't have sufficient permissions to create houses owned by others.");
     }
     return House.create(
       values.name,
-      values.countryCode,
+      values.addressCountry,
+      values.addressCity,
+      values.addressStreet,
       values.constructionYear,
       values.ownerId,
       values.heatingSystem,

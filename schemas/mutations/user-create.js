@@ -19,13 +19,13 @@ const UserCreateMutation = {
     password: { type: new GraphQLNonNull(GraphQLString) },
     role: { type: new GraphQLNonNull(GraphQLString) }
   },
-  resolve(_, args, { user }) {
-    if(!user) throw new Error("You must be logged in to perform this action.");
+  resolve(_, args, { auth }) {
+    if(!auth.user) throw new Error("You must be logged in to perform this action.");
     let values = Joi.attempt(args, UserCreateSchema);
-    if(!checkPermission(user.role, "user_create")) {
+    if(!checkPermission(auth.user.role, "user_create")) {
       throw new Error("You don't have sufficient permissions to create users.");
     }
-    if(!checkPermission(user.role, "user_create_role_"+values.role)) {
+    if(!checkPermission(auth.user.role, "user_create_role_"+values.role)) {
       throw new Error("You don't have sufficient permissions to create users with the role '"+values.role+"'.");
     }
     return User.create(values.name, values.email, values.password, values.role);
