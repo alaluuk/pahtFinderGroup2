@@ -1,8 +1,9 @@
 const { db } = require("../pg-adaptor");
-const { StructureType } = require(".");
+const { Structure } = require(".");
 
-class StructureTemplate {
+class StructureTemplate extends Structure {
   static getAny(sort = null, limit = 0, skip = 0) {
+    // TODO: Implement sort[]/filter[]/pagination{}
     let sortableFields = [
       { fieldName: 'u_value', orderBy: ['ASC', 'DESC'] }
     ];
@@ -141,74 +142,7 @@ class StructureTemplate {
   }
 
   constructor(data) {
-    this._id = data.id;
-    this._title = data.title;
-    this._type_id = data.type_id;
-    this._u_value = data.u_value;
-    this._area = data.area;
-    this._manufacturer = data.manufacturer;
-    this._serial_number = data.serial_number;
-    this._production_year = data.production_year;
-    this._created_at = data.created_at;
-    this._updated_at = data.updated_at;
-  }
-
-  get id() {
-    return this._id;
-  }
-
-  set title(title) {
-    this._title = title;
-  }
-  get title() {
-    return this._title;
-  }
-
-  get type() {
-    return StructureType.getOne(this._type_id);
-  }
-
-  set uValue(u_value) {
-    this._u_value = u_value;
-  }
-  get uValue() {
-    return this._u_value;
-  }
-
-  set area(area) {
-    this._area = area;
-  }
-  get area() {
-    return this._area;
-  }
-
-  set manufacturer(manufacturer) {
-    this._manufacturer = manufacturer;
-  }
-  get manufacturer() {
-    return this._manufacturer;
-  }
-
-  set serialNumber(serialNumber) {
-    this._serial_number = serialNumber;
-  }
-  get serialNumber() {
-    return this._serial_number;
-  }
-
-  set productionYear(productionYear) {
-    this._production_year = productionYear;
-  }
-  get productionYear() {
-    return this._production_year;
-  }
-
-  get createdAt() {
-    return this._created_at.toISOString();
-  }
-
-  get updatedAt() {
-    return this._updated_at.toISOString();
+    super(data);
   }
 }
 

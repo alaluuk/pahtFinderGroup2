@@ -215,7 +215,7 @@ class House {
   }
 
   static addressToLatLng() {
-    // TODO
+    // TODO: Implement reverse geocoding
     return new Promise((resolve, reject) => {
       // request('https://api.mapbox.com/geocoding/v5/mapbox.places/Los%20Angeles.json?types=place&limit=1&access_token='+process.env.MAPBOX_API_TOKEN, { json: true }, (err, res, body) => {
       //   if(err) { return console.log(err); }
@@ -263,7 +263,7 @@ class House {
 
   set constructionYear(constructionYear) {
     if(constructionYear < 0 || constructionYear > (new Date()).getFullYear()) {
-      throw new Error("Invalid construction year (the value must be positive and in the future).");
+      throw new Error("Invalid construction year: The value must be positive and in the future.");
     }
     this._construction_year = constructionYear;
   }

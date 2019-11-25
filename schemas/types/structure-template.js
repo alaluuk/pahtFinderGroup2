@@ -1,9 +1,9 @@
 const { GraphQLObjectType, GraphQLNonNull, GraphQLString, GraphQLID, GraphQLFloat, GraphQLInt } = require("graphql");
-const { StructureTypeType, EfficiencyReportType } = require(".");
+const { StructureType, StructureTypeType, EfficiencyReportType } = require(".");
 
 const StructureTemplateType = new GraphQLObjectType({
   name: "StructureTemplate",
-  type: "Query",
+  interfaces: [ StructureType ],
   fields: {
     id: { type: new GraphQLNonNull(GraphQLID) },
     title: { type: GraphQLString },

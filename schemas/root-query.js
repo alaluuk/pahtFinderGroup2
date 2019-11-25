@@ -21,7 +21,6 @@ const RootQuery = new GraphQLObjectType({
           return [ User.getOne(args.id) ];
         } else {
           if(!checkPermission(auth.user.role, "user_query_other")) {
-            // TODO: Instead limit the output to only the user himself
             throw new Error("You don't have sufficient permissions to query other users.");
           }
           return User.getAny();
@@ -88,23 +87,6 @@ const RootQuery = new GraphQLObjectType({
           return StructureTemplate.getAnyByType(args.structureTypeID);
         } else {
           return StructureTemplate.getAny();
-        }
-      }
-    },
-    structureMaterials: {
-      type: new GraphQLList(StructureMaterialType),
-      args: {
-        id: { type: GraphQLID }
-      },
-      resolve(_, args, { auth }) {
-        if(!auth.user) throw new Error("You must be logged in to perform this action.");
-        if(!checkPermission(auth.user.role, "structure_materials_query")) {
-          throw new Error("You don't have sufficient permissions to query structure materials.");
-        }
-        if(args.id) {
-          return [ StructureMaterial.getOne(args.id) ];
-        } else {
-          return StructureMaterial.getAny();
         }
       }
     },

@@ -15,9 +15,6 @@ const HouseStructureDeleteMutation = {
   resolve(_, args, { auth }) {
     if(!auth.user) throw new Error("You must be logged in to perform this action.");
     let values = Joi.attempt(args, HouseStructureDeleteSchema);
-    if(!checkPermission(auth.user.role, "house_structure_delete")) {
-      throw new Error("You don't have sufficient permissions to delete house structures.");
-    }
     return new Promise(function(resolve, reject) {
       House.getOne(values.houseId)
         .then(house => {
