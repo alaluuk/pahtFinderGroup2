@@ -8,13 +8,12 @@ import Map from "../Maps/mapAddBuilding";
 import Button from "@material-ui/core/Button";
 import AddConstruction from "./addConstruction";
 import "../../styles/addConstruction.scss";
-import '../../styles/addBuilding.scss';
+import "../../styles/addBuilding.scss";
 
 class AddBuilding extends Component {
   state = {
-
     roofEE: 1,
-    outerWallEE : 20,
+    outerWallEE: 20,
     doorsEE: 50,
     windowsEE: 100,
     groundFloorEE: 70,
@@ -22,18 +21,22 @@ class AddBuilding extends Component {
     wall: "Outer Wall",
     door: "Door",
     window: "Window",
-    groundFloor: "Ground Floor"
-
+    groundFloor: "Ground Floor",
+    roofs: [],
+    walls: [],
+    doors: [],
+    windows: [],
+    groundfloors: []
   };
 
-
   render() {
-
     return (
       <div className="bodyAdd">
         <div className="overlay">
           <div className="addBuildingComp">
-            <h1 className="addBuildHead">Add a new building</h1>
+            <div className="addBuildHeader">
+              <h1 className="addBuildHeaderText">Add a new building</h1>
+            </div>
 
             <div className="generalInfo">
               <h2 className="addBuildText"> General Information</h2>
@@ -44,6 +47,7 @@ class AddBuilding extends Component {
                     <ImageUploader className="imageUploader"></ImageUploader>
                   </div>
                   <TextField
+                  autoFocus
                     id="outlined-basic"
                     className="addBuildField"
                     label="Name Of Building"
@@ -96,8 +100,7 @@ class AddBuilding extends Component {
               <div className="addStructureComp">
                 <div className="addStructureHead">
                   <h2 className="addBuildText"> {this.state.roof}</h2>
-                <AddConstruction type = {this.state.roof}></AddConstruction>
-                
+                  <AddConstruction parentType={this.state.roof} parentState={this.state.doors}></AddConstruction>
                 </div>
 
                 <div className="mainSlider">
@@ -109,92 +112,109 @@ class AddBuilding extends Component {
                   />
                 </div>
                 <div className="scrollBar">
-    
-                  <ConstructionCard 
-                title = "Roof Y6798 Vollholz"
-                amount = "1"
-                type = {this.state.roof}
-                manufacture = "Roof GmbH"
-                serial_number = "1"
-                u_value = "1.2"
-                area ="2"
-                production_year ="1984"
-                price = "" 
-                ></ConstructionCard>
-                <ConstructionCard 
-                title = "Roof Y6798 Vollholz"
-                amount = "1"
-                type = "Door"
-                manufacture = "Roof GmbH"
-                serial_number = "1"
-                u_value = "1.2"
-                area ="2"
-                production_year ="1984"
-                price = "" 
-                ></ConstructionCard>
-                 <ConstructionCard 
-                title = "Roof Y6798 Vollholz"
-                amount = "1"
-                type = "Door"
-                manufacture = "Roof GmbH"
-                serial_number = "1"
-                u_value = "1.2"
-                area ="2"
-                production_year ="1984"
-                price = "300" 
-                ></ConstructionCard>
-                 <ConstructionCard 
-                title = "Roof Y6798 Vollholz"
-                amount = "1"
-                type = "Door"
-                manufacture = "Roof GmbH"
-                serial_number = "1"
-                u_value = "1.2"
-                area ="2"
-                production_year ="1984"
-                price = "" 
-                ></ConstructionCard>
-                 <ConstructionCard 
-                title = "Roof Y6798 Vollholz"
-                amount = "1"
-                type = "Door"
-                manufacture = "Roof GmbH"
-                serial_number = "1"
-                u_value = "1.2"
-                area ="2"
-                production_year ="1984"
-                price = "" 
-                ></ConstructionCard>
-                 <ConstructionCard 
-                title = "Roof Y6798 Vollholz"
-                amount = "1"
-                type = "Door"
-                manufacture = "Roof GmbH"
-                serial_number = "1"
-                u_value = "1.2"
-                area ="2"
-                production_year ="1984"
-                price = "" 
-                ></ConstructionCard>
-                 <ConstructionCard 
-                title = "Roof Y6798 Vollholz"
-                amount = "1"
-                type = "Door"
-                manufacture = "Roof GmbH"
-                serial_number = "1"
-                u_value = "1.2"
-                area ="2"
-                production_year ="1984"
-                price = "" 
-                ></ConstructionCard>
-                  
+                  <div className="scrollItem">
+                    <ConstructionCard
+                      title="Roof Y6798 Vollholz"
+                      amount="1"
+                      type={this.state.roof}
+                      manufacture="Roof GmbH"
+                      serial_number="1"
+                      u_value="1.2"
+                      area="2"
+                      production_year="1984"
+                      price=""
+                    ></ConstructionCard>{" "}
+                  </div>
+
+                  <div className="scrollItem">
+                    <ConstructionCard
+                      title="Roof Y6798 Vollholz"
+                      amount="1"
+                      type="Door"
+                      manufacture="Roof GmbH"
+                      serial_number="1"
+                      u_value="1.2"
+                      area="2"
+                      production_year="1984"
+                      price=""
+                    ></ConstructionCard>
+                  </div>
+                  <div className="scrollItem">
+                    <ConstructionCard
+                      title="Roof Y6798 Vollholz"
+                      amount="1"
+                      type="Door"
+                      manufacture="Roof GmbH"
+                      serial_number="1"
+                      u_value="1.2"
+                      area="2"
+                      production_year="1984"
+                      price="300"
+                    ></ConstructionCard>
+                  </div>
+                  <div className="scrollItem">
+                    {" "}
+                    <ConstructionCard
+                      title="Roof Y6798 Vollholz"
+                      amount="1"
+                      type="Door"
+                      manufacture="Roof GmbH"
+                      serial_number="1"
+                      u_value="1.2"
+                      area="2"
+                      production_year="1984"
+                      price=""
+                    ></ConstructionCard>
+                  </div>
+                  <div className="scrollItem">
+                    {" "}
+                    <ConstructionCard
+                      title="Roof Y6798 Vollholz"
+                      amount="1"
+                      type="Door"
+                      manufacture="Roof GmbH"
+                      serial_number="1"
+                      u_value="1.2"
+                      area="2"
+                      production_year="1984"
+                      price=""
+                    ></ConstructionCard>
+                  </div>
+                  <div className="scrollItem">
+                    {" "}
+                    <ConstructionCard
+                      title="Roof Y6798 Vollholz"
+                      amount="1"
+                      type="Door"
+                      manufacture="Roof GmbH"
+                      serial_number="1"
+                      u_value="1.2"
+                      area="2"
+                      production_year="1984"
+                      price=""
+                    ></ConstructionCard>
+                  </div>
+                  <div className="scrollItem">
+                    {" "}
+                    <ConstructionCard
+                      title="Roof Y6798 Vollholz"
+                      amount="1"
+                      type="Door"
+                      manufacture="Roof GmbH"
+                      serial_number="1"
+                      u_value="1.2"
+                      area="2"
+                      production_year="1984"
+                      price=""
+                    ></ConstructionCard>
+                  </div>
                 </div>
               </div>
 
               <div className="addStructureComp">
                 <div className="addStructureHead">
                   <h2 className="addBuildText"> {this.state.wall}</h2>
-                  <AddConstruction type = {this.state.wall}></AddConstruction>
+                  <AddConstruction parentType={this.state.wall}></AddConstruction>
                 </div>
 
                 <div className="mainSlider">
@@ -206,24 +226,56 @@ class AddBuilding extends Component {
                   />
                 </div>
                 <div className="scrollBar">
-                <ConstructionCard 
-                title = "Roof Y6798 Vollholz"
-                amount = "1"
-                type = {this.state.roof}
-                manufacture = "Roof GmbH"
-                serial_number = "1"
-                u_value = "1.2"
-                area ="2"
-                production_year ="1984"
-                price = "" 
-                ></ConstructionCard>
+                <div className="scrollItem">
+                    {" "}
+                    <ConstructionCard
+                      title="Roof Y6798 Vollholz"
+                      amount="1"
+                      type="Door"
+                      manufacture="Roof GmbH"
+                      serial_number="1"
+                      u_value="1.2"
+                      area="2"
+                      production_year="1984"
+                      price=""
+                    ></ConstructionCard>
+                  </div>
+                  <div className="scrollItem">
+                    {" "}
+                    <ConstructionCard
+                      title="Roof Y6798 Vollholz"
+                      amount="1"
+                      type="Door"
+                      manufacture="Roof GmbH"
+                      serial_number="1"
+                      u_value="1.2"
+                      area="2"
+                      production_year="1984"
+                      price=""
+                    ></ConstructionCard>
+                  </div>
+                  <div className="scrollItem">
+                    {" "}
+                    <ConstructionCard
+                      title="Roof Y6798 Vollholz"
+                      amount="1"
+                      type="Door"
+                      manufacture="Roof GmbH"
+                      serial_number="1"
+                      u_value="1.2"
+                      area="2"
+                      production_year="1984"
+                      price=""
+                    ></ConstructionCard>
+                  </div>
+                  
                 </div>
               </div>
 
               <div className="addStructureComp">
                 <div className="addStructureHead">
                   <h2 className="addBuildText"> {this.state.door}s</h2>
-                  <AddConstruction type = {this.state.door}></AddConstruction>
+                  <AddConstruction parentType={this.state.door}></AddConstruction>
                 </div>
 
                 <div className="mainSlider">
@@ -234,15 +286,12 @@ class AddBuilding extends Component {
                     disabled={true}
                   />
                 </div>
-                <div className="scrollBar">
-                  
-                  
-                </div>
+                <div className="scrollBar"></div>
               </div>
               <div className="addStructureComp">
                 <div className="addStructureHead">
                   <h2 className="addBuildText"> {this.state.window}s</h2>
-                  <AddConstruction type = {this.state.window}></AddConstruction>
+                  <AddConstruction parentType={this.state.window}></AddConstruction>
                 </div>
 
                 <div className="mainSlider">
@@ -253,14 +302,14 @@ class AddBuilding extends Component {
                     disabled={true}
                   />
                 </div>
-                <div className="scrollBar">
-                 
-                </div>
+                <div className="scrollBar"></div>
               </div>
               <div className="addStructureComp">
                 <div className="addStructureHead">
                   <h2 className="addBuildText"> {this.state.groundFloor}</h2>
-                  <AddConstruction type = {this.state.groundFloor}></AddConstruction>
+                  <AddConstruction
+                    parentType={this.state.groundFloor}
+                  ></AddConstruction>
                 </div>
 
                 <div className="mainSlider">
@@ -271,9 +320,7 @@ class AddBuilding extends Component {
                     disabled={true}
                   />
                 </div>
-                <div className="scrollBar">
-                  
-                </div>
+                <div className="scrollBar"></div>
               </div>
 
               <div>
@@ -281,7 +328,7 @@ class AddBuilding extends Component {
                   variant="contained"
                   color="primary"
                   className="saveBuildButton"
-                  onClick = ""
+                  onClick=""
                 >
                   Save Your Building
                 </Button>

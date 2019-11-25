@@ -54,10 +54,10 @@ class Card extends Component {
 
         <div className="conButtons">
           <Button className="conEdit" variant="outlined">
-            <EditIcon />
+            <EditIcon /> &nbsp; Edit 
           </Button>
           <Button className="conDelete" variant="outlined">
-            <DeleteIcon />
+            <DeleteIcon /> &nbsp; Delete
           </Button>
         </div>
 
