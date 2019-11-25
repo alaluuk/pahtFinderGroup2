@@ -1,0 +1,24 @@
+.FilterableSubheaderComponent {
+  position: fixed !important;
+  top: 50px;
+  z-index: 9 !important;
+  background-color: #f7f9f9 !important;
+}
+
+.bp3-dark .FilterableSubheaderComponent {
+  background-color: #30404D !important;
+}
+
+.FilterableSubheaderComponent .bp3-navbar-heading {
+  font-weight: 600;
+  color: #293742;
+}
+
+.bp3-dark .FilterableSubheaderComponent .bp3-navbar-heading {
+  color: #CED9E0;
+}
+
+.FilterableSubheaderComponent + .content-wrapper {
+  padding-top: calc(100px + 1.5rem);
+  padding-bottom: 1.5rem;
+}

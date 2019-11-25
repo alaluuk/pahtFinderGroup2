@@ -1,4 +1,6 @@
 exports.StructureTypeType = require("./structure-type").StructureTypeType;
+exports.EfficiencyReportType = require("./efficiency-report").EfficiencyReportType;
+exports.StructureTemplateType = require("./structure-template").StructureTemplateType;
 exports.StructureMaterialType = require("./structure-material").StructureMaterialType;
 exports.StructureType = require("./structure").StructureType;
 exports.HouseStructureType = require("./house-structure").HouseStructureType;

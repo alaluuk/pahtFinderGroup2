@@ -12,19 +12,19 @@ const HouseStructureDeleteMutation = {
   args: {
     id: { type: new GraphQLNonNull(GraphQLID) },
   },
-  resolve(_, args, { user }) {
-    if(!user) throw new Error("You must be logged in to perform this action.");
+  resolve(_, args, { auth }) {
+    if(!auth.user) throw new Error("You must be logged in to perform this action.");
     let values = Joi.attempt(args, HouseStructureDeleteSchema);
-    if(!checkPermission(user.role, "house_structure_delete")) {
+    if(!checkPermission(auth.user.role, "house_structure_delete")) {
       throw new Error("You don't have sufficient permissions to delete house structures.");
     }
     return new Promise(function(resolve, reject) {
       House.getOne(values.houseId)
         .then(house => {
-          if(house._owner_id == user.id && !checkPermission(user.role, "house_structure_delete_owner_self")) {
+          if(house._owner_id == auth.user.id && !checkPermission(auth.user.role, "house_structure_delete_owner_self")) {
             throw new Error("You don't have sufficient permissions to delete structures from houses you own.");
           }
-          if(house._owner_id != user.id && !checkPermission(user.role, "house_structure_delete_owner_other")) {
+          if(house._owner_id != auth.user.id && !checkPermission(auth.user.role, "house_structure_delete_owner_other")) {
             throw new Error("You don't have sufficient permissions to delete structures from houses you don't own.");
           }
           HouseStructure.delete(values.id)
