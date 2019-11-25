@@ -123,6 +123,7 @@ class AddBuilding extends Component {
                       area="2"
                       production_year="1984"
                       price=""
+                      EE = "100"
                     ></ConstructionCard>{" "}
                   </div>
 
@@ -137,6 +138,7 @@ class AddBuilding extends Component {
                       area="2"
                       production_year="1984"
                       price=""
+                      EE = "90"
                     ></ConstructionCard>
                   </div>
                   <div className="scrollItem">
@@ -150,6 +152,7 @@ class AddBuilding extends Component {
                       area="2"
                       production_year="1984"
                       price="300"
+                      EE = "70"
                     ></ConstructionCard>
                   </div>
                   <div className="scrollItem">
@@ -164,6 +167,7 @@ class AddBuilding extends Component {
                       area="2"
                       production_year="1984"
                       price=""
+                      EE = "60"
                     ></ConstructionCard>
                   </div>
                   <div className="scrollItem">
@@ -178,6 +182,7 @@ class AddBuilding extends Component {
                       area="2"
                       production_year="1984"
                       price=""
+                      EE = "50"
                     ></ConstructionCard>
                   </div>
                   <div className="scrollItem">
@@ -192,6 +197,7 @@ class AddBuilding extends Component {
                       area="2"
                       production_year="1984"
                       price=""
+                      EE = "40"
                     ></ConstructionCard>
                   </div>
                   <div className="scrollItem">
@@ -206,6 +212,7 @@ class AddBuilding extends Component {
                       area="2"
                       production_year="1984"
                       price=""
+                      EE = "20"
                     ></ConstructionCard>
                   </div>
                 </div>
@@ -238,6 +245,7 @@ class AddBuilding extends Component {
                       area="2"
                       production_year="1984"
                       price=""
+                      EE = "40"
                     ></ConstructionCard>
                   </div>
                   <div className="scrollItem">
@@ -252,6 +260,7 @@ class AddBuilding extends Component {
                       area="2"
                       production_year="1984"
                       price=""
+                      EE = "40"
                     ></ConstructionCard>
                   </div>
                   <div className="scrollItem">
@@ -266,6 +275,7 @@ class AddBuilding extends Component {
                       area="2"
                       production_year="1984"
                       price=""
+                      EE = "100"
                     ></ConstructionCard>
                   </div>
                   

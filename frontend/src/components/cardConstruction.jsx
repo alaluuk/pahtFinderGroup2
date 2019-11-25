@@ -3,6 +3,10 @@ import Button from "@material-ui/core/Button";
 import "../styles/cardConstruction.scss";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
+import EditConstruction from "./AddBuilding/editConstruction.jsx"
+import DeleteConstruction from "./Deletion/body.jsx"
+
+
 
 class Card extends Component {
   state = {
@@ -15,12 +19,14 @@ class Card extends Component {
     amount: "",
     production_year: "",
     price: "",
-    EE: 0,
-    color: "white",
+    EE: "",
+    color: "",
     green: "darkgreen",
     orange: "orange",
     red: "red"
   };
+
+  
 
   constructor(props) {
     super(props);
@@ -40,11 +46,20 @@ class Card extends Component {
       this.state.color = this.state.orange;
     } else if (this.state.EE >= 70) {
       this.state.color = this.state.green;
-      console.log("Over 70");
     }
+    
   }
 
+
+  editValues(newValues) {
+    // add todo
+}
+
+
   render() {
+
+    
+
     return (
       <div className="constructionCard">
         <img
@@ -53,12 +68,8 @@ class Card extends Component {
         ></img>
 
         <div className="conButtons">
-          <Button className="conEdit" variant="outlined">
-            <EditIcon /> &nbsp; Edit 
-          </Button>
-          <Button className="conDelete" variant="outlined">
-            <DeleteIcon /> &nbsp; Delete
-          </Button>
+          <EditConstruction parentState ={this.state} editValues={this.editValues.bind(this)}></EditConstruction>
+          <DeleteConstruction parentType = {this.state.type} parentTitle = {this.state.title}></DeleteConstruction>
         </div>
 
         <div className="conContent">

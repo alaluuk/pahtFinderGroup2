@@ -1,5 +1,5 @@
 .bodyBuilding{
-  height: 2000px;
+  height: 100%;
     background-image: url("https://s19.directupload.net/images/191113/kwtv4hna.jpg");
     background-position: center; 
     background-repeat: no-repeat; 
@@ -11,7 +11,7 @@
   padding-top: 20px;
   margin-left: 60px;
   margin-right: 60px;
-  margin-bottom: 60px;
+  padding-bottom: 20px;
 }
 
 .buildingHeader {
@@ -117,8 +117,8 @@
   border-radius: 20px;
   width: 95%;
   height: 100%;
- 
   padding: 40px;
+	margin-right: 40px;
 }
 
 
@@ -127,9 +127,8 @@
 }
 
 .recoContentAll{
-  height: 1000px;
-  overflow-y: scroll;
-  display: block;
+  height: 100%;
+ 
 }
 
 
@@ -153,13 +152,13 @@
 
 .MuiSvgIcon-root.recoImproveIcon{
   font-size: 120px;
-  color: darkgreen;
+  color: grey
 
 }
 
 .recoImproveText{
   font-size: 24px;
-  color: darkgreen;
+  color: grey
 
 }
 
