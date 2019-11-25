@@ -17,7 +17,7 @@ const CustomerLoginMutation = {
     password: { type: new GraphQLNonNull(GraphQLString) },
     longLived: { type: GraphQLBoolean }
   },
-  resolve(_, args, { user }) {
+  resolve(_, args, { auth }) {
     let values = Joi.attempt(args, CustomerLoginSchema);
     return new Promise(function(resolve, reject) {
       User.getOneByEmail(values.email)
@@ -28,12 +28,16 @@ const CustomerLoginMutation = {
         resolve({
           token: JWT.sign(
             {
-              id: user.id,
-              email: user.email,
-              role: user.role
+              user: {
+                id: user.id,
+                name: user.name,
+                email: user.email,
+                role: user.role
+              }
             },
             process.env.JWT_SECRET,
             {
+              subject: user.email,
               audience: process.env.JWT_AUDIENCE,
               issuer: process.env.JWT_ISSUER,
               expiresIn: (values.longLived) ? '1y' : '1d'

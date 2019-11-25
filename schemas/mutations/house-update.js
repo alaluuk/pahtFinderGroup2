@@ -8,7 +8,9 @@ const HouseUpdateSchema = Joi.object({
   id: Joi.string().guid().required(),
   name: Joi.string().min(3).max(255),
   ownerId: Joi.string().guid(),
-  countryCode: Joi.string().alphanum().length(2),
+  addressCountry: Joi.string().alphanum().length(2),
+  addressCity: Joi.string().max(255),
+  addressStreet: Joi.string().max(255),
   constructionYear: Joi.number().min(0).max((new Date()).getFullYear()),
   heatingSystem: Joi.string().min(1),
   costOfHeating: Joi.number(),
@@ -21,25 +23,27 @@ const HouseUpdateMutation = {
     id: { type: new GraphQLNonNull(GraphQLID) },
     name: { type: GraphQLString },
     ownerId: { type: GraphQLID },
-    countryCode: { type: GraphQLString },
+    addressCountry: { type: GraphQLString },
+    addressCity: { type: GraphQLString },
+    addressStreet: { type: GraphQLString },
     constructionYear: { type: GraphQLInt },
     heatingSystem: { type: GraphQLString },
     costOfHeating: { type: GraphQLFloat },
     warmWaterPipe: { type: GraphQLBoolean }
   },
-  resolve(_, args, { user }) {
-    if(!user) throw new Error("You must be logged in to perform this action.");
+  resolve(_, args, { auth }) {
+    if(!auth.user) throw new Error("You must be logged in to perform this action.");
     let values = Joi.attempt(args, HouseUpdateSchema);
     return new Promise(function(resolve, reject) {
       House.getOne(values.id)
         .then(async function(house) {
-          if(house._owner_id == user.id && !checkPermission(user.role, "house_update_owner_self")) {
+          if(house._owner_id == auth.user.id && !checkPermission(auth.user.role, "house_update_owner_self")) {
             throw new Error("You don't have sufficient permissions to edit houses you own.");
           }
-          if(house._owner_id != user.id && !checkPermission(user.role, "house_update_owner_other")) {
+          if(house._owner_id != auth.user.id && !checkPermission(auth.user.role, "house_update_owner_other")) {
             throw new Error("You don't have sufficient permissions to edit houses you don't own.");
           }
-          if(house._owner_id != values.ownerId && !checkPermission(user.role, "house_update_owner")) {
+          if(house._owner_id != values.ownerId && !checkPermission(auth.user.role, "house_update_owner")) {
             throw new Error("You don't have sufficient permissions to transfer the ownership of houses.");
           }
           if(values.name) house.name = values.name;
@@ -51,7 +55,9 @@ const HouseUpdateMutation = {
               reject(new Error("The specified owner ID is invalid because there is no user with this ID."));
             }
           }
-          if(values.countryCode) house.countryCode = values.countryCode;
+          if(values.addressCountry) house.addressCountry = values.addressCountry;
+          if(values.addressCity) house.addressCity = values.addressCity;
+          if(values.addressStreet) house.addressStreet = values.addressStreet;
           if(values.constructionYear) house.constructionYear = values.constructionYear;
           if(values.heatingSystem) house.heatingSystem = values.heatingSystem;
           if(values.costOfHeating) house.costOfHeating = values.costOfHeating;

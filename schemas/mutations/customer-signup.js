@@ -25,12 +25,20 @@ const CustomerSignupMutation = {
         resolve({
           token: JWT.sign(
             {
-              id: user.id,
-              email: user.email,
-              role: user.role
+              user: {
+                id: user.id,
+                name: user.name,
+                email: user.email,
+                role: user.role
+              }
             },
             process.env.JWT_SECRET,
-            { expiresIn: '1d' }
+            {
+              subject: user.email,
+              audience: process.env.JWT_AUDIENCE,
+              issuer: process.env.JWT_ISSUER,
+              expiresIn: '1d'
+            }
           ),
           user: user
         });

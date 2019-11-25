@@ -1,6 +1,6 @@
 const { GraphQLObjectType, GraphQLNonNull, GraphQLID, GraphQLList } = require("graphql");
-const { UserType, HouseType, StructureTypeType, StructureMaterialType, StructureType } = require("./types");
-const { User, House, StructureType: StructureTypeModel, StructureMaterial, Structure } = require("../models");
+const { UserType, HouseType, StructureTypeType, StructureTemplateType, StructureMaterialType, StructureType } = require("./types");
+const { User, House, StructureType: StructureTypeModel, StructureTemplate, StructureMaterial, Structure } = require("../models");
 const { checkPermission } = require("../permissions");
 
 const RootQuery = new GraphQLObjectType({
@@ -12,15 +12,15 @@ const RootQuery = new GraphQLObjectType({
       args: {
         id: { type: GraphQLID }
       },
-      resolve(_, args, { user }) {
-        if(!user) throw new Error("You must be logged in to perform this action.");
+      resolve(_, args, { auth }) {
+        if(!auth.user) throw new Error("You must be logged in to perform this action.");
         if(args.id) {
-          if(!checkPermission(user.role, "user_query_self")) {
+          if(!checkPermission(auth.user.role, "user_query_self")) {
             throw new Error("You don't have sufficient permissions to query this user.");
           }
           return [ User.getOne(args.id) ];
         } else {
-          if(!checkPermission(user.role, "user_query_other")) {
+          if(!checkPermission(auth.user.role, "user_query_other")) {
             // TODO: Instead limit the output to only the user himself
             throw new Error("You don't have sufficient permissions to query other users.");
           }
@@ -32,23 +32,23 @@ const RootQuery = new GraphQLObjectType({
       type: new GraphQLList(HouseType),
       args: {
         id: { type: GraphQLID },
-        owner_id: { type: GraphQLID }
+        ownerID: { type: GraphQLID }
       },
-      resolve(_, args, { user }) {
-        if(!user) throw new Error("You must be logged in to perform this action.");
+      resolve(_, args, { auth }) {
+        if(!auth.user) throw new Error("You must be logged in to perform this action.");
         if(args.id) {
-          if(!checkPermission(user.role, "house_query_owner_self")) {
+          if(!checkPermission(auth.user.role, "house_query_owner_self")) {
             throw new Error("You don't have sufficient permissions to query this user.");
           }
           return [ House.getOne(args.id) ];
-        } else if(args.owner_id) {
-          if(args.owner_id !== user.id && !checkPermission(user.role, "house_query_owner_other")) {
+        } else if(args.ownerID) {
+          if(args.ownerID !== auth.user.id && !checkPermission(auth.user.role, "house_query_owner_other")) {
             throw new Error("You don't have sufficient permissions to query houses that are owned by others.");
           }
-          return House.getAnyByOwner(args.owner_id);
+          return House.getAnyByOwner(args.ownerID);
         } else {
-          if(!checkPermission(user.role, "house_query_owner_other")) {
-            return House.getAnyByOwner(args.owner_id);
+          if(!checkPermission(auth.user.role, "house_query_owner_other")) {
+            return House.getAnyByOwner(args.ownerID);
           }
           return House.getAny();
         }
@@ -59,9 +59,9 @@ const RootQuery = new GraphQLObjectType({
       args: {
         id: { type: GraphQLID }
       },
-      resolve(_, args, { user }) {
-        if(!user) throw new Error("You must be logged in to perform this action.");
-        if(!checkPermission(user.role, "structure_type_query")) {
+      resolve(_, args, { auth }) {
+        if(!auth.user) throw new Error("You must be logged in to perform this action.");
+        if(!checkPermission(auth.user.role, "structure_type_query")) {
           throw new Error("You don't have sufficient permissions to query structure types.");
         }
         if(args.id) {
@@ -71,14 +71,34 @@ const RootQuery = new GraphQLObjectType({
         }
       }
     },
+    structureTemplates: {
+      type: new GraphQLList(StructureTemplateType),
+      args: {
+        id: { type: GraphQLID },
+        structureTypeID: { type: GraphQLID }
+      },
+      resolve(_, args, { auth }) {
+        if(!auth.user) throw new Error("You must be logged in to perform this action.");
+        if(!checkPermission(auth.user.role, "structure_template_query")) {
+          throw new Error("You don't have sufficient permissions to query structure templates.");
+        }
+        if(args.id) {
+          return [ StructureTemplate.getOne(args.id) ];
+        } else if(args.structureTypeID) {
+          return StructureTemplate.getAnyByType(args.structureTypeID);
+        } else {
+          return StructureTemplate.getAny();
+        }
+      }
+    },
     structureMaterials: {
       type: new GraphQLList(StructureMaterialType),
       args: {
         id: { type: GraphQLID }
       },
-      resolve(_, args, { user }) {
-        if(!user) throw new Error("You must be logged in to perform this action.");
-        if(!checkPermission(user.role, "structure_materials_query")) {
+      resolve(_, args, { auth }) {
+        if(!auth.user) throw new Error("You must be logged in to perform this action.");
+        if(!checkPermission(auth.user.role, "structure_materials_query")) {
           throw new Error("You don't have sufficient permissions to query structure materials.");
         }
         if(args.id) {
@@ -93,9 +113,9 @@ const RootQuery = new GraphQLObjectType({
       args: {
         id: { type: GraphQLID }
       },
-      resolve(_, args, { user }) {
-        if(!user) throw new Error("You must be logged in to perform this action.");
-        if(!checkPermission(user.role, "structures_query")) {
+      resolve(_, args, { auth }) {
+        if(!auth.user) throw new Error("You must be logged in to perform this action.");
+        if(!checkPermission(auth.user.role, "structures_query")) {
           throw new Error("You don't have sufficient permissions to query structures.");
         }
         if(args.id) {

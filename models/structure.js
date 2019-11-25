@@ -30,11 +30,11 @@ class Structure {
     });
   }
 
-  static create(title, type_id, u_value = null, material_id = null) {
+  static create(title, type_id, u_value = null) {
     return new Promise(function(resolve, reject) {
       db
-        .one(`INSERT INTO structures(title, type_id, u_value, material_id) VALUES ($1) RETURNING *`, [
-          title, type_id, u_value, material_id
+        .one(`INSERT INTO structures(title, type_id, u_value) VALUES ($1) RETURNING *`, [
+          title, type_id, u_value
         ])
         .then(res => {
           let structure = new Structure(res);
@@ -48,12 +48,11 @@ class Structure {
     let structure = this;
     return new Promise(function(resolve, reject) {
       db
-        .result(`UPDATE structures SET id=$1, title=$2, type_id=$3, u_value=$4, material_id=$5 WHERE id=$5`, [
+        .result(`UPDATE structures SET id=$1, title=$2, type_id=$3, u_value=$4 WHERE id=$5`, [
           structure._id,
           structure._title,
           structure._type_id,
           structure._u_value,
-          structure._material_id,
           structure._id
         ])
         .then(res => {
@@ -84,7 +83,6 @@ class Structure {
     this._title = data.title;
     this._type_id = data.type_id;
     this._u_value = data.u_value;
-    this._material_id = data.material_id;
     this._created_at = data.created_at;
     this._updated_at = data.updated_at;
   }
@@ -109,10 +107,6 @@ class Structure {
   }
   get uValue() {
     return this._u_value;
-  }
-
-  get material() {
-    return StructureMaterial.getOne(this._material_id);
   }
 
   get createdAt() {
