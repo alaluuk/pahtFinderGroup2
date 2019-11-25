@@ -21,7 +21,12 @@ class AddBuilding extends Component {
     wall: "Outer Wall",
     door: "Door",
     window: "Window",
-    groundFloor: "Ground Floor"
+    groundFloor: "Ground Floor",
+    roofs: [],
+    walls: [],
+    doors: [],
+    windows: [],
+    groundfloors: []
   };
 
   render() {
@@ -95,7 +100,7 @@ class AddBuilding extends Component {
               <div className="addStructureComp">
                 <div className="addStructureHead">
                   <h2 className="addBuildText"> {this.state.roof}</h2>
-                  <AddConstruction type={this.state.roof}></AddConstruction>
+                  <AddConstruction parentType={this.state.roof} parentState={this.state.doors}></AddConstruction>
                 </div>
 
                 <div className="mainSlider">
@@ -209,7 +214,7 @@ class AddBuilding extends Component {
               <div className="addStructureComp">
                 <div className="addStructureHead">
                   <h2 className="addBuildText"> {this.state.wall}</h2>
-                  <AddConstruction type={this.state.wall}></AddConstruction>
+                  <AddConstruction parentType={this.state.wall}></AddConstruction>
                 </div>
 
                 <div className="mainSlider">
@@ -270,7 +275,7 @@ class AddBuilding extends Component {
               <div className="addStructureComp">
                 <div className="addStructureHead">
                   <h2 className="addBuildText"> {this.state.door}s</h2>
-                  <AddConstruction type={this.state.door}></AddConstruction>
+                  <AddConstruction parentType={this.state.door}></AddConstruction>
                 </div>
 
                 <div className="mainSlider">
@@ -286,7 +291,7 @@ class AddBuilding extends Component {
               <div className="addStructureComp">
                 <div className="addStructureHead">
                   <h2 className="addBuildText"> {this.state.window}s</h2>
-                  <AddConstruction type={this.state.window}></AddConstruction>
+                  <AddConstruction parentType={this.state.window}></AddConstruction>
                 </div>
 
                 <div className="mainSlider">
@@ -303,7 +308,7 @@ class AddBuilding extends Component {
                 <div className="addStructureHead">
                   <h2 className="addBuildText"> {this.state.groundFloor}</h2>
                   <AddConstruction
-                    type={this.state.groundFloor}
+                    parentType={this.state.groundFloor}
                   ></AddConstruction>
                 </div>
 

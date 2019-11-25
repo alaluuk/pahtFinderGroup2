@@ -7,8 +7,10 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import Structure from '../../objects/structure.js'
 
-export default function AddConstruction ({ type }){
+
+export default function AddConstruction ({ parentType, parentState }){
 
  
 
@@ -20,7 +22,9 @@ export default function AddConstruction ({ type }){
 
   const handleClose = () => {
     setOpen(false);
-  };
+    
+    }
+
 
   return (
     <div>
@@ -39,32 +43,32 @@ export default function AddConstruction ({ type }){
       open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         
         <div className = "addConstructionDialog">
-        <DialogTitle id="form-dialog-title"> Add A New {type} 
+        <DialogTitle id="form-dialog-title"> Add A New {parentType} 
         
         </DialogTitle>
         <DialogContent >
         
           <DialogContentText>
-            To add a new {type} please fill in the following values.
+            To add a new {parentType} please fill in the following values.
           </DialogContentText>
           <div className = "addConstructionContent"> 
           <div>  <TextField
                   autoFocus
-                    id="outlined-basic"
+                    id="outlined-basic-title"
                     className="addBuildField"
                     label="Title"
                     margin="normal"
                     variant="outlined"
                   />
                   <TextField
-                    id="outlined-basic"
+                    id="outlined-basic-manufacture"
                     className="addBuildField"
                     label="Manufacture"
                     margin="normal"
                     variant="outlined"
                   />
                     <TextField
-                    id="outlined-basic"
+                    id="outlined-basic-uvalue"
                     className="addBuildField"
                     label="U-Value"
                     margin="normal"
@@ -72,21 +76,21 @@ export default function AddConstruction ({ type }){
                   /></div>
           <div>
           <TextField
-                    id="outlined-basic"
+                    id="outlined-basic-area"
                     className="addBuildField"
-                    label="Are"
+                    label="Area"
                     margin="normal"
                     variant="outlined"
                   />
                   <TextField
-                    id="outlined-basic"
+                    id="outlined-basic-amount"
                     className="addBuildField"
                     label="Amount"
                     margin="normal"
                     variant="outlined"
                   />
                   <TextField
-                    id="outlined-basic"
+                    id="outlined-basic-prodyear"
                     className="addBuildField"
                     label="Production Year"
                     margin="normal"
@@ -104,7 +108,7 @@ export default function AddConstruction ({ type }){
                   onClick={handleClose}  className = "saveConstructionButton"
                   
                 >
-                  Save New {type}
+                  Save New {parentType}
                 </Button>
 
                 <Button onClick={handleClose} color="primary" className = "closeButton">
