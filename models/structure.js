@@ -1,88 +1,16 @@
-const { db } = require("../pg-adaptor");
-const { StructureType, StructureMaterial } = require(".");
+const { StructureType } = require(".");
 
 class Structure {
-  static getAny() {
-    return new Promise(function(resolve, reject) {
-      db
-        .any(`SELECT * FROM structures`)
-        .then(res => {
-          let structures = [];
-          res.forEach(structure_data => {
-            let structure = new Structure(structure_data);
-            structures.push(structure);
-          });
-          resolve(structures);
-        })
-        .catch(err => reject(err));
-    });
-  }
-
-  static getOne(id) {
-    return new Promise(function(resolve, reject) {
-      db
-        .one(`SELECT * FROM structures WHERE id=$1`, [ id ])
-        .then(res => {
-          let structure = new Structure(res);
-          resolve(structure);
-        })
-        .catch(err => reject(err));
-    });
-  }
-
-  static create(title, type_id, u_value = null) {
-    return new Promise(function(resolve, reject) {
-      db
-        .one(`INSERT INTO structures(title, type_id, u_value) VALUES ($1) RETURNING *`, [
-          title, type_id, u_value
-        ])
-        .then(res => {
-          let structure = new Structure(res);
-          resolve(structure);
-        })
-        .catch(err => reject(err));
-    });
-  }
-
-  save() {
-    let structure = this;
-    return new Promise(function(resolve, reject) {
-      db
-        .result(`UPDATE structures SET id=$1, title=$2, type_id=$3, u_value=$4 WHERE id=$5`, [
-          structure._id,
-          structure._title,
-          structure._type_id,
-          structure._u_value,
-          structure._id
-        ])
-        .then(res => {
-          structure._updated_at = res.rows[0].updated_at;
-          resolve((res.rowCount > 0));
-        })
-        .catch(err => reject(err));
-    });
-  }
-
-  static delete(id) {
-    return new Promise(function(resolve, reject) {
-      db
-        .result(`DELETE FROM structures WHERE id=$1`, [ id ], r => r.rowCount)
-        .then(res => {
-          resolve((res > 0));
-        })
-        .catch(err => reject(err));
-    });
-  }
-
-  delete() {
-    return Structure.delete(this._id);
-  }
-
   constructor(data) {
+    if(new.target === Structure) throw new TypeError("Cannot construct Structure instances directly.");
     this._id = data.id;
     this._title = data.title;
     this._type_id = data.type_id;
     this._u_value = data.u_value;
+    this._area = data.area;
+    this._manufacturer = data.manufacturer;
+    this._serial_number = data.serial_number;
+    this._production_year = data.production_year;
     this._created_at = data.created_at;
     this._updated_at = data.updated_at;
   }
@@ -107,6 +35,37 @@ class Structure {
   }
   get uValue() {
     return this._u_value;
+  }
+
+  set area(area) {
+    this._area = area;
+  }
+  get area() {
+    return this._area;
+  }
+
+  set manufacturer(manufacturer) {
+    this._manufacturer = manufacturer;
+  }
+  get manufacturer() {
+    return this._manufacturer;
+  }
+
+  set serialNumber(serialNumber) {
+    this._serial_number = serialNumber;
+  }
+  get serialNumber() {
+    return this._serial_number;
+  }
+
+  set productionYear(productionYear) {
+    if(productionYear < 0 || productionYear > (new Date()).getFullYear()) {
+      throw new Error("Invalid production year: The value must be positive and in the future.");
+    }
+    this._production_year = productionYear;
+  }
+  get productionYear() {
+    return this._production_year;
   }
 
   get createdAt() {

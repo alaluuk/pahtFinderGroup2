@@ -1,9 +1,8 @@
+exports.UserType = require("./user").UserType;
+exports.AuthPayloadType = require("./auth-payload").AuthPayloadType;
 exports.StructureTypeType = require("./structure-type").StructureTypeType;
 exports.EfficiencyReportType = require("./efficiency-report").EfficiencyReportType;
-exports.StructureTemplateType = require("./structure-template").StructureTemplateType;
-exports.StructureMaterialType = require("./structure-material").StructureMaterialType;
 exports.StructureType = require("./structure").StructureType;
+exports.StructureTemplateType = require("./structure-template").StructureTemplateType;
 exports.HouseStructureType = require("./house-structure").HouseStructureType;
-exports.UserType = require("./user").UserType;
 exports.HouseType = require("./house").HouseType;
-exports.AuthPayloadType = require("./auth-payload").AuthPayloadType;
