@@ -3,7 +3,6 @@ const { UserType, HouseStructureType } = require(".");
 
 const HouseType = new GraphQLObjectType({
   name: "House",
-  type: "Query",
   fields: {
     id: { type: new GraphQLNonNull(GraphQLID) },
     name: { type: GraphQLString },

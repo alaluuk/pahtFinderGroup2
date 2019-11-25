@@ -2,7 +2,6 @@ const { GraphQLObjectType, GraphQLNonNull, GraphQLList, GraphQLString, GraphQLID
 
 const UserType = new GraphQLObjectType({
   name: "User",
-  type: "Query",
   fields: {
     id: { type: new GraphQLNonNull(GraphQLID) },
     name: { type: new GraphQLNonNull(GraphQLString) },
