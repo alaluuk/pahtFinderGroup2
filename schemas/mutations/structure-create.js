@@ -7,8 +7,7 @@ const { checkPermission } = require("../../permissions");
 const StructureCreateSchema = Joi.object({
   title: Joi.string().min(3).max(255).required(),
   typeId: Joi.string().guid().required(),
-  uValue: Joi.number().required(),
-  materialId: Joi.string().guid()
+  uValue: Joi.number().required()
 });
 
 const StructureCreateMutation = {
@@ -16,8 +15,7 @@ const StructureCreateMutation = {
   args: {
     title: { type: new GraphQLNonNull(GraphQLString) },
     typeId: { type: new GraphQLNonNull(GraphQLID) },
-    uValue: { type: GraphQLFloat },
-    materialId: { type: GraphQLID }
+    uValue: { type: GraphQLFloat }
   },
   resolve(_, args, { auth }) {
     if(!auth.user) throw new Error("You must be logged in to perform this action.");
@@ -25,7 +23,7 @@ const StructureCreateMutation = {
       throw new Error("You don't have sufficient permissions to create structures.");
     }
     let values = Joi.attempt(args, StructureCreateSchema);
-    return Structure.create(values.title, values.typeId, values.uValue, values.materialId);
+    return Structure.create(values.title, values.typeId, values.uValue);
   }
 };
 

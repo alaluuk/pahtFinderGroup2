@@ -8,7 +8,6 @@ const Roles = {
         "structures_query",
         "structure_template_query",
         "structure_type_query",
-        "structure_materials_query",
         "house_create",
         "house_update_owner_self",
         "house_delete_owner_self",

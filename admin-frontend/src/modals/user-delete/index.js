@@ -34,7 +34,7 @@ class UserDeleteModal extends React.Component {
       >
         <div className={Classes.DIALOG_BODY}>
           <p>
-            Are you sure you want to delete the user "{this.props.user.name}" permanently?
+            Are you sure you want to delete the user "{this.props.user.name}" ({this.props.user.email}) permanently?
             <br/><br/>
             <strong style={{ color: Colors.RED4 }}>Warning: </strong> If the user owns houses, these get removed too.
           </p>

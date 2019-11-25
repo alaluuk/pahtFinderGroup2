@@ -11,11 +11,14 @@
     box-shadow: 0 1px 0 rgba(16, 22, 26, 0.15);
     background: #ffffff;
     min-height: 40px;
-    padding-right: 5px;
-    padding-left: 20px;
+    padding: 0 5px;
 }
 
-.StructureTypeCardHeader > h5 {
+.StructureTypeCardHeader > .bp3-button + .bp3-heading {
+    padding-left: 5px;
+}
+
+.StructureTypeCardHeader > .bp3-heading {
     margin: 0 1rem 0 0;
     flex: 1 1 auto;
 }

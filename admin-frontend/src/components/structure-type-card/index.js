@@ -9,8 +9,10 @@ class StructureTypeCard extends React.Component {
 
     this.state = {
       structureType: this.props.structureType,
+      initialLoaded: false,
       isCollapsed: false,
-      templateCount: null
+      templateCount: null,
+      isFilterable: false
     };
   }
 
@@ -18,6 +20,10 @@ class StructureTypeCard extends React.Component {
     return (
       <Card className="StructureTypeCard" elevation={Elevation.ONE}>
         <div className="StructureTypeCardHeader">
+          <Button
+            icon={(!this.state.isCollapsed) ? "chevron-down" : "chevron-right"} minimal="true"
+            onClick={() => { this.setState({ isCollapsed: !this.state.isCollapsed }) }}
+          />
           <H5 className={Classes.TEXT_OVERFLOW_ELLIPSIS}>
             {this.state.structureType.title}
             {(this.state.templateCount !== null) ? <span className="bp3-text-muted"> ({this.state.templateCount})</span> : ''}
@@ -25,9 +31,14 @@ class StructureTypeCard extends React.Component {
           <Popover content={
             <Menu>
               <Menu.Item
-                icon="collapse-all" 
-                text="Collapse structure type"
+                icon={(!this.state.isCollapsed) ? "collapse-all" : "expand-all"} 
+                text={(!this.state.isCollapsed) ? "Collapse templates list" : "Expand templates list"}
                 onClick={() => { this.setState({ isCollapsed: !this.state.isCollapsed }) }}
+              />
+              <Menu.Item
+                icon="search"
+                text={(!this.state.isFilterable) ? "Enable template filtering" : "Disable template filtering"}
+                onClick={() => { this.setState({ isFilterable: !this.state.isFilterable }) }}
               />
               <Menu.Divider />
               <Menu.Item
@@ -38,13 +49,18 @@ class StructureTypeCard extends React.Component {
               />
             </Menu>
           } position={Position.BOTTOM_RIGHT}>
-            <Button icon="more" minimal="true"></Button>
+            <Button icon="more" minimal="true" />
           </Popover>
         </div>
         <Collapse isOpen={!this.state.isCollapsed}>
           <StructureTemplateTable
             structureType={this.state.structureType}
-            onFetchedData={(data) => this.setState({ templateCount: data.structureTemplates.length, isCollapsed: (data.structureTemplates.length <= 0) })}
+            filterable={this.state.isFilterable}
+            onFetchedData={(data) => this.setState({
+              templateCount: data.structureTemplates.length,
+              initialLoaded: true,
+              isCollapsed: (!this.state.initialLoaded && data.structureTemplates.length <= 0)
+            })}
           />
         </Collapse>
       </Card>

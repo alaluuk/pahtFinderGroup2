@@ -57,6 +57,7 @@ class StructuresView extends React.Component {
           primaryText="New Structure Template"
           primaryOnClick={() => { this.setState({ isUserCreateModalOpen: true }) }}
         />
+        {/* TODO: Add non-ideal states */}
         <div className="content-wrapper">
           {this.state.structureTypes.map(structureType =>
             <StructureTypeCard structureType={structureType} key={structureType.id} />
