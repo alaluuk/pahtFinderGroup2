@@ -11,7 +11,7 @@ const QuerySortType = new GraphQLInputObjectType({
 const QueryFilterTypeEnum = new GraphQLEnumType({
     name: "QueryFilterType",
     values: {
-      EQUAL: { value: 'EQUALS' },
+      EQUAL: { value: 'EQUAL' },
       NOT_EQUAL: { value: 'NOT_EQUAL' },
       LIKE: { value: 'LIKE' },
       BEGINS_WITH: { value: 'BEGINS_WITH' },
