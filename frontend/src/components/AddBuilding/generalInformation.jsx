@@ -8,6 +8,7 @@ import Button from '@material-ui/core/Button';
 import { Mutation } from 'react-apollo'
 import "../../styles/addConstruction.scss";
 import "../../styles/addBuilding.scss";
+import { CURRENT_USER_ID } from '../../constants';
 
 
 const CREATE_HOUSE = gql`
@@ -26,8 +27,8 @@ const CREATE_HOUSE = gql`
  */
 class GeneralInformation extends Component {
     state = { 
-        name: 'aa',
-        ownerId: "b13f1f1f-bb9e-45bb-90d8-e74d94c493fc",
+        name: 'aaa',
+        ownerId: localStorage.getItem(CURRENT_USER_ID),
         addressStreet : 'aa',
         addressCountry: 'aa',
         addressCity: 'aa',

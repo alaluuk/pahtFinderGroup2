@@ -5,6 +5,7 @@ import CustomRouter from './components/Router/CustomRouter';
 import * as serviceWorker from './serviceWorker';
 import ApolloClient, { InMemoryCache } from 'apollo-boost';
 import { ApolloProvider } from '@apollo/react-hooks';
+import { AUTH_TOKEN } from './constants'
 
 
 /**
@@ -14,7 +15,7 @@ const cache = new InMemoryCache();
 const client = new ApolloClient({
   uri: 'https://oamk-pathfinder.herokuapp.com/graphql',
   request: (operation) => {
-    const token = localStorage.getItem('AUTH_TOKEN')
+    const token = localStorage.getItem(AUTH_TOKEN);
     operation.setContext({
       headers: {
         authorization: token ? `Bearer ${token}` : ''
