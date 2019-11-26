@@ -35,14 +35,25 @@ border: none
 }
 
 .conCircle{
-    height: 25px;
-    width: 25px;
+    height: 20px;
+    width: 20px;
     padding: 40px;
     color: white;
-    border-radius: 50%;
-    display: inline-block;
+    border-radius: 10%;
+    display: flex;
     margin-top: 20px;
     margin-right: 20px;
+    font-size: 18px;
+    font-weight: 400;
+    justify-content: center;
+    box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12);
+}
+
+
+.conCircleText{
+    font-size: 20px;
+    font-weight: 600;
+
 }
 
 .conButtons{
@@ -53,6 +64,7 @@ border: none
     padding-bottom: 10px;
     border-bottom: 1px solid darkgrey;
     margin-right: 20px;
+    display: flex;
 }
 
 

@@ -10,8 +10,8 @@ class MapContainer extends Component {
 
       
         const style = {
-            width: '965px',
-            height: '400px'
+            width: '2000px',
+            height: '600px'
           }
         return ( <Map google={this.props.google} zoom={14}
                     style={style}>
