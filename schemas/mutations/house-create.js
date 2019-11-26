@@ -1,5 +1,5 @@
 const Joi = require('@hapi/joi');
-const { GraphQLNonNull, GraphQLString, GraphQLInt, GraphQLFloat, GraphQLBoolean } = require("graphql");
+const { GraphQLNonNull, GraphQLString, GraphQLID, GraphQLInt, GraphQLFloat, GraphQLBoolean } = require("graphql");
 const { House } = require("../../models");
 const { HouseType } = require("../types");
 const { checkPermission } = require("../../permissions");
@@ -20,7 +20,7 @@ const HouseCreateMutation = {
   type: HouseType,
   args: {
     name: { type: new GraphQLNonNull(GraphQLString) },
-    ownerId: { type: GraphQLInt },
+    ownerId: { type: GraphQLID },
     addressCountry: { type: GraphQLString },
     addressCity: { type: GraphQLString },
     addressStreet: { type: GraphQLString },

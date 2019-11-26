@@ -2,8 +2,6 @@ const { db } = require("../pg-adaptor");
 const { Structure, House } = require(".");
 
 class HouseStructure extends Structure {
-  // TODO: Adjust database (remove structures table, change house structures table)
-
   static getAny() {
     // TODO: Implement sort[]/filter[]/pagination{}
     return new Promise(function(resolve, reject) {
