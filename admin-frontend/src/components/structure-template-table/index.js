@@ -17,22 +17,39 @@ class StructureTemplateTable extends React.Component {
       structureType: this.props.structureType || null, // TODO: Handle structureType null
       structureTemplates: [],
       tblPages: null,
-      tblSortedBy: [ { id: 'rank', desc: false }, { id: 'title', desc: false } ],
+      tblSortedBy: [ { id: 'u_value', desc: true }, { id: 'title', desc: false } ],
     };
 
     this.fetchStructureTemplates = this.fetchStructureTemplates.bind(this);
   }
 
   fetchStructureTemplates(table) {
-    // TODO: Add page/sorted/filtered to query
     console.log(table);
     return new Promise((resolve, reject) => {
       this.setState({ isLoading: true, fetchError: null });
       // TODO: Fetch best/worst uvalue for whole category instead of generating reports for each structure template
       GraphQLClient.request(`
-        query($structureTypeID: ID!) {
+        query(
+          $structureTypeID: String!,
+          $pageSize: Int!,
+          $page: Int!,
+          $sort: [QuerySort]
+        ) {
           structureTemplates(
-            structureTypeID: $structureTypeID
+            query: {
+              filter: [
+                {
+                  id: "type_id",
+                  type: EQUAL,
+                  value: $structureTypeID
+                }
+              ],
+              sort: $sort,
+              pagination: {
+                pageSize: $pageSize,
+                page: $page
+              }
+            }
           ) {
             id
             title
@@ -62,7 +79,10 @@ class StructureTemplateTable extends React.Component {
           }
         }
       `, {
-        structureTypeID: this.state.structureType.id
+        structureTypeID: this.state.structureType.id,
+        pageSize: table.pageSize,
+        page: table.page,
+        sort: table.sorted
       })
         .then(data => {
           this.setState({ structureTemplates: data.structureTemplates, tblPages: 1 }); // TODO: Set table pages
@@ -90,36 +110,45 @@ class StructureTemplateTable extends React.Component {
           Header: 'Rank',
           id: 'rank',
           accessor: 'efficiencyReport.ranking.overallRank',
-          width: 50
+          width: 50,
+          filterable: false,
+          sortable: false
         },
         {
+          id: 'title',
           Header: 'Title',
           accessor: 'title',
           width: 250
         },
         {
+          id: 'manufacturer',
           Header: 'Manufacturer',
           accessor: 'manufacturer'
         },
         {
+          id: 'serial_number',
           Header: 'Serial Number',
           accessor: 'serialNumber'
         },
         {
+          id: 'production_year',
           Header: 'Production Year',
           accessor: 'productionYear',
           width: 125
         },
         {
+          id: 'area',
           Header: 'Area (m²)',
           accessor: 'area',
           width: 75
         },
         {
-          Header: 'Energy Efficiency',
           id: 'energyEfficiency',
+          Header: 'Energy Efficiency',
           accessor: 'efficiencyReport.ranking.overallPercentage',
-          Cell: cellInfo => (<EfficiencyIndicatorComponent uValue={cellInfo.row._original.uValue} percentage={cellInfo.row.energyEfficiency} />)
+          Cell: cellInfo => (<EfficiencyIndicatorComponent uValue={cellInfo.row._original.uValue} percentage={cellInfo.row.energyEfficiency} />),
+          filterable: false,
+          sortable: false
         }
       ]}
       data={this.state.structureTemplates}

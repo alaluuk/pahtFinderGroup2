@@ -1,44 +1,14 @@
 const { db } = require("../pg-adaptor");
-const { Structure } = require(".");
-
-class APIQuery {
-  // TODO: Seperate into own file
-
-  constructor(sort = null, filter = null, pagination = null) {
-    this.sort = sort || [ { id: "id", desc: false } ]; // { id: "DEMO", desc: false }
-    this.filter = limit || []; // { id: "DEMO", type: "LIKE", value: "TEST" }
-    this.pagination = pagination || { pageSize: -1, page: 1 };
-  }
-
-  checkValidity(verbose = true) {
-    return true;
-  }
-
-  constructSQLSuffix(verbose = true) {
-    let suffix = '';
-    if(this.checkValidity(verbose)) {
-      for(let i = 0; i < this.filter.length; i++) {
-        suffix += ((i === 0) ? ' WHERE ' : ' AND ')+this.filter[i].id+' '+this.filter[i].type+' '+this.filter[i].value+'%';
-      }
-      for(let i = 0; i < this.sort.length; i++) {
-        suffix += ((i === 0) ? ' ORDER BY ' : ' AND ')+this.sort[i].id+((this.sort[i].desc === true) ? ' ASC' : ' DESC');
-      }
-      if(this.pagination.pageSize > 0) {
-        suffix += ' LIMIT '+this.pagination.pageSize;
-        suffix += ' SKIP '+(this.pagination.page * this.pagination.pageSize);
-      }
-    }
-    return suffix;
-  }
-}
+const { APIQuery, Structure } = require(".");
 
 class StructureTemplate extends Structure {
   static getAny(query = null) {
     return new Promise(function(resolve, reject) {
-      let querySuffix = (query !== null) ? query.constructSQLSuffix() : '';
+      let suffix = (query !== null) ? query.constructSuffix() : '';
       db
-        .any(`SELECT * FROM structure_templates`+querySuffix)
+        .any(`SELECT *`+suffix.fields+` FROM structure_templates`+suffix.query)
         .then(res => {
+          query.checkResults(res);
           let structure_templates = [];
           res.forEach(structure_data => {
             let structure = new StructureTemplate(structure_data);

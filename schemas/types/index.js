@@ -1,3 +1,4 @@
+exports.QueryType = require("./query").QueryType;
 exports.UserType = require("./user").UserType;
 exports.AuthPayloadType = require("./auth-payload").AuthPayloadType;
 exports.StructureTypeType = require("./structure-type").StructureTypeType;
