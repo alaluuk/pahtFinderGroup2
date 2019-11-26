@@ -32,10 +32,52 @@ h1{
     margin-left: 20px;
     text-decoration: none;
   }
+
+.MuiButtonBase-root.MuiFab-root.overviewFilter.MuiFab-sizeSmall.MuiFab-secondary{
+    box-shadow: none;
+    background: none;
+    color: black
+  }
+
+  .overviewHeadLeft{
+    display: flex;
+    align-items: center;
+    width: 89%;
+  }
+
+
+  .overviewFilterButtons{
+      display: flex;
+  }
+
+  .filterBody{
+      width: 300px;
+      height: 500px;
+    padding: 20px;
+  }
+
+  .filterContent{
+      display: grid;
+  }
+
+.MuiFormControl-root.filterOption{
+    width:300px;
+    margin-bottom: 40px;
+}
+
+.MuiButtonBase-root.MuiButton-root.MuiButton-contained.filterOptionRemove.MuiButton-containedSecondary{
+    margin-bottom: 40px;
+    width: 100%;
+    background-color: dimgray;
+}
+
+
   .MuiButtonBase-root.MuiButton-root.MuiButton-outlined.addNewPlusButton{
       
       border: none;
   }
+
+  
 
 
 .content{
@@ -91,7 +133,5 @@ h1{
 
 
 
-
-
-
   
+    
