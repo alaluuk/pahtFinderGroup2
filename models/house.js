@@ -48,7 +48,7 @@ class House {
   }
 
   static create(name, address_country, address_city, address_street, construction_year, owner_id, heating_system, cost_of_heating, warm_water_pipe) {
-    return new Promise(async function(resolve, reject) {
+    return new Promise(function(resolve, reject) {
       // TODO: let coords = await House.addressToLatLng(address_street +', '+address_city +', '+address_country);
       User.getOne(owner_id)
         .then(user => {
