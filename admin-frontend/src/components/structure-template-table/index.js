@@ -24,15 +24,28 @@ class StructureTemplateTable extends React.Component {
   }
 
   fetchStructureTemplates(table) {
-    // TODO: Add page/sorted/filtered to query
     console.log(table);
     return new Promise((resolve, reject) => {
       this.setState({ isLoading: true, fetchError: null });
       // TODO: Fetch best/worst uvalue for whole category instead of generating reports for each structure template
       GraphQLClient.request(`
-        query($structureTypeID: ID!) {
+        query(
+          $structureTypeID: String!,
+          $pageSize: Int!,
+          $page: Int!
+        ) {
           structureTemplates(
-            structureTypeID: $structureTypeID
+            query: {
+              filter: [{
+                id: "type_id",
+                type: EQUAL,
+                value: $structureTypeID
+              }],
+              pagination: {
+                pageSize: $pageSize,
+                page: $page
+              }
+            }
           ) {
             id
             title
@@ -62,7 +75,9 @@ class StructureTemplateTable extends React.Component {
           }
         }
       `, {
-        structureTypeID: this.state.structureType.id
+        structureTypeID: this.state.structureType.id,
+        pageSize: table.pageSize,
+        page: table.page
       })
         .then(data => {
           this.setState({ structureTemplates: data.structureTemplates, tblPages: 1 }); // TODO: Set table pages
@@ -119,7 +134,8 @@ class StructureTemplateTable extends React.Component {
           Header: 'Energy Efficiency',
           id: 'energyEfficiency',
           accessor: 'efficiencyReport.ranking.overallPercentage',
-          Cell: cellInfo => (<EfficiencyIndicatorComponent uValue={cellInfo.row._original.uValue} percentage={cellInfo.row.energyEfficiency} />)
+          Cell: cellInfo => (<EfficiencyIndicatorComponent uValue={cellInfo.row._original.uValue} percentage={cellInfo.row.energyEfficiency} />),
+          filterable: false
         }
       ]}
       data={this.state.structureTemplates}
