@@ -3,7 +3,6 @@ const { GraphQLObjectType, GraphQLNonNull, GraphQLList, GraphQLString, GraphQLIn
 
 const EfficiencyReportSegmentType = new GraphQLObjectType({
   name: "EfficiencyReportSegment",
-  type: "Query",
   fields: {
     label: { type: new GraphQLNonNull(GraphQLString) },
     from: { type: new GraphQLNonNull(GraphQLFloat) },
@@ -14,7 +13,6 @@ const EfficiencyReportSegmentType = new GraphQLObjectType({
 
 const EfficiencyReportRankingType = new GraphQLObjectType({
   name: "EfficiencyReportRanking",
-  type: "Query",
   fields: {
     overallPercentage: { type: new GraphQLNonNull(GraphQLFloat) },
     overallRank: { type: new GraphQLNonNull(GraphQLInt) },
@@ -25,7 +23,6 @@ const EfficiencyReportRankingType = new GraphQLObjectType({
 
 const EfficiencyReportType = new GraphQLObjectType({
   name: "EfficiencyReport",
-  type: "Query",
   fields: {
     ranking: { type: new GraphQLNonNull(EfficiencyReportRankingType) },
     segmentation: { type: new GraphQLList(EfficiencyReportSegmentType) },

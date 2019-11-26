@@ -1,30 +1,43 @@
 const { db } = require("../pg-adaptor");
-const { StructureType } = require(".");
+const { Structure } = require(".");
 
-class StructureTemplate {
-  static getAny(sort = null, limit = 0, skip = 0) {
-    let sortableFields = [
-      { fieldName: 'u_value', orderBy: ['ASC', 'DESC'] }
-    ];
+class APIQuery {
+  // TODO: Seperate into own file
 
-    return new Promise(function(resolve, reject) {
-      let querySuffix = '';
-      if(sort !== null) {
-        let sortableField = sortableFields.find(f => f.fieldName === sort.fieldName);
-        if(sortableField !== undefined) {
-          if(sortableField.orderBy.includes(sort.orderBy)) {
-            querySuffix += ' ORDER BY '+sort.fieldName+' '+sort.orderBy;
-          } else {
-            reject(new Error('Cannot sort the field "'+sort.fieldName+'" in "'+sort.orderBy+'" order.'));
-          }
-        } else {
-          reject(new Error('"'+sort.fieldName+'" is no valid field to sort by.'));
-        }
+  constructor(sort = null, filter = null, pagination = null) {
+    this.sort = sort || [ { id: "id", desc: false } ]; // { id: "DEMO", desc: false }
+    this.filter = limit || []; // { id: "DEMO", type: "LIKE", value: "TEST" }
+    this.pagination = pagination || { pageSize: -1, page: 1 };
+  }
+
+  checkValidity(verbose = true) {
+    return true;
+  }
+
+  constructSQLSuffix(verbose = true) {
+    let suffix = '';
+    if(this.checkValidity(verbose)) {
+      for(let i = 0; i < this.filter.length; i++) {
+        suffix += ((i === 0) ? ' WHERE ' : ' AND ')+this.filter[i].id+' '+this.filter[i].type+' '+this.filter[i].value+'%';
       }
-      if(limit > 0) querySuffix += ' LIMIT '+limit;
-      if(skip > 0) querySuffix += ' SKIP '+skip;
+      for(let i = 0; i < this.sort.length; i++) {
+        suffix += ((i === 0) ? ' ORDER BY ' : ' AND ')+this.sort[i].id+((this.sort[i].desc === true) ? ' ASC' : ' DESC');
+      }
+      if(this.pagination.pageSize > 0) {
+        suffix += ' LIMIT '+this.pagination.pageSize;
+        suffix += ' SKIP '+(this.pagination.page * this.pagination.pageSize);
+      }
+    }
+    return suffix;
+  }
+}
+
+class StructureTemplate extends Structure {
+  static getAny(query = null) {
+    return new Promise(function(resolve, reject) {
+      let querySuffix = (query !== null) ? query.constructSQLSuffix() : '';
       db
-        .any(`SELECT * FROM structure_templates`)
+        .any(`SELECT * FROM structure_templates`+querySuffix)
         .then(res => {
           let structure_templates = [];
           res.forEach(structure_data => {
@@ -141,74 +154,7 @@ class StructureTemplate {
   }
 
   constructor(data) {
-    this._id = data.id;
-    this._title = data.title;
-    this._type_id = data.type_id;
-    this._u_value = data.u_value;
-    this._area = data.area;
-    this._manufacturer = data.manufacturer;
-    this._serial_number = data.serial_number;
-    this._production_year = data.production_year;
-    this._created_at = data.created_at;
-    this._updated_at = data.updated_at;
-  }
-
-  get id() {
-    return this._id;
-  }
-
-  set title(title) {
-    this._title = title;
-  }
-  get title() {
-    return this._title;
-  }
-
-  get type() {
-    return StructureType.getOne(this._type_id);
-  }
-
-  set uValue(u_value) {
-    this._u_value = u_value;
-  }
-  get uValue() {
-    return this._u_value;
-  }
-
-  set area(area) {
-    this._area = area;
-  }
-  get area() {
-    return this._area;
-  }
-
-  set manufacturer(manufacturer) {
-    this._manufacturer = manufacturer;
-  }
-  get manufacturer() {
-    return this._manufacturer;
-  }
-
-  set serialNumber(serialNumber) {
-    this._serial_number = serialNumber;
-  }
-  get serialNumber() {
-    return this._serial_number;
-  }
-
-  set productionYear(productionYear) {
-    this._production_year = productionYear;
-  }
-  get productionYear() {
-    return this._production_year;
-  }
-
-  get createdAt() {
-    return this._created_at.toISOString();
-  }
-
-  get updatedAt() {
-    return this._updated_at.toISOString();
+    super(data);
   }
 }
 

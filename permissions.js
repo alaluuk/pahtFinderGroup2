@@ -5,17 +5,13 @@ const Roles = {
         "user_update_self",
         "user_update_role_customer",
         "user_delete_self",
-        "structures_query",
         "structure_template_query",
         "structure_type_query",
         "house_create",
         "house_update_owner_self",
         "house_delete_owner_self",
-        "house_structure_create",
         "house_structure_create_owner_self",
-        "house_structure_update",
         "house_structure_update_owner_self",
-        "house_structure_delete",
         "house_structure_delete_owner_self"
     ]
 }
