@@ -65,7 +65,7 @@ class House {
               heating_system,
               cost_of_heating,
               warm_water_pipe
-            ) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`, [
+            ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING *`, [
               name,
               address_country,
               address_city,
