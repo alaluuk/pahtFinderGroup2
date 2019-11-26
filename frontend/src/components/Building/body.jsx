@@ -14,8 +14,21 @@ import DeleteButton from "../Deletion/body";
 
 import "../../styles/building.scss";
 
+
+
 class Body extends Component {
-  state = {};
+  state = {
+
+    type: "Single House",
+    title: "BuildingABC",
+    street: "Valkyliäly 324",
+    city: "Oulu",
+    country : "Finnland",
+    constructionYear: 1950,
+
+
+
+  };
 
   render() {
     const PrettoSlider = withStyles({
@@ -51,14 +64,15 @@ class Body extends Component {
         <div className="overlay">
           <div className="building">
             <div className="buildingHeader">
-              <h1 className="buildingHeaderText">Building ABC</h1>
+              <h1 className="buildingHeaderText">{this.state.title}</h1>
               <Button className="buildingEdit" variant="outlined">
                 <EditIcon /> &nbsp; Edit
               </Button>
               <DeleteButton
                 className="buildingDelete"
                 id=""
-                type="Building"
+                parentType =  {this.state.type}
+                parentTitle = {this.state.title}
               ></DeleteButton>
               <div className="buildingSlider">
                 <PrettoSlider
@@ -88,7 +102,7 @@ class Body extends Component {
                             disabled
                             id="standard-disabled"
                             label="Name Of Building"
-                            defaultValue="Building ABC"
+                            defaultValue={this.state.title}
                             className="buildingSingleInfo"
                             margin="normal"
                           />
@@ -98,7 +112,7 @@ class Body extends Component {
                             disabled
                             id="standard-disabled"
                             label="Street"
-                            defaultValue="Valkyliäly 324"
+                            defaultValue={this.state.street}
                             className="buildingSingleInfo"
                             margin="normal"
                           />
@@ -110,7 +124,7 @@ class Body extends Component {
                             disabled
                             id="standard-disabled"
                             label="Construction Year"
-                            defaultValue="1950"
+                            defaultValue={this.state.constructionYear}
                             className="buildingSingleInfo"
                             margin="normal"
                           />
@@ -120,7 +134,7 @@ class Body extends Component {
                             disabled
                             id="standard-disabled"
                             label="City"
-                            defaultValue="Oulu"
+                            defaultValue={this.state.city}
                             className="buildingSingleInfo"
                             margin="normal"
                           />
@@ -132,7 +146,7 @@ class Body extends Component {
                             disabled
                             id="standard-disabled"
                             label="Type of Building"
-                            defaultValue="Single House"
+                            defaultValue={this.state.type}
                             className="buildingSingleInfo"
                             margin="normal"
                           />
@@ -142,7 +156,7 @@ class Body extends Component {
                             disabled
                             id="standard-disabled"
                             label="Country"
-                            defaultValue="Finnland"
+                            defaultValue={this.state.country}
                             className="buildingSingleInfo"
                             margin="normal"
                           />

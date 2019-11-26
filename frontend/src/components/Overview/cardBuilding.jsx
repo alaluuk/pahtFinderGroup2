@@ -10,13 +10,35 @@ import '../../styles/cardBuilding.scss';
 
 
 class MediaCard extends Component {
-  state = {  }
+  state = { 
+
+    title: "",
+    year: "",
+    country: "",
+    EE: "",
+    color: "",
+    green: "darkgreen",
+    orange: "orange",
+    red: "red"
+
+    
+   }
 
   constructor(props){ 
     super(props)
-    this.state = {
-      
+    this.state.title = this.props.title
+    this.state.year = this.props.year
+    this.state.country = this.props.country
+    this.state.EE = this.props.EE
+
+    if (this.state.EE <= 35) {
+      this.state.color = this.state.red;
+    } else if (this.state.EE <= 70) {
+      this.state.color = this.state.orange;
+    } else if (this.state.EE >= 70) {
+      this.state.color = this.state.green;
     }
+      
   }
   render() { 
     return ( <Link to="/building123">
@@ -28,21 +50,32 @@ class MediaCard extends Component {
           title="Good House"
         />
         <CardContent>
+          <div className = "buildingCardContent">
+          <div className = "buildingCardConLeft">
           <Typography gutterBottom variant="h5" component="h2">
-            Good House
+            {this.state.title}
           </Typography>
           <Typography variant="subtitle1" component="p">
-            1746
+            {this.state.year}
           </Typography>
           <Typography variant="subtitle1" component="p">
-            Russia
+            {this.state.country}
           </Typography>
-            <Slider
-                defaultValue={80}
-                aria-labelledby="discrete-slider-always"
-                valueLabelDisplay="on"
-                disabled={true}
-            />
+          </div>
+          <div className = "buildingCardConRight">
+          <div
+              className="conCircle"
+              style={{ backgroundColor: this.state.color }}
+            >
+              {this.state.EE}%
+            </div>
+          
+
+          </div>
+          </div>
+          
+         
+            
         </CardContent>
       </CardActionArea>
     </Card>
