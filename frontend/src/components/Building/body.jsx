@@ -9,7 +9,6 @@ import DiyCard from "./cardDIY";
 import Map from "../Maps/mapBuilding";
 import { withStyles } from "@material-ui/core/styles";
 import EditIcon from "@material-ui/icons/Edit";
-import DeleteIcon from "@material-ui/icons/Delete";
 import DeleteButton from "../Deletion/body";
 
 import "../../styles/building.scss";
