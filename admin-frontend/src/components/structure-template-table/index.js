@@ -17,7 +17,7 @@ class StructureTemplateTable extends React.Component {
       structureType: this.props.structureType || null, // TODO: Handle structureType null
       structureTemplates: [],
       tblPages: null,
-      tblSortedBy: [ { id: 'title', desc: false } ],
+      tblSortedBy: [ { id: 'u_value', desc: true }, { id: 'title', desc: false } ],
     };
 
     this.fetchStructureTemplates = this.fetchStructureTemplates.bind(this);
