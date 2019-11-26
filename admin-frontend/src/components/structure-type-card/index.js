@@ -11,7 +11,7 @@ class StructureTypeCard extends React.Component {
       structureType: this.props.structureType,
       initialLoaded: false,
       isCollapsed: false,
-      templateCount: null,
+      totalCount: null,
       isFilterable: false
     };
   }
@@ -19,17 +19,22 @@ class StructureTypeCard extends React.Component {
   render() {
     return (
       <Card className="StructureTypeCard" elevation={Elevation.ONE}>
-        <div className="StructureTypeCardHeader">
+        <div className={"StructureTypeCardHeader"+(this.state.isCollapsed ? " is-collapsed" : "")}>
           <Button
             icon={(!this.state.isCollapsed) ? "chevron-down" : "chevron-right"} minimal="true"
             onClick={() => { this.setState({ isCollapsed: !this.state.isCollapsed }) }}
           />
           <H5 className={Classes.TEXT_OVERFLOW_ELLIPSIS}>
             {this.state.structureType.title}
-            {(this.state.templateCount !== null) ? <span className="bp3-text-muted"> ({this.state.templateCount})</span> : ''}
+            {(this.state.totalCount !== null) ? <span className="bp3-text-muted"> ({this.state.totalCount})</span> : ''}
           </H5>
+          {/* <Button icon="new-layers" minimal="true" intent={Intent.SUCCESS}>New Template</Button> */}
           <Popover content={
             <Menu>
+              <Menu.Item
+                icon="new-layers" 
+                text="Create a new template"
+              />
               <Menu.Item
                 icon={(!this.state.isCollapsed) ? "collapse-all" : "expand-all"} 
                 text={(!this.state.isCollapsed) ? "Collapse templates list" : "Expand templates list"}
@@ -56,10 +61,10 @@ class StructureTypeCard extends React.Component {
           <StructureTemplateTable
             structureType={this.state.structureType}
             filterable={this.state.isFilterable}
-            onFetchedData={(data) => this.setState({
-              templateCount: data.structureTemplates.length,
+            onFetchedData={(totalCount) => this.setState({
+              totalCount: totalCount,
               initialLoaded: true,
-              isCollapsed: (!this.state.initialLoaded && data.structureTemplates.length <= 0)
+              isCollapsed: (!this.state.initialLoaded && totalCount <= 0)
             })}
           />
         </Collapse>
