@@ -4,7 +4,6 @@ import ImageUploader from "./imageUploader";
 import Selector from "./selector_BuildingType";
 import Map from "../Maps/mapAddBuilding";
 import gql from 'graphql-tag'
-import { AUTH_TOKEN } from '../../constants'
 import Button from '@material-ui/core/Button';
 import { Mutation } from 'react-apollo'
 import "../../styles/addConstruction.scss";
@@ -28,7 +27,7 @@ const CREATE_HOUSE = gql`
 class GeneralInformation extends Component {
     state = { 
         name: 'aa',
-        ownerId: 'aa',
+        ownerId: "b13f1f1f-bb9e-45bb-90d8-e74d94c493fc",
         addressStreet : 'aa',
         addressCountry: 'aa',
         addressCity: 'aa',
