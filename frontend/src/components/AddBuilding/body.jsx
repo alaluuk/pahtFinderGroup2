@@ -23,7 +23,8 @@ class AddBuilding extends Component {
     walls: [],
     doors: [],
     windows: [],
-    groundfloors: []
+    groundfloors: [],
+    saveHouseClicked: false
   };
 
   render() {
@@ -35,7 +36,7 @@ class AddBuilding extends Component {
               <h1 className="addBuildHeaderText">Add a new building</h1>
             </div>
 
-              <GeneralInformation></GeneralInformation>
+              <GeneralInformation saveHouseClicked = {this.state.saveHouseClicked}></GeneralInformation>
             
             <div className="allStructures">
               <div className="addStructureComp">
@@ -279,7 +280,7 @@ class AddBuilding extends Component {
                   variant="contained"
                   color="primary"
                   className="saveBuildButton"
-                  onClick=""
+                  onClick={() => this.setState({saveHouseClicked : true})}
                 >
                   Save Your Building
                 </Button>

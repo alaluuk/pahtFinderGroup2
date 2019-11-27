@@ -6,6 +6,7 @@ import Map from "../Maps/mapAddBuilding";
 import gql from 'graphql-tag'
 import Button from '@material-ui/core/Button';
 import { Mutation } from 'react-apollo'
+import { withApollo } from "react-apollo";
 import "../../styles/addConstruction.scss";
 import "../../styles/addBuilding.scss";
 import { CURRENT_USER_ID } from '../../constants';
@@ -27,18 +28,44 @@ const CREATE_HOUSE = gql`
  */
 class GeneralInformation extends Component {
     state = { 
-        name: 'aaa',
+        name: '',
         ownerId: localStorage.getItem(CURRENT_USER_ID),
-        addressStreet : 'aa',
-        addressCountry: 'aa',
-        addressCity: 'aa',
+        addressStreet : '',
+        addressCountry: '',
+        addressCity: '',
         constructionYear: 0,
-        heatingSystem: 'aa',
+        heatingSystem: '',
         costOfHeating: 0,
         warmWaterPipe: false,
-        errorMessage: 'aa'
+        errorMessage: ''
      }
-    render(props) { 
+
+    componentDidUpdate(prevProps) {
+      if (this.props.saveHouseClicked === true) {
+        console.log("save House Clicked!")
+        this.props.client.mutate({
+          mutation: CREATE_HOUSE,
+          variables: {
+              name: this.state.name,
+              ownerId: localStorage.getItem(CURRENT_USER_ID),
+              addressStreet: this.state.addressStreet,
+              addressCountry: this.state.addressCountry,
+              addressCity: this.state.addressCity,
+              constructionYear: this.state.constructionYear,
+              heatingSystem: this.state.heatingSystem,
+              costOfHeating: this.state.costOfHeating,
+              warmWaterPipe: this.state.warmWaterPipe
+          },
+        }).then(results => {
+            console.log(results);
+        })
+        .catch(error => {
+            console.log("Error: ", error);
+        });
+      }
+    }
+
+    render() { 
         const {
         name,
         ownerId,
@@ -51,6 +78,7 @@ class GeneralInformation extends Component {
         warmWaterPipe,
         errorMessage
         } = this.state;
+
         return (  
             <div className="generalInfo">
               <h2 className="addBuildText"> General Information</h2>
@@ -68,16 +96,17 @@ class GeneralInformation extends Component {
                     margin="normal"
                     variant="outlined"
                     onChange={e => this.setState({ name: e.target.value })}
-                  />{" "}
+                  />
                   <br></br>
                   <TextField
                     id="outlined-basic"
+                    type="number"
                     className="addBuildField"
                     label="Construction Year"
                     margin="normal"
                     variant="outlined"
                     onChange={e => this.setState({ constructionYear: e.target.value })}
-                  />{" "}
+                  />
                   <br></br>
                 </div>
                 <div className="center">
@@ -88,7 +117,7 @@ class GeneralInformation extends Component {
                     margin="normal"
                     variant="outlined"
                     onChange={e => this.setState({ addressStreet: e.target.value })}
-                  />{" "}
+                  />
                   <br></br>
                   <TextField
                     id="outlined-basic"
@@ -97,7 +126,7 @@ class GeneralInformation extends Component {
                     margin="normal"
                     variant="outlined"
                     onChange={e => this.setState({ addressCity: e.target.value })}
-                  />{" "}
+                  />
                   <br></br>
                   <TextField
                     id="outlined-basic"
@@ -106,7 +135,35 @@ class GeneralInformation extends Component {
                     margin="normal"
                     variant="outlined"
                     onChange={e => this.setState({ addressCountry: e.target.value })}
-                  />{" "}
+                  />
+                  <br></br>
+                  <TextField
+                    id="outlined-basic"
+                    className="addBuildField"
+                    label="Heating system"
+                    margin="normal"
+                    variant="outlined"
+                    onChange={e => this.setState({ heatingSystem: e.target.value })}
+                  />
+                  <br></br>
+                  <TextField
+                    id="outlined-basic"
+                    type="number"
+                    className="addBuildField"
+                    label="Yearly cost of heating"
+                    margin="normal"
+                    variant="outlined"
+                    onChange={e => this.setState({ costOfHeating: e.target.value })}
+                  />
+                  <br></br>
+                  <TextField
+                    id="outlined-basic"
+                    className="addBuildField"
+                    label="Warm water pipe"
+                    margin="normal"
+                    variant="outlined"
+                    onChange={e => this.setState({ warmWaterPipe: e.target.value })}
+                  />
                   <br></br>
                 </div>
                 {errorMessage}
@@ -134,4 +191,4 @@ class GeneralInformation extends Component {
     }
 }
  
-export default GeneralInformation;
+export default withApollo(GeneralInformation);
