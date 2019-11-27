@@ -183,7 +183,13 @@ class StructureTemplateTable extends React.Component {
           description={
             <Text className="bp3-text-muted">There are no structure templates of this type yet.</Text>
           }
-          action={<Button icon="new-layers" intent={Intent.SUCCESS}>Create a new template</Button>}
+          action={
+            <Button
+              icon="new-layers"
+              intent={Intent.SUCCESS}
+              onClick={this.props.handleNewTemplateModal || undefined}
+            >Create a new template</Button>
+          }
         /> : null
       }
       onFetchData={this.fetchStructureTemplates}

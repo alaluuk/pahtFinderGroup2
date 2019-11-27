@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Card, H5, Classes, Collapse, Elevation, Popover, Menu, Intent, Position } from "@blueprintjs/core";
 import StructureTemplateTable from "../../components/structure-template-table";
+import StructureTemplateCreateModal from "../../modals/structure-template-create";
 import "./styles.scss";
 
 class StructureTypeCard extends React.Component {
@@ -12,7 +13,8 @@ class StructureTypeCard extends React.Component {
       initialLoaded: false,
       isCollapsed: false,
       totalCount: null,
-      isFilterable: false
+      isFilterable: false,
+      isTemplateCreateModalOpen: false
     };
   }
 
@@ -34,6 +36,7 @@ class StructureTypeCard extends React.Component {
               <Menu.Item
                 icon="new-layers" 
                 text="Create a new template"
+                onClick={() => { this.setState({isTemplateCreateModalOpen: true}) }}
               />
               <Menu.Item
                 icon={(!this.state.isCollapsed) ? "collapse-all" : "expand-all"} 
@@ -66,8 +69,13 @@ class StructureTypeCard extends React.Component {
               initialLoaded: true,
               isCollapsed: (!this.state.initialLoaded && totalCount <= 0)
             })}
+            handleNewTemplateModal={() => { this.setState({isTemplateCreateModalOpen: true}) }}
           />
         </Collapse>
+        <StructureTemplateCreateModal
+          isOpen={this.state.isTemplateCreateModalOpen}  
+          handleClose={() => { this.setState({isTemplateCreateModalOpen: false}) }}
+        />
       </Card>
     );
   }

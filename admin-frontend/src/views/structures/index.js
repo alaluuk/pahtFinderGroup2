@@ -3,6 +3,7 @@ import GraphQLClient from "../../providers/graphql";
 import HeaderComponent from "../../components/header";
 import FilterableSubheaderComponent from "../../components/filterable-subheader";
 import StructureTypeCard from "../../components/structure-type-card";
+import { Text, Spinner, NonIdealState, Icon, Intent } from "@blueprintjs/core";
 import "./styles.scss";
 
 class StructuresView extends React.Component {
@@ -27,7 +28,11 @@ class StructuresView extends React.Component {
       this.setState({ isLoading: true, fetchError: null });
       GraphQLClient.request(`
         query {
-          structureTypes {
+          structureTypes(
+            query: {
+              sort: [{ id: "title", desc: false }]
+            }
+          ) {
             id
             title
             createdAt
@@ -48,6 +53,31 @@ class StructuresView extends React.Component {
   }
 
   render() {
+    let view;
+    if(this.state.isLoading) {
+      view = (
+        <NonIdealState
+          icon={<Spinner size="30"></Spinner>}
+          title="Fetching Structure Types..."
+          description={<Text className="bp3-text-muted">Please wait while the structure types are getting loaded.</Text>}
+        />
+      );
+    } else if(this.state.fetchError) {
+      view = (
+        <NonIdealState
+          icon={<Icon icon="issue" iconSize="30" intent={Intent.DANGER} />}
+          title="Error while fetching the structure types!"
+          description={<Text className="bp3-text-muted">{
+            (this.state.fetchError.response) ? this.state.fetchError.response.errors.map((err) => err.message+" ") : this.state.fetchError.message
+          }</Text> }
+        />
+      );
+    } else {
+      view = this.state.structureTypes.map(structureType =>
+        <StructureTypeCard structureType={structureType} key={structureType.id} />
+      );
+    }
+
     return (
       <div className="StructuresView">
         <HeaderComponent user={this.props.user} />
@@ -57,12 +87,7 @@ class StructuresView extends React.Component {
           primaryText="New Structure Template"
           primaryOnClick={() => { this.setState({ isUserCreateModalOpen: true }) }}
         />
-        {/* TODO: Add non-ideal states */}
-        <div className="content-wrapper">
-          {this.state.structureTypes.map(structureType =>
-            <StructureTypeCard structureType={structureType} key={structureType.id} />
-          )}
-        </div>
+        <div className="content-wrapper">{view}</div>
       </div>
     );
   }

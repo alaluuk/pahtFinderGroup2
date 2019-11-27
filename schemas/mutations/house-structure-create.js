@@ -11,8 +11,8 @@ const HouseStructureCreateSchema = Joi.object({
   uValue: Joi.number().required(),
   area: Joi.number().required(),
   manufacturer: Joi.string().max(255),
-  serial_number: Joi.string().max(255),
-  production_year: Joi.number()
+  serialNumber: Joi.string().max(255),
+  productionYear: Joi.number()
 });
 
 const HouseStructureCreateMutation = {

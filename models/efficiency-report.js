@@ -42,7 +42,7 @@ class EfficiencyReport {
         from: bestUValue+(segmentStepSize*i),
         to: bestUValue+(segmentStepSize*(i+1))
       };
-      segment.count = await db.one(`SELECT COUNT(DISTINCT id) AS count FROM structure_templates WHERE type_id = $1 AND u_value BETWEEN $2 AND $3`, [ this.structure._type_id, segment.from, segment.to ]).then(res => res.count);
+      segment.count = (segmentStepSize <= 0) ? ((i === 0) ? 1 : 0) : await db.one(`SELECT COUNT(DISTINCT id) AS count FROM structure_templates WHERE type_id = $1 AND u_value BETWEEN $2 AND $3`, [ this.structure._type_id, segment.from, segment.to ]).then(res => res.count);
       segments.push(segment);
     }
     return segments;
@@ -62,7 +62,7 @@ class EfficiencyReport {
       }
     }
     return {
-      overallPercentage: (1 - (uValueDifference / uValueRange)) * 100,
+      overallPercentage: (uValueRange > 0) ? (1 - (uValueDifference / uValueRange)) * 100 : 100,
       overallRank: await db.one(`SELECT COUNT(DISTINCT id) AS count FROM structure_templates WHERE type_id = $1 AND u_value < $2`, [ this.structure._type_id, this.structure.uValue ]).then(res => parseInt(res.count)+1),
       overallCount: await db.one(`SELECT COUNT(DISTINCT id) AS count FROM structure_templates WHERE type_id = $1`, [ this.structure._type_id ]).then(res => res.count),
       rankedSegment: segment

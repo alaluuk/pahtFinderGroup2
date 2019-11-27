@@ -8,7 +8,7 @@ const StructureTemplateType = new GraphQLObjectType({
     id: { type: new GraphQLNonNull(GraphQLID) },
     title: { type: GraphQLString },
     type: { type: new GraphQLNonNull(StructureTypeType) },
-    uValue: { type: GraphQLFloat },
+    uValue: { type: new GraphQLNonNull(GraphQLFloat) },
     area: { type: GraphQLFloat },
     manufacturer: { type: GraphQLString },
     serialNumber: { type: GraphQLString },

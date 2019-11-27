@@ -7,11 +7,11 @@ const { checkPermission } = require("../../permissions");
 const StructureTemplateCreateSchema = Joi.object({
   title: Joi.string().min(3).max(255).required(),
   typeId: Joi.string().guid().required(),
-  uValue: Joi.number(),
+  uValue: Joi.number().required(),
   area: Joi.number(),
   manufacturer: Joi.string().max(255),
-  serial_number: Joi.string().max(255),
-  production_year: Joi.number()
+  serialNumber: Joi.string().max(255),
+  productionYear: Joi.number()
 });
 
 const StructureTemplateCreateMutation = {
@@ -19,7 +19,7 @@ const StructureTemplateCreateMutation = {
   args: {
     title: { type: new GraphQLNonNull(GraphQLString) },
     typeId: { type: new GraphQLNonNull(GraphQLID) },
-    uValue: { type: GraphQLFloat },
+    uValue: { type: new GraphQLNonNull(GraphQLFloat) },
     area: { type: GraphQLFloat },
     manufacturer: { type: GraphQLString },
     serialNumber: { type: GraphQLString },

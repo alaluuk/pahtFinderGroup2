@@ -41,8 +41,12 @@ export const performLogin = (email, password, longLived = false) => {
       longLived: longLived
     })
       .then(data => {
+        if(data.login.user.role !== 'admin') {
+          reject(new Error("You have to be an administrator to access this application."));
+          return;
+        }
         Cookies.set('__session_jwt', data.login.token);
-        cachedUser = data.user;
+        cachedUser = data.login.user;
         cachedUserTTL = Date.now() + 60000;
         refreshBearer();
         resolve(data.login);
@@ -104,6 +108,10 @@ export const fetchUser = (disableCache = false) => {
       id: session.user.id
     })
       .then(data => {
+        if(data.users[0].role !== 'admin') {
+          reject(new Error("You have to be an administrator to access this application."));
+          return;
+        }
         cachedUser = data.users[0];
         cachedUserTTL = Date.now();
         resolve(cachedUser);

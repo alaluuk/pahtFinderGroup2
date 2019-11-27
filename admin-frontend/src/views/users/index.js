@@ -15,8 +15,7 @@ class UsersView extends React.Component {
     this.state = {
       isLoading: false,
       fetchError: null,
-      users: [],
-      isUserCreateModalOpen: false
+      users: []
     };
 
     this.fetchUsers = this.fetchUsers.bind(this);
