@@ -40,14 +40,14 @@ class Body extends Component {
 
 
                         {/* email, name and password input fields */}
-                        <TextField id="outlined-basic" className="inputUserName" label="User Name" margin="normal" variant="outlined" 
-                            onChange={e => this.setState({ name : e.target.value})}/>
+                        <TextField id="outlined-basic" className="inputUserName" label="User Name" margin="normal" variant="outlined"
+                            autoComplete="name" onChange={e => this.setState({ name: e.target.value })} />
                         <br></br>
-                        <TextField id="outlined-basic" className="inputUserMail" label="Email address" margin="normal" variant="outlined" 
-                            onChange={e => this.setState({ email : e.target.value})}/>
+                        <TextField id="outlined-basic" className="inputUserMail" label="Email address" margin="normal" variant="outlined"
+                            autoComplete="email" name="email" onChange={e => this.setState({ email: e.target.value })} />
                         <br></br>
-                        <TextField id="outlined-basic" className="inputUserPassword" label="Your Password" margin="normal" variant="outlined" 
-                            type="password" onChange={e => this.setState({ password : e.target.value})}/>
+                        <TextField id="outlined-basic" className="inputUserPassword" label="Your Password" margin="normal" variant="outlined"
+                            type="password" name="password" autoComplete="current-password" onChange={e => this.setState({ password: e.target.value })} />
                         <br></br>
 
                         {/* error message displayed if sign up was not successful */}

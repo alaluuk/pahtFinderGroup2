@@ -1,12 +1,9 @@
 import React, { Component } from "react";
-import TextField from "@material-ui/core/TextField";
-import ImageUploader from "./imageUploader";
-import Selector from "./selector_BuildingType";
 import ConstructionCard from "../cardConstruction";
 import Slider from "@material-ui/core/Slider";
-import Map from "../Maps/mapAddBuilding";
 import Button from "@material-ui/core/Button";
 import AddConstruction from "./addConstruction";
+import GeneralInformation from "./generalInformation";
 import "../../styles/addConstruction.scss";
 import "../../styles/addBuilding.scss";
 
@@ -26,7 +23,8 @@ class AddBuilding extends Component {
     walls: [],
     doors: [],
     windows: [],
-    groundfloors: []
+    groundfloors: [],
+    saveHouseClicked: false
   };
 
   render() {
@@ -38,64 +36,8 @@ class AddBuilding extends Component {
               <h1 className="addBuildHeaderText">Add a new building</h1>
             </div>
 
-            <div className="generalInfo">
-              <h2 className="addBuildText"> General Information</h2>
-
-              <div className="generalContent">
-                <div className="left">
-                  <div className="imageUploader">
-                    <ImageUploader className="imageUploader"></ImageUploader>
-                  </div>
-                  <TextField
-                  autoFocus
-                    id="outlined-basic"
-                    className="addBuildField"
-                    label="Name Of Building"
-                    margin="normal"
-                    variant="outlined"
-                  />{" "}
-                  <br></br>
-                  <TextField
-                    id="outlined-basic"
-                    className="addBuildField"
-                    label="Construction Year"
-                    margin="normal"
-                    variant="outlined"
-                  />{" "}
-                  <br></br>
-                </div>
-                <div className="center">
-                  <TextField
-                    id="outlined-basic"
-                    className="addBuildField"
-                    label="Street"
-                    margin="normal"
-                    variant="outlined"
-                  />{" "}
-                  <br></br>
-                  <TextField
-                    id="outlined-basic"
-                    className="addBuildField"
-                    label="City"
-                    margin="normal"
-                    variant="outlined"
-                  />{" "}
-                  <br></br>
-                  <TextField
-                    id="outlined-basic"
-                    className="addBuildField"
-                    label="Country"
-                    margin="normal"
-                    variant="outlined"
-                  />{" "}
-                  <br></br>
-                </div>
-                <div className="right">
-                  <Selector></Selector>
-                  <Map></Map>
-                </div>
-              </div>
-            </div>
+              <GeneralInformation saveHouseClicked = {this.state.saveHouseClicked}></GeneralInformation>
+            
             <div className="allStructures">
               <div className="addStructureComp">
                 <div className="addStructureHead">
@@ -356,7 +298,7 @@ class AddBuilding extends Component {
                   variant="contained"
                   color="primary"
                   className="saveBuildButton"
-                  onClick=""
+                  onClick={() => this.setState({saveHouseClicked : true})}
                 >
                   Save Your Building
                 </Button>

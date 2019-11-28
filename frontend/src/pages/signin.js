@@ -13,7 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { useApolloClient } from '@apollo/react-hooks';
-import { AUTH_TOKEN } from '../constants'
+import { AUTH_TOKEN, CURRENT_USER_ID } from '../constants'
 import { Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
 
@@ -33,7 +33,10 @@ function Copyright() {
 const LOGIN_MUTATION = gql`
   mutation LoginMutation($email: String!, $password: String!) {
     login(email: $email, password: $password) {
-      token
+      token,
+    user {
+        id
+    }
     }
   }
 `
@@ -73,8 +76,8 @@ export default function SignIn(props) {
   const [errorMessage, setErrorMessage] = React.useState('');
   //save token after login was successful
   const signInClicked = (data) => {
-    const { token } = data.login
-    localStorage.setItem(AUTH_TOKEN, token)
+    localStorage.setItem(AUTH_TOKEN, data.login.token);
+    localStorage.setItem(CURRENT_USER_ID, data.login.user.id);
     client.writeData({ data: { isLoggedIn: true } });
     props.history.push(`/overview`)
   };

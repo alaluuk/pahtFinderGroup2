@@ -2,50 +2,52 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import '../../styles/header.scss';
 import UserMenu from './userMenu';
-import { AUTH_TOKEN } from '../../constants'
+import { AUTH_TOKEN, CURRENT_USER_ID } from '../../constants'
 
 
 class Header extends Component {
-    state = {  }
+    state = {}
 
     render() {
-        const authToken = localStorage.getItem(AUTH_TOKEN) 
-        return ( 
+        const authToken = localStorage.getItem(AUTH_TOKEN)
+        return (
 
-        <div className = "header">
+            <div className="header">
 
-            <h1 className = "header_logo">greenHouse</h1>
+                <h1 className="header_logo">greenHouse</h1>
 
-            <div className = "menu">
-                <Link to="/overview" className = "menuItem">My buildings</Link>
-                <Link to="/marketplace" className = "menuItem">Marketplace</Link>
-                <Link to="/wishlist" className = "menuItem">Wishlist</Link>
-            </div>
+                {authToken ? (
+                    <div className="menu">
+                        <Link to="/overview" className="menuItem">My buildings</Link>
+                        <Link to="/marketplace" className="menuItem">Marketplace</Link>
+                        <Link to="/wishlist" className="menuItem">Wishlist</Link>
+                    </div>
+                ) : (<div></div>)}
 
-            {authToken ? (
+                {authToken ? (
                     <div className="loginArea">
                         <Link to="/" className="menuItem" onClick={() => {
-                            localStorage.removeItem(AUTH_TOKEN)
+                            localStorage.removeItem(AUTH_TOKEN, CURRENT_USER_ID);
                         }}>
-                        Sign Out
+                            Sign Out
                         </Link>
                         <UserMenu></UserMenu>
                     </div>
                 ) : (
-                    <div className="loginArea">
-                        <Link to="/signin" className="menuItem">Sign In</Link>
-                    </div>
+                        <div className="loginArea">
+                            <Link to="/signin" className="menuItem">Sign In</Link>
+                        </div>
                     )}
-            
-            
-            
 
-        </div>
-        
-        
-        
+
+
+
+            </div>
+
+
+
         );
     }
 }
- 
+
 export default Header;
