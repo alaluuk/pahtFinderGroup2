@@ -8,21 +8,34 @@ import Wishlist from '../../pages/wishlist';
 import Building from '../../pages/building';
 import SignIn from '../../pages/signin';
 import PageNotFound from './pageNotFound';
+import { Redirect } from 'react-router';
+import { AUTH_TOKEN } from '../../constants'
+
+
+
+
 
 class CustomRouter extends Component {
   state = {}
   render() {
+
+    const PrivateRoute = ({ isLoggedIn, ...props }) => (
+    localStorage.getItem(AUTH_TOKEN)
+      ? <Route { ...props } />
+      : <Redirect to="/signin" />
+    )
+    
     return (
       <div>
       <BrowserRouter>
         <Switch>
             <Route exact path="/" component={Landing} />
-            <Route exact path="/overview" component={Overview} />
-            <Route exact path="/addbuilding" component={AddBuilding} />
-            <Route exact path="/marketplace" component={Marketplace} />
-            <Route exact path="/wishlist" component={Wishlist} />
             <Route exact path="/signin" component={SignIn} />
-            <Route exact path="/building123" component={Building} />
+            <PrivateRoute exact path="/overview" component={Overview} />
+            <PrivateRoute exact path="/addbuilding" component={AddBuilding} />
+            <PrivateRoute exact path="/marketplace" component={Marketplace} />
+            <PrivateRoute exact path="/wishlist" component={Wishlist} />
+            <PrivateRoute exact path="/building123" component={Building} />
             <Route path="*" component={PageNotFound} />
         </Switch>
       </BrowserRouter>

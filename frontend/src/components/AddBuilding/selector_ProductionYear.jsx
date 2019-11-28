@@ -17,8 +17,8 @@ export default function SimpleSelect() {
     setYears(event.target.value);
   };
 
-  
-  
+
+
   return (
     <div>
       <FormControl variant="outlined" className="simpleSelector">
@@ -32,16 +32,12 @@ export default function SimpleSelect() {
           onChange={handleChange}
           labelWidth={labelWidth}
         >
-          
+
           <MenuItem value={"2001"}>2001</MenuItem>
-          
 
-        
-
-          
         </Select>
       </FormControl>
-    </div> 
+    </div>
   );
 }
 
