@@ -124,6 +124,7 @@ class AddBuilding extends Component {
                       production_year="1984"
                       price=""
                       EE = "100"
+                      image = "https://images.unsplash.com/photo-1511452885600-a3d2c9148a31?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
                     ></ConstructionCard>{" "}
                   </div>
 
@@ -139,6 +140,8 @@ class AddBuilding extends Component {
                       production_year="1984"
                       price=""
                       EE = "90"
+                      image = "https://images.unsplash.com/photo-1511452885600-a3d2c9148a31?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+
                     ></ConstructionCard>
                   </div>
                   <div className="scrollItem">
@@ -153,6 +156,8 @@ class AddBuilding extends Component {
                       production_year="1984"
                       price="300"
                       EE = "70"
+                      image = "https://images.unsplash.com/photo-1511452885600-a3d2c9148a31?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+
                     ></ConstructionCard>
                   </div>
                   <div className="scrollItem">
@@ -168,6 +173,8 @@ class AddBuilding extends Component {
                       production_year="1984"
                       price=""
                       EE = "60"
+                      image = "https://images.unsplash.com/photo-1511452885600-a3d2c9148a31?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+
                     ></ConstructionCard>
                   </div>
                   <div className="scrollItem">
@@ -183,6 +190,8 @@ class AddBuilding extends Component {
                       production_year="1984"
                       price=""
                       EE = "50"
+                      image = "https://images.unsplash.com/photo-1511452885600-a3d2c9148a31?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+
                     ></ConstructionCard>
                   </div>
                   <div className="scrollItem">
@@ -198,6 +207,8 @@ class AddBuilding extends Component {
                       production_year="1984"
                       price=""
                       EE = "40"
+                      image = "https://images.unsplash.com/photo-1511452885600-a3d2c9148a31?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+
                     ></ConstructionCard>
                   </div>
                   <div className="scrollItem">
@@ -213,6 +224,8 @@ class AddBuilding extends Component {
                       production_year="1984"
                       price=""
                       EE = "20"
+                      image = "https://images.unsplash.com/photo-1511452885600-a3d2c9148a31?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+
                     ></ConstructionCard>
                   </div>
                 </div>
@@ -246,6 +259,7 @@ class AddBuilding extends Component {
                       production_year="1984"
                       price=""
                       EE = "40"
+                      image = "https://images.unsplash.com/photo-1531481517150-2228446fb6b0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
                     ></ConstructionCard>
                   </div>
                   <div className="scrollItem">
@@ -261,6 +275,8 @@ class AddBuilding extends Component {
                       production_year="1984"
                       price=""
                       EE = "40"
+                      image = "https://images.unsplash.com/photo-1531481517150-2228446fb6b0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+
                     ></ConstructionCard>
                   </div>
                   <div className="scrollItem">
@@ -276,6 +292,8 @@ class AddBuilding extends Component {
                       production_year="1984"
                       price=""
                       EE = "100"
+                      image = "https://images.unsplash.com/photo-1531481517150-2228446fb6b0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+
                     ></ConstructionCard>
                   </div>
                   

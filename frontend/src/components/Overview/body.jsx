@@ -85,51 +85,60 @@ class Body extends Component {
             </div>
             <div className="scrollBars">
               <Card
+              image = "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
                 title="Good House"
-                year="1952"
-                country="Finnland"
-                EE="35"
+                year="2010"
+                country="Spain"
+                EE="70"
               ></Card>
               <Card
+              image = "https://images.unsplash.com/photo-1480074568708-e7b720bb3f09?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1053&q=80"
                 title="My House"
                 year="1970"
                 country="Finnland"
                 EE="70"
               ></Card>
               <Card
-                title="University Baba"
+              image = "https://images.unsplash.com/photo-1507035159636-7a86eb324885?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1013&q=80"
+                title="Garage"
+                year="2004"
+                country="Finnland"
+                EE="85"
+              ></Card>
+              <Card
+              image = "https://images.unsplash.com/photo-1505901889250-5cd7cd813691?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80"
+                title="Old House"
                 year="1950"
                 country="Finnland"
-                EE="50"
+                EE="30"
               ></Card>
               <Card
-                title="BaboHouse"
-                year="2002"
+              image = "https://images.unsplash.com/photo-1458934876533-9becb2380c47?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=675&q=80"
+                title="Finn Cabin"
+                year="1966"
                 country="Finnland"
-                EE="100"
+                EE="20"
               ></Card>
+              
               <Card
-                title="Good House"
-                year="1952"
-                country="Finnland"
-                EE="35"
-              ></Card>
-              <Card
-                title="My House"
-                year="1970"
+              image = "https://images.unsplash.com/photo-1517825449265-7576eda90756?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80"
+                title="Simple Hut"
+                year="197"
                 country="Finnland"
                 EE="70"
               ></Card>
               <Card
-                title="University Baba"
+              image = "https://images.unsplash.com/photo-1510798831971-661eb04b3739?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
+                title="House in Snow"
                 year="1950"
                 country="Finnland"
                 EE="50"
               ></Card>
               <Card
-                title="BaboHouse"
+              image = "https://images.unsplash.com/photo-1430285561322-7808604715df?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80"
+                title="BabaHouse"
                 year="2002"
-                country="Finnland"
+                country="Sweden"
                 EE="100"
               ></Card>
             </div>

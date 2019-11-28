@@ -12,6 +12,7 @@ import '../../styles/cardBuilding.scss';
 class MediaCard extends Component {
   state = { 
 
+    image: "",
     title: "",
     year: "",
     country: "",
@@ -26,6 +27,7 @@ class MediaCard extends Component {
 
   constructor(props){ 
     super(props)
+    this.state.image = this.props.image
     this.state.title = this.props.title
     this.state.year = this.props.year
     this.state.country = this.props.country
@@ -46,7 +48,7 @@ class MediaCard extends Component {
       <CardActionArea>
         <CardMedia
           className="media"
-          image="https://jooinn.com/images/old-house-35.jpg"
+          image={this.state.image}
           title="Good House"
         />
         <CardContent>
