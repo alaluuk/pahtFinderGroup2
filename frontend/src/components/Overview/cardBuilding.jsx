@@ -45,7 +45,12 @@ class MediaCard extends Component {
       
   }
   render() { 
-    return ( <Link to="/result"  >
+    return ( <Link to={{
+      pathname: '/result',
+      state: {
+        buildingID: this.state.id
+      }
+    }}  >
     <Card className="card" >
       <CardActionArea>
         <CardMedia

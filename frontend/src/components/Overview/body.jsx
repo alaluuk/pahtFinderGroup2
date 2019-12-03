@@ -23,6 +23,12 @@ const GET_BUILDINGS = gql`
   }
 `;
 
+/* Randomised Pictures */
+const images = [
+  "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
+
+]
+
 export default function Body() {
   const owner = localStorage.getItem(CURRENT_USER_ID);
   const [ownerID] = React.useState(owner);
