@@ -20,6 +20,7 @@ class Card extends Component {
     production_year: "",
     price: "",
     EE: "",
+    image: "",
     color: "",
     green: "darkgreen",
     orange: "orange",
@@ -39,6 +40,7 @@ class Card extends Component {
     this.state.production_year = this.props.production_year;
     this.state.price = this.props.price;
     this.state.EE = this.props.EE;
+    this.state.image = this.props.image;
 
     if (this.state.EE <= 35) {
       this.state.color = this.state.red;
@@ -64,7 +66,7 @@ class Card extends Component {
       <div className="constructionCard">
         <img
           className="constructionPicture" alt="constructionpicture"
-          src="https://images.unsplash.com/photo-1509644851169-2acc08aa25b5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=900&q=80"
+          src={this.state.image}
         ></img>
 
         <div className="conButtons">

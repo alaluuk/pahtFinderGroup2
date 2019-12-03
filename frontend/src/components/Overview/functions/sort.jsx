@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import { FaFilter } from "react-icons/fa";
+import React from 'react';
 import FilterListIcon from "@material-ui/icons/FilterList";
 import Fab from "@material-ui/core/Fab";
 import Menu from '@material-ui/core/Menu';
@@ -15,7 +14,7 @@ export default function Sort ({ }){
 
 
 
-
+ 
     const [anchorEl, setAnchorEl] = React.useState(null);
 
     const handleClick = event => {

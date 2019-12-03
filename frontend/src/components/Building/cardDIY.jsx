@@ -4,6 +4,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import IconButton from "@material-ui/core/IconButton";
 import FavoriteIcon from "@material-ui/icons/Favorite";
+import Modal from '@material-ui/core/Modal';
 import "../../styles/cardDIY.scss";
 
 class Card extends Component {
@@ -15,17 +16,19 @@ class Card extends Component {
     likes: 1212,
     date: "Mar 3 '13",
     
+    
   };
 
-
+  
 
   render() {
 
+ 
 
     return (
       <div className = "diyCard">
         <List component="nav" className="" aria-label="contacts">
-          <ListItem id = {this.state.id} button>
+          <ListItem id = {this.state.id}  button>
           <ListItemText primary={this.state.likes} secondary = "Likes" />
             <ListItemText primary={this.state.type} secondary = "Type"/>
             <ListItemText id primary={this.state.header} secondary = "Description"/>
@@ -99,6 +102,8 @@ class Card extends Component {
           </ListItem>
    
         </List>
+
+
       </div>
     );
   }

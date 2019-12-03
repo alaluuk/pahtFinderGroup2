@@ -19,11 +19,12 @@ class Body extends Component {
   state = {
 
     type: "Single House",
-    title: "BuildingABC",
-    street: "Valkyliäly 324",
-    city: "Oulu",
-    country : "Finnland",
-    constructionYear: 1950,
+    title: "Good House",
+    street: "Roberto Street 31",
+    city: "Ibiza",
+    country : "Spain",
+    constructionYear: 2010,
+    EE: 70,
 
 
 
@@ -78,7 +79,7 @@ class Body extends Component {
                   className="material-Slider"
                   valueLabelDisplay="on"
                   aria-label="pretto slider"
-                  defaultValue={80}
+                  defaultValue={this.state.EE}
                   disabled={true}
                 />
               </div>
@@ -190,7 +191,8 @@ class Body extends Component {
                         area="2"
                         production_year="1984"
                         price=""
-                        EE="22"
+                        EE="50"
+                        image="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-1.2.1&auto=format&fit=facearea&w=800&h=2000"
                       ></ConstructionCard>
                     </div>
                     <div className="recoSpace">
@@ -201,7 +203,7 @@ class Body extends Component {
                       <br></br>
                       <br></br>
                       <br></br>
-                      <p className="recoImproveText">+ 20 %</p>
+                      <p className="recoImproveText">+ 21 %</p>
                       <DoubleArrowIcon className="recoImproveIcon"></DoubleArrowIcon>
                     </div>
                     <div className="recoCard">
@@ -236,7 +238,8 @@ class Body extends Component {
                         area="2"
                         production_year="1984"
                         price=""
-                        EE="22"
+                        EE="34"
+                        image="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-1.2.1&auto=format&fit=facearea&w=800&h=2000"
                       ></ConstructionCard>
                     </div>
                     <div className="recoSpace">
@@ -247,7 +250,7 @@ class Body extends Component {
                       <br></br>
                       <br></br>
                       <br></br>
-                      <p className="recoImproveText">+ 20 %</p>
+                      <p className="recoImproveText">+ 37%</p>
                       <DoubleArrowIcon className="recoImproveIcon"></DoubleArrowIcon>
                     </div>
                     <div className="recoCard">
@@ -282,7 +285,8 @@ class Body extends Component {
                         area="2"
                         production_year="1984"
                         price=""
-                        EE="22"
+                        EE="71"
+                        image="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-1.2.1&auto=format&fit=facearea&w=800&h=2000"
                       ></ConstructionCard>
                     </div>
                     <div className="recoSpace">
@@ -293,7 +297,7 @@ class Body extends Component {
                       <br></br>
                       <br></br>
                       <br></br>
-                      <p className="recoImproveText">+ 20 %</p>
+                      <p className="recoImproveText">+ 19 %</p>
                       <DoubleArrowIcon className="recoImproveIcon"></DoubleArrowIcon>
                     </div>
                     <div className="recoCard">
@@ -307,53 +311,7 @@ class Body extends Component {
                         area="2"
                         production_year="1984"
                         price=""
-                        EE="71"
-                        isReco="false"
-                      ></RecommendationCard>
-                    </div>
-                    <div className="diy">
-                      <DiyCard></DiyCard>{" "}
-                    </div>
-                  </div>
-
-                  <div className="recoSingleRow">
-                    <div className="currentlyCard">
-                      <ConstructionCard
-                        title="Roof Y6798 Vollholz"
-                        amount="1"
-                        type="Door"
-                        manufacture="Roof GmbH"
-                        serial_number="1"
-                        u_value="1.2"
-                        area="2"
-                        production_year="1984"
-                        price=""
-                        EE="22"
-                      ></ConstructionCard>
-                    </div>
-                    <div className="recoSpace">
-                      <br></br>
-                      <br></br>
-                      <br></br>
-                      <br></br>
-                      <br></br>
-                      <br></br>
-                      <br></br>
-                      <p className="recoImproveText">+ 20 %</p>
-                      <DoubleArrowIcon className="recoImproveIcon"></DoubleArrowIcon>
-                    </div>
-                    <div className="recoCard">
-                      <RecommendationCard
-                        title="Roof Y6798 Vollholz"
-                        amount="1"
-                        type="Door"
-                        manufacture="Roof GmbH"
-                        serial_number="1"
-                        u_value="1.2"
-                        area="2"
-                        production_year="1984"
-                        price=""
-                        EE="71"
+                        EE="90"
                         isReco="false"
                       ></RecommendationCard>
                     </div>
