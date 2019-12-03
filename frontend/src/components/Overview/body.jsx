@@ -1,149 +1,80 @@
-import React, { Component } from "react";
+import React from "react";
 import Card from "./cardBuilding";
-import { FaFilter } from "react-icons/fa";
-import FilterListIcon from "@material-ui/icons/FilterList";
-import SearchIcon from "@material-ui/icons/Search";
-import Fab from "@material-ui/core/Fab";
 import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import AddIcon from "@material-ui/icons/Add";
 import "../../styles/overview.scss";
 import Map from "../Maps/mapOverview";
-import TextField from '@material-ui/core/TextField';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import Chart from "./chart";
 import Filter from "./functions/filter";
 import Search from "./functions/search";
 import Sort from "./functions/sort";
+import { useQuery } from "@apollo/react-hooks";
+import gql from "graphql-tag";
+import { CURRENT_USER_ID } from "../../constants";
 
-const building = {
-  id: "",
-  name: "",
-  owner: "",
-  addressCountry: "",
-  addressCity: "",
-  addressStreet: "",
-  addressLat: "",
-  addressLng: "",
-  constructionYear: "",
-  heatingSystem: "",
-  costOfHeating: "",
-  warmWaterPipe: "",
-  structures: "",
-  createdAt: "",
-  updatedAt: ""
-};
-
-
-class Body extends Component {
-  state = {
-    buildings: []
-  };
-
-
-  constructor(props){
-    super(props);
-
-    this.state = { isOpen: false };
-
+const GET_BUILDINGS = gql`
+  query GET_BUILDINGS($ownerID: ID!) {
+    houses(ownerID: $ownerID) {
+      id
+      name
+      addressCountry
+      constructionYear
+    }
   }
+`;
 
-  toggleModal = () => {
-    this.setState({
-      isOpen: !this.state.isOpen
-    });
-  }
+export default function Body() {
+  const owner = localStorage.getItem(CURRENT_USER_ID);
+  const [ownerID] = React.useState(owner);
+  const { data, loading, error } = useQuery(GET_BUILDINGS, {
+    variables: { ownerID }
+  });
 
-
-
-  render() {
-
-    return (
-      <div className="bodyOverview">
-        <div className="overlay">
-          <div className="content">
-            <div className="headLine">
-              <div className="overviewHeadLeft">
-                <h1 className="overviewHeader">My buildings</h1>
-                <Link to="/addBuilding" className="addNewPlusLink">
-                  <Button variant="outlined" className="addNewPlusButton">
-                    <AddIcon></AddIcon> &nbsp; Add New
-                  </Button>
-                </Link>
-              </div>
-
-              <div className="overviewFilterButtons">
-
-               
-                <Search></Search>
-                <Filter></Filter>
-                <Sort></Sort>
-               
-              </div>
+  if (loading) return <p>LOADING</p>;
+  if (error) return `Error! ${error}`;
 
 
-            </div>
-            <div className="scrollBars">
-              <Card
-                title="Good House"
-                year="1952"
-                country="Finnland"
-                EE="35"
-              ></Card>
-              <Card
-                title="My House"
-                year="1970"
-                country="Finnland"
-                EE="70"
-              ></Card>
-              <Card
-                title="University Baba"
-                year="1950"
-                country="Finnland"
-                EE="50"
-              ></Card>
-              <Card
-                title="BaboHouse"
-                year="2002"
-                country="Finnland"
-                EE="100"
-              ></Card>
-              <Card
-                title="Good House"
-                year="1952"
-                country="Finnland"
-                EE="35"
-              ></Card>
-              <Card
-                title="My House"
-                year="1970"
-                country="Finnland"
-                EE="70"
-              ></Card>
-              <Card
-                title="University Baba"
-                year="1950"
-                country="Finnland"
-                EE="50"
-              ></Card>
-              <Card
-                title="BaboHouse"
-                year="2002"
-                country="Finnland"
-                EE="100"
-              ></Card>
+  return (
+    <div className="bodyOverview">
+      <div className="overlay">
+        <div className="content">
+          <div className="headLine">
+            <div className="overviewHeadLeft">
+              <h1 className="overviewHeader">My buildings</h1>
+              <Link to="/addBuilding" className="addNewPlusLink">
+                <Button variant="outlined" className="addNewPlusButton">
+                  <AddIcon></AddIcon> &nbsp; Add New
+                </Button>
+              </Link>
             </div>
 
-            <div className="bottomContent">
-              <div>
-                <Map></Map>
-              </div>
+            <div className="overviewFilterButtons">
+              <Search></Search>
+              <Filter></Filter>
+              <Sort></Sort>
+            </div>
+          </div>
+
+          <div className="scrollBars">
+          {data.houses.map((house, index) => (
+              <Card
+                key={house.name + "-" + index}
+                image="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
+                title={house.name}
+                year={house.constructionYear}
+                country={house.addressCountry}
+                EE="70"
+              ></Card>
+            ))}
+          </div>
+
+          <div className="bottomContent">
+            <div>
+              <Map></Map>
             </div>
           </div>
         </div>
       </div>
-    );
-  }
+    </div>
+  );
 }
-
-export default Body;
