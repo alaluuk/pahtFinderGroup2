@@ -58,6 +58,7 @@ export default function Body() {
           <div className="scrollBars">
           {data.houses.map((house, index) => (
               <Card
+               id = {house.id}
                 key={house.name + "-" + index}
                 image="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
                 title={house.name}

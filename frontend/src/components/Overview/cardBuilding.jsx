@@ -45,7 +45,7 @@ class MediaCard extends Component {
       
   }
   render() { 
-    return ( <Link to="/building"  >
+    return ( <Link to="/result"  >
     <Card className="card" >
       <CardActionArea>
         <CardMedia

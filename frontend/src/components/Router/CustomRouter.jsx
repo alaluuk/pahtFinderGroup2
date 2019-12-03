@@ -35,7 +35,7 @@ class CustomRouter extends Component {
             <PrivateRoute exact path="/addbuilding" component={AddBuilding} />
             <PrivateRoute exact path="/marketplace" component={Marketplace} />
             <PrivateRoute exact path="/wishlist" component={Wishlist} />
-            <PrivateRoute exact path="/building123" component={Building} />
+            <PrivateRoute exact path="/result" component={Building} />
             <Route path="*" component={PageNotFound} />
         </Switch>
       </BrowserRouter>
