@@ -4,7 +4,7 @@ const { APIQuery, Structure } = require(".");
 class StructureTemplate extends Structure {
   static getAny(query = null) {
     return new Promise(function(resolve, reject) {
-      let suffix = (query !== null) ? query.constructSuffix() : '';
+      let suffix = (query !== null) ? query.constructSuffix() : { query: '', fields: '' };
       db
         .any(`SELECT *`+suffix.fields+` FROM structure_templates`+suffix.query)
         .then(res => {
@@ -50,15 +50,6 @@ class StructureTemplate extends Structure {
 
   static create(title, type_id, u_value, price = null, manufacturer = null, serial_number = null, production_year = null) {
     return new Promise(function(resolve, reject) {
-      console.log([
-        title,
-        type_id,
-        u_value,
-        price,
-        manufacturer,
-        serial_number,
-        production_year
-      ]);
       db
         .one(`INSERT INTO structure_templates(
             title,
@@ -68,7 +59,7 @@ class StructureTemplate extends Structure {
             manufacturer,
             serial_number,
             production_year
-          ) VALUES ($1) RETURNING *`, [
+          ) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`, [
             title,
             type_id,
             u_value,

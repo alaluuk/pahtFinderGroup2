@@ -22,7 +22,7 @@ class UserCreateModal extends React.Component {
       <Dialog
         className="UserCreateModal Modal"
         icon="new-person"
-        onClose={this.props.handleClose || undefined}
+        onClose={this.props.onClose || undefined}
         title="New User"
         {...this.state}
       >
@@ -34,7 +34,7 @@ class UserCreateModal extends React.Component {
         </div>
         <div className={Classes.DIALOG_FOOTER}>
           <div className={Classes.DIALOG_FOOTER_ACTIONS}>
-            <Button onClick={this.props.handleClose || undefined}>Cancel</Button>
+            <Button onClick={this.props.onClose || undefined}>Cancel</Button>
             <Button intent={Intent.SUCCESS}>Submit User</Button>
           </div>
         </div>
