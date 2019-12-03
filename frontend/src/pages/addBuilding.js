@@ -2,19 +2,19 @@ import React from 'react';
 import '../styles/addBuilding.scss';
 import Header from '../components/Header/header';
 import Footer from '../components/footer';
-import AddNewBuilding from '../components/AddBuilding/body';
+import EditBuilding from '../components/editBuilding/body';
 
 
-class AddBuilding extends React.Component {
+class EditBuildingPage extends React.Component {
     render() {
         return (
             <div className="AddBuilding">   
               <Header></Header>
-              <AddNewBuilding></AddNewBuilding>
+              <EditBuilding></EditBuilding>
               <Footer></Footer>
             </div>
           );
     }
 }
 
-export default AddBuilding
+export default EditBuildingPage

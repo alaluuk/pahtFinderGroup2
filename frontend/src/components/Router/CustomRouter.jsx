@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'; 
 import Overview from '../../pages/overview';
 import Landing from '../../pages/landing';
-import AddBuilding from '../../pages/addBuilding';
+import EditBuildingPage from '../../pages/addBuilding';
 import Marketplace from '../../pages/marketplace';
 import Wishlist from '../../pages/wishlist';
 import Building from '../../pages/building';
@@ -32,7 +32,7 @@ class CustomRouter extends Component {
             <Route exact path="/" component={Landing} />
             <Route exact path="/signin" component={SignIn} />
             <PrivateRoute exact path="/overview" component={Overview} />
-            <PrivateRoute exact path="/addbuilding" component={AddBuilding} />
+            <PrivateRoute exact path="/addbuilding" component={EditBuildingPage} />
             <PrivateRoute exact path="/marketplace" component={Marketplace} />
             <PrivateRoute exact path="/wishlist" component={Wishlist} />
             <PrivateRoute exact path="/result" component={Building} />
