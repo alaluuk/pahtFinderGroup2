@@ -1,7 +1,7 @@
 import React from "react";
 import GraphQLClient from "../../providers/graphql";
 import EfficiencyIndicatorComponent from "../efficiency-indicator";
-import { H5, Classes, NonIdealState, Spinner, Text, Icon, Intent } from "@blueprintjs/core";
+import { NonIdealState, Spinner, Text, Icon, Intent, Button } from "@blueprintjs/core";
 import ReactTable from "react-table";
 import "react-table/react-table.css";
 import "./styles.scss";
@@ -17,33 +17,40 @@ class StructureTemplateTable extends React.Component {
       structureType: this.props.structureType || null, // TODO: Handle structureType null
       structureTemplates: [],
       tblPages: null,
-      tblSortedBy: [ { id: 'u_value', desc: true }, { id: 'title', desc: false } ],
+      tblSortedBy: [ { id: 'u_value', desc: false }, { id: 'title', desc: false } ],
     };
 
     this.fetchStructureTemplates = this.fetchStructureTemplates.bind(this);
   }
 
   fetchStructureTemplates(table) {
-    console.log(table);
     return new Promise((resolve, reject) => {
       this.setState({ isLoading: true, fetchError: null });
-      // TODO: Fetch best/worst uvalue for whole category instead of generating reports for each structure template
+      // IDEA: Fetch best/worst uvalue for whole category instead of generating reports for each structure template
+      let filter = [
+        {
+          id: "type_id",
+          type: "EQUAL",
+          value: this.state.structureType.id
+        }
+      ];
+      table.filtered.forEach(tblFilter => {
+        filter.push({
+          id: tblFilter.id,
+          type: "LIKE",
+          value: tblFilter.value
+        });
+      });
       GraphQLClient.request(`
         query(
-          $structureTypeID: String!,
+          $filter: [QueryFilter],
+          $sort: [QuerySort],
           $pageSize: Int!,
-          $page: Int!,
-          $sort: [QuerySort]
+          $page: Int!
         ) {
           structureTemplates(
             query: {
-              filter: [
-                {
-                  id: "type_id",
-                  type: EQUAL,
-                  value: $structureTypeID
-                }
-              ],
+              filter: $filter,
               sort: $sort,
               pagination: {
                 pageSize: $pageSize,
@@ -54,7 +61,7 @@ class StructureTemplateTable extends React.Component {
             id
             title
             uValue
-            area
+            price
             manufacturer
             serialNumber
             productionYear
@@ -79,14 +86,14 @@ class StructureTemplateTable extends React.Component {
           }
         }
       `, {
-        structureTypeID: this.state.structureType.id,
+        filter: filter,
+        sort: table.sorted,
         pageSize: table.pageSize,
-        page: table.page,
-        sort: table.sorted
+        page: table.page
       })
         .then(data => {
+          if(this.props.onFetchedData) this.props.onFetchedData(data.structureTemplates.length); // TODO: Update to real total count (-> pagination)
           this.setState({ structureTemplates: data.structureTemplates, tblPages: 1 }); // TODO: Set table pages
-          if(this.props.onFetchedData) this.props.onFetchedData(data);
           resolve(data.structureTemplates);
         })
         .catch(err => {
@@ -134,13 +141,23 @@ class StructureTemplateTable extends React.Component {
           id: 'production_year',
           Header: 'Production Year',
           accessor: 'productionYear',
-          width: 125
+          width: 125,
+          filterable: false
         },
         {
-          id: 'area',
-          Header: 'Area (m²)',
-          accessor: 'area',
-          width: 75
+          id: 'price',
+          Header: 'Price (€)',
+          accessor: 'price',
+          width: 75,
+          filterable: false,
+          Cell: cellInfo => cellInfo.row.price.toFixed(2)+' €',
+        },
+        {
+          id: 'u_value',
+          Header: 'U-Value',
+          accessor: 'uValue',
+          width: 75,
+          filterable: false
         },
         {
           id: 'energyEfficiency',
@@ -160,11 +177,19 @@ class StructureTemplateTable extends React.Component {
         <NonIdealState icon={<Spinner size="30"></Spinner>} /> : ''
       }
       NoDataComponent={(props) =>
+        // TODO: Differentiate between no data and no search results
         (this.state.isLoading !== true) ? <NonIdealState
           icon={<Icon icon="issue" iconSize="30" />}
           title="No structure templates found!"
           description={
             <Text className="bp3-text-muted">There are no structure templates of this type yet.</Text>
+          }
+          action={
+            <Button
+              icon="new-layers"
+              intent={Intent.SUCCESS}
+              onClick={this.props.handleNewTemplateModal || undefined}
+            >Create a new template</Button>
           }
         /> : null
       }
@@ -172,7 +197,7 @@ class StructureTemplateTable extends React.Component {
       sorted={this.state.tblSortedBy}
       onSortedChange={(newSort, column) => { this.setState({ tblSortedBy: newSort }); }}
       filterable={this.props.filterable || false}
-      minRows={0}
+      minRows={(this.state.structureTemplates.length === 0) ? 5 : 0}
     />
 
     return <div className="StructureTemplateTable">{view}</div>;

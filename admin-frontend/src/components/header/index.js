@@ -46,13 +46,13 @@ class HeaderComponent extends React.Component {
                       <Tag className={"role-tag-"+this.props.user.role} minimal={true}>{rolesFormatter(this.props.user.role)}</Tag>
                     </div>
                   </li>
-                  <Menu.Divider />
+                  {/* <Menu.Divider />
                   <Menu.Item
                     icon="moon"
                     text="Night Mode"
                     onClick={() => setAppNightmode(-1)}
                     label="⌘D"
-                  />
+                  /> */}
                   <Menu.Divider />
                   <Menu.Item
                     icon="cog" 

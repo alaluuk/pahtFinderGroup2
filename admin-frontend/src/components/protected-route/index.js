@@ -1,7 +1,7 @@
 import React from "react";
-import { Route, Redirect } from "react-router-dom";
+import { Route, Redirect, withRouter } from "react-router-dom";
 import { AppName, AppToaster } from "../../App";
-import { fetchUser } from "../../providers/auth";
+import { fetchUser, performLogout } from "../../providers/auth";
 import { Spinner, Intent } from "@blueprintjs/core";
 
 class ProtectedRoute extends React.Component {
@@ -21,6 +21,7 @@ class ProtectedRoute extends React.Component {
       })
       .catch((err) => {
         AppToaster.show({ icon: "disable", intent: Intent.DANGER, message: "Access denied: "+err.message });
+        performLogout().finally(() => this.props.history.push("/login"));
       })
       .finally(() => this.setState({isLoading: false}));
   }
@@ -40,4 +41,4 @@ class ProtectedRoute extends React.Component {
   }
 }
 
-export default ProtectedRoute;
+export default withRouter(ProtectedRoute);

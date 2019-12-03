@@ -47,7 +47,7 @@ class HouseStructure extends Structure {
     });
   }
 
-  static create(house_id, title, type_id, u_value, area, manufacturer = null, serial_number = null, production_year = null) {
+  static create(house_id, title, type_id, u_value, price = null, manufacturer = null, serial_number = null, production_year = null) {
     return new Promise(function(resolve, reject) {
       db
         .one(`INSERT INTO house_structures(
@@ -55,7 +55,7 @@ class HouseStructure extends Structure {
           title,
           type_id,
           u_value,
-          area,
+          price,
           manufacturer,
           serial_number,
           production_year
@@ -64,7 +64,7 @@ class HouseStructure extends Structure {
           title,
           type_id,
           u_value,
-          area,
+          price,
           manufacturer,
           serial_number,
           production_year
@@ -87,7 +87,7 @@ class HouseStructure extends Structure {
           title=$3,
           type_id=$4,
           u_value=$5,
-          area=$6,
+          price=$6,
           manufacturer=$7,
           serial_number=$8,
           production_year=$9
@@ -97,7 +97,7 @@ class HouseStructure extends Structure {
           house_structure._title,
           house_structure._type_id,
           house_structure._u_value,
-          house_structure._area,
+          house_structure._price,
           house_structure._manufacturer,
           house_structure._serial_number,
           house_structure._production_year,

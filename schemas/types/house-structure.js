@@ -9,8 +9,8 @@ const HouseStructureType = new GraphQLObjectType({
       // house: { type: new GraphQLNonNull(HouseType) }
       title: { type: GraphQLString },
       type: { type: new GraphQLNonNull(StructureTypeType) },
-      uValue: { type: GraphQLFloat },
-      area: { type: GraphQLFloat },
+      uValue: { type: new GraphQLNonNull(GraphQLFloat) },
+      price: { type: GraphQLFloat },
       manufacturer: { type: GraphQLString },
       serialNumber: { type: GraphQLString },
       productionYear: { type: GraphQLInt },
