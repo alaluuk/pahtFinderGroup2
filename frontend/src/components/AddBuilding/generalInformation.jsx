@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import TextField from "@material-ui/core/TextField";
 import ImageUploader from "./imageUploader";
-import Selector from "./selector_BuildingType";
 import Map from "../Maps/mapAddBuilding";
 import gql from 'graphql-tag'
-import Button from '@material-ui/core/Button';
-import { Mutation } from 'react-apollo'
+import Typography from '@material-ui/core/Typography';
 import { withApollo } from "react-apollo";
 import "../../styles/addConstruction.scss";
 import "../../styles/addBuilding.scss";
@@ -40,8 +38,10 @@ class GeneralInformation extends Component {
         errorMessage: ''
      }
 
+    
     componentDidUpdate(prevProps) {
-      if (this.props.saveHouseClicked === true) {
+      //execute create new House mutation
+      if (this.props.triggerSave !== prevProps.triggerSave) {
         console.log("save House Clicked!")
         this.props.client.mutate({
           mutation: CREATE_HOUSE,
@@ -51,32 +51,30 @@ class GeneralInformation extends Component {
               addressStreet: this.state.addressStreet,
               addressCountry: this.state.addressCountry,
               addressCity: this.state.addressCity,
-              constructionYear: this.state.constructionYear,
+              constructionYear: parseInt(this.state.constructionYear),
               heatingSystem: this.state.heatingSystem,
-              costOfHeating: this.state.costOfHeating,
+              costOfHeating: parseFloat(this.state.costOfHeating),
               warmWaterPipe: this.state.warmWaterPipe
           },
         }).then(results => {
             console.log(results);
+            this.setState({errorMessage: ''})
         })
         .catch(error => {
-            console.log("Error: ", error);
+            console.log("Creat House Error: ", error);
+            var err = error.graphQLErrors[0];
+            if(err){
+              this.setState({errorMessage: err.message})
+            }else{
+              this.setState({errorMessage: error.toString()})
+            }
         });
       }
     }
 
     render() { 
         const {
-        name,
-        ownerId,
-        addressStreet,
-        addressCountry,
-        addressCity,
-        constructionYear,
-        heatingSystem,
-        costOfHeating,
-        warmWaterPipe,
-        errorMessage
+          errorMessage
         } = this.state;
 
         return (  
@@ -166,25 +164,12 @@ class GeneralInformation extends Component {
                   />
                   <br></br>
                 </div>
-                {errorMessage}
-                <Mutation
-                            mutation={CREATE_HOUSE}
-                            variables={{ name, ownerId, constructionYear, addressStreet, addressCity, addressCountry,
-                                costOfHeating, heatingSystem, warmWaterPipe}}
-                            onCompleted={data => this.setState({ errorMessage: data.graphQLErrors })}
-                            onError={data => this.setState({ errorMessage: data.graphQLErrors })}
-                        >
-                            {mutation => (
-                                <Button onClick={mutation}>
-                                    Execute Mutation
-                                </Button>
-                            )}
-                </Mutation>
-
                 <div className="right">
-                  <Selector></Selector>
                   <Map></Map>
                 </div>
+                <Typography variant="subtitle1" component="p" style={{ color: 'red' }} >
+                  {errorMessage}
+                </Typography>
               </div>
             </div>
         );
