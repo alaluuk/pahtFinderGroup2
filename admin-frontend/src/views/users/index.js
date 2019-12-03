@@ -105,7 +105,7 @@ class UsersView extends React.Component {
             return (
               <UserCreateModal
                 isOpen={true}  
-                handleClose={() => { this.props.history.replace(this.props.match.url) }}
+                onClose={() => { this.props.history.replace(this.props.match.url) }}
               />
             );
           }}

@@ -59,3 +59,6 @@
 .StructureTemplateTable .ReactTable.has-no-data .rt-table {
     min-height: 200px;
 }
+.StructureTemplateTable .ReactTable .rt-tbody .rt-td:last-child {
+    padding: 0 5px;
+}

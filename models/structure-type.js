@@ -3,7 +3,7 @@ const { db } = require("../pg-adaptor");
 class StructureType {
   static getAny(query = null) {
     return new Promise(function(resolve, reject) {
-      let suffix = (query !== null) ? query.constructSuffix() : '';
+      let suffix = (query !== null) ? query.constructSuffix() : { query: '', fields: '' };
       db
         .any(`SELECT *`+suffix.fields+` FROM structure_types`+suffix.query)
         .then(res => {

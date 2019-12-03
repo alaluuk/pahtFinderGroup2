@@ -38,7 +38,7 @@ class UserDeleteModal extends React.Component {
         <div className={Classes.DIALOG_FOOTER}>
           <div className={Classes.DIALOG_FOOTER_ACTIONS}>
             <Button onClick={this.props.handleClose || undefined}>Cancel</Button>
-            <Button intent={Intent.DANGER}>Delete User</Button>
+            <Button intent={Intent.DANGER}>Confirm</Button>
           </div>
         </div>
       </Dialog>
