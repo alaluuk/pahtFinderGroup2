@@ -56,17 +56,19 @@ const RootQuery = new GraphQLObjectType({
     structureTypes: {
       type: new GraphQLList(StructureTypeType),
       args: {
-        id: { type: GraphQLID }
+        id: { type: GraphQLID },
+        query: { type: QueryType }
       },
       resolve(_, args, { auth }) {
         if(!auth.user) throw new Error("You must be logged in to perform this action.");
         if(!checkPermission(auth.user.role, "structure_type_query")) {
           throw new Error("You don't have sufficient permissions to query structure types.");
         }
+        let query = (args.query) ? new APIQuery(args.query) : null;
         if(args.id) {
           return [ StructureTypeModel.getOne(args.id) ];
         } else {
-          return StructureTypeModel.getAny();
+          return StructureTypeModel.getAny(query);
         }
       }
     },

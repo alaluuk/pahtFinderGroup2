@@ -22,11 +22,8 @@ class LoginView extends React.Component {
       showPassword: false,
       staySignedIn: false,
       isLoading: false,
-      emailError: false
+      errors: {}
     };
-
-    this.emailInput = React.createRef();
-    this.passwordInput = React.createRef();
 
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -34,7 +31,7 @@ class LoginView extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     return new Promise((resolve, reject) => {
-      this.setState({ isLoading: true, emailError: false, passwordError: false });
+      this.setState({ isLoading: true, errors: {} });
       performLogin(this.state.email, this.state.password, this.state.staySignedIn)
         .then(data => {
           AppToaster.show({ icon: "tick", intent: Intent.SUCCESS, message: "Welcome back, "+data.user.name+"!" });
@@ -43,17 +40,16 @@ class LoginView extends React.Component {
         })
         .catch(err => {
           let msg = (err.response) ? err.response.errors[0].message : err.message;
-          let emailError = false;
-          let passwordError = false;
+          let errors = {};
           if(err.response) {
             err.response.errors.forEach(error => {
-              if(error.message.includes("email")) emailError = msg;
-              if(error.message.includes("password")) passwordError = msg;
+              if(error.message.includes("email")) errors.email = msg;
+              if(error.message.includes("password")) errors.password = msg;
             });
           }
-          this.setState({ emailError: emailError, passwordError: passwordError });
-          if(!emailError && !passwordError) AppToaster.show({ icon: "disable", intent: Intent.DANGER, message: msg });
-          reject(err);
+          this.setState({ errors: errors });
+          if(Object.keys(errors).length === 0) AppToaster.show({ icon: "disable", intent: Intent.DANGER, message: msg });
+          // reject(err);
         })
         .finally(() => this.setState({ isLoading: false }));
     });
@@ -73,18 +69,17 @@ class LoginView extends React.Component {
               labelFor="login-email"
               labelInfo="(required)"
               disabled={this.state.isLoading}
-              helperText={this.state.emailError}
-              intent={this.state.emailError ? Intent.DANGER : Intent.NONE }
+              helperText={this.state.errors.email}
+              intent={this.state.errors.email ? Intent.DANGER : Intent.NONE }
             >
               <InputGroup
                 id="login-email"
-                ref={this.emailInput}
                 value={this.state.email}
                 placeholder="Email Address"
                 disabled={this.state.isLoading}
                 onChange={(e) => { this.setState({email: e.target.value})}}
                 // leftIcon="person"
-                intent={this.state.emailError ? Intent.DANGER : Intent.NONE }
+                intent={this.state.errors.email ? Intent.DANGER : Intent.NONE }
               />
             </FormGroup>
 
@@ -93,19 +88,18 @@ class LoginView extends React.Component {
               labelFor="login-password"
               labelInfo="(required)"
               disabled={this.state.isLoading}
-              helperText={this.state.passwordError}
-              intent={this.state.passwordError ? Intent.DANGER : Intent.NONE }
+              helperText={this.state.errors.password}
+              intent={this.state.errors.password ? Intent.DANGER : Intent.NONE }
             >
               <InputGroup
                 id="login-password"
-                ref={this.passwordInput}
                 value={this.state.password}
                 placeholder="Password"
                 type={this.state.showPassword ? "text" : "password"}
                 disabled={this.state.isLoading}
                 onChange={(e) => { this.setState({password: e.target.value})}}
                 // leftIcon="key"
-                intent={this.state.passwordError ? Intent.DANGER : Intent.NONE }
+                intent={this.state.errors.password ? Intent.DANGER : Intent.NONE }
                 rightElement={
                   <Tooltip content={`${this.state.showPassword ? "Hide" : "Show"} Password`}>
                       <Button

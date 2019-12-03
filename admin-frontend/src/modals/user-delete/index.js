@@ -8,8 +8,6 @@ class UserDeleteModal extends React.Component {
 
     this.state = {
       isOpen: props.isOpen || false,
-      handleClose: props.handleClose || undefined,
-      handleDeleted: props.handleDeleted || undefined,
       user: props.user || null
     };
   }
@@ -17,8 +15,6 @@ class UserDeleteModal extends React.Component {
   static getDerivedStateFromProps(props, state) {
     return {
       isOpen: props.isOpen || false,
-      handleClose: props.handleClose || undefined,
-      handleDeleted: props.handleDeleted || undefined,
       user: props.user || null
     };
   }
@@ -26,9 +22,9 @@ class UserDeleteModal extends React.Component {
   render() {
     return (
       <Dialog
-        className="UserDeleteModal"
+        className="UserDeleteModal Modal"
         icon="blocked-person"
-        onClose={this.state.handleClose}
+        onClose={this.props.handleClose || undefined}
         title={'Confirm deletion of "'+this.props.user.name+'"'}
         {...this.state}
       >
@@ -41,10 +37,8 @@ class UserDeleteModal extends React.Component {
         </div>
         <div className={Classes.DIALOG_FOOTER}>
           <div className={Classes.DIALOG_FOOTER_ACTIONS}>
-            <Button onClick={this.state.handleClose}>Cancel</Button>
-            <Button onClick={this.state.handleDeleted} intent={Intent.DANGER}>
-              Delete user
-            </Button>
+            <Button onClick={this.props.handleClose || undefined}>Cancel</Button>
+            <Button intent={Intent.DANGER}>Delete User</Button>
           </div>
         </div>
       </Dialog>

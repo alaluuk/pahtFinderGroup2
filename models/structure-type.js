@@ -1,10 +1,11 @@
 const { db } = require("../pg-adaptor");
 
 class StructureType {
-  static getAny() {
+  static getAny(query = null) {
     return new Promise(function(resolve, reject) {
+      let suffix = (query !== null) ? query.constructSuffix() : '';
       db
-        .any(`SELECT * FROM structure_types`)
+        .any(`SELECT *`+suffix.fields+` FROM structure_types`+suffix.query)
         .then(res => {
           let structure_types = [];
           res.forEach(structure_type_data => {

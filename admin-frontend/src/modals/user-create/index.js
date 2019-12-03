@@ -7,27 +7,23 @@ class UserCreateModal extends React.Component {
     super(props);
 
     this.state = {
-      isOpen: props.isOpen || false,
-      handleClose: props.handleClose || undefined,
-      handleCreated: props.handleCreated || undefined
+      isOpen: props.isOpen || false
     };
   }
 
   static getDerivedStateFromProps(props, state) {
     return {
-      isOpen: props.isOpen || false,
-      handleClose: props.handleClose || undefined,
-      handleCreated: props.handleCreated || undefined
+      isOpen: props.isOpen || false
     };
   }
 
   render() {
     return (
       <Dialog
-        className="UserCreateModal"
+        className="UserCreateModal Modal"
         icon="new-person"
-        onClose={this.state.handleClose}
-        title="Add new user"
+        onClose={this.props.handleClose || undefined}
+        title="New User"
         {...this.state}
       >
         <div className={Classes.DIALOG_BODY}>
@@ -38,10 +34,8 @@ class UserCreateModal extends React.Component {
         </div>
         <div className={Classes.DIALOG_FOOTER}>
           <div className={Classes.DIALOG_FOOTER_ACTIONS}>
-            <Button onClick={this.state.handleClose}>Cancel</Button>
-            <Button intent={Intent.SUCCESS}>
-              Save changes
-            </Button>
+            <Button onClick={this.props.handleClose || undefined}>Cancel</Button>
+            <Button intent={Intent.SUCCESS}>Submit User</Button>
           </div>
         </div>
       </Dialog>

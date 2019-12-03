@@ -10,7 +10,7 @@ const HouseStructureUpdateSchema = Joi.object({
   title: Joi.string().min(3).max(255),
   typeId: Joi.string().guid(),
   uValue: Joi.number(),
-  area: Joi.number(),
+  price: Joi.number().positive().precision(2),
   manufacturer: Joi.string().max(255),
   serial_number: Joi.string().max(255),
   production_year: Joi.number()
@@ -24,7 +24,7 @@ const HouseStructureUpdateMutation = {
     title: { type: GraphQLString },
     typeId: { type: GraphQLInt },
     uValue: { type: GraphQLFloat },
-    area: { type: GraphQLFloat },
+    price: { type: GraphQLFloat },
     manufacturer: { type: GraphQLString },
     serialNumber: { type: GraphQLString },
     productionYear: { type: GraphQLInt }
@@ -64,7 +64,7 @@ const HouseStructureUpdateMutation = {
       if(values.title) house_structure.title = values.title;
       if(values.typeId) house_structure._type_id = values.typeId;
       if(values.uValue) house_structure.uValue = values.uValue;
-      if(values.area) house_structure.area = values.area;
+      if(values.price) house_structure.price = values.price;
       if(values.manufacturer) house_structure.manufacturer = values.manufacturer;
       if(values.serialNumber) house_structure.serialNumber = values.serialNumber;
       if(values.productionYear) house_structure.productionYear = values.productionYear;

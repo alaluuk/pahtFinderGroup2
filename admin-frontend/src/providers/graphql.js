@@ -1,6 +1,11 @@
 import { GraphQLClient } from 'graphql-request';
+import { getAppMode } from './mode';
 
-const client = new GraphQLClient("http://localhost:5000/graphql", { // TODO: Change back to production: https://oamk-pathfinder.herokuapp.com/graphql
+export const getClientURL = () => {
+  return (getAppMode() === 'development') ? 'http://localhost:5000/graphql' : 'https://oamk-pathfinder.herokuapp.com/graphql';
+}
+
+const client = new GraphQLClient(getClientURL(), {
   headers: { authorization: '' }
 });
 

@@ -9,7 +9,7 @@ const StructureTemplateUpdateSchema = Joi.object({
   title: Joi.string().min(3).max(255),
   typeId: Joi.string().guid(),
   uValue: Joi.number(),
-  area: Joi.number(),
+  price: Joi.number().positive().precision(2),
   manufacturer: Joi.string().max(255),
   serial_number: Joi.string().max(255),
   production_year: Joi.number()
@@ -22,7 +22,7 @@ const StructureTemplateUpdateMutation = {
     title: { type: GraphQLString },
     typeId: { type: GraphQLInt },
     uValue: { type: GraphQLFloat },
-    area: { type: GraphQLFloat },
+    price: { type: GraphQLFloat },
     manufacturer: { type: GraphQLString },
     serialNumber: { type: GraphQLString },
     productionYear: { type: GraphQLInt }
@@ -49,7 +49,7 @@ const StructureTemplateUpdateMutation = {
       if(values.title) structure_template.title = values.title;
       if(values.typeId) structure_template._type_id = values.typeId;
       if(values.uValue) structure_template.uValue = values.uValue;
-      if(values.area) structure_template.area = values.area;
+      if(values.price) structure_template.price = values.price;
       if(values.manufacturer) structure_template.manufacturer = values.manufacturer;
       if(values.serialNumber) structure_template.serialNumber = values.serialNumber;
       if(values.productionYear) structure_template.productionYear = values.productionYear;

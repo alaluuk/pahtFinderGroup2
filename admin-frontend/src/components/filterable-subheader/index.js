@@ -13,13 +13,8 @@ class FilterableSubheaderComponent extends React.Component {
             <Navbar.Divider />
           </Navbar.Group>
           <Navbar.Group align={Alignment.RIGHT}>
-            <Navbar.Divider />
-            <Button
-              icon={this.props.primaryIcon || "plus"}
-              text={this.props.primaryText || "Primary-Action"}
-              intent={Intent.SUCCESS}
-              onClick={this.props.primaryOnClick || undefined}
-            />
+            {(this.props.primaryAction) ? <Navbar.Divider /> : null}
+            {this.props.primaryAction || null}
           </Navbar.Group>
           <Navbar.Group align={Alignment.RIGHT}>
             <ControlGroup fill={true} vertical={false}>

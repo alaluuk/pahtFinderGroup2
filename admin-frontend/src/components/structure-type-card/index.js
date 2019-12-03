@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Card, H5, Classes, Collapse, Elevation, Popover, Menu, Intent, Position } from "@blueprintjs/core";
 import StructureTemplateTable from "../../components/structure-template-table";
+import StructureTemplateCreateModal from "../../modals/structure-template-create";
 import "./styles.scss";
 
 class StructureTypeCard extends React.Component {
@@ -11,25 +12,32 @@ class StructureTypeCard extends React.Component {
       structureType: this.props.structureType,
       initialLoaded: false,
       isCollapsed: false,
-      templateCount: null,
-      isFilterable: false
+      totalCount: null,
+      isFilterable: false,
+      isTemplateCreateModalOpen: false
     };
   }
 
   render() {
     return (
       <Card className="StructureTypeCard" elevation={Elevation.ONE}>
-        <div className="StructureTypeCardHeader">
+        <div className={"StructureTypeCardHeader"+(this.state.isCollapsed ? " is-collapsed" : "")}>
           <Button
             icon={(!this.state.isCollapsed) ? "chevron-down" : "chevron-right"} minimal="true"
             onClick={() => { this.setState({ isCollapsed: !this.state.isCollapsed }) }}
           />
           <H5 className={Classes.TEXT_OVERFLOW_ELLIPSIS}>
             {this.state.structureType.title}
-            {(this.state.templateCount !== null) ? <span className="bp3-text-muted"> ({this.state.templateCount})</span> : ''}
+            {(this.state.totalCount !== null) ? <span className="bp3-text-muted"> ({this.state.totalCount})</span> : ''}
           </H5>
+          {/* <Button icon="new-layers" minimal="true" intent={Intent.SUCCESS}>New Template</Button> */}
           <Popover content={
             <Menu>
+              <Menu.Item
+                icon="new-layers" 
+                text="Create a new template"
+                onClick={() => { this.setState({isTemplateCreateModalOpen: true}) }}
+              />
               <Menu.Item
                 icon={(!this.state.isCollapsed) ? "collapse-all" : "expand-all"} 
                 text={(!this.state.isCollapsed) ? "Collapse templates list" : "Expand templates list"}
@@ -56,13 +64,20 @@ class StructureTypeCard extends React.Component {
           <StructureTemplateTable
             structureType={this.state.structureType}
             filterable={this.state.isFilterable}
-            onFetchedData={(data) => this.setState({
-              templateCount: data.structureTemplates.length,
+            onFetchedData={(totalCount) => this.setState({
+              totalCount: totalCount,
               initialLoaded: true,
-              isCollapsed: (!this.state.initialLoaded && data.structureTemplates.length <= 0)
+              isCollapsed: (!this.state.initialLoaded && totalCount <= 0)
             })}
+            handleNewTemplateModal={() => { this.setState({isTemplateCreateModalOpen: true}) }}
           />
         </Collapse>
+        <StructureTemplateCreateModal
+          structureType={this.state.structureType}
+          isOpen={this.state.isTemplateCreateModalOpen}  
+          onClose={() => { this.setState({isTemplateCreateModalOpen: false}) }}
+          onCreated={() => { this.setState({isTemplateCreateModalOpen: false}) }} // TODO: Force template table refresh
+        />
       </Card>
     );
   }
