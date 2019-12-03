@@ -4,7 +4,7 @@ const { APIQuery, Structure } = require(".");
 class StructureTemplate extends Structure {
   static getAny(query = null) {
     return new Promise(function(resolve, reject) {
-      let suffix = (query !== null) ? query.constructSuffix() : '';
+      let suffix = (query !== null) ? query.constructSuffix() : { query: '', fields: '' };
       db
         .any(`SELECT *`+suffix.fields+` FROM structure_templates`+suffix.query)
         .then(res => {

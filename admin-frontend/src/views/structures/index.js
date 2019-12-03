@@ -4,6 +4,7 @@ import GraphQLClient from "../../providers/graphql";
 import HeaderComponent from "../../components/header";
 import FilterableSubheaderComponent from "../../components/filterable-subheader";
 import StructureTypeCard from "../../components/structure-type-card";
+import StructureTypeDeleteModal from "../../modals/structure-type-delete";
 import StructureTemplateCreateModal from "../../modals/structure-template-create";
 import { Popover, Menu, Position, ButtonGroup, Button, Text, Spinner, NonIdealState, Icon, Intent } from "@blueprintjs/core";
 import "./styles.scss";
@@ -122,6 +123,24 @@ class StructuresView extends React.Component {
         <div className="content-wrapper">{view}</div>
 
         <Route
+          path={`${this.props.match.url}/delete-type/:typeId?`}
+          render={({match}) => {
+            return (
+              <StructureTypeDeleteModal
+                structureType={undefined /* TODO */}
+                isOpen={true}  
+                onClose={() => { this.props.history.replace(this.props.match.url) }}
+                onCreated={(structureTemplate) => {
+                  this.props.history.replace(this.props.match.url);
+                  this[`ref_type_card_${structureTemplate.type.id}`].current.toggleCollapsed(false);
+                  this[`ref_type_card_${structureTemplate.type.id}`].current.refetchData();
+                }}
+              />
+            );
+          }}
+        />
+
+        <Route
           path={`${this.props.match.url}/create-template`}
           render={({location}) => {
             return (
@@ -134,7 +153,7 @@ class StructuresView extends React.Component {
                   this.props.history.replace(this.props.match.url);
                   this[`ref_type_card_${structureTemplate.type.id}`].current.toggleCollapsed(false);
                   this[`ref_type_card_${structureTemplate.type.id}`].current.refetchData();
-                }} // TODO: Force template table refresh
+                }}
               />
             );
           }}

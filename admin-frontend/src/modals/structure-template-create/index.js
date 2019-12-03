@@ -79,7 +79,7 @@ class StructureTemplateCreateModal extends React.Component {
           updatedAt
         }
       }
-    `, {...this.state.values})
+    `, this.state.values)
         .then(data => {
           if(this.props.onCreated) this.props.onCreated(data.createStructureTemplate);
           AppToaster.show({ icon: "tick", intent: Intent.SUCCESS, message: "Successfully created new structure type!" });

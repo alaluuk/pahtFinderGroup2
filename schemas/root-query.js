@@ -36,10 +36,18 @@ const RootQuery = new GraphQLObjectType({
       resolve(_, args, { auth }) {
         if(!auth.user) throw new Error("You must be logged in to perform this action.");
         if(args.id) {
-          if(!checkPermission(auth.user.role, "house_query_owner_self")) {
-            throw new Error("You don't have sufficient permissions to query this user.");
-          }
-          return [ House.getOne(args.id) ];
+          return new Promise(function(resolve, reject) {
+            House.getOne(args.id)
+              .then(house => {
+                if(house._owner_id !== auth.user.id && !checkPermission(auth.user.role, "house_query_owner_other")) {
+                  throw new Error("You don't have sufficient permissions to query this house.");
+                } else if(house._owner_id === auth.user.id && !checkPermission(auth.user.role, "house_query_owner_self")) {
+                  throw new Error("You don't have sufficient permissions to query this house.");
+                }
+                resolve([ house ]);
+              })
+              .catch(err => reject(err));
+          });
         } else if(args.ownerID) {
           if(args.ownerID !== auth.user.id && !checkPermission(auth.user.role, "house_query_owner_other")) {
             throw new Error("You don't have sufficient permissions to query houses that are owned by others.");
@@ -47,7 +55,7 @@ const RootQuery = new GraphQLObjectType({
           return House.getAnyByOwner(args.ownerID);
         } else {
           if(!checkPermission(auth.user.role, "house_query_owner_other")) {
-            return House.getAnyByOwner(args.ownerID);
+            return House.getAnyByOwner(auth.user.id);
           }
           return House.getAny();
         }
