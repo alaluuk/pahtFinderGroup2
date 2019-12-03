@@ -1,4 +1,6 @@
 import React from "react";
+import GraphQLClient from '../../providers/graphql';
+import { AppToaster } from '../../App';
 import { Button, Intent, Dialog, Classes, FormGroup, InputGroup, NumericInput } from "@blueprintjs/core";
 import "./styles.scss";
 
@@ -9,7 +11,9 @@ class StructureTemplateCreateModal extends React.Component {
     this.state = {
       isOpen: props.isOpen || false,
       isLoading: false,
-      values: {},
+      values: {
+        typeId: props.structureType.id || null
+      },
       errors: {}
     };
 
@@ -26,13 +30,64 @@ class StructureTemplateCreateModal extends React.Component {
   reset() {
     this.setState({
       isLoading: false,
-      values: {},
+      values: {
+        typeId: this.props.structureType.id || null
+      },
       errors: {}
     });
   }
 
   handleSubmit() {
-    this.setState({ isLoading: true, errors: {} });
+    return new Promise((resolve, reject) => {
+      this.setState({ isLoading: true, errors: {} });
+      GraphQLClient.request(`
+      mutation($title: String!, $typeId: ID!, $uValue: Float!, $price: Float, $manufacturer: String, $serialNumber: String, $productionYear: Int) {
+        createStructureTemplate(
+          title: $title,
+          typeId: $typeId,
+          uValue: $uValue,
+          price: $price,
+          manufacturer: $manufacturer,
+          serialNumber: $serialNumber,
+          productionYear: $productionYear
+        ) {
+          id
+          title
+          uValue
+          price
+          manufacturer
+          serialNumber
+          productionYear
+          createdAt
+          updatedAt
+        }
+      }
+    `, {...this.state.values})
+        .then(data => {
+          console.log(data);
+          if(this.props.onCreated) this.props.onCreated(data.structureTemplate);
+          AppToaster.show({ icon: "tick", intent: Intent.SUCCESS, message: "Successfully created new structure type!" });
+          resolve(data);
+        })
+        .catch(err => {
+          let msg = (err.response) ? err.response.errors[0].message : err.message;
+          let errors = {};
+          if(err.response) {
+            err.response.errors.forEach(error => {
+              if(error.message.includes("title")) errors.title = msg;
+              if(error.message.includes("uValue")) errors.uValue = msg;
+              if(error.message.includes("price")) errors.price = msg;
+              if(error.message.includes("manufacturer")) errors.manufacturer = msg;
+              if(error.message.includes("serialNumber")) errors.serialNumber = msg;
+              if(error.message.includes("productionYear")) errors.productionYear = msg;
+            });
+          }
+          this.setState({ errors: errors });
+          if(Object.keys(errors).length === 0) AppToaster.show({ icon: "disable", intent: Intent.DANGER, message: msg });
+          // reject(err);
+        })
+        .finally(() => this.setState({ isLoading: false }));
+    });
   }
 
   render() {
@@ -41,7 +96,7 @@ class StructureTemplateCreateModal extends React.Component {
         className="StructureTemplateCreateModal Modal"
         icon="new-layers"
         onOpening={this.reset}
-        onClose={this.props.handleClose || undefined}
+        onClose={this.props.onClose || undefined}
         title="New Structure Template"
         {...this.state}
       >
@@ -89,19 +144,19 @@ class StructureTemplateCreateModal extends React.Component {
             </FormGroup>
 
             <FormGroup
-              label="Area (m²)"
-              labelFor="area"
+              label="Price (€)"
+              labelFor="price"
               disabled={this.state.isLoading}
-              helperText={this.state.errors.area}
-              intent={this.state.errors.area ? Intent.DANGER : Intent.NONE }
+              helperText={this.state.errors.price}
+              intent={this.state.errors.price ? Intent.DANGER : Intent.NONE }
               className="grid-l-half"
             >
               <NumericInput
-                value={this.state.values.area || ""}
-                placeholder="Area (m²)"
+                value={this.state.values.price || ""}
+                placeholder="Price (€)"
                 disabled={this.state.isLoading}
-                onValueChange={(value) => { this.setState({values: {...this.state.values, area: value}}) }}
-                intent={this.state.errors.area ? Intent.DANGER : Intent.NONE }
+                onValueChange={(value) => { this.setState({values: {...this.state.values, price: value}}) }}
+                intent={this.state.errors.price ? Intent.DANGER : Intent.NONE }
                 min={0}
                 fill={true}
               />
@@ -168,7 +223,7 @@ class StructureTemplateCreateModal extends React.Component {
         <div className={Classes.DIALOG_FOOTER}>
           <div className={Classes.DIALOG_FOOTER_ACTIONS}>
             <Button
-              onClick={this.props.handleClose || undefined}
+              onClick={this.props.onClose || undefined}
               disabled={this.state.isLoading}
             >Cancel</Button>
             <Button

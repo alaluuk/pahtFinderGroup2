@@ -1,12 +1,44 @@
 const { db } = require("../pg-adaptor");
 const { Structure, StructureTemplate } = require(".");
 
-class EfficiencyReport {
-  // IDEA: Add a caching mechanism for the generated reports
+// IDEA: Add a caching mechanism for the generated reports
+// class EfficiencyReportCache {
+//   constructor() {
+//     console.log("cache init");
+//     this.cache = {};
+//     // this.cacheMeta = {};
+//   }
 
+//   addEntry(key, value) {
+//     console.log("cache add: ", key);
+//     this.cache[key] = value;
+//     // this.cacheMeta[key] = { fetchDate: new Date() };
+//   }
+
+//   getEntry(key) {
+//     return new Promise((resolve, reject) => {
+//       if(this.cache.hasOwnProperty(key)) {
+//         console.log("cache hit: ", key);
+//         resolve(this.cache[key]);
+//       } else {
+//         console.log("cache miss: ", key);
+//         reject();
+//       }
+//     });
+//   }
+
+//   removeEntry(key) {
+//     delete this.cache[key];
+//     // delete this.cacheMeta[key];
+//   }
+// }
+// let reportCache = new EfficiencyReportCache();
+
+class EfficiencyReport {
   constructor(structure) {
     // TODO: Add option to specify report type (short/in-depth) so house reports are more performant
     this.structure = structure;
+    
   }
 
   async generate() {
@@ -21,9 +53,24 @@ class EfficiencyReport {
   }
 
   async getBestOfType() {
+    // return new Promise((resolve, reject) => {
+    //   const cacheKey = 'best-of-type-'+this.structure._type_id;
+    //   reportCache.getEntry(cacheKey)
+    //     .then(res => resolve(res))
+    //     .catch(() => {
+    //       db
+    //       .one(`SELECT * FROM structure_templates WHERE type_id = $1 ORDER BY u_value ASC LIMIT 1`, [ this.structure._type_id ])
+    //       .then(res => {
+    //         let structureTemplate = new StructureTemplate(res);
+    //         reportCache.addEntry(cacheKey, structureTemplate);
+    //         resolve(structureTemplate);
+    //       })
+    //       .catch(err => reject(err));
+    //     })
+    // });
     return db
-      .one(`SELECT * FROM structure_templates WHERE type_id = $1 ORDER BY u_value ASC LIMIT 1`, [ this.structure._type_id ])
-      .then(res => new StructureTemplate(res));
+    .one(`SELECT * FROM structure_templates WHERE type_id = $1 ORDER BY u_value ASC LIMIT 1`, [ this.structure._type_id ])
+    .then(res => new StructureTemplate(res));
   }
 
   async getWorstOfType() {

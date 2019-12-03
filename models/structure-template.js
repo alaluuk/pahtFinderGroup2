@@ -48,14 +48,23 @@ class StructureTemplate extends Structure {
     });
   }
 
-  static create(title, type_id, u_value = null, area = null, manufacturer = null, serial_number = null, production_year = null) {
+  static create(title, type_id, u_value, price = null, manufacturer = null, serial_number = null, production_year = null) {
     return new Promise(function(resolve, reject) {
+      console.log([
+        title,
+        type_id,
+        u_value,
+        price,
+        manufacturer,
+        serial_number,
+        production_year
+      ]);
       db
         .one(`INSERT INTO structure_templates(
             title,
             type_id,
             u_value,
-            area,
+            price,
             manufacturer,
             serial_number,
             production_year
@@ -63,7 +72,7 @@ class StructureTemplate extends Structure {
             title,
             type_id,
             u_value,
-            area,
+            price,
             manufacturer,
             serial_number,
             production_year
@@ -85,7 +94,7 @@ class StructureTemplate extends Structure {
           title=$2,
           type_id=$3,
           u_value=$4,
-          area=$5,
+          price=$5,
           manufacturer=$6,
           serial_number=$7,
           production_year=$8
@@ -94,7 +103,7 @@ class StructureTemplate extends Structure {
           structure._title,
           structure._type_id,
           structure._u_value,
-          structure._area,
+          structure._price,
           structure._manufacturer,
           structure._serial_number,
           structure._production_year,

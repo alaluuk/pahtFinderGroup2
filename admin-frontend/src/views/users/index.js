@@ -5,7 +5,7 @@ import HeaderComponent from "../../components/header";
 import FilterableSubheaderComponent from "../../components/filterable-subheader";
 import UserCardComponent from "../../components/user-card";
 import UserCreateModal from "../../modals/user-create";
-import { H5, Text, Spinner, NonIdealState, Icon, Intent } from "@blueprintjs/core";
+import { Button, H5, Text, Spinner, NonIdealState, Icon, Intent } from "@blueprintjs/core";
 import "./styles.scss";
 
 class UsersView extends React.Component {
@@ -85,9 +85,14 @@ class UsersView extends React.Component {
         <HeaderComponent user={this.props.user} />
         <FilterableSubheaderComponent
           heading="User Management"
-          primaryIcon="new-person"
-          primaryText="New User"
-          primaryOnClick={() => { this.props.history.replace(this.props.match.url+'/create') }}
+          primaryAction={
+            <Button
+              icon="new-person"
+              text="New User"
+              intent={Intent.SUCCESS}
+              onClick={() => { this.props.history.replace(this.props.match.url+'/create') }}
+            />
+          }
         />
         <div className="content-wrapper">
           <H5>All Users ({this.state.users.length})</H5>

@@ -9,7 +9,7 @@ const StructureTemplateType = new GraphQLObjectType({
     title: { type: GraphQLString },
     type: { type: new GraphQLNonNull(StructureTypeType) },
     uValue: { type: new GraphQLNonNull(GraphQLFloat) },
-    area: { type: GraphQLFloat },
+    price: { type: GraphQLFloat },
     manufacturer: { type: GraphQLString },
     serialNumber: { type: GraphQLString },
     productionYear: { type: GraphQLInt },

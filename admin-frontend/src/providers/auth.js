@@ -68,11 +68,11 @@ export const performLogout = () => {
 }
 
 export const getSession = () => {
-  const jwt = Cookies.get('__session_jwt');
+  const jwtCookie = Cookies.get('__session_jwt');
   let session = null;
   try {
-    if(jwt) {
-      const base64Payload = jwt.split('.')[1];
+    if(jwtCookie) {
+      const base64Payload = jwtCookie.split('.')[1];
       const base64 = base64Payload.replace('-', '+').replace('_', '/');
       const parsed = JSON.parse(window.atob(base64));
       if(parsed.exp < (Date.now()/1000)) {

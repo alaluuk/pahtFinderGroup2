@@ -73,8 +73,10 @@ class StructureTypeCard extends React.Component {
           />
         </Collapse>
         <StructureTemplateCreateModal
+          structureType={this.state.structureType}
           isOpen={this.state.isTemplateCreateModalOpen}  
-          handleClose={() => { this.setState({isTemplateCreateModalOpen: false}) }}
+          onClose={() => { this.setState({isTemplateCreateModalOpen: false}) }}
+          onCreated={() => { this.setState({isTemplateCreateModalOpen: false}) }} // TODO: Force template table refresh
         />
       </Card>
     );

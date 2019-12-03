@@ -61,7 +61,7 @@ class StructureTemplateTable extends React.Component {
             id
             title
             uValue
-            area
+            price
             manufacturer
             serialNumber
             productionYear
@@ -145,11 +145,12 @@ class StructureTemplateTable extends React.Component {
           filterable: false
         },
         {
-          id: 'area',
-          Header: 'Area (m²)',
-          accessor: 'area',
+          id: 'price',
+          Header: 'Price (€)',
+          accessor: 'price',
           width: 75,
-          filterable: false
+          filterable: false,
+          Cell: cellInfo => cellInfo.row.price.toFixed(2)+' €',
         },
         {
           id: 'u_value',

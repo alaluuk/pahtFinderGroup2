@@ -3,7 +3,7 @@ import GraphQLClient from "../../providers/graphql";
 import HeaderComponent from "../../components/header";
 import FilterableSubheaderComponent from "../../components/filterable-subheader";
 import StructureTypeCard from "../../components/structure-type-card";
-import { Text, Spinner, NonIdealState, Icon, Intent } from "@blueprintjs/core";
+import { Popover, Menu, Position, ButtonGroup, Button, Text, Spinner, NonIdealState, Icon, Intent } from "@blueprintjs/core";
 import "./styles.scss";
 
 class StructuresView extends React.Component {
@@ -83,9 +83,29 @@ class StructuresView extends React.Component {
         <HeaderComponent user={this.props.user} />
         <FilterableSubheaderComponent
           heading="Structure Templates"
-          primaryIcon="new-layers"
-          primaryText="New Structure Template"
-          primaryOnClick={() => { this.setState({ isUserCreateModalOpen: true }) }}
+          primaryAction={
+            <ButtonGroup>
+              <Button
+                icon="new-layers"
+                text="New Structure Template"
+                intent={Intent.SUCCESS}
+                onClick={() => { this.setState({ isUserCreateModalOpen: true }) }}
+              />
+              <Popover content={
+                <Menu>
+                  <Menu.Item
+                    icon="new-layer" 
+                    text="New Structure Type"
+                  />
+                </Menu>
+              } position={Position.BOTTOM_RIGHT}>
+                <Button
+                  icon="caret-down"
+                  intent={Intent.SUCCESS}
+                />
+              </Popover>
+            </ButtonGroup>
+          }
         />
         <div className="content-wrapper">{view}</div>
       </div>
