@@ -24,7 +24,7 @@ class AddBuilding extends Component {
     doors: [],
     windows: [],
     groundfloors: [],
-    saveHouseClicked: false
+    triggerSave: false //inverting this value will trigger saving requests in child components 
   };
 
   render() {
@@ -36,7 +36,7 @@ class AddBuilding extends Component {
               <h1 className="addBuildHeaderText">Add a new building</h1>
             </div>
 
-              <GeneralInformation saveHouseClicked = {this.state.saveHouseClicked}></GeneralInformation>
+              <GeneralInformation triggerSave = {this.state.triggerSave}></GeneralInformation>
             
             <div className="allStructures">
               <div className="addStructureComp">
@@ -298,7 +298,7 @@ class AddBuilding extends Component {
                   variant="contained"
                   color="primary"
                   className="saveBuildButton"
-                  onClick={() => this.setState({saveHouseClicked : true})}
+                  onClick={() => this.setState({triggerSave : !this.state.triggerSave})}
                 >
                   Save Your Building
                 </Button>
