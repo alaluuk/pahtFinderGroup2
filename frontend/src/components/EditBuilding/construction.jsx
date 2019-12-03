@@ -1,11 +1,8 @@
 import React, { Component } from "react";
 import ConstructionCard from "../cardConstruction";
 import Slider from "@material-ui/core/Slider";
-import Button from "@material-ui/core/Button";
 import AddConstruction from "./addConstruction";
 import gql from 'graphql-tag'
-import { Mutation } from 'react-apollo'
-import Typography from '@material-ui/core/Typography';
 import { withApollo } from "react-apollo";
 import "../../styles/addConstruction.scss";
 import "../../styles/addBuilding.scss";

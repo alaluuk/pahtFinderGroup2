@@ -57,7 +57,8 @@ class GeneralInformation extends Component {
               warmWaterPipe: this.state.warmWaterPipe
           },
         }).then(results => {
-            console.log(results);
+            console.log("House Created:", results);
+            this.props.callbackFromParent(results.data.createHouse.id)
             this.setState({errorMessage: ''})
         })
         .catch(error => {
