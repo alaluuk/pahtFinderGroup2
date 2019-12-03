@@ -2,7 +2,7 @@ import React from 'react';
 import '../styles/addBuilding.scss';
 import Header from '../components/Header/header';
 import Footer from '../components/footer';
-import EditBuilding from '../components/editBuilding/body';
+import EditBuilding from '../components/EditBuilding/body';
 
 
 class EditBuildingPage extends React.Component {
@@ -15,6 +15,6 @@ class EditBuildingPage extends React.Component {
             </div>
           );
     }
-}
+} 
 
 export default EditBuildingPage

@@ -3,7 +3,7 @@ import Button from "@material-ui/core/Button";
 import "../styles/cardConstruction.scss";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
-import EditConstruction from "./editBuilding/editConstruction.jsx"
+import EditConstruction from "./EditBuilding/editConstruction"
 import DeleteConstruction from "./Deletion/body.jsx"
 
 
@@ -15,7 +15,7 @@ class Card extends Component {
     title: "",
     manufacture: "",
     u_value: "",
-    area: "",
+    area: "", 
     amount: "",
     production_year: "",
     price: "",

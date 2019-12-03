@@ -23,7 +23,7 @@ class MediaCard extends Component {
     orange: "orange",
     red: "red"
 
-    
+     
    }
 
   constructor(props){ 
@@ -45,7 +45,12 @@ class MediaCard extends Component {
       
   }
   render() { 
-    return ( <Link to="/building"  >
+    return ( <Link to={{
+      pathname: '/result',
+      state: {
+        buildingID: this.state.id
+      }
+    }}  >
     <Card className="card" >
       <CardActionArea>
         <CardMedia

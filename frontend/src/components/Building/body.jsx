@@ -10,27 +10,75 @@ import Map from "../Maps/mapBuilding";
 import { withStyles } from "@material-ui/core/styles";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteButton from "../Deletion/body";
-
+import { useQuery } from "@apollo/react-hooks";
+import gql from "graphql-tag";
+import { AUTH_TOKEN, CURRENT_USER_ID } from '../../constants';
 import "../../styles/building.scss";
 
 
+const GET_SINGLE_BUILDING = gql`
+  query GET_SINGLE_BUILDING($id: ID!){
+    houses(id: $id) {
+        id
+        name
+        addressCountry
+        addressCity
+        addressStreet
+        addressLat
+        addressLng
+        constructionYear
+        heatingSystem
+        costOfHeating
+        warmWaterPipe
+        createdAt
+        updatedAt
+        structures {
+            id
+            title
+            type {
+                id
+                title
+            }
+            uValue
+        }
+        owner {
+            id
+            name
+        }
+    }
+  }`;
 
-class Body extends Component {
-  state = {
-
-    type: "Single House",
-    title: "Good House",
-    street: "Roberto Street 31",
-    city: "Ibiza",
-    country : "Spain",
-    constructionYear: 2010,
-    EE: 70,
+ 
 
 
+export default function Body(props) {
 
-  };
+  const [id, setId, getId] = React.useState(props.id);
+  const [type, setType, getType] = React.useState('');
+  const [title, setTitle, getTtitle] = React.useState('');
+  const [street, setStreet, getStreet] = React.useState('');
+  const [city, setCity, getCity] = React.useState('');
+  const [country, setCountry, getCountry] = React.useState('');
+  const [constructionYear, setConstructionYear, getConstructionYear] = React.useState('');
+  const [EE, setEE, getEE] = React.useState('');
+ 
 
-  render() {
+
+  console.log("Building ID from Card: " + id);
+  console.log("Auth:" + localStorage.getItem(AUTH_TOKEN));
+  console.log("User_Id" + localStorage.getItem(CURRENT_USER_ID));
+   
+    const { data, loading, error } = useQuery(GET_SINGLE_BUILDING, {
+      variables: { id }
+    });
+    if (loading) return <p>LOADING</p>;
+  if (error) return `Error! ${error}`;
+  console.log(data)
+
+  
+  
+
+
     const PrettoSlider = withStyles({
       root: {
         color: "dimgray",
@@ -64,22 +112,22 @@ class Body extends Component {
         <div className="overlay">
           <div className="building">
             <div className="buildingHeader">
-              <h1 className="buildingHeaderText">{this.state.title}</h1>
+              <h1 className="buildingHeaderText">eRSETZTEN</h1>
               <Button className="buildingEdit" variant="outlined">
                 <EditIcon /> &nbsp; Edit
               </Button>
               <DeleteButton
                 className="buildingDelete"
                 id=""
-                parentType =  {this.state.type}
-                parentTitle = {this.state.title}
+                parentType =  ""/*{this.state.type}*/
+                parentTitle = ""/*{this.state.title}*/
               ></DeleteButton>
               <div className="buildingSlider">
                 <PrettoSlider
                   className="material-Slider"
                   valueLabelDisplay="on"
                   aria-label="pretto slider"
-                  defaultValue={this.state.EE}
+                  defaultValue=""/*{this.state.EE}*/
                   disabled={true}
                 />
               </div>
@@ -102,7 +150,7 @@ class Body extends Component {
                             disabled
                             id="standard-disabled"
                             label="Name Of Building"
-                            defaultValue={this.state.title}
+                            defaultValue=""/*{this.state.title}*/
                             className="buildingSingleInfo"
                             margin="normal"
                           />
@@ -112,7 +160,7 @@ class Body extends Component {
                             disabled
                             id="standard-disabled"
                             label="Street"
-                            defaultValue={this.state.street}
+                            defaultValue=""/*{this.state.street}*/
                             className="buildingSingleInfo"
                             margin="normal"
                           />
@@ -124,7 +172,7 @@ class Body extends Component {
                             disabled
                             id="standard-disabled"
                             label="Construction Year"
-                            defaultValue={this.state.constructionYear}
+                            defaultValue=""/*{this.state.constructionYear}*/
                             className="buildingSingleInfo"
                             margin="normal"
                           />
@@ -134,7 +182,7 @@ class Body extends Component {
                             disabled
                             id="standard-disabled"
                             label="City"
-                            defaultValue={this.state.city}
+                            defaultValue=""/*{this.state.city}*/
                             className="buildingSingleInfo"
                             margin="normal"
                           />
@@ -146,7 +194,7 @@ class Body extends Component {
                             disabled
                             id="standard-disabled"
                             label="Type of Building"
-                            defaultValue={this.state.type}
+                            defaultValue=""/*{this.state.type}*/
                             className="buildingSingleInfo"
                             margin="normal"
                           />
@@ -156,7 +204,7 @@ class Body extends Component {
                             disabled
                             id="standard-disabled"
                             label="Country"
-                            defaultValue={this.state.country}
+                            defaultValue=""/*{this.state.country}*/
                             className="buildingSingleInfo"
                             margin="normal"
                           />
@@ -327,6 +375,3 @@ class Body extends Component {
       </div>
     );
   }
-}
-
-export default Body;

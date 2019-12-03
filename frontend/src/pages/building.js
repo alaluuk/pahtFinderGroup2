@@ -7,12 +7,28 @@ import Body from '../components/Building/body';
 
 
 class Building extends React.Component {
-    render() {
+
+  state = {
+
+    id: "",
+  } 
+  
+  constructor(props){
+    super(props)
+    const {buildingID}= this.props.location.state
+    this.state.id = buildingID;
+  }
+
+ 
+  render() {
+
         return (
             <div className="Building">
+
+
               
               <Header></Header>
-              <Body></Body>
+              <Body id = {this.state.id}></Body>
               <Footer></Footer>
             </div>
           );
