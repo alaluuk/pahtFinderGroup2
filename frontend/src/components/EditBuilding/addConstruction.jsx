@@ -13,7 +13,7 @@ import Structure from '../../objects/structure.js'
 export default function AddConstruction ({ parentType, parentState }){
 
  
-
+ 
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {

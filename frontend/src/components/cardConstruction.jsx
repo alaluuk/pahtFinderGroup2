@@ -15,7 +15,7 @@ class Card extends Component {
     title: "",
     manufacture: "",
     u_value: "",
-    area: "",
+    area: "", 
     amount: "",
     production_year: "",
     price: "",

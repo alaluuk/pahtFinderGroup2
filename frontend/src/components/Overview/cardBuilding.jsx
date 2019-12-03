@@ -23,7 +23,7 @@ class MediaCard extends Component {
     orange: "orange",
     red: "red"
 
-    
+     
    }
 
   constructor(props){ 

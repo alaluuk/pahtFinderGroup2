@@ -15,6 +15,6 @@ class EditBuildingPage extends React.Component {
             </div>
           );
     }
-}
+} 
 
 export default EditBuildingPage

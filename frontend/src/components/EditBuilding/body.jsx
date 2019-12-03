@@ -10,7 +10,7 @@ class EditBuilding extends Component {
     triggerSave: false, //inverting this value will trigger saving request in generalInformation.jsx
     houseId: 0 //id of house that is currently edited
   };
-
+ 
   //triggered after succesfull CreateHouse request
   houseIdCallback = (dataFromChild) => {
     this.houseId = dataFromChild;

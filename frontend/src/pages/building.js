@@ -11,7 +11,7 @@ class Building extends React.Component {
   state = {
 
     id: "",
-  }
+  } 
   
   constructor(props){
     super(props)

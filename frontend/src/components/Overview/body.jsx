@@ -21,7 +21,7 @@ const GET_BUILDINGS = gql`
       constructionYear
     }
   }
-`;
+`; 
 
 /* Randomised Pictures */
 const images = [

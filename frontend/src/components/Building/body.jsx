@@ -61,13 +61,13 @@ export default function Body(props) {
   const [country, setCountry, getCountry] = React.useState('');
   const [constructionYear, setConstructionYear, getConstructionYear] = React.useState('');
   const [EE, setEE, getEE] = React.useState('');
-
+ 
 
 
   console.log("Building ID from Card: " + id);
   console.log("Auth:" + localStorage.getItem(AUTH_TOKEN));
   console.log("User_Id" + localStorage.getItem(CURRENT_USER_ID));
-  
+   
     const { data, loading, error } = useQuery(GET_SINGLE_BUILDING, {
       variables: { id }
     });
