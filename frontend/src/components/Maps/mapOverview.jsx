@@ -10,7 +10,7 @@ class MapContainer extends Component {
  
   render() {
     const style = {
-      width: '2760px',
+      width: '2010px',
       height: '600px'
     }
     return (
@@ -82,10 +82,7 @@ class MapContainer extends Component {
 }
 
 export default GoogleApiWrapper({
-  apiKey: "AIzaSyCtjE1Gp9fMruTlx_lBK367VySTtQDMeWU"
+  apiKey:  process.env.GOOGLE_MAP_API_KEY 
 })(MapContainer);
 
 
-{
-  /*  process.env.GOOGLE_MAP_API_KEY */
-  }

@@ -1,20 +1,15 @@
 import React, { Component } from "react";
 import Card from "./cardBuilding";
-import { FaFilter } from "react-icons/fa";
-import FilterListIcon from "@material-ui/icons/FilterList";
-import SearchIcon from "@material-ui/icons/Search";
-import Fab from "@material-ui/core/Fab";
 import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import AddIcon from "@material-ui/icons/Add";
 import "../../styles/overview.scss";
 import Map from "../Maps/mapOverview";
-import TextField from '@material-ui/core/TextField';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import Chart from "./chart";
 import Filter from "./functions/filter";
 import Search from "./functions/search";
 import Sort from "./functions/sort";
+import { useQuery } from '@apollo/react-hooks';
+import gql from 'graphql-tag';
 
 const building = {
   id: "",
@@ -35,31 +30,48 @@ const building = {
 };
 
 
-class Body extends Component {
-  state = {
-    buildings: []
-  };
-
-
-  constructor(props){
-    super(props);
-
-    this.state = { isOpen: false };
-
+const GET_BUILDING = gql`
+query {
+  houses {
+      id
+      name
+      addressCountry
+      constructionYear
   }
+} 
+`;
 
-  toggleModal = () => {
-    this.setState({
-      isOpen: !this.state.isOpen
-    });
+
+const GET_LAUNCHES = gql`
+  query launchList($after: String) {
+    launches(after: $after) {
+      cursor
+      hasMore
+      launches {
+        id
+        isBooked
+        rocket {
+          id
+          name
+        }
+        mission {
+          name
+          missionPatch
+        }
+      }
+    }
   }
+`;
 
+export default function Body() {
+  const { data, loading, error } = useQuery(GET_BUILDING);
+  if (loading) return <p>LOADING</p>;
+  if (error) return <p>ERROR</p>;
+  console.log(data);
 
+  return (
 
-  render() {
-
-    return (
-      <div className="bodyOverview">
+    <div className="bodyOverview">
         <div className="overlay">
           <div className="content">
             <div className="headLine">
@@ -71,6 +83,7 @@ class Body extends Component {
                   </Button>
                 </Link>
               </div>
+              
 
               <div className="overviewFilterButtons">
 
@@ -83,6 +96,23 @@ class Body extends Component {
 
 
             </div>
+
+
+{/*
+
+<Fragment>
+      <Header />
+      {data.launches &&
+        data.launches.launches &&
+        data.launches.launches.map(launch => (
+          <LaunchTile
+            key={launch.id}
+            launch={launch}
+          />
+        ))}
+    </Fragment>*/}
+            
+
             <div className="scrollBars">
               <Card
               image = "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
@@ -151,8 +181,10 @@ class Body extends Component {
           </div>
         </div>
       </div>
-    );
-  }
+    
+    
+  );
 }
 
-export default Body;
+
+
