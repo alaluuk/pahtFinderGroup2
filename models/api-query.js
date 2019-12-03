@@ -32,7 +32,7 @@ class APIQuery {
         suffix.query += ((j === 0) ? " ORDER BY " : ", ")+this.sort[j].id+((this.sort[j].desc === true) ? " DESC" : " ASC");
       }
       if(this.pagination.pageSize > 0) {
-        suffix.fields += " COUNT(*) OVER() AS pg_fullcount";
+        // suffix.fields += " COUNT(*) OVER() AS pg_fullcount";
         suffix.query += " LIMIT "+this.pagination.pageSize;
         suffix.query += " OFFSET "+(((this.pagination.page <= 0) ? 0 : this.pagination.page - 1) * this.pagination.pageSize);
       }

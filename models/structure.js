@@ -7,7 +7,7 @@ class Structure {
     this._title = data.title;
     this._type_id = data.type_id;
     this._u_value = data.u_value;
-    this._area = data.area;
+    this._price = data.price;
     this._manufacturer = data.manufacturer;
     this._serial_number = data.serial_number;
     this._production_year = data.production_year;
@@ -37,11 +37,11 @@ class Structure {
     return this._u_value;
   }
 
-  set area(area) {
-    this._area = area;
+  set price(price) {
+    this._price = price;
   }
-  get area() {
-    return this._area;
+  get price() {
+    return this._price;
   }
 
   set manufacturer(manufacturer) {
