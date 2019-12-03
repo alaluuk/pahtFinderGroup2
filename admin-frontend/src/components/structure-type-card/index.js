@@ -1,7 +1,6 @@
 import React from "react";
 import { Button, Card, H5, Classes, Collapse, Elevation, Popover, Menu, Intent, Position } from "@blueprintjs/core";
 import StructureTemplateTable from "../../components/structure-template-table";
-import StructureTemplateCreateModal from "../../modals/structure-template-create";
 import "./styles.scss";
 
 class StructureTypeCard extends React.Component {
@@ -10,12 +9,21 @@ class StructureTypeCard extends React.Component {
 
     this.state = {
       structureType: this.props.structureType,
-      initialLoaded: false,
+      initialFetched: false,
       isCollapsed: false,
       totalCount: null,
-      isFilterable: false,
-      isTemplateCreateModalOpen: false
+      isFilterable: false
     };
+
+    this.templateTable = React.createRef();
+  }
+
+  refetchData() {
+    if(this.templateTable.current) this.templateTable.current.fetchStructureTemplates();
+  }
+
+  toggleCollapsed(collapse) {
+    this.setState({ isCollapsed: collapse });
   }
 
   render() {
@@ -36,7 +44,12 @@ class StructureTypeCard extends React.Component {
               <Menu.Item
                 icon="new-layers" 
                 text="Create a new template"
-                onClick={() => { this.setState({isTemplateCreateModalOpen: true}) }}
+                onClick={this.props.onCreateTemplateClick || undefined}
+              />
+              <Menu.Item
+                icon="edit" 
+                text="Edit structure type"
+                onClick={this.props.onEditClick || undefined}
               />
               <Menu.Item
                 icon={(!this.state.isCollapsed) ? "collapse-all" : "expand-all"} 
@@ -53,7 +66,7 @@ class StructureTypeCard extends React.Component {
                 icon="trash" 
                 text="Delete structure type"
                 intent={Intent.DANGER}
-                onClick={() => { this.setState({ isUserDeleteModalOpen: true }) }}
+                onClick={this.props.onDeleteClick || undefined}
               />
             </Menu>
           } position={Position.BOTTOM_RIGHT}>
@@ -62,22 +75,16 @@ class StructureTypeCard extends React.Component {
         </div>
         <Collapse isOpen={!this.state.isCollapsed}>
           <StructureTemplateTable
+            ref={this.templateTable}
             structureType={this.state.structureType}
             filterable={this.state.isFilterable}
             onFetchedData={(totalCount) => this.setState({
               totalCount: totalCount,
-              initialLoaded: true,
-              isCollapsed: (!this.state.initialLoaded && totalCount <= 0)
+              initialFetched: true,
+              isCollapsed: (!this.state.initialFetched && totalCount <= 0)
             })}
-            handleNewTemplateModal={() => { this.setState({isTemplateCreateModalOpen: true}) }}
           />
         </Collapse>
-        <StructureTemplateCreateModal
-          structureType={this.state.structureType}
-          isOpen={this.state.isTemplateCreateModalOpen}  
-          onClose={() => { this.setState({isTemplateCreateModalOpen: false}) }}
-          onCreated={() => { this.setState({isTemplateCreateModalOpen: false}) }} // TODO: Force template table refresh
-        />
       </Card>
     );
   }

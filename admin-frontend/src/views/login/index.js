@@ -43,8 +43,8 @@ class LoginView extends React.Component {
           let errors = {};
           if(err.response) {
             err.response.errors.forEach(error => {
-              if(error.message.includes("email")) errors.email = msg;
-              if(error.message.includes("password")) errors.password = msg;
+              if(error.message.includes("email")) errors.email = error.message;
+              if(error.message.includes("password")) errors.password = error.message;
             });
           }
           this.setState({ errors: errors });

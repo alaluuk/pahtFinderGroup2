@@ -1,7 +1,7 @@
 import React from "react";
 import GraphQLClient from '../../providers/graphql';
 import { AppToaster } from '../../App';
-import { Button, Intent, Dialog, Classes, FormGroup, InputGroup, NumericInput } from "@blueprintjs/core";
+import { Button, Intent, Dialog, Classes, FormGroup, InputGroup, NumericInput, HTMLSelect, Menu } from "@blueprintjs/core";
 import "./styles.scss";
 
 class StructureTemplateCreateModal extends React.Component {
@@ -12,26 +12,40 @@ class StructureTemplateCreateModal extends React.Component {
       isOpen: props.isOpen || false,
       isLoading: false,
       values: {
-        typeId: props.structureType.id || null
+        typeId: props.selectedStructureTypeId || ""
       },
-      errors: {}
+      errors: {},
+      typesList: [ { label: "Choose an item...", value: "" } ]
     };
+
+    if(props.structureTypes) {
+      props.structureTypes.forEach(structureType => {
+        this.state.typesList.push({ label: structureType.title, value: structureType.id });
+      });
+    }
 
     this.reset = this.reset.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   static getDerivedStateFromProps(props, state) {
-    return {
-      isOpen: props.isOpen || false
-    };
+    if(props.isOpen) state.isOpen = props.isOpen;
+    if(props.selectedStructureTypeId) state.values.typeId = props.selectedStructureTypeId || "";
+    if(props.structureTypes) {
+      state.typesList = [ { label: "Choose an item...", value: "" } ];
+      props.structureTypes.forEach(structureType => {
+        state.typesList.push({ label: structureType.title, value: structureType.id });
+      });
+    }
+
+    return state;
   }
 
   reset() {
     this.setState({
       isLoading: false,
       values: {
-        typeId: this.props.structureType.id || null
+        typeId: ""
       },
       errors: {}
     });
@@ -53,6 +67,9 @@ class StructureTemplateCreateModal extends React.Component {
         ) {
           id
           title
+          type {
+            id
+          }
           uValue
           price
           manufacturer
@@ -64,8 +81,7 @@ class StructureTemplateCreateModal extends React.Component {
       }
     `, {...this.state.values})
         .then(data => {
-          console.log(data);
-          if(this.props.onCreated) this.props.onCreated(data.structureTemplate);
+          if(this.props.onCreated) this.props.onCreated(data.createStructureTemplate);
           AppToaster.show({ icon: "tick", intent: Intent.SUCCESS, message: "Successfully created new structure type!" });
           resolve(data);
         })
@@ -74,12 +90,13 @@ class StructureTemplateCreateModal extends React.Component {
           let errors = {};
           if(err.response) {
             err.response.errors.forEach(error => {
-              if(error.message.includes("title")) errors.title = msg;
-              if(error.message.includes("uValue")) errors.uValue = msg;
-              if(error.message.includes("price")) errors.price = msg;
-              if(error.message.includes("manufacturer")) errors.manufacturer = msg;
-              if(error.message.includes("serialNumber")) errors.serialNumber = msg;
-              if(error.message.includes("productionYear")) errors.productionYear = msg;
+              if(error.message.includes("typeId")) errors.typeId = error.message;
+              if(error.message.includes("title")) errors.title = error.message;
+              if(error.message.includes("uValue")) errors.uValue = error.message;
+              if(error.message.includes("price")) errors.price = error.message;
+              if(error.message.includes("manufacturer")) errors.manufacturer = error.message;
+              if(error.message.includes("serialNumber")) errors.serialNumber = error.message;
+              if(error.message.includes("productionYear")) errors.productionYear = error.message;
             });
           }
           this.setState({ errors: errors });
@@ -102,6 +119,25 @@ class StructureTemplateCreateModal extends React.Component {
       >
         <div className={Classes.DIALOG_BODY}>
           <form onSubmit={this.handleSubmit}>
+          <FormGroup
+              label="Structure Type"
+              labelFor="type"
+              labelInfo="(required)"
+              disabled={this.state.isLoading}
+              helperText={this.state.errors.typeId}
+              intent={this.state.errors.typeId ? Intent.DANGER : Intent.NONE }
+            >
+              <HTMLSelect
+                id="type"
+                options={this.state.typesList}
+                value={this.state.values.typeId || undefined}
+                disabled={this.state.isLoading}
+                onChange={(e) => { e.persist(); this.setState({values: {...this.state.values, typeId: e.target.value}}) }}
+                intent={this.state.errors.typeId ? Intent.DANGER : Intent.NONE }
+                fill={true}
+              />
+            </FormGroup>
+
             <FormGroup
               label="Title"
               labelFor="title"
@@ -111,6 +147,7 @@ class StructureTemplateCreateModal extends React.Component {
               intent={this.state.errors.title ? Intent.DANGER : Intent.NONE }
             >
               <InputGroup
+                id="title"
                 value={this.state.values.title || ""}
                 placeholder="Title"
                 disabled={this.state.isLoading}
@@ -130,6 +167,7 @@ class StructureTemplateCreateModal extends React.Component {
               className="grid-l-half"
             >
               <NumericInput
+                id="uValue"
                 value={this.state.values.uValue || ""}
                 placeholder="U-Value"
                 disabled={this.state.isLoading}
@@ -152,6 +190,7 @@ class StructureTemplateCreateModal extends React.Component {
               className="grid-l-half"
             >
               <NumericInput
+                id="price"
                 value={this.state.values.price || ""}
                 placeholder="Price (€)"
                 disabled={this.state.isLoading}
@@ -170,6 +209,7 @@ class StructureTemplateCreateModal extends React.Component {
               intent={this.state.errors.manufacturer ? Intent.DANGER : Intent.NONE }
             >
               <InputGroup
+                id="manufacturer"
                 value={this.state.values.manufacturer || ""}
                 placeholder="Manufacturer"
                 disabled={this.state.isLoading}
@@ -188,6 +228,7 @@ class StructureTemplateCreateModal extends React.Component {
               className="grid-l-half"
             >
               <InputGroup
+                id="serialNumber"
                 value={this.state.values.serialNumber || ""}
                 placeholder="Serial Number"
                 disabled={this.state.isLoading}
@@ -206,6 +247,7 @@ class StructureTemplateCreateModal extends React.Component {
               className="grid-l-half"
             >
               <NumericInput
+                id="productionYear"
                 value={this.state.values.productionYear || ""}
                 placeholder="Production Year"
                 disabled={this.state.isLoading}

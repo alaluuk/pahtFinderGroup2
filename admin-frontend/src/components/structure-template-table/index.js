@@ -1,7 +1,7 @@
 import React from "react";
 import GraphQLClient from "../../providers/graphql";
 import EfficiencyIndicatorComponent from "../efficiency-indicator";
-import { NonIdealState, Spinner, Text, Icon, Intent, Button } from "@blueprintjs/core";
+import { NonIdealState, Spinner, Text, Icon, Intent, Button, Menu, Popover, Position } from "@blueprintjs/core";
 import ReactTable from "react-table";
 import "react-table/react-table.css";
 import "./styles.scss";
@@ -18,12 +18,16 @@ class StructureTemplateTable extends React.Component {
       structureTemplates: [],
       tblPages: null,
       tblSortedBy: [ { id: 'u_value', desc: false }, { id: 'title', desc: false } ],
+      showPagination: false
     };
+
+    this.table = React.createRef();
 
     this.fetchStructureTemplates = this.fetchStructureTemplates.bind(this);
   }
 
-  fetchStructureTemplates(table) {
+  fetchStructureTemplates(table = null) {
+    if(!table) table = this.table.current.state;
     return new Promise((resolve, reject) => {
       this.setState({ isLoading: true, fetchError: null });
       // IDEA: Fetch best/worst uvalue for whole category instead of generating reports for each structure template
@@ -93,7 +97,11 @@ class StructureTemplateTable extends React.Component {
       })
         .then(data => {
           if(this.props.onFetchedData) this.props.onFetchedData(data.structureTemplates.length); // TODO: Update to real total count (-> pagination)
-          this.setState({ structureTemplates: data.structureTemplates, tblPages: 1 }); // TODO: Set table pages
+          this.setState({
+            structureTemplates: data.structureTemplates,
+            showPagination: this.table.current && data.structureTemplates.length > 4, // TODO: Get total count from pagination and not result count | this.table.current.state.pageSize
+            tblPages: 1 // TODO: Set table pages
+          });
           resolve(data.structureTemplates);
         })
         .catch(err => {
@@ -108,6 +116,7 @@ class StructureTemplateTable extends React.Component {
     let view;
     // TODO: Error view
     view = <ReactTable
+      ref={this.table}
       className={
         (this.state.isLoading ? 'is-loading' : '') +
         (this.state.structureTemplates.length === 0 ? ' has-no-data' : '')
@@ -150,7 +159,7 @@ class StructureTemplateTable extends React.Component {
           accessor: 'price',
           width: 75,
           filterable: false,
-          Cell: cellInfo => cellInfo.row.price.toFixed(2)+' €',
+          Cell: cellInfo => (cellInfo.row.price) ? cellInfo.row.price.toFixed(2)+' €' : '',
         },
         {
           id: 'u_value',
@@ -166,11 +175,41 @@ class StructureTemplateTable extends React.Component {
           Cell: cellInfo => (<EfficiencyIndicatorComponent uValue={cellInfo.row._original.uValue} percentage={cellInfo.row.energyEfficiency} />),
           filterable: false,
           sortable: false
+        },
+        {
+          id: 'actions',
+          Header: 'Actions',
+          accessor: 'id',
+          Cell: cellInfo => (
+            <Popover content={
+              <Menu>
+                <Menu.Item
+                  icon="edit" 
+                  text="Edit structure template"
+                  onClick={() => console.log("edit", cellInfo.row._original.id)}
+                />
+                <Menu.Divider />
+                <Menu.Item
+                  icon="trash" 
+                  text="Delete structure template"
+                  intent={Intent.DANGER}
+                  onClick={() => console.log("delete", cellInfo.row._original.id)}
+                />
+              </Menu>
+            } position={Position.BOTTOM_RIGHT}>
+              <Button icon="more" minimal="true" />
+            </Popover>
+          ),
+          width: 40,
+          filterable: false,
+          sortable: false
         }
       ]}
       data={this.state.structureTemplates}
       manual
       pages={this.state.tblPages}
+      defaultPageSize={5}
+      showPagination={this.state.showPagination}
       loading={this.state.isLoading} 
       LoadingComponent={(props) =>
         (props.loading === true) ?
