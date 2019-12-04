@@ -65,8 +65,8 @@ class Construction extends Component {
     return (
       <div className="addStructureComp">
         <div className="addStructureHead">
-          <h2 className="addBuildText"> {this.props.name}</h2>
-          <AddConstruction parentType={this.props.name} parentState={this.props.name}></AddConstruction>
+          <h2 className="addBuildText"> {this.props.constructionTypeTitle}</h2>
+          <AddConstruction parentType={this.props.constructionTypeTitle} parentState={this.props.constructionTypeTitle}></AddConstruction>
         </div>
 
         <div className="mainSlider">
