@@ -43,7 +43,7 @@ class StructureTypeCard extends React.Component {
             <Menu>
               <Menu.Item
                 icon="new-layers" 
-                text="Create a new template"
+                text="Add a new template"
                 onClick={this.props.onCreateTemplateClick || undefined}
               />
               <Menu.Item
@@ -60,6 +60,7 @@ class StructureTypeCard extends React.Component {
                 icon="search"
                 text={(!this.state.isFilterable) ? "Enable template filtering" : "Disable template filtering"}
                 onClick={() => { this.setState({ isFilterable: !this.state.isFilterable }) }}
+                disabled={this.state.totalCount <= 0}
               />
               <Menu.Divider />
               <Menu.Item
@@ -83,6 +84,7 @@ class StructureTypeCard extends React.Component {
               initialFetched: true,
               isCollapsed: (!this.state.initialFetched && totalCount <= 0)
             })}
+            onCreateTemplateClick={this.props.onCreateTemplateClick || undefined}
           />
         </Collapse>
       </Card>

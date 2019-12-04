@@ -185,13 +185,13 @@ class StructureTemplateTable extends React.Component {
               <Menu>
                 <Menu.Item
                   icon="edit" 
-                  text="Edit structure template"
+                  text="Edit template"
                   onClick={() => console.log("edit", cellInfo.row._original.id)}
                 />
                 <Menu.Divider />
                 <Menu.Item
                   icon="trash" 
-                  text="Delete structure template"
+                  text="Delete template"
                   intent={Intent.DANGER}
                   onClick={() => console.log("delete", cellInfo.row._original.id)}
                 />
@@ -227,7 +227,7 @@ class StructureTemplateTable extends React.Component {
             <Button
               icon="new-layers"
               intent={Intent.SUCCESS}
-              onClick={this.props.handleNewTemplateModal || undefined}
+              onClick={this.props.onCreateTemplateClick || undefined}
             >Create a new template</Button>
           }
         /> : null

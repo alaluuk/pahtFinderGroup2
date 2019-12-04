@@ -2,7 +2,7 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import { Button, Intent, Navbar, Alignment, Popover, Menu, Position, Tag, H5, Text, Classes } from "@blueprintjs/core";
 import { performLogout, rolesFormatter } from "../../providers/auth";
-import { AppToaster, setAppNightmode } from "../../App";
+import { AppToaster, /*setAppNightmode*/ } from "../../App";
 import brandLogo from "../../assets/brand-logo.svg";
 import "./styles.scss";
 

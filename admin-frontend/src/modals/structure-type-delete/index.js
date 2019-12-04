@@ -9,21 +9,9 @@ class StructureTypeDeleteModal extends React.Component {
 
     this.state = {
       isOpen: props.isOpen || false,
-      isLoading: false,
-      values: {
-        typeId: props.selectedStructureTypeId || ""
-      },
-      errors: {},
-      typesList: [ { label: "Choose an item...", value: "" } ]
+      isLoading: false
     };
 
-    if(props.structureTypes) {
-      props.structureTypes.forEach(structureType => {
-        this.state.typesList.push({ label: structureType.title, value: structureType.id });
-      });
-    }
-
-    this.reset = this.reset.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -32,10 +20,11 @@ class StructureTypeDeleteModal extends React.Component {
       this.setState({ isLoading: true, errors: {} });
       GraphQLClient.request(`
       mutation($id: ID!) {
-        deleteStructureType(id: $title)
+        deleteStructureType(id: $id)
       }
-    `, this.props.structureType.id)
+    `, { id: this.props.structureType.id })
         .then(data => {
+          if(this.props.onDeleted) this.props.onDeleted(this.props.structureType);
           AppToaster.show({ icon: "tick", intent: Intent.SUCCESS, message: "Successfully deleted the structure type \""+this.props.structureType.title+"\"!" });
           resolve(data);
         })
@@ -53,7 +42,6 @@ class StructureTypeDeleteModal extends React.Component {
       <Dialog
         className="StructureTypeDeleteModal Modal"
         icon="new-layers"
-        onOpening={this.reset}
         onClose={this.props.onClose || undefined}
         title={"Delete Structure Type"}
         {...this.state}
@@ -62,7 +50,7 @@ class StructureTypeDeleteModal extends React.Component {
           <p>
             Are you sure you want to delete the structure type "{this.props.structureType.title}" permanently?
             <br/><br/>
-            <strong style={{ color: Colors.RED4 }}>Warning: </strong> All templates of this type get removed too.
+            <strong style={{ color: Colors.RED4 }}>Warning: </strong> If you confirm this action, all templates of this type get removed too.
           </p>
         </div>
         <div className={Classes.DIALOG_FOOTER}>

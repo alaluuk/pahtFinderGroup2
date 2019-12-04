@@ -1,9 +1,10 @@
 import React from "react";
-import { Route } from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
 import GraphQLClient from "../../providers/graphql";
 import HeaderComponent from "../../components/header";
 import FilterableSubheaderComponent from "../../components/filterable-subheader";
 import StructureTypeCard from "../../components/structure-type-card";
+import StructureTypeCreateModal from "../../modals/structure-type-create";
 import StructureTypeDeleteModal from "../../modals/structure-type-delete";
 import StructureTemplateCreateModal from "../../modals/structure-template-create";
 import { Popover, Menu, Position, ButtonGroup, Button, Text, Spinner, NonIdealState, Icon, Intent } from "@blueprintjs/core";
@@ -58,6 +59,13 @@ class StructuresView extends React.Component {
     });
   }
 
+  getStructureTypeIndex(id) {
+    for (let i = 0; i < this.state.structureTypes.length; i++) {
+      if(this.state.structureTypes[i].id === id) return i;
+    }
+    return undefined;
+  }
+
   render() {
     let view;
     if(this.state.isLoading) {
@@ -109,6 +117,7 @@ class StructuresView extends React.Component {
                   <Menu.Item
                     icon="new-layer" 
                     text="New Structure Type"
+                    onClick={() => { this.props.history.replace(this.props.match.url+'/create-type') }}
                   />
                 </Menu>
               } position={Position.BOTTOM_RIGHT}>
@@ -123,20 +132,50 @@ class StructuresView extends React.Component {
         <div className="content-wrapper">{view}</div>
 
         <Route
-          path={`${this.props.match.url}/delete-type/:typeId?`}
-          render={({match}) => {
+          path={`${this.props.match.url}/create-type`}
+          render={(props) => {
             return (
-              <StructureTypeDeleteModal
-                structureType={undefined /* TODO */}
-                isOpen={true}  
+              <StructureTypeCreateModal
+                isOpen={true}
                 onClose={() => { this.props.history.replace(this.props.match.url) }}
-                onCreated={(structureTemplate) => {
+                onCreated={structureType => {
                   this.props.history.replace(this.props.match.url);
-                  this[`ref_type_card_${structureTemplate.type.id}`].current.toggleCollapsed(false);
-                  this[`ref_type_card_${structureTemplate.type.id}`].current.refetchData();
+                  this[`ref_type_card_${structureType.id}`] = React.createRef();
+                  let newStructureTypes = [...this.state.structureTypes];
+                  newStructureTypes.push(structureType);
+                  newStructureTypes.sort(function(a, b) {
+                    if(a.title < b.title) { return -1; }
+                    if(a.title > b.title) { return 1; }
+                    return 0;
+                  });
+                  this.setState({structureTypes: newStructureTypes});
                 }}
               />
             );
+          }}
+        />
+
+        <Route
+          path={`${this.props.match.url}/delete-type/:typeId`}
+          render={({location, match}) => {
+            let structureType = undefined;
+            let structureTypeIndex = this.getStructureTypeIndex(match.params.typeId);
+            if(structureTypeIndex !== undefined) structureType = this.state.structureTypes[structureTypeIndex];
+            return (structureType) ? (
+              <StructureTypeDeleteModal
+                structureType={structureType}
+                isOpen={true}  
+                onClose={() => { this.props.history.replace(this.props.match.url) }}
+                onDeleted={(structureType) => {
+                  if(structureTypeIndex !== undefined) {
+                    let newStructureTypes = [...this.state.structureTypes];
+                    newStructureTypes.splice(structureTypeIndex, 1);
+                    this.setState({ structureTypes: newStructureTypes });
+                  }
+                  this.props.history.replace(this.props.match.url);
+                }}
+              />
+            ) : ( <Redirect to={{ pathname: this.props.match.url }} /> );
           }}
         />
 
