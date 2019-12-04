@@ -53,8 +53,8 @@ class EditBuilding extends Component {
  
   //triggered after succesfull CreateHouse request
   houseIdCallback = (dataFromChild) => {
-    this.houseId = dataFromChild;
-    console.log("House ID",this.houseId)
+    this.setState({houseId: dataFromChild});
+    console.log("House ID",this.state.houseId)
   }
 
   render() {
@@ -77,17 +77,17 @@ class EditBuilding extends Component {
               triggerSave={this.state.triggerSave}
               callbackFromParent={this.houseIdCallback}>
             </GeneralInformation>
+            {/* Display all available structure types
+                forms only if house id is already available */}
+            {this.state.houseId ? (
             <div className="allStructures">
-              {/* Display all available structure types */}
               {this.state.structureTypes.map((data, index) => (
                 <Construction 
                   constructionTypeTitle = {data.title}
                   constructionTypeId = {data.id}
-                  houseId = {this.houseId}
-                  triggerSave = {this.state.triggerSave}>
+                  houseId = {this.houseId}>
                 </Construction>
               ))}
-              <div>
                 <Button
                   variant="contained"
                   color="primary"
@@ -95,8 +95,18 @@ class EditBuilding extends Component {
                   onClick={() => this.setState({ triggerSave: !this.state.triggerSave })}>
                   Save Your Building
                 </Button>
-              </div>
             </div>
+            ) : (
+              <div>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className="saveBuildButton"
+                  onClick={() => this.setState({ triggerSave: !this.state.triggerSave })}>
+                  Save General Information
+                </Button>
+            </div>
+            )}
           </div>
         </div>
       </div>
