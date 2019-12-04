@@ -40,8 +40,11 @@ export default function Body() {
   if (error) return `Error! ${error}`;
 
 
+ 
+
+
   return (
-    <div className="bodyOverview">
+    <div className="bodyOverview" >
       <div className="overlay">
         <div className="content">
           <div className="headLine">
@@ -59,7 +62,7 @@ export default function Body() {
               <Filter></Filter>
               <Sort></Sort>
             </div>
-          </div>
+          </div> 
 
           <div className="scrollBars">
           {data.houses.map((house, index) => (
@@ -82,6 +85,7 @@ export default function Body() {
           </div>
         </div>
       </div>
+      
     </div>
   );
 }
