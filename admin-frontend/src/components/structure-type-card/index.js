@@ -1,4 +1,5 @@
 import React from "react";
+import { withRouter } from "react-router";
 import { Button, Card, H5, Classes, Collapse, Elevation, Popover, Menu, Intent, Position } from "@blueprintjs/core";
 import StructureTemplateTable from "../../components/structure-template-table";
 import "./styles.scss";
@@ -8,7 +9,6 @@ class StructureTypeCard extends React.Component {
     super(props);
 
     this.state = {
-      structureType: this.props.structureType,
       initialFetched: false,
       isCollapsed: false,
       totalCount: null,
@@ -16,6 +16,11 @@ class StructureTypeCard extends React.Component {
     };
 
     this.templateTable = React.createRef();
+    
+    this.refetchData = this.refetchData.bind(this);
+    this.onEditClick = this.onEditClick.bind(this);
+    this.onDeleteClick = this.onDeleteClick.bind(this);
+    this.onCreateTemplateClick = this.onCreateTemplateClick.bind(this);
   }
 
   refetchData() {
@@ -24,6 +29,18 @@ class StructureTypeCard extends React.Component {
 
   toggleCollapsed(collapse) {
     this.setState({ isCollapsed: collapse });
+  }
+
+  onEditClick() {
+    this.props.history.replace(this.props.match.url+'/edit-type/'+this.props.structureType.id, { structureType: this.props.structureType });
+  }
+
+  onDeleteClick() {
+    this.props.history.replace(this.props.match.url+'/delete-type/'+this.props.structureType.id, { structureType: this.props.structureType });
+  }
+
+  onCreateTemplateClick() {
+    this.props.history.replace(this.props.match.url+'/create-template', { typeId: this.props.structureType.id });
   }
 
   render() {
@@ -35,7 +52,7 @@ class StructureTypeCard extends React.Component {
             onClick={() => { this.setState({ isCollapsed: !this.state.isCollapsed }) }}
           />
           <H5 className={Classes.TEXT_OVERFLOW_ELLIPSIS}>
-            {this.state.structureType.title}
+            {this.props.structureType.title}
             {(this.state.totalCount !== null) ? <span className="bp3-text-muted"> ({this.state.totalCount})</span> : ''}
           </H5>
           {/* <Button icon="new-layers" minimal="true" intent={Intent.SUCCESS}>New Template</Button> */}
@@ -44,12 +61,12 @@ class StructureTypeCard extends React.Component {
               <Menu.Item
                 icon="new-layers" 
                 text="Add a new template"
-                onClick={this.props.onCreateTemplateClick || undefined}
+                onClick={this.onCreateTemplateClick}
               />
               <Menu.Item
                 icon="edit" 
                 text="Edit structure type"
-                onClick={this.props.onEditClick || undefined}
+                onClick={this.onEditClick}
               />
               <Menu.Item
                 icon={(!this.state.isCollapsed) ? "collapse-all" : "expand-all"} 
@@ -67,7 +84,7 @@ class StructureTypeCard extends React.Component {
                 icon="trash" 
                 text="Delete structure type"
                 intent={Intent.DANGER}
-                onClick={this.props.onDeleteClick || undefined}
+                onClick={this.onDeleteClick}
               />
             </Menu>
           } position={Position.BOTTOM_RIGHT}>
@@ -77,14 +94,14 @@ class StructureTypeCard extends React.Component {
         <Collapse isOpen={!this.state.isCollapsed}>
           <StructureTemplateTable
             ref={this.templateTable}
-            structureType={this.state.structureType}
+            structureType={this.props.structureType}
             filterable={this.state.isFilterable}
             onFetchedData={(totalCount) => this.setState({
               totalCount: totalCount,
               initialFetched: true,
               isCollapsed: (!this.state.initialFetched && totalCount <= 0)
             })}
-            onCreateTemplateClick={this.props.onCreateTemplateClick || undefined}
+            onCreateClick={this.onCreateTemplateClick}
           />
         </Collapse>
       </Card>
@@ -92,4 +109,4 @@ class StructureTypeCard extends React.Component {
   }
 }
 
-export default StructureTypeCard;
+export default withRouter(StructureTypeCard);

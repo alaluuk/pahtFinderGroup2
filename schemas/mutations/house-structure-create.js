@@ -39,12 +39,11 @@ const HouseStructureCreateMutation = {
           if(house._owner_id != auth.user.id && !checkPermission(auth.user.role, "house_structure_create_owner_other")) {
             reject(new Error("You don't have sufficient permissions to create structures for houses you don't own."));
           }
-          StructureType.getOne(values.typeId)
-            .then(structure_type => {
+          // StructureType.getOne(values.typeId)
+            // .then(structure_type => {
               HouseStructure.create(
                 values.houseId,
                 values.title,
-                values.typeId,
                 values.typeId,
                 values.uValue,
                 values.price,
@@ -54,8 +53,8 @@ const HouseStructureCreateMutation = {
               )
                 .then(house_structure => resolve(house_structure))
                 .catch(err => reject(err));
-            })
-            .catch(err => reject(new Error("Invalid structure type: There is no structure type with this ID.")));
+            // })
+            // .catch(err => reject(new Error("Invalid structure type: There is no structure type with this ID.")));
         })
         .catch(err => reject(new Error("Invalid house: There is no house with this ID.")));
     });

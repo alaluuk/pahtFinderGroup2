@@ -5,8 +5,10 @@ import HeaderComponent from "../../components/header";
 import FilterableSubheaderComponent from "../../components/filterable-subheader";
 import StructureTypeCard from "../../components/structure-type-card";
 import StructureTypeCreateModal from "../../modals/structure-type-create";
+import StructureTypeEditModal from "../../modals/structure-type-edit";
 import StructureTypeDeleteModal from "../../modals/structure-type-delete";
 import StructureTemplateCreateModal from "../../modals/structure-template-create";
+import StructureTemplateDeleteModal from "../../modals/structure-template-delete";
 import { Popover, Menu, Position, ButtonGroup, Button, Text, Spinner, NonIdealState, Icon, Intent } from "@blueprintjs/core";
 import "./styles.scss";
 
@@ -46,9 +48,6 @@ class StructuresView extends React.Component {
       `)
         .then(data => {
           this.setState({ structureTypes: data.structureTypes });
-          data.structureTypes.forEach(structureType => {
-            this[`ref_type_card_${structureType.id}`] = React.createRef();
-          });
           resolve(data.structureTypes);
         })
         .catch(err => {
@@ -91,10 +90,7 @@ class StructuresView extends React.Component {
         <StructureTypeCard
           structureType={structureType}
           key={structureType.id}
-          ref={this[`ref_type_card_${structureType.id}`]}
-          onCreateTemplateClick={() => { this.props.history.replace(this.props.match.url+'/create-template', { typeId: structureType.id }) }}
-          onEditClick={() => { this.props.history.replace(this.props.match.url+'/edit-type/'+structureType.id, { structureType: structureType }) }}
-          onDeleteClick={() => { this.props.history.replace(this.props.match.url+'/delete-type/'+structureType.id, { structureType: structureType }) }}
+          ref={Ref => this[`ref_type_card_${structureType.id}`] = Ref}
         />
       );
     }
@@ -156,6 +152,30 @@ class StructuresView extends React.Component {
         />
 
         <Route
+          path={`${this.props.match.url}/edit-type/:typeId`}
+          render={({location, match}) => {
+            let structureType = undefined;
+            let structureTypeIndex = this.getStructureTypeIndex(match.params.typeId);
+            if(structureTypeIndex !== undefined) structureType = this.state.structureTypes[structureTypeIndex];
+            return (structureType) ? (
+              <StructureTypeEditModal
+                structureType={structureType}
+                isOpen={true}  
+                onClose={() => { this.props.history.replace(this.props.match.url) }}
+                onEdited={(structureType) => {
+                  if(structureTypeIndex !== undefined) {
+                    let newStructureTypes = [...this.state.structureTypes];
+                    newStructureTypes[structureTypeIndex] = structureType;
+                    this.setState({ structureTypes: newStructureTypes });
+                  }
+                  this.props.history.replace(this.props.match.url);
+                }}
+              />
+            ) : ( <Redirect to={{ pathname: this.props.match.url }} /> );
+          }}
+        />
+
+        <Route
           path={`${this.props.match.url}/delete-type/:typeId`}
           render={({location, match}) => {
             let structureType = undefined;
@@ -166,7 +186,7 @@ class StructuresView extends React.Component {
                 structureType={structureType}
                 isOpen={true}  
                 onClose={() => { this.props.history.replace(this.props.match.url) }}
-                onDeleted={(structureType) => {
+                onDeleted={(data) => {
                   if(structureTypeIndex !== undefined) {
                     let newStructureTypes = [...this.state.structureTypes];
                     newStructureTypes.splice(structureTypeIndex, 1);
@@ -190,11 +210,34 @@ class StructuresView extends React.Component {
                 onClose={() => { this.props.history.replace(this.props.match.url) }}
                 onCreated={(structureTemplate) => {
                   this.props.history.replace(this.props.match.url);
-                  this[`ref_type_card_${structureTemplate.type.id}`].current.toggleCollapsed(false);
-                  this[`ref_type_card_${structureTemplate.type.id}`].current.refetchData();
+                  if(this[`ref_type_card_${structureTemplate.type.id}`].current) {
+                    this[`ref_type_card_${structureTemplate.type.id}`].current.toggleCollapsed(false);
+                    this[`ref_type_card_${structureTemplate.type.id}`].current.refetchData();
+                  }
                 }}
               />
             );
+          }}
+        />
+
+        <Route
+          path={`${this.props.match.url}/delete-template/:templateId`}
+          render={({location, match}) => {
+            let structureTemplate = location.state.structureTemplate;
+            return (structureTemplate) ? (
+              <StructureTemplateDeleteModal
+                structureTemplate={structureTemplate}
+                isOpen={true}  
+                onClose={() => { this.props.history.replace(this.props.match.url) }}
+                onDeleted={(data) => {
+                  this.props.history.replace(this.props.match.url);
+                  if(this[`ref_type_card_${structureTemplate.type.id}`].current) {
+                    this[`ref_type_card_${structureTemplate.type.id}`].current.toggleCollapsed(false);
+                    this[`ref_type_card_${structureTemplate.type.id}`].current.refetchData();
+                  }
+                }}
+              />
+            ) : ( <Redirect to={{ pathname: this.props.match.url }} /> );
           }}
         />
       </div>

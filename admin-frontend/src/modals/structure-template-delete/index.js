@@ -3,7 +3,7 @@ import GraphQLClient from '../../providers/graphql';
 import { AppToaster } from '../../App';
 import { Button, Intent, Dialog, Classes, Colors } from "@blueprintjs/core";
 
-class StructureTypeDeleteModal extends React.Component {
+class StructureTemplateDeleteModal extends React.Component {
   constructor(props) {
     super(props);
 
@@ -20,12 +20,12 @@ class StructureTypeDeleteModal extends React.Component {
       this.setState({ isLoading: true, errors: {} });
       GraphQLClient.request(`
       mutation($id: ID!) {
-        deleteStructureType(id: $id)
+        deleteStructureTemplate(id: $id)
       }
-    `, { id: this.props.structureType.id })
+    `, { id: this.props.structureTemplate.id })
         .then(data => {
-          if(this.props.onDeleted) this.props.onDeleted(this.props.structureType);
-          AppToaster.show({ icon: "tick", intent: Intent.SUCCESS, message: "Deleted structure type \""+this.props.structureType.title+"\"!" });
+          if(this.props.onDeleted) this.props.onDeleted(this.props.structureTemplate);
+          AppToaster.show({ icon: "tick", intent: Intent.SUCCESS, message: "Deleted structure template \""+this.props.structureTemplate.title+"\"!" });
           resolve(data);
         })
         .catch(err => {
@@ -40,17 +40,15 @@ class StructureTypeDeleteModal extends React.Component {
   render() {
     return (
       <Dialog
-        className="StructureTypeDeleteModal Modal"
-        icon="trash"
+        className="StructureTemplateDeleteModal Modal"
+        icon="cross"
         onClose={this.props.onClose || undefined}
-        title={"Delete Structure Type"}
+        title={"Delete Structure Template"}
         {...this.state}
       >
         <div className={Classes.DIALOG_BODY}>
           <p>
-            Are you sure you want to delete the structure type "{this.props.structureType.title}" permanently?
-            <br/><br/>
-            <strong style={{ color: Colors.RED4 }}>Warning: </strong> If you confirm this action, all templates of this type get removed too.
+            Are you sure you want to delete the structure template "{this.props.structureTemplate.title}" permanently?
           </p>
         </div>
         <div className={Classes.DIALOG_FOOTER}>
@@ -71,4 +69,4 @@ class StructureTypeDeleteModal extends React.Component {
   }
 }
 
-export default StructureTypeDeleteModal;
+export default StructureTemplateDeleteModal;
