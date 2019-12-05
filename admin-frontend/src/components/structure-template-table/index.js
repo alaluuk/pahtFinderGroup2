@@ -1,5 +1,4 @@
 import React from "react";
-import { withRouter } from "react-router-dom";
 import GraphQLClient from "../../providers/graphql";
 import EfficiencyIndicatorComponent from "../efficiency-indicator";
 import { NonIdealState, Spinner, Text, Icon, Intent, Button, Menu, Popover, Position } from "@blueprintjs/core";
@@ -24,8 +23,6 @@ class StructureTemplateTable extends React.Component {
     this.table = React.createRef();
 
     this.fetchStructureTemplates = this.fetchStructureTemplates.bind(this);
-    this.onEditClick = this.onEditClick.bind(this);
-    this.onDeleteClick = this.onDeleteClick.bind(this);
   }
 
   fetchStructureTemplates(table = null) {
@@ -117,14 +114,6 @@ class StructureTemplateTable extends React.Component {
     });
   }
 
-  onEditClick(structureTemplate) {
-    this.props.history.replace(this.props.match.url+'/edit-template/'+structureTemplate.id, { structureTemplate: structureTemplate });
-  }
-
-  onDeleteClick(structureTemplate) {
-    this.props.history.replace(this.props.match.url+'/delete-template/'+structureTemplate.id, { structureTemplate: structureTemplate });
-  }
-
   render() {
     let view;
     // TODO: Error view
@@ -199,14 +188,14 @@ class StructureTemplateTable extends React.Component {
                 <Menu.Item
                   icon="edit" 
                   text="Edit template"
-                  onClick={() => this.onEditClick(cellInfo.row._original)}
+                  onClick={() => (this.props.onEditClick) ? this.props.onEditClick(cellInfo.row._original) : {}}
                 />
                 <Menu.Divider />
                 <Menu.Item
                   icon="trash" 
                   text="Delete template"
                   intent={Intent.DANGER}
-                  onClick={() => this.onDeleteClick(cellInfo.row._original)}
+                  onClick={() => (this.props.onDeleteClick) ? this.props.onDeleteClick(cellInfo.row._original) : {}}
                 />
               </Menu>
             } position={Position.BOTTOM_RIGHT}>
@@ -256,4 +245,4 @@ class StructureTemplateTable extends React.Component {
   }
 }
 
-export default withRouter(StructureTemplateTable);
+export default StructureTemplateTable;

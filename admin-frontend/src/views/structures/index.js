@@ -47,6 +47,9 @@ class StructuresView extends React.Component {
         }
       `)
         .then(data => {
+          data.structureTypes.forEach(structureType => {
+            this[`ref_type_card_${structureType.id}`] = React.createRef();
+          });
           this.setState({ structureTypes: data.structureTypes });
           resolve(data.structureTypes);
         })
@@ -86,13 +89,16 @@ class StructuresView extends React.Component {
         />
       );
     } else {
-      view = this.state.structureTypes.map(structureType =>
-        <StructureTypeCard
-          structureType={structureType}
-          key={structureType.id}
-          ref={Ref => this[`ref_type_card_${structureType.id}`] = Ref}
-        />
-      );
+      view = this.state.structureTypes.map(structureType => <StructureTypeCard
+        structureType={structureType}
+        key={structureType.id}
+        ref={this[`ref_type_card_${structureType.id}`]}
+        onEditClick={() => this.props.history.replace(this.props.match.url+'/edit-type/'+structureType.id, { structureType: structureType })}
+        onDeleteClick={() => this.props.history.replace(this.props.match.url+'/delete-type/'+structureType.id, { structureType: structureType })}
+        onCreateTemplateClick={() => this.props.history.replace(this.props.match.url+'/create-template', { typeId: structureType.id })}
+        onEditTemplateClick={(template) => this.props.history.replace(this.props.match.url+'/edit-template/'+template.id, { structureTemplate: template })}
+        onDeleteTemplateClick={(template) => this.props.history.replace(this.props.match.url+'/delete-template/'+template.id, { structureTemplate: template })}
+      />);
     }
 
     return (
