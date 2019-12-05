@@ -65,7 +65,7 @@ class User {
     let user = this;
     return new Promise(function(resolve, reject) {
       db
-        .result(`UPDATE users SET id=$1, name=$2, email=$3, password_hash=$4, role=$5 WHERE id=$6`, [
+        .result(`UPDATE users SET id=$1, name=$2, email=$3, password_hash=$4, role=$5 WHERE id=$6 RETURNING *`, [
           user._id,
           user._name,
           user._email,

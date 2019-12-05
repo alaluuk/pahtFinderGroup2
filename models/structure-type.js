@@ -48,7 +48,7 @@ class StructureType {
     let structure_type = this;
     return new Promise(function(resolve, reject) {
       db
-        .result(`UPDATE structure_types SET id=$1, title=$2 WHERE id=$3`, [
+        .result(`UPDATE structure_types SET id=$1, title=$2 WHERE id=$3 RETURNING *`, [
           structure_type._id,
           structure_type._title,
           structure_type._id

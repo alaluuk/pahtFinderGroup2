@@ -59,7 +59,7 @@ class HouseStructure extends Structure {
           manufacturer,
           serial_number,
           production_year
-        ) VALUES ($1) RETURNING *`, [
+        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`, [
           house_id,
           title,
           type_id,
@@ -91,7 +91,7 @@ class HouseStructure extends Structure {
           manufacturer=$7,
           serial_number=$8,
           production_year=$9
-        WHERE id=$10`, [
+        WHERE id=$10 RETURNING *`, [
           house_structure._id,
           house_structure._house_id,
           house_structure._title,

@@ -27,6 +27,14 @@ logger.info("Server started on port %s.", PORT, { service: 'nodejs' });
 var app = express();
 app.use(cors());
 app.use(express.static(path.join(__dirname, "./frontend/build")));
+// app.get("*", (req, res) => {
+//   res.sendFile(path.join(__dirname, "./frontend/build/index.html"));
+// });
+// TODO: Serve admin frontend
+// app.use("/admin", express.static(path.join(__dirname, "./admin-frontend/build")));
+// app.get("/admin/*", (req, res) => {
+//   res.sendFile(path.join(__dirname, "./admin-frontend/build/index.html"));
+// });
 app.use(
   "/graphql",
   expressJWT({
