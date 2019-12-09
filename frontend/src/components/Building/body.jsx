@@ -12,6 +12,7 @@ import EditIcon from "@material-ui/icons/Edit";
 import DeleteButton from "./deleteBuilding";
 import { useQuery } from "@apollo/react-hooks";
 import gql from "graphql-tag";
+import axios from 'axios';
 import "../../styles/building.scss";
 
 
@@ -50,6 +51,22 @@ const GET_SINGLE_BUILDING = gql`
  
 
 
+  async function getCoordinates(address){
+    console.log("Funktionsaufruf")
+    var fixedAddress = address.split(' ').join('+');
+    var url = 'https://geocoder.api.here.com/6.2/geocode.json?app_id={API_ID}app_code={APP_CODE}&searchtext='+fixedAddress+'&locationattributes[mapView]';
+    const result = await axios(url);
+    const latitude = result.data.Response.View[0].Result[0].Location.DisplayPosition.Latitude;
+    const longitude = result.data.Response.View[0].Result[0].Location.DisplayPosition.Longitude;
+    const coor = [latitude, longitude];
+
+    return coor;
+    console.log(coor)
+  
+  }
+
+
+
 export default function Body(props) {
 
   const [id, setId] = React.useState(props.id);
@@ -61,36 +78,27 @@ export default function Body(props) {
   const [constructionYear, setConstructionYear] = React.useState('');
   const [image, setImage] = React.useState(props.image)
   const [EE, setEE] = React.useState(props.EE);
+  const [coordi, setCoordi] = React.useState('');
 
-  {/*
-  useEffect(async () => {
-    const result = await axios(
-      'https://geocoder.api.here.com/6.2/geocode.json?app_id=p9YBqiOt2TTRLHKkcqVS&app_code=sGM9VJWg-NqHRtbJIgY2dA&searchtext='+fullAddress,
-    );
-    console.log(result.data);
-  });
-  */}
-    
-
-    const { data, loading, error } = useQuery(GET_SINGLE_BUILDING, {
+  const { data, loading, error } = useQuery(GET_SINGLE_BUILDING, {
       variables: { id }
     });
+
+
   
-
-    function refreshPage(){ 
-      window.location.reload(); 
-  }
-  
-
-
 if (loading) return <p>Loading...</p>
 if (error) return `Error! ${error}`;
 
+{/* 
 const fullAddress = data.houses[0].addressStreet + "+" + data.houses[0].addressCity + "+" + data.houses[0].addressCountry;
+useEffect(async () => {
+  setCoordi(getCoordinates(fullAddress))
+});
+*/}
 
 
 
-  
+
 
 
     const PrettoSlider = withStyles({
@@ -121,6 +129,7 @@ const fullAddress = data.houses[0].addressStreet + "+" + data.houses[0].addressC
       }
     })(Slider);
 
+    
     
     return (
       
@@ -232,7 +241,7 @@ const fullAddress = data.houses[0].addressStreet + "+" + data.houses[0].addressC
                 </div>
                 <div className="buildInfoRight">
                   <div className="buildingMap">
-                    <Map></Map>
+                    <Map coordinates = {coordi} ></Map>
                   </div>
                 </div>
               </div>
