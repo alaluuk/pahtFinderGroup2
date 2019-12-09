@@ -48,7 +48,10 @@ class MediaCard extends Component {
     return ( <Link to={{
       pathname: '/result',
       state: {
-        buildingID: this.state.id
+        buildingID: this.state.id,
+        buildingImage: this.state.image,
+        EEValue: this.state.EE
+        
       }
     }}  >
     <Card className="card" >

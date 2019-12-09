@@ -9,6 +9,8 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DeleteIcon from "@material-ui/icons/Delete";
 import { Link } from 'react-router-dom'
 import { Mutation } from 'react-apollo'
+import {Route} from "react-router-dom";
+import Overview from "../../pages/overview"
 import gql from 'graphql-tag'
 
 const DELETE_HOUSE = gql`
@@ -60,15 +62,26 @@ export default function DeleteHouse ({props, id, parentType, parentTitle}){
             <Mutation
             mutation={DELETE_HOUSE}
             variables={{ id }}
-            onCompleted={() => props.history.push('/overview')}
+            onCompleted={handleClose}
             onError=""
           >
             {mutation => ( 
 
-        
+<Link to={{
+      pathname: '/overview',
+      state: {
+        refresh: true
+      }
+      
+    }}  >
             <Button onClick={mutation} color="primary" autoFocus>
+              
               Delete
+        
+              
             </Button>
+            </Link>
+    
             
             )}
             </Mutation>

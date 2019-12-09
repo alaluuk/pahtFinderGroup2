@@ -10,12 +10,8 @@ import Map from "../Maps/mapBuilding";
 import { withStyles } from "@material-ui/core/styles";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteButton from "./deleteBuilding";
-import CircularProgress from '@material-ui/core/CircularProgress';
-import LinearProgress from '@material-ui/core/LinearProgress';
 import { useQuery } from "@apollo/react-hooks";
 import gql from "graphql-tag";
-import axios from 'axios';
-import Geocode from "react-geocode";
 import "../../styles/building.scss";
 
 
@@ -63,7 +59,8 @@ export default function Body(props) {
   const [city, setCity] = React.useState('');
   const [country, setCountry] = React.useState('');
   const [constructionYear, setConstructionYear] = React.useState('');
-  const [EE, setEE] = React.useState('');
+  const [image, setImage] = React.useState(props.image)
+  const [EE, setEE] = React.useState(props.EE);
 
   {/*
   useEffect(async () => {
@@ -74,30 +71,22 @@ export default function Body(props) {
   });
   */}
     
+
+    const { data, loading, error } = useQuery(GET_SINGLE_BUILDING, {
+      variables: { id }
+    });
   
 
-  const { data, loading, error } = useQuery(GET_SINGLE_BUILDING, {
-    variables: { id }
-  });
+    function refreshPage(){ 
+      window.location.reload(); 
+  }
   
-  console.log(data)
-console.log("Building ID from Card: " + id);
+
 
 if (loading) return <p>Loading...</p>
 if (error) return `Error! ${error}`;
 
 const fullAddress = data.houses[0].addressStreet + "+" + data.houses[0].addressCity + "+" + data.houses[0].addressCountry;
-
-  console.log("Address:" +  fullAddress)
-
-  
-
- 
-
-
-
-
-    
 
 
 
@@ -155,7 +144,7 @@ const fullAddress = data.houses[0].addressStreet + "+" + data.houses[0].addressC
                   className="material-Slider"
                   valueLabelDisplay="on"
                   aria-label="pretto slider"
-                  defaultValue=""/*{this.state.EE}*/
+                  defaultValue={EE}
                   disabled={true}
                 />
               </div>
@@ -165,7 +154,7 @@ const fullAddress = data.houses[0].addressStreet + "+" + data.houses[0].addressC
                 <div className="buildInfoLeft">
                   <img
                     className="buildingPicture"
-                    src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80"
+                    src = {image}
                     alt="buildingPicture"
                   ></img>
                 </div>
@@ -247,6 +236,20 @@ const fullAddress = data.houses[0].addressStreet + "+" + data.houses[0].addressC
                   </div>
                 </div>
               </div>
+
+              <div className = "potenials">
+                <div className = "potDecade">
+                  <p>De</p>
+                  <h2></h2>
+                  </div>
+                  <div className = "potLosts">
+                  </div>
+                  <div className = "potSavings">
+                  </div>
+                  <div className = "potCosts">
+                  </div>
+
+                </div>
 
               <div className="buildingRecommendations">
                 <div className="buildingRecoHeader">
