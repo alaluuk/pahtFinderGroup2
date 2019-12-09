@@ -247,15 +247,25 @@ useEffect(async () => {
               </div>
 
               <div className = "potenials">
-                <div className = "potDecade">
-                  <p>De</p>
-                  <h2></h2>
+         
+
+<div className = "potConsum">
+                  <h4 className = "potTitle">Present Consumption (Per Year In kWh)</h4>
+                  <h2 className = "potText">3400 kWh</h2>
                   </div>
+
+                  <div className = "potConsum">
+                  <h4 className = "potTitle">Present Consumption (Per Year In €)</h4>
+                  <h2 className = "potText"> 2800 €</h2>
+                  </div>
+      
                   <div className = "potLosts">
+                  <h4 className = "potTitle">Potential Savings (Per Year In kWh) </h4>
+                    <h2 className = "potText"> -544 kWh</h2>
                   </div>
                   <div className = "potSavings">
-                  </div>
-                  <div className = "potCosts">
+                  <h4 className = "potTitle">Potential Savings (Per Year In €) </h4>
+                    <h2 className = "potText"> +630 €</h2>
                   </div>
 
                 </div>

@@ -19,7 +19,7 @@ class MediaCard extends Component {
     country: "",
     EE: "",
     color: "",
-    green: "darkgreen",
+    green: "limegreen",
     orange: "orange",
     red: "red"
 
