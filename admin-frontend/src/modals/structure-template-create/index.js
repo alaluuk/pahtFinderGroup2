@@ -1,7 +1,7 @@
 import React from "react";
 import GraphQLClient from '../../providers/graphql';
 import { AppToaster } from '../../App';
-import { Button, Intent, Dialog, Classes, FormGroup, InputGroup, NumericInput, HTMLSelect, Menu } from "@blueprintjs/core";
+import { Button, Intent, Dialog, Classes, FormGroup, InputGroup, NumericInput, HTMLSelect } from "@blueprintjs/core";
 import "./styles.scss";
 
 class StructureTemplateCreateModal extends React.Component {
@@ -51,7 +51,8 @@ class StructureTemplateCreateModal extends React.Component {
     });
   }
 
-  handleSubmit() {
+  handleSubmit(e) {
+    e.preventDefault();
     return new Promise((resolve, reject) => {
       this.setState({ isLoading: true, errors: {} });
       GraphQLClient.request(`
@@ -82,7 +83,7 @@ class StructureTemplateCreateModal extends React.Component {
     `, this.state.values)
         .then(data => {
           if(this.props.onCreated) this.props.onCreated(data.createStructureTemplate);
-          AppToaster.show({ icon: "tick", intent: Intent.SUCCESS, message: "Successfully created new structure type!" });
+          AppToaster.show({ icon: "tick", intent: Intent.SUCCESS, message: "Successfully added structure template \""+data.createStructureTemplate.title+"\"!" });
           resolve(data);
         })
         .catch(err => {
@@ -119,7 +120,7 @@ class StructureTemplateCreateModal extends React.Component {
       >
         <div className={Classes.DIALOG_BODY}>
           <form onSubmit={this.handleSubmit}>
-          <FormGroup
+            <FormGroup
               label="Structure Type"
               labelFor="type"
               labelInfo="(required)"

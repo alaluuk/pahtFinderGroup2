@@ -89,7 +89,7 @@ class StructureTemplate extends Structure {
           manufacturer=$6,
           serial_number=$7,
           production_year=$8
-        WHERE id=$9`, [
+        WHERE id=$9 RETURNING *`, [
           structure._id,
           structure._title,
           structure._type_id,

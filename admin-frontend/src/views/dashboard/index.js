@@ -22,8 +22,14 @@ class DashboardView extends React.Component {
                 onClick={() => { this.props.history.push('/users/create') }}
               />
               <Menu.Item
+                icon="new-layer"
+                text="New Structure Type"
+                onClick={() => { this.props.history.push('/structures/create-type') }}
+              />
+              <Menu.Item
                 icon="new-layers"
                 text="New Structure Template"
+                onClick={() => { this.props.history.push('/structures/create-template') }}
               />
               <Menu.Divider />
               <Menu.Item
