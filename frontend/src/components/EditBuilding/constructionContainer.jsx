@@ -9,64 +9,26 @@ import "../../styles/addBuilding.scss";
 import { CURRENT_USER_ID } from '../../constants';
 
 
-const CREATE_HOUSE = gql`
-  mutation createHouse($name: String!, $ownerId: ID!, $addressStreet: String!, $addressCountry: String!, $addressCity:String!, $constructionYear:Int!,
-    $heatingSystem:String!, $costOfHeating: Float!, $warmWaterPipe: Boolean!) {
-    createHouse(name: $name, ownerId: $ownerId, addressStreet: $addressStreet, addressCountry: $addressCountry, addressCity: $addressCity,
-        constructionYear: $constructionYear, heatingSystem: $heatingSystem, costOfHeating: $costOfHeating, warmWaterPipe: $warmWaterPipe) {
-        id
-    }
-  }
-`
-
 /**
- * Exports form that allows user to fill in 
- * information about constructions (roof or wall etc.)
+ * Consists out of ConstructionCards.
+ * Shows all constructions from one type.
  */
-class Construction extends Component {
+class ConstructionContainer extends Component {
   state = {
     ownerId: localStorage.getItem(CURRENT_USER_ID),
   }
 
-
-  componentDidUpdate(prevProps) {
-    //save structure in database
-    if (this.props.triggerSave !== prevProps.triggerSave) {
-      console.log("save House Clicked!")
-      this.props.client.mutate({
-        mutation: CREATE_HOUSE,
-        variables: {
-          name: this.state.name,
-          ownerId: localStorage.getItem(CURRENT_USER_ID),
-          addressStreet: this.state.addressStreet,
-          addressCountry: this.state.addressCountry,
-          addressCity: this.state.addressCity,
-          constructionYear: this.state.constructionYear,
-          heatingSystem: this.state.heatingSystem,
-          costOfHeating: this.state.costOfHeating,
-          warmWaterPipe: this.state.warmWaterPipe
-        },
-      }).then(results => {
-        console.log(results);
-        this.setState({ errorMessage: '' })
-      })
-        .catch(error => {
-          console.log("Creat House Error: ", error);
-          this.setState({ errorMessage: error.graphQLErrors[0].message })
-        });
-    }
-  }
-
   render() {
-    const {
-      errorMessage
-    } = this.state;
 
     return (
       <div className="addStructureComp">
         <div className="addStructureHead">
           <h2 className="addBuildText"> {this.props.constructionTypeTitle}</h2>
-          <AddConstruction parentType={this.props.constructionTypeTitle} parentState={this.props.constructionTypeTitle}></AddConstruction>
+          <AddConstruction
+              constructionTypeTitle = {this.props.constructionTypeTitle}
+              constructionTypeId = {this.props.constructionTypeId}
+              houseId = {this.props.houseId}>
+          </AddConstruction>
         </div>
 
         <div className="mainSlider">
@@ -187,4 +149,4 @@ class Construction extends Component {
   }
 }
 
-export default withApollo(Construction);
+export default withApollo(ConstructionContainer);

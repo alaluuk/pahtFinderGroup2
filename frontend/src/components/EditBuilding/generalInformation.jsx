@@ -67,7 +67,9 @@ class GeneralInformation extends Component {
             if(err){
               this.setState({errorMessage: err.message})
             }else{
-              this.setState({errorMessage: error.toString()})
+              err = "House could not be saved. Please fill out every field" +
+              "and check your internet connection.";
+              this.setState({errorMessage: err})
             }
         });
       }
