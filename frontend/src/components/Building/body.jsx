@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, {useEffect} from "react";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Slider from "@material-ui/core/Slider";
@@ -9,10 +9,10 @@ import DiyCard from "./cardDIY";
 import Map from "../Maps/mapBuilding";
 import { withStyles } from "@material-ui/core/styles";
 import EditIcon from "@material-ui/icons/Edit";
-import DeleteButton from "../Deletion/body";
+import DeleteButton from "./deleteBuilding";
 import { useQuery } from "@apollo/react-hooks";
 import gql from "graphql-tag";
-import { AUTH_TOKEN, CURRENT_USER_ID } from '../../constants';
+import axios from 'axios';
 import "../../styles/building.scss";
 
 
@@ -51,32 +51,54 @@ const GET_SINGLE_BUILDING = gql`
  
 
 
+  async function getCoordinates(address){
+    console.log("Funktionsaufruf")
+    var fixedAddress = address.split(' ').join('+');
+    var url = 'https://geocoder.api.here.com/6.2/geocode.json?app_id={API_ID}app_code={APP_CODE}&searchtext='+fixedAddress+'&locationattributes[mapView]';
+    const result = await axios(url);
+    const latitude = result.data.Response.View[0].Result[0].Location.DisplayPosition.Latitude;
+    const longitude = result.data.Response.View[0].Result[0].Location.DisplayPosition.Longitude;
+    const coor = [latitude, longitude];
+
+    return coor;
+    console.log(coor)
+  
+  }
+
+
+
 export default function Body(props) {
 
-  const [id, setId, getId] = React.useState(props.id);
-  const [type, setType, getType] = React.useState('');
-  const [title, setTitle, getTtitle] = React.useState('');
-  const [street, setStreet, getStreet] = React.useState('');
-  const [city, setCity, getCity] = React.useState('');
-  const [country, setCountry, getCountry] = React.useState('');
-  const [constructionYear, setConstructionYear, getConstructionYear] = React.useState('');
-  const [EE, setEE, getEE] = React.useState('');
- 
+  const [id, setId] = React.useState(props.id);
+  const [name, setName] = React.useState('');
+  const [title, setTitle] = React.useState('');
+  const [street, setStreet] = React.useState('');
+  const [city, setCity] = React.useState('');
+  const [country, setCountry] = React.useState('');
+  const [constructionYear, setConstructionYear] = React.useState('');
+  const [image, setImage] = React.useState(props.image)
+  const [EE, setEE] = React.useState(props.EE);
+  const [coordi, setCoordi] = React.useState('');
 
-
-  console.log("Building ID from Card: " + id);
-  console.log("Auth:" + localStorage.getItem(AUTH_TOKEN));
-  console.log("User_Id" + localStorage.getItem(CURRENT_USER_ID));
-   
-    const { data, loading, error } = useQuery(GET_SINGLE_BUILDING, {
+  const { data, loading, error } = useQuery(GET_SINGLE_BUILDING, {
       variables: { id }
     });
-    if (loading) return <p>LOADING</p>;
-  if (error) return `Error! ${error}`;
-  console.log(data)
+
 
   
-  
+if (loading) return <p>Loading...</p>
+if (error) return `Error! ${error}`;
+
+{/* 
+const fullAddress = data.houses[0].addressStreet + "+" + data.houses[0].addressCity + "+" + data.houses[0].addressCountry;
+useEffect(async () => {
+  setCoordi(getCoordinates(fullAddress))
+});
+*/}
+
+
+
+
 
 
     const PrettoSlider = withStyles({
@@ -107,27 +129,31 @@ export default function Body(props) {
       }
     })(Slider);
 
+    
+    
     return (
+      
       <div className="bodyBuilding">
+        {data.houses.map((house, index) => (
         <div className="overlay">
-          <div className="building">
+          <div className="building" key={house.name + "-" + index}>
             <div className="buildingHeader">
-              <h1 className="buildingHeaderText">eRSETZTEN</h1>
+              <h1 className="buildingHeaderText">{house.name}</h1>
               <Button className="buildingEdit" variant="outlined">
                 <EditIcon /> &nbsp; Edit
               </Button>
               <DeleteButton
                 className="buildingDelete"
-                id=""
-                parentType =  ""/*{this.state.type}*/
-                parentTitle = ""/*{this.state.title}*/
+                id={props.id}
+                parentType =  "Building"
+                parentTitle = {house.name}
               ></DeleteButton>
               <div className="buildingSlider">
                 <PrettoSlider
                   className="material-Slider"
                   valueLabelDisplay="on"
                   aria-label="pretto slider"
-                  defaultValue=""/*{this.state.EE}*/
+                  defaultValue={EE}
                   disabled={true}
                 />
               </div>
@@ -137,7 +163,7 @@ export default function Body(props) {
                 <div className="buildInfoLeft">
                   <img
                     className="buildingPicture"
-                    src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80"
+                    src = {image}
                     alt="buildingPicture"
                   ></img>
                 </div>
@@ -150,7 +176,7 @@ export default function Body(props) {
                             disabled
                             id="standard-disabled"
                             label="Name Of Building"
-                            defaultValue=""/*{this.state.title}*/
+                            defaultValue={house.name}
                             className="buildingSingleInfo"
                             margin="normal"
                           />
@@ -160,7 +186,7 @@ export default function Body(props) {
                             disabled
                             id="standard-disabled"
                             label="Street"
-                            defaultValue=""/*{this.state.street}*/
+                            defaultValue={house.addressStreet}
                             className="buildingSingleInfo"
                             margin="normal"
                           />
@@ -172,7 +198,7 @@ export default function Body(props) {
                             disabled
                             id="standard-disabled"
                             label="Construction Year"
-                            defaultValue=""/*{this.state.constructionYear}*/
+                            defaultValue={house.constructionYear}
                             className="buildingSingleInfo"
                             margin="normal"
                           />
@@ -182,7 +208,7 @@ export default function Body(props) {
                             disabled
                             id="standard-disabled"
                             label="City"
-                            defaultValue=""/*{this.state.city}*/
+                            defaultValue={house.addressCity}
                             className="buildingSingleInfo"
                             margin="normal"
                           />
@@ -194,7 +220,7 @@ export default function Body(props) {
                             disabled
                             id="standard-disabled"
                             label="Type of Building"
-                            defaultValue=""/*{this.state.type}*/
+                            defaultValue={house.name}
                             className="buildingSingleInfo"
                             margin="normal"
                           />
@@ -204,7 +230,7 @@ export default function Body(props) {
                             disabled
                             id="standard-disabled"
                             label="Country"
-                            defaultValue=""/*{this.state.country}*/
+                            defaultValue={house.addressCountry}
                             className="buildingSingleInfo"
                             margin="normal"
                           />
@@ -215,10 +241,34 @@ export default function Body(props) {
                 </div>
                 <div className="buildInfoRight">
                   <div className="buildingMap">
-                    <Map></Map>
+                    <Map coordinates = {coordi} ></Map>
                   </div>
                 </div>
               </div>
+
+              <div className = "potenials">
+         
+
+<div className = "potConsum">
+                  <h4 className = "potTitle">Present Consumption (Per Year In kWh)</h4>
+                  <h2 className = "potText">3400 kWh</h2>
+                  </div>
+
+                  <div className = "potConsum">
+                  <h4 className = "potTitle">Present Consumption (Per Year In €)</h4>
+                  <h2 className = "potText"> 2800 €</h2>
+                  </div>
+      
+                  <div className = "potLosts">
+                  <h4 className = "potTitle">Potential Savings (Per Year In kWh) </h4>
+                    <h2 className = "potText"> -544 kWh</h2>
+                  </div>
+                  <div className = "potSavings">
+                  <h4 className = "potTitle">Potential Savings (Per Year In €) </h4>
+                    <h2 className = "potText"> +630 €</h2>
+                  </div>
+
+                </div>
 
               <div className="buildingRecommendations">
                 <div className="buildingRecoHeader">
@@ -372,6 +422,7 @@ export default function Body(props) {
             </div>
           </div>
         </div>
+        ))}
       </div>
     );
-  }
+ }  

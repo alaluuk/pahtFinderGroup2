@@ -22,7 +22,7 @@ class Card extends Component {
     EE: "",
     image: "",
     color: "",
-    green: "darkgreen",
+    green: "limegreen",
     orange: "orange",
     red: "red"
   };

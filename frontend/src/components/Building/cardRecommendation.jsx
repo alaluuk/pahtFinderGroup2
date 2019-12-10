@@ -18,7 +18,7 @@ class Card extends Component {
     price: "",
     EE: 0,
     color: "white",
-    green: "darkgreen",
+    green: "limegreen",
     orange: "orange",
     red: "red",
     liked: false,

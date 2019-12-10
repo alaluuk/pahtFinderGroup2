@@ -3,7 +3,16 @@ import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 
 
 class MapContainer extends Component {
-    state = {  }
+    state = { 
+      
+      }
+
+
+
+      constructor(props){
+        super(props)
+
+      }
 
     render() {   
         const style = {
