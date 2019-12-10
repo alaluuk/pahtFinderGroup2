@@ -1,6 +1,6 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
-import { Button, Intent, Navbar, Alignment, ControlGroup, InputGroup, HTMLSelect, Spinner } from "@blueprintjs/core";
+import { Button, Navbar, Alignment, ControlGroup, InputGroup, Spinner } from "@blueprintjs/core";
 import "./styles.scss";
 
 class FilterableSubheaderComponent extends React.Component {
@@ -18,10 +18,6 @@ class FilterableSubheaderComponent extends React.Component {
           </Navbar.Group>
           <Navbar.Group align={Alignment.RIGHT}>
             <ControlGroup fill={true} vertical={false}>
-              {/* <HTMLSelect>
-                <option value="by-name">By Name:</option>
-                <option value="by-test">By Email:</option>
-              </HTMLSelect> */}
               <InputGroup
                 leftIcon="search"
                 placeholder="Search..."

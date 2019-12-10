@@ -1,4 +1,5 @@
 import React from "react";
+import { withRouter } from "react-router-dom";
 import GraphQLClient from "../../providers/graphql";
 import EfficiencyIndicatorComponent from "../efficiency-indicator";
 import { NonIdealState, Spinner, Text, Icon, Intent, Button, Menu, Popover, Position } from "@blueprintjs/core";
@@ -14,7 +15,6 @@ class StructureTemplateTable extends React.Component {
       initialLoaded: false,
       isLoading: false,
       fetchError: null,
-      structureType: this.props.structureType || null, // TODO: Handle structureType null
       structureTemplates: [],
       tblPages: null,
       tblSortedBy: [ { id: 'u_value', desc: false }, { id: 'title', desc: false } ],
@@ -24,6 +24,8 @@ class StructureTemplateTable extends React.Component {
     this.table = React.createRef();
 
     this.fetchStructureTemplates = this.fetchStructureTemplates.bind(this);
+    this.onEditClick = this.onEditClick.bind(this);
+    this.onDeleteClick = this.onDeleteClick.bind(this);
   }
 
   fetchStructureTemplates(table = null) {
@@ -35,7 +37,7 @@ class StructureTemplateTable extends React.Component {
         {
           id: "type_id",
           type: "EQUAL",
-          value: this.state.structureType.id
+          value: this.props.structureType.id
         }
       ];
       table.filtered.forEach(tblFilter => {
@@ -64,6 +66,9 @@ class StructureTemplateTable extends React.Component {
           ) {
             id
             title
+            type {
+              id
+            }
             uValue
             price
             manufacturer
@@ -110,6 +115,14 @@ class StructureTemplateTable extends React.Component {
         })
         .finally(() => this.setState({ isLoading: false }));
     });
+  }
+
+  onEditClick(structureTemplate) {
+    this.props.history.replace(this.props.match.url+'/edit-template/'+structureTemplate.id, { structureTemplate: structureTemplate });
+  }
+
+  onDeleteClick(structureTemplate) {
+    this.props.history.replace(this.props.match.url+'/delete-template/'+structureTemplate.id, { structureTemplate: structureTemplate });
   }
 
   render() {
@@ -185,15 +198,15 @@ class StructureTemplateTable extends React.Component {
               <Menu>
                 <Menu.Item
                   icon="edit" 
-                  text="Edit structure template"
-                  onClick={() => console.log("edit", cellInfo.row._original.id)}
+                  text="Edit template"
+                  onClick={() => this.onEditClick(cellInfo.row._original)}
                 />
                 <Menu.Divider />
                 <Menu.Item
                   icon="trash" 
-                  text="Delete structure template"
+                  text="Delete template"
                   intent={Intent.DANGER}
-                  onClick={() => console.log("delete", cellInfo.row._original.id)}
+                  onClick={() => this.onDeleteClick(cellInfo.row._original)}
                 />
               </Menu>
             } position={Position.BOTTOM_RIGHT}>
@@ -227,7 +240,7 @@ class StructureTemplateTable extends React.Component {
             <Button
               icon="new-layers"
               intent={Intent.SUCCESS}
-              onClick={this.props.handleNewTemplateModal || undefined}
+              onClick={this.props.onCreateClick || undefined}
             >Create a new template</Button>
           }
         /> : null
@@ -243,4 +256,4 @@ class StructureTemplateTable extends React.Component {
   }
 }
 
-export default StructureTemplateTable;
+export default withRouter(StructureTemplateTable);
