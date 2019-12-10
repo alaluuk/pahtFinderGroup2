@@ -41,6 +41,7 @@ export default function AddConstruction(props) {
   //if construction saved successfully, close form
   const saveConstructionClicked = (data) => {
     console.log("Construction saved", data)
+    resetValues()
     setOpen(false);
   };
   //Write best available error message
@@ -59,10 +60,20 @@ export default function AddConstruction(props) {
   };
   //close form
   const handleClose = () => {
+    resetValues();
     setOpen(false);
   }
 
-
+  //reset state refered to all TextField values and errorMessage
+  const resetValues = () =>{
+    setTitle("");
+    setManufacturer("");
+    setUValue(null);
+    setPrice(null);
+    setSerialNumber("");
+    setProductionYear(null);
+    setErrorMessage("");
+  }
 
   return (
     <div>
