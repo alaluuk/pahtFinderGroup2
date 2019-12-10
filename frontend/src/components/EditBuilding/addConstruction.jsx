@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useEffect } from "react";
 import "../../styles/addConstruction.scss";
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -12,8 +12,10 @@ import Typography from '@material-ui/core/Typography';
 import { Mutation } from 'react-apollo'
 
 
-export default function AddConstruction(props) {
 
+
+export default function AddConstruction(props) {
+  
   const HOUSE_STRUCTURE_CREATE = gql`
   mutation createHouseStructure($houseId: ID!, $title: String!, $typeId: ID!, $uValue: Float!, $price: Float!, $manufacturer: String!, $serialNumber: String!, $productionYear: Int!) {
     createHouseStructure(houseId: $houseId, title: $title, typeId: $typeId, uValue: $uValue, price: $price, manufacturer: $manufacturer, serialNumber: $serialNumber, productionYear: $productionYear) {
@@ -48,7 +50,7 @@ export default function AddConstruction(props) {
       setErrorMessage(data.graphQLErrors[0].message)
     } else {
       setErrorMessage((props.constructionTypeTitle + " could not be saved." + 
-      " Please fill out every field and check your internet connection"))
+      " Please fill out every field and check your internet connection."))
     }
   };
   //open form
@@ -59,7 +61,8 @@ export default function AddConstruction(props) {
   const handleClose = () => {
     setOpen(false);
   }
-  
+
+
 
   return (
     <div>

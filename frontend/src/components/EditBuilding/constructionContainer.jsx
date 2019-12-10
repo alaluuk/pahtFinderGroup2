@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import ConstructionCard from "../cardConstruction";
 import Slider from "@material-ui/core/Slider";
 import AddConstruction from "./addConstruction";
-import gql from 'graphql-tag'
 import { withApollo } from "react-apollo";
 import "../../styles/addConstruction.scss";
 import "../../styles/addBuilding.scss";

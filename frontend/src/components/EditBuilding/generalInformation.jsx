@@ -51,9 +51,9 @@ class GeneralInformation extends Component {
               addressStreet: this.state.addressStreet,
               addressCountry: this.state.addressCountry,
               addressCity: this.state.addressCity,
-              constructionYear: parseInt(this.state.constructionYear),
+              constructionYear: this.state.constructionYear,
               heatingSystem: this.state.heatingSystem,
-              costOfHeating: parseFloat(this.state.costOfHeating),
+              costOfHeating: this.state.costOfHeating,
               warmWaterPipe: this.state.warmWaterPipe
           },
         }).then(results => {
@@ -106,7 +106,7 @@ class GeneralInformation extends Component {
                     label="Construction Year"
                     margin="normal"
                     variant="outlined"
-                    onChange={e => this.setState({ constructionYear: e.target.value })}
+                    onChange={e => this.setState({ constructionYear: parseInt(e.target.value) })}
                   />
                   <br></br>
                 </div>
@@ -154,7 +154,7 @@ class GeneralInformation extends Component {
                     label="Yearly cost of heating"
                     margin="normal"
                     variant="outlined"
-                    onChange={e => this.setState({ costOfHeating: e.target.value })}
+                    onChange={e => this.setState({ costOfHeating: parseFloat(e.target.value) })}
                   />
                   <br></br>
                   <TextField
@@ -163,7 +163,7 @@ class GeneralInformation extends Component {
                     label="Warm water pipe"
                     margin="normal"
                     variant="outlined"
-                    onChange={e => this.setState({ warmWaterPipe: e.target.value })}
+                    onChange={e => this.setState({ warmWaterPipe: (e.target.value === 'true') })}
                   />
                   <br></br>
                 </div>
