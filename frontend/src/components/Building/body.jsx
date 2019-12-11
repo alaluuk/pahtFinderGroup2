@@ -52,7 +52,6 @@ const GET_SINGLE_BUILDING = gql`
 
 
   async function getCoordinates(address){
-    console.log("Funktionsaufruf")
     var fixedAddress = address.split(' ').join('+');
     var url = 'https://geocoder.api.here.com/6.2/geocode.json?app_id={API_ID}app_code={APP_CODE}&searchtext='+fixedAddress+'&locationattributes[mapView]';
     const result = await axios(url);
@@ -61,7 +60,6 @@ const GET_SINGLE_BUILDING = gql`
     const coor = [latitude, longitude];
 
     return coor;
-    console.log(coor)
   
   }
 
@@ -314,7 +312,7 @@ useEffect(async () => {
                       <RecommendationCard
                         title="Roof Y6798 Vollholz"
                         amount="1"
-                        type="Door"
+                        type={structure.type.title}
                         manufacture="Roof GmbH"
                         serial_number="1"
                         u_value="1.2"
