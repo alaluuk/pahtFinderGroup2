@@ -134,7 +134,8 @@ useEffect(async () => {
     return (
       
       <div className="bodyBuilding">
-        {data.houses.map((house, index) => (
+        {data.houses.map((house, index) => {
+          return (
         <div className="overlay">
           <div className="building" key={house.name + "-" + index}>
             <div className="buildingHeader">
@@ -277,15 +278,18 @@ useEffect(async () => {
                   <h2 className="recoSingleHead"> DIY Tips</h2>
                 </div>
                 <div className="recoContentAll">
+            
+                {house.structures.map((structure) => {
+                  return (
                   <div className="recoSingleRow">
                     <div className="currentlyCard">
                       <ConstructionCard
-                        title="Roof Y6798 Vollholz"
+                        title={structure.title}
                         amount="1"
-                        type="Door"
+                        type={structure.type.title}
                         manufacture="Roof GmbH"
                         serial_number="1"
-                        u_value="1.2"
+                        u_value={structure.uValue}
                         area="2"
                         production_year="1984"
                         price=""
@@ -293,6 +297,8 @@ useEffect(async () => {
                         image="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-1.2.1&auto=format&fit=facearea&w=800&h=2000"
                       ></ConstructionCard>
                     </div>
+
+
                     <div className="recoSpace">
                       <br></br>
                       <br></br>
@@ -323,106 +329,14 @@ useEffect(async () => {
                       <DiyCard></DiyCard>{" "}
                     </div>
                   </div>
-
-                  <div className="recoSingleRow">
-                    <div className="currentlyCard">
-                      <ConstructionCard
-                        title="Roof Y6798 Vollholz"
-                        amount="1"
-                        type="Door"
-                        manufacture="Roof GmbH"
-                        serial_number="1"
-                        u_value="1.2"
-                        area="2"
-                        production_year="1984"
-                        price=""
-                        EE="34"
-                        image="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-1.2.1&auto=format&fit=facearea&w=800&h=2000"
-                      ></ConstructionCard>
-                    </div>
-                    <div className="recoSpace">
-                      <br></br>
-                      <br></br>
-                      <br></br>
-                      <br></br>
-                      <br></br>
-                      <br></br>
-                      <br></br>
-                      <p className="recoImproveText">+ 37%</p>
-                      <DoubleArrowIcon className="recoImproveIcon"></DoubleArrowIcon>
-                    </div>
-                    <div className="recoCard">
-                      <RecommendationCard
-                        title="Roof Y6798 Vollholz"
-                        amount="1"
-                        type="Door"
-                        manufacture="Roof GmbH"
-                        serial_number="1"
-                        u_value="1.2"
-                        area="2"
-                        production_year="1984"
-                        price=""
-                        EE="71"
-                        isReco="false"
-                      ></RecommendationCard>
-                    </div>
-                    <div className="diy">
-                      <DiyCard></DiyCard>{" "}
-                    </div>
+                );})}
                   </div>
-
-                  <div className="recoSingleRow">
-                    <div className="currentlyCard">
-                      <ConstructionCard
-                        title="Roof Y6798 Vollholz"
-                        amount="1"
-                        type="Door"
-                        manufacture="Roof GmbH"
-                        serial_number="1"
-                        u_value="1.2"
-                        area="2"
-                        production_year="1984"
-                        price=""
-                        EE="71"
-                        image="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-1.2.1&auto=format&fit=facearea&w=800&h=2000"
-                      ></ConstructionCard>
-                    </div>
-                    <div className="recoSpace">
-                      <br></br>
-                      <br></br>
-                      <br></br>
-                      <br></br>
-                      <br></br>
-                      <br></br>
-                      <br></br>
-                      <p className="recoImproveText">+ 19 %</p>
-                      <DoubleArrowIcon className="recoImproveIcon"></DoubleArrowIcon>
-                    </div>
-                    <div className="recoCard">
-                      <RecommendationCard
-                        title="Roof Y6798 Vollholz"
-                        amount="1"
-                        type="Door"
-                        manufacture="Roof GmbH"
-                        serial_number="1"
-                        u_value="1.2"
-                        area="2"
-                        production_year="1984"
-                        price=""
-                        EE="90"
-                        isReco="false"
-                      ></RecommendationCard>
-                    </div>
-                    <div className="diy">
-                      <DiyCard></DiyCard>
-                    </div>
-                  </div>
-                </div>
+  
               </div>
             </div>
           </div>
         </div>
-        ))}
+        );})}
       </div>
     );
  }  
