@@ -10,9 +10,9 @@ class Building extends React.Component {
 
   state = {
 
-    id: "",
-    EE: "",
-    image: ""
+    id: "", //House ID
+    EE: "", //Energy efficiency
+    image: "" //House picture
   } 
   
   constructor(props){
