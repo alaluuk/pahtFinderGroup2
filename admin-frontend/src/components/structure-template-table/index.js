@@ -65,6 +65,7 @@ class StructureTemplateTable extends React.Component {
             title
             type {
               id
+              title
             }
             uValue
             price
@@ -73,9 +74,9 @@ class StructureTemplateTable extends React.Component {
             productionYear
             efficiencyReport {
               ranking {
-                overallPercentage
-                overallRank
-                overallCount
+                percentage
+                rank
+                count
                 rankedSegment {
                   label
                 }
@@ -85,6 +86,16 @@ class StructureTemplateTable extends React.Component {
                 from
                 to
                 count
+              }
+              recommendations {
+                upgradePrice
+                upgradeUValue
+                upgradePercentage
+                upgradePPR
+                structureTemplate {
+                  id
+                  title
+                }
               }
             }
             createdAt
@@ -127,7 +138,7 @@ class StructureTemplateTable extends React.Component {
         {
           Header: 'Rank',
           id: 'rank',
-          accessor: 'efficiencyReport.ranking.overallRank',
+          accessor: 'efficiencyReport.ranking.rank',
           width: 50,
           filterable: false,
           sortable: false
@@ -173,7 +184,7 @@ class StructureTemplateTable extends React.Component {
         {
           id: 'energyEfficiency',
           Header: 'Energy Efficiency',
-          accessor: 'efficiencyReport.ranking.overallPercentage',
+          accessor: 'efficiencyReport.ranking.percentage',
           Cell: cellInfo => (<EfficiencyIndicatorComponent uValue={cellInfo.row._original.uValue} percentage={cellInfo.row.energyEfficiency} />),
           filterable: false,
           sortable: false
@@ -189,6 +200,11 @@ class StructureTemplateTable extends React.Component {
                   icon="edit" 
                   text="Edit template"
                   onClick={() => (this.props.onEditClick) ? this.props.onEditClick(cellInfo.row._original) : {}}
+                />
+                <Menu.Item
+                  icon="timeline-area-chart" 
+                  text="Efficiency report"
+                  onClick={() => (this.props.onReportClick) ? this.props.onReportClick(cellInfo.row._original) : {}}
                 />
                 <Menu.Divider />
                 <Menu.Item

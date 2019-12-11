@@ -85,9 +85,10 @@ class StructureTypeCard extends React.Component {
               initialFetched: true,
               isCollapsed: (!this.state.initialFetched && totalCount <= 0)
             })}
-            onCreateClick={this.onCreateTemplateClick}
-            onEditClick={(template) => (this.props.onEditTemplateClick) ? this.props.onEditTemplateClick(template) : {}}
-            onDeleteClick={(template) => (this.props.onDeleteTemplateClick) ? this.props.onDeleteTemplateClick(template) : {}}
+            onCreateClick={this.props.onCreateTemplateClick || undefined}
+            onEditClick={(template) => (this.props.onEditTemplateClick) ? this.props.onEditTemplateClick(template) : undefined}
+            onReportClick={(template) => (this.props.onReportTemplateClick) ? this.props.onReportTemplateClick(template) : undefined}
+            onDeleteClick={(template) => (this.props.onDeleteTemplateClick) ? this.props.onDeleteTemplateClick(template) : undefined}
           />
         </Collapse>
       </Card>

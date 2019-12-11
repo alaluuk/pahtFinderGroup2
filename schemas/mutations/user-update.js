@@ -21,7 +21,7 @@ const UserUpdateMutation = {
     password: { type: GraphQLString },
     role: { type: GraphQLString }
   },
-  resolve(_, args, { auth }) {
+  resolve: async(_, args, { auth }) => {
     if(!auth.user) throw new Error("You must be logged in to perform this action.");
     let values = Joi.attempt(args, UserUpdateSchema);
     if(values.id == auth.user.id && !checkPermission(auth.user.role, "user_update_self")) {
@@ -30,25 +30,25 @@ const UserUpdateMutation = {
     if(values.id != auth.user.id && !checkPermission(auth.user.role, "user_update_other")) {
       throw new Error("You don't have sufficient permissions to edit other users.");
     }
-    if(!checkPermission(auth.user.role, "user_update_role_"+values.role)) {
+    if(values.id != auth.user.id && !checkPermission(auth.user.role, "user_update_role_"+values.role)) {
       throw new Error("You don't have sufficient permissions to change roles to '"+values.role+"'.");
     }
-    return new Promise(function(resolve, reject) {
-      User.getOne(values.id)
-        .then(user => {
-          if(values.name) user.name = values.name;
-          if(values.email) user.email = values.email;
-          if(values.password) user.password = values.password;
-          if(values.role) auth.user.role = values.role;
-          user.save()
-            .then(success => resolve(user))
-            .catch(err => {
-              if(err.code == '23505') reject(new Error("This email address is already being used."));
-              reject(err);
-            });
-        })
-        .catch(err => reject(err));
-    });
+    try {
+      var user = await User.getOne(values.id);
+    } catch (error) {
+      throw new Error("There is no user with this ID.");
+    }
+    if(values.name) user.name = values.name;
+    if(values.email) user.email = values.email;
+    if(values.password) user.password = values.password;
+    if(values.role) user.role = values.role;
+    try {
+      var status = await user.save();
+    } catch(err) {
+      if(err.code == '23505') throw new Error("This email address is already being used by another user.");
+      throw err;
+    }
+    return user;
   }
 };
 

@@ -1,9 +1,8 @@
 const { GraphQLObjectType, GraphQLNonNull, GraphQLString, GraphQLID, GraphQLFloat, GraphQLInt } = require("graphql");
-const { StructureType, StructureTypeType, StructureEfficiencyReportType } = require(".");
+const { StructureTypeType } = require(".");
 
-const StructureTemplateType = new GraphQLObjectType({
-  name: "StructureTemplate",
-  interfaces: [ StructureType ],
+const NonReportableStructureTemplateType = new GraphQLObjectType({
+  name: "NonReportableStructureTemplate",
   fields: {
     id: { type: new GraphQLNonNull(GraphQLID) },
     title: { type: GraphQLString },
@@ -13,10 +12,9 @@ const StructureTemplateType = new GraphQLObjectType({
     manufacturer: { type: GraphQLString },
     serialNumber: { type: GraphQLString },
     productionYear: { type: GraphQLInt },
-    efficiencyReport: { type: new GraphQLNonNull(StructureEfficiencyReportType) },
     createdAt: { type: new GraphQLNonNull(GraphQLString) },
     updatedAt: { type: new GraphQLNonNull(GraphQLString) }
   }
 });
 
-exports.StructureTemplateType = StructureTemplateType;
+exports.NonReportableStructureTemplateType = NonReportableStructureTemplateType;

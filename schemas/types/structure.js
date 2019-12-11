@@ -1,5 +1,5 @@
 const { GraphQLInterfaceType, GraphQLNonNull, GraphQLString, GraphQLID, GraphQLFloat, GraphQLInt } = require("graphql");
-const { StructureTypeType, EfficiencyReportType } = require(".");
+const { StructureTypeType, StructureEfficiencyReportType } = require(".");
 
 const StructureType = new GraphQLInterfaceType({
   name: "Structure",
@@ -12,7 +12,7 @@ const StructureType = new GraphQLInterfaceType({
     manufacturer: { type: GraphQLString },
     serialNumber: { type: GraphQLString },
     productionYear: { type: GraphQLInt },
-    efficiencyReport: { type: new GraphQLNonNull(EfficiencyReportType) },
+    efficiencyReport: { type: new GraphQLNonNull(StructureEfficiencyReportType) },
     createdAt: { type: new GraphQLNonNull(GraphQLString) },
     updatedAt: { type: new GraphQLNonNull(GraphQLString) }
   }

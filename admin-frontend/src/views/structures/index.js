@@ -8,7 +8,9 @@ import StructureTypeCreateModal from "../../modals/structure-type-create";
 import StructureTypeEditModal from "../../modals/structure-type-edit";
 import StructureTypeDeleteModal from "../../modals/structure-type-delete";
 import StructureTemplateCreateModal from "../../modals/structure-template-create";
+import StructureTemplateEditModal from "../../modals/structure-template-edit";
 import StructureTemplateDeleteModal from "../../modals/structure-template-delete";
+import EfficiencyReportModal from "../../modals/efficiency-report";
 import { Popover, Menu, Position, ButtonGroup, Button, Text, Spinner, NonIdealState, Icon, Intent } from "@blueprintjs/core";
 import "./styles.scss";
 
@@ -97,6 +99,7 @@ class StructuresView extends React.Component {
         onDeleteClick={() => this.props.history.replace(this.props.match.url+'/delete-type/'+structureType.id, { structureType: structureType })}
         onCreateTemplateClick={() => this.props.history.replace(this.props.match.url+'/create-template', { typeId: structureType.id })}
         onEditTemplateClick={(template) => this.props.history.replace(this.props.match.url+'/edit-template/'+template.id, { structureTemplate: template })}
+        onReportTemplateClick={(template) => this.props.history.replace(this.props.match.url+'/report-template/'+template.id, { structureTemplate: template })}
         onDeleteTemplateClick={(template) => this.props.history.replace(this.props.match.url+'/delete-template/'+template.id, { structureTemplate: template })}
       />);
     }
@@ -223,6 +226,48 @@ class StructuresView extends React.Component {
                 }}
               />
             );
+          }}
+        />
+
+        <Route
+          path={`${this.props.match.url}/edit-template/:templateId`}
+          render={({location, match}) => {
+            let structureTemplate = location.state.structureTemplate;
+            return (structureTemplate) ? (
+              <StructureTemplateEditModal
+                structureTemplate={structureTemplate}
+                structureTypes={this.state.structureTypes}
+                isOpen={true}  
+                onClose={() => { this.props.history.replace(this.props.match.url) }}
+                onEdited={(newStructureTemplate) => {
+                  if(this[`ref_type_card_${newStructureTemplate.type.id}`].current) {
+                    this[`ref_type_card_${newStructureTemplate.type.id}`].current.toggleCollapsed(false);
+                    this[`ref_type_card_${newStructureTemplate.type.id}`].current.refetchData();
+                  }
+                  if(structureTemplate.type.id !== newStructureTemplate.type.id) {
+                    if(this[`ref_type_card_${structureTemplate.type.id}`].current) {
+                      this[`ref_type_card_${structureTemplate.type.id}`].current.toggleCollapsed(false);
+                      this[`ref_type_card_${structureTemplate.type.id}`].current.refetchData();
+                    }
+                  }
+                  this.props.history.replace(this.props.match.url);
+                }}
+              />
+            ) : ( <Redirect to={{ pathname: this.props.match.url }} /> );
+          }}
+        />
+
+<Route
+          path={`${this.props.match.url}/report-template/:templateId`}
+          render={({location, match}) => {
+            let structureTemplate = location.state.structureTemplate;
+            return (structureTemplate) ? (
+              <EfficiencyReportModal
+                structureTemplate={structureTemplate}
+                isOpen={true}  
+                onClose={() => { this.props.history.replace(this.props.match.url) }}
+              />
+            ) : ( <Redirect to={{ pathname: this.props.match.url }} /> );
           }}
         />
 

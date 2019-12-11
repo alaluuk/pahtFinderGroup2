@@ -1,0 +1,82 @@
+.EfficiencyReportModal {
+    max-width: 500px;
+}
+
+.EfficiencyReportModal .header {
+    display: flex;
+    margin: -10px -20px;
+    margin-bottom: 0;
+    padding: 10px 20px;
+    box-shadow: 0 1px 0 rgba(16, 22, 26, 0.15);
+    background: #f7f9f9;
+}
+
+.EfficiencyReportModal .header .ranking {
+    margin-right: 1rem;
+}
+
+.EfficiencyReportModal .header .ranking .rank {
+    display: flex;
+    width: 3rem;
+    height: 3rem;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(190, 190, 190, 0.25);
+    border: 1px solid #bfbfbf;
+    border-radius: .25em;
+    color: #939393;
+    font-weight: 600;
+    font-size: 1.5rem;
+}
+
+.EfficiencyReportModal .header .info h5 {
+    margin-bottom: .25em;
+}
+.EfficiencyReportModal .header .info h6 {
+    color: #394B59;
+    margin-bottom: .5em;
+}
+.EfficiencyReportModal .header .info .rankPercentage {
+    font-size: .9em;
+    font-weight: 600;
+}
+.EfficiencyReportModal .header .info .rankPercentage .bp3-icon {
+    margin-right: .3em;
+}
+.EfficiencyReportModal .header .info .rankPercentage.is-better { color: #43bf4d; }
+.EfficiencyReportModal .header .info .rankPercentage.is-worse { color: #eb532d; }
+
+.EfficiencyReportModal .bp3-tabs {
+    margin: -10px -20px;
+    margin-top: 1px;
+}
+.EfficiencyReportModal .bp3-tabs .bp3-tab-list {
+    padding: 0 20px;
+    box-shadow: 0 1px 0 rgba(16, 22, 26, 0.15);
+    background: #f7f9f9;
+}
+.EfficiencyReportModal .bp3-tabs .bp3-tab-list .bp3-tab {
+    padding: .5em 0;
+}
+.EfficiencyReportModal .bp3-tabs .bp3-tab-panel {
+    padding: 10px 20px;
+    margin-top: 10px;
+}
+.EfficiencyReportModal .bp3-tabs .bp3-tab-indicator-wrapper .bp3-tab-indicator {
+    height: 2px;
+}
+.EfficiencyReportModal .bp3-non-ideal-state > div, .EfficiencyReportModal .bp3-non-ideal-state > h4 {
+    margin-bottom: .5em;
+}
+.EfficiencyReportModal .bp3-non-ideal-state > h4 {
+    font-size: 15px;
+}
+.EfficiencyReportSegmentationChart {
+    padding: 0 !important;
+    min-height: auto !important;
+    margin: .75rem 0;
+}
+
+.EfficiencyReportModal .apexcharts-xaxis-texts-g tspan {
+    font-weight: bold;
+}
