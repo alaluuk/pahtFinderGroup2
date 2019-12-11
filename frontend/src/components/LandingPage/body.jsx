@@ -23,7 +23,7 @@ class Body extends Component {
         name: '',
         errorMessage: ''
     }
-    render(props) {
+    render() {
         const { email, password, name, errorMessage } = this.state;
         return (
             <div className="body">
