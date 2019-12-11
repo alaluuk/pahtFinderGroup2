@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import Button from "@material-ui/core/Button";
 import GeneralInformation from "./generalInformation";
-import Construction from "./construction";
+import ConstructionContainer from "./constructionContainer";
 import gql from "graphql-tag";
 import { withApollo } from "react-apollo";
-import { CURRENT_USER_ID } from '../../constants';
 import Typography from '@material-ui/core/Typography';
 import "../../styles/addConstruction.scss";
 import "../../styles/addBuilding.scss";
@@ -81,12 +80,12 @@ class EditBuilding extends Component {
                 forms only if house id is already available */}
             {this.state.houseId ? (
             <div className="allStructures">
-              {this.state.structureTypes.map((data, index) => (
-                <Construction 
+              {this.state.structureTypes.map((data) => (
+                <ConstructionContainer 
                   constructionTypeTitle = {data.title}
                   constructionTypeId = {data.id}
-                  houseId = {this.houseId}>
-                </Construction>
+                  houseId = {this.state.houseId}>
+                </ConstructionContainer>
               ))}
                 <Button
                   variant="contained"
