@@ -31,7 +31,7 @@ const HouseStructureCreateMutation = {
     if(!auth.user) throw new Error("You must be logged in to perform this action.");
     let values = Joi.attempt(args, HouseStructureCreateSchema);
     try {
-      var house = await House.getOne(values.id);
+      var house = await House.getOne(values.houseId);
     } catch (error) {
       throw new Error("There is no house with this ID.");
     }

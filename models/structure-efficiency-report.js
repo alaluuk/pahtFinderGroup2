@@ -127,7 +127,7 @@ class StructureEfficiencyReport {
       }
     }
     return {
-      percentage: percentage,
+      percentage: Math.min(Math.max(parseInt(percentage), 0), 100),
       rank: await db.one(`SELECT COUNT(DISTINCT id) AS count FROM structure_templates WHERE type_id = $1 AND u_value < $2`, [ this.structure._type_id, this.structure.uValue ]).then(res => parseInt(res.count)+1),
       count: await db.one(`SELECT COUNT(DISTINCT id) AS count FROM structure_templates WHERE type_id = $1`, [ this.structure._type_id ]).then(res => res.count),
       rankedSegment: segment

@@ -41,7 +41,7 @@ class App extends React.Component<AppProps, AppState> {
   public render() {
     return (
       <div className="App">
-        <Router>
+        <Router basename={'/admin'}>
           <Switch>
             <PublicRoute path="/login" component={LoginView} title="Login"></PublicRoute>
             <ProtectedRoute exact path="/" component={DashboardView} title="Dashboard"></ProtectedRoute>
