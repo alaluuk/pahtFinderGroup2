@@ -1,5 +1,4 @@
 import React from "react";
-import { withRouter } from "react-router-dom";
 import GraphQLClient from "../../providers/graphql";
 import EfficiencyIndicatorComponent from "../efficiency-indicator";
 import { NonIdealState, Spinner, Text, Icon, Intent, Button, Menu, Popover, Position } from "@blueprintjs/core";
@@ -24,8 +23,6 @@ class StructureTemplateTable extends React.Component {
     this.table = React.createRef();
 
     this.fetchStructureTemplates = this.fetchStructureTemplates.bind(this);
-    this.onEditClick = this.onEditClick.bind(this);
-    this.onDeleteClick = this.onDeleteClick.bind(this);
   }
 
   fetchStructureTemplates(table = null) {
@@ -68,6 +65,7 @@ class StructureTemplateTable extends React.Component {
             title
             type {
               id
+              title
             }
             uValue
             price
@@ -76,9 +74,9 @@ class StructureTemplateTable extends React.Component {
             productionYear
             efficiencyReport {
               ranking {
-                overallPercentage
-                overallRank
-                overallCount
+                percentage
+                rank
+                count
                 rankedSegment {
                   label
                 }
@@ -88,6 +86,16 @@ class StructureTemplateTable extends React.Component {
                 from
                 to
                 count
+              }
+              recommendations {
+                upgradePrice
+                upgradeUValue
+                upgradePercentage
+                upgradePPR
+                structureTemplate {
+                  id
+                  title
+                }
               }
             }
             createdAt
@@ -117,14 +125,6 @@ class StructureTemplateTable extends React.Component {
     });
   }
 
-  onEditClick(structureTemplate) {
-    this.props.history.replace(this.props.match.url+'/edit-template/'+structureTemplate.id, { structureTemplate: structureTemplate });
-  }
-
-  onDeleteClick(structureTemplate) {
-    this.props.history.replace(this.props.match.url+'/delete-template/'+structureTemplate.id, { structureTemplate: structureTemplate });
-  }
-
   render() {
     let view;
     // TODO: Error view
@@ -138,7 +138,7 @@ class StructureTemplateTable extends React.Component {
         {
           Header: 'Rank',
           id: 'rank',
-          accessor: 'efficiencyReport.ranking.overallRank',
+          accessor: 'efficiencyReport.ranking.rank',
           width: 50,
           filterable: false,
           sortable: false
@@ -184,7 +184,7 @@ class StructureTemplateTable extends React.Component {
         {
           id: 'energyEfficiency',
           Header: 'Energy Efficiency',
-          accessor: 'efficiencyReport.ranking.overallPercentage',
+          accessor: 'efficiencyReport.ranking.percentage',
           Cell: cellInfo => (<EfficiencyIndicatorComponent uValue={cellInfo.row._original.uValue} percentage={cellInfo.row.energyEfficiency} />),
           filterable: false,
           sortable: false
@@ -199,14 +199,19 @@ class StructureTemplateTable extends React.Component {
                 <Menu.Item
                   icon="edit" 
                   text="Edit template"
-                  onClick={() => this.onEditClick(cellInfo.row._original)}
+                  onClick={() => (this.props.onEditClick) ? this.props.onEditClick(cellInfo.row._original) : {}}
+                />
+                <Menu.Item
+                  icon="timeline-area-chart" 
+                  text="Efficiency report"
+                  onClick={() => (this.props.onReportClick) ? this.props.onReportClick(cellInfo.row._original) : {}}
                 />
                 <Menu.Divider />
                 <Menu.Item
                   icon="trash" 
                   text="Delete template"
                   intent={Intent.DANGER}
-                  onClick={() => this.onDeleteClick(cellInfo.row._original)}
+                  onClick={() => (this.props.onDeleteClick) ? this.props.onDeleteClick(cellInfo.row._original) : {}}
                 />
               </Menu>
             } position={Position.BOTTOM_RIGHT}>
@@ -256,4 +261,4 @@ class StructureTemplateTable extends React.Component {
   }
 }
 
-export default withRouter(StructureTemplateTable);
+export default StructureTemplateTable;

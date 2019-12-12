@@ -12,7 +12,7 @@ const UserDeleteMutation = {
   args: {
     id: { type: new GraphQLNonNull(GraphQLID) },
   },
-  resolve(_, args, { auth }) {
+  resolve: async(_, args, { auth }) => {
     if(!auth.user) throw new Error("You must be logged in to perform this action.");
     let values = Joi.attempt(args, UserDeleteSchema);
     if(values.id == auth.user.id && !checkPermission(auth.user.role, "user_delete_self")) {
@@ -21,18 +21,16 @@ const UserDeleteMutation = {
     if(values.id != auth.user.id && !checkPermission(auth.user.role, "user_delete_others")) {
       throw new Error("You don't have sufficient permissions to delete other users.");
     }
-    return new Promise(function(resolve, reject) {
-      User.getOne(values.id)
-        .then(deleting_user => {
-          if(!checkPermission(auth.user.role, "user_delete_role_"+deleting_user.role)) {
-            throw new Error("You don't have sufficient permissions to delete users of the role '"+deleting_user.role+"'.");
-          }
-          deleting_user.delete()
-            .then(success => resolve(success))
-            .catch(err => reject(err));
-        })
-        .catch(err => reject(err));
-    });
+    try {
+      var user = await User.getOne(values.id);
+    } catch (error) {
+      throw new Error("There is no user with this ID.");
+    }
+    if(values.id != auth.user.id && !checkPermission(auth.user.role, "user_delete_role_"+user.role)) {
+      throw new Error("You don't have sufficient permissions to delete users of the role '"+deleting_user.role+"'.");
+    }
+    let status = await user.delete();
+    return status;
   }
 };
 

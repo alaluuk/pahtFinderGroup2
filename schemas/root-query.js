@@ -1,6 +1,6 @@
-const { GraphQLObjectType, GraphQLNonNull, GraphQLID, GraphQLList } = require("graphql");
-const { APIQuery, User, House, StructureType: StructureTypeModel, StructureTemplate, StructureMaterial, Structure } = require("../models");
-const { QueryType, UserType, HouseType, StructureTypeType, StructureTemplateType, StructureMaterialType, StructureType } = require("./types");
+const { GraphQLObjectType, GraphQLID, GraphQLList } = require("graphql");
+const { APIQuery, User, House, StructureType: StructureTypeModel, StructureTemplate, HouseStructure } = require("../models");
+const { QueryType, UserType, HouseType, StructureTypeType, StructureTemplateType } = require("./types");
 const { checkPermission } = require("../permissions");
 
 const RootQuery = new GraphQLObjectType({
@@ -99,23 +99,37 @@ const RootQuery = new GraphQLObjectType({
         }
       }
     },
-    structures: {
-      type: new GraphQLList(StructureType),
+    houseStructures: {
+      type: new GraphQLList(StructureTemplateType),
       args: {
-        id: { type: GraphQLID }
+        id: { type: GraphQLID },
+        houseID: { type: GraphQLID },
+        structureTypeID: { type: GraphQLID }
       },
-      resolve(_, args, { auth }) {
+      resolve: async(_, args, { auth }) => {
         if(!auth.user) throw new Error("You must be logged in to perform this action.");
-        if(!checkPermission(auth.user.role, "structures_query")) {
-          throw new Error("You don't have sufficient permissions to query structures.");
-        }
         if(args.id) {
-          return [ Structure.getOne(args.id) ];
+          let houseStructure = await HouseStructure.getOne(args.id);
+          let house = await houseStructure.house;
+          if(house._owner_id !== auth.user.id && !checkPermission(auth.user.role, "house_structures_query_owner_other")) {
+            throw new Error("You don't have sufficient permissions to query structures of houses you don't own.");
+          } else if(house._owner_id === auth.user.id && !checkPermission(auth.user.role, "house_structures_query_owner_self")) {
+            throw new Error("You don't have sufficient permissions to query structures of houses you own.");
+          }
+          resolve([ houseStructure ]);
+        } else if(args.houseID) {
+          let house = await House.getOne(args.houseID);
+          if(house._owner_id !== auth.user.id && !checkPermission(auth.user.role, "house_structures_query_owner_other")) {
+            throw new Error("You don't have sufficient permissions to query structures of houses you don't own.");
+          } else if(house._owner_id === auth.user.id && !checkPermission(auth.user.role, "house_structures_query_owner_self")) {
+            throw new Error("You don't have sufficient permissions to query structures of houses you own.");
+          }
+          return HouseStructure.getAnyByHouse(args.houseID, args.structureTypeID);
         } else {
-          return Structure.getAny();
+          throw new Error("You have to specify a unique id for the house structure or a house id with optional structure type filter.");
         }
       }
-    },
+    }
   }
 });
 

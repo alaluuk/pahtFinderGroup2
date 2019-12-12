@@ -19,7 +19,7 @@
     overflow: hidden;
 }
 
-$indicator-padding: 4px;
+$indicator-padding: 3px;
 
 .EfficiencyIndicator {
     display: block;
@@ -86,7 +86,7 @@ $indicator-padding: 4px;
     display: block;
     position: absolute;
     top: 0;
-    left: -4px;
+    left: -5px;
     width: 8px;
     height: 100%;
     border-left: 7px solid transparent;

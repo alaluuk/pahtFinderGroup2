@@ -1,0 +1,14 @@
+.SettingsSystemCard {
+    width: 50%;
+    margin: 1em 0;
+    padding: 15px !important;
+}
+.SettingsSystemCard table.bp3-html-table {
+    margin: -6px -11px;
+    margin-bottom: 10px;
+    width: 100%;
+}
+.SettingsSystemCard table.bp3-html-table tbody tr:first-child th,
+.SettingsSystemCard table.bp3-html-table tbody tr:first-child td {
+    box-shadow: none;
+}
