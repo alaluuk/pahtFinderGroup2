@@ -33,7 +33,7 @@ const HouseStructureUpdateMutation = {
     if(!auth.user) throw new Error("You must be logged in to perform this action.");
     let values = Joi.attempt(args, HouseStructureUpdateSchema);
     try {
-      var house_structure = await HouseStructure.getOne(values.id);
+      var house_structure = await HouseStructure.getOne(values.houseId);
     } catch (error) {
       throw new Error("Invalid structure template: There is no structure template with this ID.");
     }
