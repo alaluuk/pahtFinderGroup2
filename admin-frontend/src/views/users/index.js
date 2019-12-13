@@ -36,6 +36,8 @@ class UsersView extends React.Component {
             email
             role
             permissions
+            createdAt
+            updatedAt
           }
         }
       `)
@@ -106,6 +108,17 @@ class UsersView extends React.Component {
               <UserCreateModal
                 isOpen={true}  
                 onClose={() => { this.props.history.replace(this.props.match.url) }}
+                onCreated={user => {
+                  this.props.history.replace(this.props.match.url);
+                  let newUsers = [...this.state.users];
+                  newUsers.push(user);
+                  newUsers.sort(function(a, b) {
+                    if(a.name < b.name) { return -1; }
+                    if(a.name > b.name) { return 1; }
+                    return 0;
+                  });
+                  this.setState({users: newUsers});
+                }}
               />
             );
           }}

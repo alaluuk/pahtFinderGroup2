@@ -6,3 +6,4 @@ exports.StructureTemplate = require("./structure-template").StructureTemplate;
 exports.HouseStructure = require("./house-structure").HouseStructure;
 exports.StructureEfficiencyReport = require("./structure-efficiency-report").StructureEfficiencyReport;
 exports.House = require("./house").House;
+exports.HouseEfficiencyReport = require("./house-efficiency-report").HouseEfficiencyReport;

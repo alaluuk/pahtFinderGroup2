@@ -7,4 +7,5 @@ exports.StructureEfficiencyReportType = require("./structure-efficiency-report")
 exports.StructureType = require("./structure").StructureType;
 exports.StructureTemplateType = require("./structure-template").StructureTemplateType;
 exports.HouseStructureType = require("./house-structure").HouseStructureType;
+exports.HouseEfficiencyReportType = require("./house-efficiency-report").HouseEfficiencyReportType;
 exports.HouseType = require("./house").HouseType;
