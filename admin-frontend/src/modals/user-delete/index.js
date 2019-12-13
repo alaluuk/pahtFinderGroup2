@@ -42,7 +42,7 @@ class UserDeleteModal extends React.Component {
       <Dialog
         className="UserDeleteModal Modal"
         icon="blocked-person"
-        onClose={this.props.handleClose || undefined}
+        onClose={this.props.onClose || undefined}
         title={'Confirm deletion of "'+this.props.user.name+'"'}
         {...this.state}
       >
