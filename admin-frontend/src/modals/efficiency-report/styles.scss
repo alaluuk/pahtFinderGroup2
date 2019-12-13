@@ -75,8 +75,30 @@
     padding: 0 !important;
     min-height: auto !important;
     margin: .75rem 0;
+    margin-top: 1em;
 }
 
 .EfficiencyReportModal .apexcharts-xaxis-texts-g tspan {
     font-weight: bold;
+}
+
+.EfficiencyReportModal .EfficiencyReportRecommendations .bp3-card {
+    padding: 1em;
+    margin-top: 1em;
+}
+
+.EfficiencyReportModal .EfficiencyReportRecommendations .upgradePercentage,
+.EfficiencyReportModal .EfficiencyReportRecommendations .upgradePrice {
+    margin-top: .25em;
+    font-size: .925em;
+    font-weight: 600;
+    color: #5C7080;
+}
+.EfficiencyReportModal .EfficiencyReportRecommendations .upgradePercentage {
+    color: #43bf4d;
+}
+
+.EfficiencyReportModal .EfficiencyReportRecommendations .upgradePercentage .bp3-icon,
+.EfficiencyReportModal .EfficiencyReportRecommendations .upgradePrice .bp3-icon {
+    margin-right: .3em;
 }

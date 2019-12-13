@@ -9,7 +9,7 @@ const StructureTemplateUpdateSchema = Joi.object({
   title: Joi.string().min(3).max(255).allow(null),
   typeId: Joi.string().guid().allow(null),
   uValue: Joi.number().allow(null),
-  price: Joi.number().positive().precision(2).allow(null),
+  price: Joi.number().min(0).precision(2).allow(null),
   manufacturer: Joi.string().max(255).allow(null),
   serialNumber: Joi.string().max(255).allow(null),
   productionYear: Joi.number().allow(null)
@@ -47,11 +47,11 @@ const StructureTemplateUpdateMutation = {
     }
     if(values.title) structure_template.title = values.title;
     if(values.typeId) structure_template._type_id = values.typeId;
-    if(values.uValue) structure_template.uValue = values.uValue;
-    if(values.price) structure_template.price = values.price;
+    if(values.uValue !== undefined) structure_template.uValue = values.uValue;
+    if(values.price !== undefined) structure_template.price = values.price;
     if(values.manufacturer) structure_template.manufacturer = values.manufacturer;
     if(values.serialNumber) structure_template.serialNumber = values.serialNumber;
-    if(values.productionYear) structure_template.productionYear = values.productionYear;
+    if(values.productionYear !== undefined) structure_template.productionYear = values.productionYear;
     let status = await structure_template.save();
     return structure_template;
   }

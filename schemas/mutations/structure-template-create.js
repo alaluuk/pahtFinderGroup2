@@ -8,7 +8,7 @@ const StructureTemplateCreateSchema = Joi.object({
   title: Joi.string().min(3).max(255).required(),
   typeId: Joi.string().guid().required(),
   uValue: Joi.number().required(),
-  price: Joi.number().positive().precision(2),
+  price: Joi.number().min(0).precision(2),
   manufacturer: Joi.string().max(255),
   serialNumber: Joi.string().max(255),
   productionYear: Joi.number()

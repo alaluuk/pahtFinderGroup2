@@ -1,6 +1,6 @@
 import React from "react";
 import Chart from "react-apexcharts";
-import { Button, Dialog, Classes, H5, H6, Icon, Tab, Tabs, NonIdealState, Text } from "@blueprintjs/core";
+import { Button, Dialog, Classes, H5, H6, Icon, Tab, Tabs, NonIdealState, Text, Card } from "@blueprintjs/core";
 import "./styles.scss";
 
 const segmentColors = {
@@ -143,7 +143,7 @@ class EfficiencyReportModal extends React.Component {
                     style={{
                       color: (this.props.structureTemplate.efficiencyReport.ranking.percentage.toFixed(0) >= 33.33) ? (this.props.structureTemplate.efficiencyReport.ranking.percentage.toFixed(0) >= 66.66) ? '#43bf4d' : '#f59247' : '#eb532d'
                     }}
-                  ><Icon icon="trending-down" /> Energy Efficiency: {this.props.structureTemplate.efficiencyReport.ranking.percentage.toFixed(0)}% (#{this.props.structureTemplate.efficiencyReport.ranking.rank} / {this.props.structureTemplate.efficiencyReport.ranking.count})</div>
+                  ><Icon icon="pulse" /> Energy Efficiency: {this.props.structureTemplate.efficiencyReport.ranking.percentage.toFixed(0)}% (#{this.props.structureTemplate.efficiencyReport.ranking.rank} / {this.props.structureTemplate.efficiencyReport.ranking.count})</div>
                   :
                   <div
                     className="rankPercentage is-better"
@@ -156,14 +156,33 @@ class EfficiencyReportModal extends React.Component {
           </section>
           <Tabs id="EfficiencyReportTabs" onChange={this.handleTabChange} selectedTabId={this.state.shownTab}>
             <Tab id="recommendations" title="Upgrade Recommendations" panel={<section className="EfficiencyReportRecommendations">
-              <NonIdealState
-                icon={<Icon icon="issue" iconSize="25" />}
-                title="No upgrade recommendations found!"
-                description={<Text className="bp3-text-muted">This template is either the best or the only template of its type.</Text>}
-              />
+              {
+              (this.props.structureTemplate.efficiencyReport.recommendations.length === 0) ?
+                <NonIdealState
+                  icon={<Icon icon="issue" iconSize="25" />}
+                  title="No upgrade recommendations found!"
+                  description={<Text className="bp3-text-muted">This template is either the best or the only template of its type.</Text>}
+                /> :
+                <div>
+                  <H6>Most cost-effective upgrade recommendations:</H6>
+                  {this.props.structureTemplate.efficiencyReport.recommendations.map(recommendation => (
+                    <Card
+                      key={recommendation.structureTemplate.id}
+                    >
+                      <H6>{recommendation.structureTemplate.title}</H6>
+                      <div className="upgradePercentage">
+                        <Icon icon="trending-up" /> Energy Efficiency: {(this.props.structureTemplate.efficiencyReport.ranking.percentage+recommendation.upgradePercentage).toFixed(0)}% (+{recommendation.upgradePercentage.toFixed(0)}%)
+                      </div>
+                      <div className="upgradePrice">
+                        <Icon icon="euro" /> Upgrade Price: {(recommendation.upgradePrice) ? recommendation.upgradePrice.toFixed(2)+' €' : 'N/A'}
+                      </div>
+                    </Card>
+                  ))}
+                </div>
+              }
             </section>} />
             <Tab id="segmentation" title="Efficiency Segmentation" panel={<section className="EfficiencyReportSegmentation">
-              <H6>Efficiency Segmentation of type "{this.props.structureTemplate.type.title}":</H6>
+              <H6>Efficiency segmentation of type "{this.props.structureTemplate.type.title}":</H6>
               <Chart
                 className="EfficiencyReportSegmentationChart bp3-card bp3-elevation-1"
                 options={this.state.segmentationChartOptions}
@@ -172,7 +191,6 @@ class EfficiencyReportModal extends React.Component {
                 height="150"
               />
             </section>} />
-            <Tab id="raw" title="RAW JSON" panel={<pre>{ JSON.stringify(this.props.structureTemplate.efficiencyReport, null, 2) }</pre>} />
           </Tabs>
         </div>
         <div className={Classes.DIALOG_FOOTER}>

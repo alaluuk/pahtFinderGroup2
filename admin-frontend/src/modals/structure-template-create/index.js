@@ -15,7 +15,7 @@ class StructureTemplateCreateModal extends React.Component {
         typeId: props.selectedStructureTypeId || ""
       },
       errors: {},
-      typesList: [ { label: "Choose an item...", value: "" } ]
+      typesList: [ { label: "Choose a type...", value: "" } ]
     };
 
     if(props.structureTypes) {
@@ -32,7 +32,7 @@ class StructureTemplateCreateModal extends React.Component {
     if(props.isOpen) state.isOpen = props.isOpen;
     if(props.selectedStructureTypeId) state.values.typeId = props.selectedStructureTypeId || "";
     if(props.structureTypes) {
-      state.typesList = [ { label: "Choose an item...", value: "" } ];
+      state.typesList = [ { label: "Choose a type...", value: "" } ];
       props.structureTypes.forEach(structureType => {
         state.typesList.push({ label: structureType.title, value: structureType.id });
       });
@@ -172,7 +172,7 @@ class StructureTemplateCreateModal extends React.Component {
                 value={this.state.values.uValue || ""}
                 placeholder="U-Value"
                 disabled={this.state.isLoading}
-                onValueChange={(value) => { this.setState({values: {...this.state.values, uValue: value}}) }}
+                onValueChange={(value, valueString) => { this.setState({values: {...this.state.values, uValue: (valueString === '') ? value : null}}) }}
                 intent={this.state.errors.uValue ? Intent.DANGER : Intent.NONE }
                 majorStepSize={1}
                 stepSize={0.1}
@@ -195,7 +195,7 @@ class StructureTemplateCreateModal extends React.Component {
                 value={this.state.values.price || ""}
                 placeholder="Price (€)"
                 disabled={this.state.isLoading}
-                onValueChange={(value) => { this.setState({values: {...this.state.values, price: value}}) }}
+                onValueChange={(value, valueString) => { this.setState({values: {...this.state.values, price: (valueString === '') ? value : null}}) }}
                 intent={this.state.errors.price ? Intent.DANGER : Intent.NONE }
                 min={0}
                 fill={true}
@@ -252,7 +252,7 @@ class StructureTemplateCreateModal extends React.Component {
                 value={this.state.values.productionYear || ""}
                 placeholder="Production Year"
                 disabled={this.state.isLoading}
-                onValueChange={(value) => { this.setState({values: {...this.state.values, productionYear: value}}) }}
+                onValueChange={(value, valueString) => { this.setState({values: {...this.state.values, productionYear: (valueString === '') ? value : null}}) }}
                 intent={this.state.errors.productionYear ? Intent.DANGER : Intent.NONE }
                 min={0}
                 max={new Date().getFullYear()}

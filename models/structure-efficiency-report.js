@@ -137,9 +137,9 @@ class StructureEfficiencyReport {
     };
   }
 
-  async getUpgradeRecommendations(limit = 1) {
+  async getUpgradeRecommendations(limit = 3) {
     let recommendations = [];
-    let results = await db.any(`SELECT *, ((u_value - $1) * price) AS price_performance_ratio FROM structure_templates WHERE type_id = $2 AND u_value < $3 ORDER BY price_performance_ratio LIMIT $4`, [
+    let results = await db.any(`SELECT *, (price / (u_value - $1)) AS price_performance_ratio FROM structure_templates WHERE type_id = $2 AND u_value < $3 ORDER BY price_performance_ratio DESC LIMIT $4`, [
       this.structure.uValue,
       this.structure._type_id,
       this.structure.uValue,
@@ -153,6 +153,7 @@ class StructureEfficiencyReport {
         upgradePrice: upgradeTemplate.price,
         upgradeUValue: upgradeTemplate.uValue - this.structure.uValue,
         upgradePercentage: this.calculatePercentage(upgradeTemplate.uValue) - this.calculatePercentage(this.structure.uValue),
+        // updgradeCostOfHeating: TODO
         upgradePPR: (result.price_performance_ratio),
         structureTemplate: upgradeTemplate
       });
