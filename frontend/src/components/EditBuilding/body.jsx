@@ -50,11 +50,19 @@ class EditBuilding extends Component {
     });
   }
 
- 
-  //triggered after succesfull CreateHouse request
+ /**
+  *   triggered after succesfull CreateHouse or UpdateHouse request
+  *   @see generalInformation.jsx
+  *   After CreateHouse: houseId is saved to this state
+  *   After UpdateHouse: user gets redirected to result page 
+  */
   houseIdCallback = (dataFromChild) => {
-    this.setState({houseId: dataFromChild});
-    console.log("House ID",this.state.houseId)
+    if(dataFromChild){
+      this.setState({houseId: dataFromChild});
+      console.log("House ID",this.state.houseId)
+    }else{
+      this.props.history.push(`/result`)
+    }
   }
 
   render() {
