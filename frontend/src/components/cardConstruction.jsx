@@ -5,6 +5,10 @@ import DeleteConstruction from "./Deletion/body.jsx"
 
 
 
+
+
+
+
 class Card extends Component {
   state = {
     id: 0,
@@ -54,6 +58,20 @@ class Card extends Component {
     // add todo
 }
 
+renderImage(){
+  var image = "";
+  if(this.state.type == "Roof construction"){
+    image ="https://images.unsplash.com/photo-1472342139520-1aa49517fed8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=753&q=80";
+  }else if(this.state.type == "Windows"){
+    image ="https://images.unsplash.com/photo-1496092607007-ca127e0b6a10?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1085&q=80";
+  }else if(this.state.type == "Doors"){
+    image ="https://images.unsplash.com/photo-1496060875531-64e305199ebf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80";
+  }else if(this.state.type == "Ground floor"){
+    image ="https://abes-online.com/wp-content/uploads/2018/06/fundament1.jpg";
+  }
+  return image;
+}
+
 
   render() {
 
@@ -63,7 +81,7 @@ class Card extends Component {
       <div className="constructionCard">
         <img
           className="constructionPicture" alt="constructionpicture"
-          src={this.state.image}
+          src={this.renderImage()}
         ></img>
 
         <div className="conButtons">

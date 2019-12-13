@@ -1,7 +1,7 @@
 import React from "react";
 import GraphQLClient from '../../providers/graphql';
 import { AppToaster } from '../../App';
-import { Button, Intent, Dialog, Classes, Colors } from "@blueprintjs/core";
+import { Button, Intent, Dialog, Classes } from "@blueprintjs/core";
 
 class StructureTemplateDeleteModal extends React.Component {
   constructor(props) {
@@ -41,7 +41,7 @@ class StructureTemplateDeleteModal extends React.Component {
     return (
       <Dialog
         className="StructureTemplateDeleteModal Modal"
-        icon="cross"
+        icon="trash"
         onClose={this.props.onClose || undefined}
         title={"Delete Structure Template"}
         {...this.state}

@@ -11,6 +11,7 @@ const Roles = {
         "house_query_owner_self",
         "house_update_owner_self",
         "house_delete_owner_self",
+        "house_structures_query_owner_self",
         "house_structure_create_owner_self",
         "house_structure_update_owner_self",
         "house_structure_delete_owner_self"

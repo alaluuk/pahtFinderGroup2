@@ -19,7 +19,7 @@ const UserCreateMutation = {
     password: { type: new GraphQLNonNull(GraphQLString) },
     role: { type: new GraphQLNonNull(GraphQLString) }
   },
-  resolve(_, args, { auth }) {
+  resolve: async(_, args, { auth }) => {
     if(!auth.user) throw new Error("You must be logged in to perform this action.");
     let values = Joi.attempt(args, UserCreateSchema);
     if(!checkPermission(auth.user.role, "user_create")) {
@@ -28,7 +28,14 @@ const UserCreateMutation = {
     if(!checkPermission(auth.user.role, "user_create_role_"+values.role)) {
       throw new Error("You don't have sufficient permissions to create users with the role '"+values.role+"'.");
     }
-    return User.create(values.name, values.email, values.password, values.role);
+    // TODO: Check if is valid role
+    try {
+      var user = await User.create(values.name, values.email, values.password, values.role);
+    } catch(err) {
+      if(err.code == '23505') throw new Error("This email address is already being used by another user.");
+      throw err;
+    }
+    return user;
   }
 };
 

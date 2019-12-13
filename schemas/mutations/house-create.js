@@ -29,7 +29,7 @@ const HouseCreateMutation = {
     costOfHeating: { type: GraphQLFloat },
     warmWaterPipe: { type: GraphQLBoolean }
   },
-  resolve(_, args, { auth }) {
+  resolve: async(_, args, { auth }) => {
     if(!auth.user) throw new Error("You must be logged in to perform this action.");
     if(!checkPermission(auth.user.role, "house_create")) {
       throw new Error("You don't have sufficient permissions to create houses.");
@@ -38,7 +38,7 @@ const HouseCreateMutation = {
     if(auth.user.id != values.ownerId && !checkPermission(auth.user.role, "house_create_owner_others")) {
       throw new Error("You don't have sufficient permissions to create houses owned by others.");
     }
-    return House.create(
+    let house = await House.create(
       values.name,
       values.addressCountry,
       values.addressCity,
@@ -49,6 +49,7 @@ const HouseCreateMutation = {
       values.costOfHeating,
       values.warmWaterPipe
     );
+    return house;
   }
 };
 

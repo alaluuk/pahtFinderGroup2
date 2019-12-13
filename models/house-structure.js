@@ -19,10 +19,16 @@ class HouseStructure extends Structure {
     });
   }
 
-  static getAnyByHouse(house_id) {
+  static getAnyByHouse(house_id, filter_type = null) {
+    var queryString = `SELECT * FROM house_structures WHERE house_id=$1`;
+    var queryParams = [ house_id ];
+    if(filter_type) {
+      queryString += `AND type_id=$2`;
+      queryParams.push(filter_type);
+    }
     return new Promise(function(resolve, reject) {
       db
-        .any(`SELECT * FROM house_structures WHERE house_id=$1`, [ house_id ])
+        .any(queryString, queryParams)
         .then(res => {
           let house_structures = [];
           res.forEach(house_structure_data => {

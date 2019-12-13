@@ -1,6 +1,6 @@
 const Joi = require('@hapi/joi');
 const { GraphQLNonNull, GraphQLString, GraphQLFloat, GraphQLInt, GraphQLID } = require("graphql");
-const { HouseStructure, House, /* StructureType */ } = require("../../models");
+const { HouseStructure, House, StructureType } = require("../../models");
 const { HouseStructureType } = require("../types");
 const { checkPermission } = require("../../permissions");
 
@@ -27,37 +27,36 @@ const HouseStructureCreateMutation = {
     serialNumber: { type: GraphQLString },
     productionYear: { type: GraphQLInt }
   },
-  resolve(_, args, { auth }) {
+  resolve: async(_, args, { auth }) => {
     if(!auth.user) throw new Error("You must be logged in to perform this action.");
     let values = Joi.attempt(args, HouseStructureCreateSchema);
-    return new Promise(function(resolve, reject) {
-      House.getOne(values.houseId)
-        .then(house => {
-          if(house._owner_id == auth.user.id && !checkPermission(auth.user.role, "house_structure_create_owner_self")) {
-            reject(new Error("You don't have sufficient permissions to create structures for houses you own."));
-          }
-          if(house._owner_id != auth.user.id && !checkPermission(auth.user.role, "house_structure_create_owner_other")) {
-            reject(new Error("You don't have sufficient permissions to create structures for houses you don't own."));
-          }
-          // StructureType.getOne(values.typeId)
-            // .then(structure_type => {
-              HouseStructure.create(
-                values.houseId,
-                values.title,
-                values.typeId,
-                values.uValue,
-                values.price,
-                values.manufacturer,
-                values.serialNumber,
-                values.productionYear
-              )
-                .then(house_structure => resolve(house_structure))
-                .catch(err => reject(err));
-            // })
-            // .catch(err => reject(new Error("Invalid structure type: There is no structure type with this ID.")));
-        })
-        .catch(err => reject(new Error("Invalid house: There is no house with this ID.")));
-    });
+    try {
+      var house = await House.getOne(values.houseId);
+    } catch (error) {
+      throw new Error("There is no house with this ID.");
+    }
+    if(house._owner_id == auth.user.id && !checkPermission(auth.user.role, "house_structure_create_owner_self")) {
+      reject(new Error("You don't have sufficient permissions to create structures for houses you own."));
+    }
+    if(house._owner_id != auth.user.id && !checkPermission(auth.user.role, "house_structure_create_owner_other")) {
+      reject(new Error("You don't have sufficient permissions to create structures for houses you don't own."));
+    }
+    try {
+      var structure_type = await StructureType.getOne(values.typeId);
+    } catch(err) {
+      throw new Error("There is no structure type with this ID.");
+    }
+    let house_structure = await HouseStructure.create(
+      values.houseId,
+      values.title,
+      values.typeId,
+      values.uValue,
+      values.price,
+      values.manufacturer,
+      values.serialNumber,
+      values.productionYear
+    );
+    return house_structure;
   }
 };
 

@@ -25,29 +25,27 @@ const StructureTemplateCreateMutation = {
     serialNumber: { type: GraphQLString },
     productionYear: { type: GraphQLInt }
   },
-  resolve(_, args, { auth }) {
+  resolve: async(_, args, { auth }) => {
     if(!auth.user) throw new Error("You must be logged in to perform this action.");
     if(!checkPermission(auth.user.role, "structure_template_create")) {
       throw new Error("You don't have sufficient permissions to create structure templates.");
     }
     let values = Joi.attempt(args, StructureTemplateCreateSchema);
-    return new Promise(function(resolve, reject) {
-      StructureType.getOne(values.typeId)
-        .then(structure_type => {
-          StructureTemplate.create(
-            values.title,
-            values.typeId,
-            values.uValue,
-            values.price,
-            values.manufacturer,
-            values.serialNumber,
-            values.productionYear
-          )
-            .then(house_structure => resolve(house_structure))
-            .catch(err => reject(err));
-        })
-        .catch(err => reject(new Error("Invalid structure type: There is no structure type with this ID.")));
-    });
+    try {
+      var structure_type = await StructureType.getOne(values.typeId);
+    } catch (error) {
+      throw new Error("There is no structure type with this ID.");
+    }
+    let structure_template = StructureTemplate.create(
+      values.title,
+      values.typeId,
+      values.uValue,
+      values.price,
+      values.manufacturer,
+      values.serialNumber,
+      values.productionYear
+    );
+    return structure_template;
   }
 };
 

@@ -1,6 +1,6 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
-import { Button, Navbar, Alignment, ControlGroup, InputGroup, Spinner } from "@blueprintjs/core";
+import { Button, Navbar, Alignment, ControlGroup, InputGroup, /* Spinner */ } from "@blueprintjs/core";
 import "./styles.scss";
 
 class FilterableSubheaderComponent extends React.Component {
@@ -21,7 +21,7 @@ class FilterableSubheaderComponent extends React.Component {
               <InputGroup
                 leftIcon="search"
                 placeholder="Search..."
-                rightElement={<Spinner size="15"></Spinner>}
+                // rightElement={<Spinner size="15"></Spinner>}
               />
               <Button icon="filter"></Button>
             </ControlGroup>

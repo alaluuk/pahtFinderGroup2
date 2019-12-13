@@ -73,7 +73,7 @@ class StructureTypeEditModal extends React.Component {
     return (
       <Dialog
         className="StructureTypeEditModal Modal"
-        icon="new-layer"
+        icon="layer"
         onOpening={this.reset}
         onClose={this.props.onClose || undefined}
         title="Edit Structure Type"
@@ -111,7 +111,7 @@ class StructureTypeEditModal extends React.Component {
               intent={Intent.SUCCESS}
               onClick={this.handleSubmit}
               loading={this.state.isLoading}
-            >Submit Type</Button>
+            >Save changes</Button>
           </div>
         </div>
       </Dialog>

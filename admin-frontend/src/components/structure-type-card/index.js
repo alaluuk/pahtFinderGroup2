@@ -1,5 +1,4 @@
 import React from "react";
-import { withRouter } from "react-router";
 import { Button, Card, H5, Classes, Collapse, Elevation, Popover, Menu, Intent, Position } from "@blueprintjs/core";
 import StructureTemplateTable from "../../components/structure-template-table";
 import "./styles.scss";
@@ -18,9 +17,6 @@ class StructureTypeCard extends React.Component {
     this.templateTable = React.createRef();
     
     this.refetchData = this.refetchData.bind(this);
-    this.onEditClick = this.onEditClick.bind(this);
-    this.onDeleteClick = this.onDeleteClick.bind(this);
-    this.onCreateTemplateClick = this.onCreateTemplateClick.bind(this);
   }
 
   refetchData() {
@@ -29,18 +25,6 @@ class StructureTypeCard extends React.Component {
 
   toggleCollapsed(collapse) {
     this.setState({ isCollapsed: collapse });
-  }
-
-  onEditClick() {
-    this.props.history.replace(this.props.match.url+'/edit-type/'+this.props.structureType.id, { structureType: this.props.structureType });
-  }
-
-  onDeleteClick() {
-    this.props.history.replace(this.props.match.url+'/delete-type/'+this.props.structureType.id, { structureType: this.props.structureType });
-  }
-
-  onCreateTemplateClick() {
-    this.props.history.replace(this.props.match.url+'/create-template', { typeId: this.props.structureType.id });
   }
 
   render() {
@@ -61,12 +45,12 @@ class StructureTypeCard extends React.Component {
               <Menu.Item
                 icon="new-layers" 
                 text="Add a new template"
-                onClick={this.onCreateTemplateClick}
+                onClick={this.props.onCreateTemplateClick || undefined}
               />
               <Menu.Item
                 icon="edit" 
                 text="Edit structure type"
-                onClick={this.onEditClick}
+                onClick={this.props.onEditClick || undefined}
               />
               <Menu.Item
                 icon={(!this.state.isCollapsed) ? "collapse-all" : "expand-all"} 
@@ -84,7 +68,7 @@ class StructureTypeCard extends React.Component {
                 icon="trash" 
                 text="Delete structure type"
                 intent={Intent.DANGER}
-                onClick={this.onDeleteClick}
+                onClick={this.props.onDeleteClick || undefined}
               />
             </Menu>
           } position={Position.BOTTOM_RIGHT}>
@@ -101,7 +85,10 @@ class StructureTypeCard extends React.Component {
               initialFetched: true,
               isCollapsed: (!this.state.initialFetched && totalCount <= 0)
             })}
-            onCreateClick={this.onCreateTemplateClick}
+            onCreateClick={this.props.onCreateTemplateClick || undefined}
+            onEditClick={(template) => (this.props.onEditTemplateClick) ? this.props.onEditTemplateClick(template) : undefined}
+            onReportClick={(template) => (this.props.onReportTemplateClick) ? this.props.onReportTemplateClick(template) : undefined}
+            onDeleteClick={(template) => (this.props.onDeleteTemplateClick) ? this.props.onDeleteTemplateClick(template) : undefined}
           />
         </Collapse>
       </Card>
@@ -109,4 +96,4 @@ class StructureTypeCard extends React.Component {
   }
 }
 
-export default withRouter(StructureTypeCard);
+export default StructureTypeCard;

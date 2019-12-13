@@ -15,22 +15,20 @@ const StructureTypeUpdateMutation = {
     id: { type: new GraphQLNonNull(GraphQLID) },
     title: { type: GraphQLString }
   },
-  resolve(_, args, { auth }) {
+  resolve: async(_, args, { auth }) => {
     if(!auth.user) throw new Error("You must be logged in to perform this action.");
     let values = Joi.attempt(args, StructureTypeUpdateSchema);
     if(!checkPermission(auth.user.role, "structure_type_update")) {
       throw new Error("You don't have sufficient permissions to edit structure types.");
     }
-    return new Promise(function(resolve, reject) {
-      StructureType.getOne(values.id)
-        .then(structure_type => {
-          if(values.title) structure_type.title = values.title;
-          structure_type.save()
-            .then(success => resolve(structure_type))
-            .catch(err => reject(err));
-        })
-        .catch(err => reject(err));
-    });
+    try {
+      var structure_type = await StructureType.getOne(values.id);
+    } catch (error) {
+      throw new Error("There is no structure type with this ID.");
+    }
+    if(values.title) structure_type.title = values.title;
+    let status = await structure_type.save();
+    return status;
   }
 };
 

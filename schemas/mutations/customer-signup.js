@@ -44,7 +44,7 @@ const CustomerSignupMutation = {
         });
       })
       .catch(err => {
-        if(err.code == '23505') reject(new Error("This email address is already being used."));
+        if(err.code == '23505') reject(new Error("This email address is already being used by another user."));
         reject(err);
       });
     });

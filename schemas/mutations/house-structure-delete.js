@@ -12,24 +12,27 @@ const HouseStructureDeleteMutation = {
   args: {
     id: { type: new GraphQLNonNull(GraphQLID) },
   },
-  resolve(_, args, { auth }) {
+  resolve: async(_, args, { auth }) => {
     if(!auth.user) throw new Error("You must be logged in to perform this action.");
     let values = Joi.attempt(args, HouseStructureDeleteSchema);
-    return new Promise(function(resolve, reject) {
-      House.getOne(values.houseId)
-        .then(house => {
-          if(house._owner_id == auth.user.id && !checkPermission(auth.user.role, "house_structure_delete_owner_self")) {
-            throw new Error("You don't have sufficient permissions to delete structures from houses you own.");
-          }
-          if(house._owner_id != auth.user.id && !checkPermission(auth.user.role, "house_structure_delete_owner_other")) {
-            throw new Error("You don't have sufficient permissions to delete structures from houses you don't own.");
-          }
-          HouseStructure.delete(values.id)
-            .then(success => resolve(success))
-            .catch(err => reject(err));
-        })
-        .catch(err => reject(err));
-    });
+    try {
+      var house_structure = await HouseStructure.getOne(values.id);
+    } catch (error) {
+      throw new Error("There is no house structure with this ID.");
+    }
+    try {
+      var house = await House.getOne(house_structure._house_id);
+    } catch (error) {
+      throw new Error("There is no house with this ID.");
+    }
+    if(house._owner_id == auth.user.id && !checkPermission(auth.user.role, "house_delete_owner_self")) {
+      throw new Error("You don't have sufficient permissions to delete houses owned by yourself.");
+    }
+    if(house._owner_id != auth.user.id && !checkPermission(auth.user.role, "house_delete_owner_others")) {
+      throw new Error("You don't have sufficient permissions to delete houses owned by others.");
+    }
+    let status = await house_structure.delete();
+    return status;
   }
 };
 
