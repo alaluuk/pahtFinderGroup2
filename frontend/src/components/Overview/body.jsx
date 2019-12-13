@@ -21,62 +21,62 @@ const GET_BUILDINGS = gql`
       constructionYear
     }
   }
-`; 
+`;
 
 /* Randomised Pictures */
-function randomizeImage(number){
-  if(number == 1){
+function randomizeImage(number) {
+  if (number == 1) {
     return "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80";
 
   }
-  else if(number == 2){
+  else if (number == 2) {
     return "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80";
   }
-  else if(number == 3){
+  else if (number == 3) {
     return "https://images.unsplash.com/photo-1518780664697-55e3ad937233?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=701&q=80";
 
   }
-  else if(number == 4){
+  else if (number == 4) {
     return "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80";
 
   }
-  else if(number == 5){
+  else if (number == 5) {
     return "https://images.unsplash.com/photo-1449844908441-8829872d2607?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80";
 
   }
-  else if(number == 6){
+  else if (number == 6) {
     return "https://images.unsplash.com/photo-1430285561322-7808604715df?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80";
 
   }
-  else if(number == 7){
+  else if (number == 7) {
     return "https://images.unsplash.com/photo-1510627489930-0c1b0bfb6785?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80";
 
   }
-  else if(number == 8){
+  else if (number == 8) {
     return "https://images.unsplash.com/photo-1568092775154-7fa176a29c0f?ixlib=rb-1.2.1&auto=format&fit=crop&w=967&q=80";
 
   }
-  else if(number == 9){
+  else if (number == 9) {
     return "https://images.unsplash.com/photo-1567493756992-e2b6227cddc0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80";
 
   }
-  else if(number == 10){
+  else if (number == 10) {
     return "https://images.unsplash.com/photo-1464146072230-91cabc968266?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80";
 
   }
-    }
+}
 
 
 export default function Body() {
 
-   // Similar to componentDidMount and componentDidUpdate:
-   useEffect(() => {
-    if(refresh){
+  // Similar to componentDidMount and componentDidUpdate:
+  useEffect(() => {
+    if (refresh) {
       window.location.reload();
     }
-      setRefresh(false)
+    setRefresh(false)
   });
- 
+
 
   const owner = localStorage.getItem(CURRENT_USER_ID);
   const [ownerID] = React.useState(owner);
@@ -88,7 +88,7 @@ export default function Body() {
   if (loading) return <p>LOADING</p>;
   if (error) return `Error! ${error}`;
 
-  
+
   return (
     <div className="bodyOverview" >
       <div className="overlay">
@@ -108,14 +108,14 @@ export default function Body() {
               <Filter></Filter>
               <Sort></Sort>
             </div>
-          </div> 
+          </div>
 
           <div className="scrollBars">
-          {data.houses.map((house, index) => (
+            {data.houses.map((house, index) => (
               <Card
-               id = {house.id}
+                id={house.id}
                 key={house.name + "-" + index}
-                image = {randomizeImage(Math.ceil(Math.random() * 10))}
+                image={randomizeImage(Math.ceil(Math.random() * 10))}
                 title={house.name}
                 year={house.constructionYear}
                 country={house.addressCountry}
@@ -131,7 +131,7 @@ export default function Body() {
           </div>
         </div>
       </div>
-      
+
     </div>
   );
 }

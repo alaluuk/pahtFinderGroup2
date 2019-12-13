@@ -40,9 +40,10 @@ export default function AddConstruction(props) {
   const [open, setOpen] = React.useState(false);
   //if construction saved successfully, close form
   const saveConstructionClicked = (data) => {
-    console.log("Construction saved", data)
-    resetValues()
+    console.log("Construction saved", data);
+    resetValues();
     setOpen(false);
+    props.callbackFromParent();
   };
   //Write best available error message
   const handleErrors = (data) => {

@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Slider from "@material-ui/core/Slider";
@@ -13,6 +13,7 @@ import DeleteButton from "./deleteBuilding";
 import { useQuery } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 import axios from 'axios';
+import { Link } from 'react-router-dom'
 import "../../styles/building.scss";
 
 
@@ -48,7 +49,6 @@ const GET_SINGLE_BUILDING = gql`
     }
   }`;
 
- 
 
 
   async function getCoordinates(address){
@@ -62,6 +62,7 @@ const GET_SINGLE_BUILDING = gql`
     return coor;
   
   }
+
 
 
 
@@ -79,58 +80,52 @@ export default function Body(props) {
   const [coordi, setCoordi] = React.useState('');
 
   const { data, loading, error } = useQuery(GET_SINGLE_BUILDING, {
-      variables: { id }
-    });
+    variables: { id }
+  });
 
 
-  
-if (loading) return <p>Loading...</p>
-if (error) return `Error! ${error}`;
 
-{/* 
+  if (loading) return <p>Loading...</p>
+  if (error) return `Error! ${error}`;
+
+  {/* 
 const fullAddress = data.houses[0].addressStreet + "+" + data.houses[0].addressCity + "+" + data.houses[0].addressCountry;
 useEffect(async () => {
   setCoordi(getCoordinates(fullAddress))
 });
 */}
 
-
-
-
-
-
-    const PrettoSlider = withStyles({
-      root: {
-        color: "dimgray",
-        height: 8
-      },
-      thumb: {
-        height: 24,
-        width: 24,
-        backgroundColor: "dimgray",
-        border: "2px solid white",
-        marginTop: -8,
-        marginLeft: -12,
-        "&:focus,&:hover,&$active": {
-          boxShadow: "inherit"
-        }
-      },
-      active: {},
-      valueLabel: {
-        left: "calc(-50% + 4px)"
-      },
-      track: {
-        borderRadius: 4
-      },
-      rail: {
-        borderRadius: 4
+  const PrettoSlider = withStyles({
+    root: {
+      color: "dimgray",
+      height: 8
+    },
+    thumb: {
+      height: 24,
+      width: 24,
+      backgroundColor: "dimgray",
+      border: "2px solid white",
+      marginTop: -8,
+      marginLeft: -12,
+      "&:focus,&:hover,&$active": {
+        boxShadow: "inherit"
       }
-    })(Slider);
+    },
+    active: {},
+    valueLabel: {
+      left: "calc(-50% + 4px)"
+    },
+    track: {
+      borderRadius: 4
+    },
+    rail: {
+      borderRadius: 4
+    }
+  })(Slider);
 
-    
-    
-    return (
-      
+
+
+  return (      
       <div className="bodyBuilding">
         {data.houses.map((house, index) => {
           return (
@@ -138,14 +133,21 @@ useEffect(async () => {
           <div className="building" key={house.name + "-" + index}>
             <div className="buildingHeader">
               <h1 className="buildingHeaderText">{house.name}</h1>
+              <Link to={{
+                pathname: '/addBuilding',
+                state: {
+                  houseId: props.id,
+                }
+              }}>
               <Button className="buildingEdit" variant="outlined">
                 <EditIcon /> &nbsp; Edit
               </Button>
+              </Link>
               <DeleteButton
                 className="buildingDelete"
                 id={props.id}
-                parentType =  "Building"
-                parentTitle = {house.name}
+                parentType="Building"
+                parentTitle={house.name}
               ></DeleteButton>
               <div className="buildingSlider">
                 <PrettoSlider
@@ -162,7 +164,7 @@ useEffect(async () => {
                 <div className="buildInfoLeft">
                   <img
                     className="buildingPicture"
-                    src = {image}
+                    src={image}
                     alt="buildingPicture"
                   ></img>
                 </div>
@@ -240,34 +242,34 @@ useEffect(async () => {
                 </div>
                 <div className="buildInfoRight">
                   <div className="buildingMap">
-                    <Map coordinates = {coordi} ></Map>
+                    <Map coordinates={coordi} ></Map>
                   </div>
                 </div>
               </div>
 
-              <div className = "potenials">
-         
+              <div className="potenials">
 
-<div className = "potConsum">
-                  <h4 className = "potTitle">Present Consumption (Per Year In kWh)</h4>
-                  <h2 className = "potText">3400 kWh</h2>
-                  </div>
 
-                  <div className = "potConsum">
-                  <h4 className = "potTitle">Present Consumption (Per Year In €)</h4>
-                  <h2 className = "potText"> 2800 €</h2>
-                  </div>
-      
-                  <div className = "potLosts">
-                  <h4 className = "potTitle">Potential Savings (Per Year In kWh) </h4>
-                    <h2 className = "potText"> -544 kWh</h2>
-                  </div>
-                  <div className = "potSavings">
-                  <h4 className = "potTitle">Potential Savings (Per Year In €) </h4>
-                    <h2 className = "potText"> +630 €</h2>
-                  </div>
-
+                <div className="potConsum">
+                  <h4 className="potTitle">Present Consumption (Per Year In kWh)</h4>
+                  <h2 className="potText">3400 kWh</h2>
                 </div>
+
+                <div className="potConsum">
+                  <h4 className="potTitle">Present Consumption (Per Year In €)</h4>
+                  <h2 className="potText"> 2800 €</h2>
+                </div>
+
+                <div className="potLosts">
+                  <h4 className="potTitle">Potential Savings (Per Year In kWh) </h4>
+                  <h2 className="potText"> -544 kWh</h2>
+                </div>
+                <div className="potSavings">
+                  <h4 className="potTitle">Potential Savings (Per Year In €) </h4>
+                  <h2 className="potText"> +630 €</h2>
+                </div>
+
+              </div>
 
               <div className="buildingRecommendations">
                 <div className="buildingRecoHeader">

@@ -22,23 +22,24 @@ class EditBuilding extends Component {
   state = {
     structureTypes: null, //all available structures types
     triggerSave: false, //inverting this value will trigger saving request in child components
-    houseId: 0, //id of house that is currently edited
-    errorMessage: '' //will be displayed in case of error
+    houseId: this.props.houseId, //id of house that is currently edited
+    errorMessage: '' //will be displayed in case of graphql error
   };
 
   componentDidMount(){
+    this.setState({houseId: this.props.houseId})
     //retrieve construction types via withAollo
     console.log("retrieving construction types");
     this.props.client.query({
       query: GET_STRUCTURE_TYPES,
       variables: {},
     }).then(results => {
-        console.log("Constructions retrieved:", results);
+        console.log("Construction types retrieved:", results);
         this.setState({errorMessage: ''})
         this.setState({structureTypes: results.data.structureTypes});
     })
     .catch(error => {
-        console.log("error at retrieving constructions: ", error);
+        console.log("error at retrieving construction types: ", error);
         var err = error.graphQLErrors[0];
         let msg = "Could not retrieve construction types. Please check your internet connection. ("
         if(err){
@@ -57,12 +58,14 @@ class EditBuilding extends Component {
   }
 
   render() {
+    {/* Displaying in progress or errors*/}
     if (this.state.errorMessage !== '') { return (
       <Typography variant="subtitle1" component="p" style={{ color: 'red' }} >
         {this.state.errorMessage}
       </Typography>
     ); }
     if (this.state.structureTypes === null) { return "loading ..." }
+    {/* Displaying main form*/}
     return (
       <div className="bodyAdd">
         <div className="overlay">
@@ -90,9 +93,8 @@ class EditBuilding extends Component {
                 <Button
                   variant="contained"
                   color="primary"
-                  className="saveBuildButton"
-                  onClick={() => this.setState({ triggerSave: !this.state.triggerSave })}>
-                  Save Your Building
+                  className="saveBuildButton">
+                  Show Result
                 </Button>
             </div>
             ) : (
