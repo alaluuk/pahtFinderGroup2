@@ -25,7 +25,7 @@ class Card extends Component {
     likeColor: "disabled",
     likeColorDefault: "rgba(0, 0, 0, 0.54)",
     likeColorLike: "error"
-  };
+  }
 
   constructor(props) {
     super(props);
@@ -40,21 +40,30 @@ class Card extends Component {
     this.state.EE = this.props.EE;
     this.state.isReco = this.props.isReco;  
 
-
-    console.log("Props: " + this.props.EE);
-    console.log("State: " + this.state.EE);
-
     if (this.state.EE <= 35) {
       this.state.color = this.state.red;
     } else if (this.state.EE <= 70) {
       this.state.color = this.state.orange;
     } else if (this.state.EE >= 70) {
       this.state.color = this.state.green;
-      console.log("Over 70");
-    }
+   
+    }  
 
+}
+
+renderImage(){
+  var image = "";
+  if(this.state.type == "Roof construction"){
+    image = "https://images.unsplash.com/photo-1528223871781-8f4c984f6164?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80";
+  }else if(this.state.type == "Windows"){
+    image ="https://images.unsplash.com/photo-1551524163-d00af9f12253?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=625&q=80";
+  }else if(this.state.type == "Doors"){
+    image = "https://images.unsplash.com/photo-1500281781950-6cd80847ebcd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80";
+  }else if(this.state.type == "Ground floor"){
+    image ="https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Foundation-M2325.jpg/1200px-Foundation-M2325.jpg";
   }
-
+  return image;
+}
 
   render() {
 
@@ -63,7 +72,7 @@ class Card extends Component {
       <div className="recommendationCard">
         <img
           className="recommendationPicture"
-          src="https://images.unsplash.com/photo-1509644851169-2acc08aa25b5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=900&q=80"
+          src={this.renderImage()}
           alt="recommendationPicture"
           
         ></img>

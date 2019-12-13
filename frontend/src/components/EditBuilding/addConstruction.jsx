@@ -57,6 +57,8 @@ export default function AddConstruction(props) {
   //open form
   const handleClickOpen = () => {
     setOpen(true);
+    console.log(title)
+   
   };
   //close form
   const handleClose = () => {
