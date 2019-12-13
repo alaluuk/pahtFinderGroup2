@@ -54,7 +54,7 @@ const { Structure, StructureTemplate } = require(".");
 
 class StructureEfficiencyReport {
   constructor(structure) {
-    // TODO: Add option to specify report type (short/in-depth) so house reports are more performant
+    // IDEA: Add option to specify report type (short/in-depth) so house reports are more performant
     this.structure = structure;
   }
 
@@ -77,14 +77,14 @@ class StructureEfficiencyReport {
 
   async getMostEfficientOfType() {
     return db
-    .one(`SELECT * FROM structure_templates WHERE type_id = $1 ORDER BY u_value ASC LIMIT 1`, [ this.structure._type_id ])
-    .then(res => new StructureTemplate(res));
+    .oneOrNone(`SELECT * FROM structure_templates WHERE type_id = $1 ORDER BY u_value ASC LIMIT 1`, [ this.structure._type_id ])
+    .then(res => (res !== null) ? new StructureTemplate(res) : null);
   }
 
   async getLeastEfficientOfType() {
     return db
-      .one(`SELECT * FROM structure_templates WHERE type_id = $1 ORDER BY u_value DESC LIMIT 1`, [ this.structure._type_id ])
-      .then(res => new StructureTemplate(res));
+      .oneOrNone(`SELECT * FROM structure_templates WHERE type_id = $1 ORDER BY u_value DESC LIMIT 1`, [ this.structure._type_id ])
+      .then(res => (res !== null) ? new StructureTemplate(res) : null);
   }
 
   async getSegmentation(segmentCount = 6, segmentLabels = ["A", "B", "C", "D", "E", "F"]) {
