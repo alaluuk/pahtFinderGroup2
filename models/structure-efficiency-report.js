@@ -78,13 +78,15 @@ class StructureEfficiencyReport {
   async getMostEfficientOfType() {
     return db
     .oneOrNone(`SELECT * FROM structure_templates WHERE type_id = $1 ORDER BY u_value ASC LIMIT 1`, [ this.structure._type_id ])
-    .then(res => (res !== null) ? new StructureTemplate(res) : null);
+    .then(res => (res !== null) ? new StructureTemplate(res) : null)
+    .catch(err => null);
   }
 
   async getLeastEfficientOfType() {
     return db
       .oneOrNone(`SELECT * FROM structure_templates WHERE type_id = $1 ORDER BY u_value DESC LIMIT 1`, [ this.structure._type_id ])
-      .then(res => (res !== null) ? new StructureTemplate(res) : null);
+      .then(res => (res !== null) ? new StructureTemplate(res) : null)
+      .catch(err => null);
   }
 
   async getSegmentation(segmentCount = 6, segmentLabels = ["A", "B", "C", "D", "E", "F"]) {
@@ -110,7 +112,8 @@ class StructureEfficiencyReport {
     let worst = (this.leastEfficientOfType) ? this.leastEfficientOfType.uValue : 0;
     let range = worst - best;
     let difference = uValue - best;
-    return (range > 0) ? (1 - (difference / range)) * 100 : 100;
+    let percentage = (range > 0) ? (1 - (difference / range)) * 100 : 100;
+    return Math.min(Math.max(percentage, 0), 100);
   }
 
   async getRanking() {
@@ -127,7 +130,7 @@ class StructureEfficiencyReport {
       }
     }
     return {
-      percentage: Math.min(Math.max(parseInt(percentage), 0), 100),
+      percentage: percentage,
       rank: await db.one(`SELECT COUNT(DISTINCT id) AS count FROM structure_templates WHERE type_id = $1 AND u_value < $2`, [ this.structure._type_id, this.structure.uValue ]).then(res => parseInt(res.count)+1),
       count: await db.one(`SELECT COUNT(DISTINCT id) AS count FROM structure_templates WHERE type_id = $1`, [ this.structure._type_id ]).then(res => res.count),
       rankedSegment: segment
@@ -146,13 +149,9 @@ class StructureEfficiencyReport {
       const result = results[i];
       let upgradeTemplate = new StructureTemplate(result);
 
-      let oldUValue = 
-
       recommendations.push({
         upgradePrice: upgradeTemplate.price,
         upgradeUValue: upgradeTemplate.uValue - this.structure.uValue,
-        // oldPercentage: oldPercentage,
-        // newPercentage: newPercentage,
         upgradePercentage: this.calculatePercentage(upgradeTemplate.uValue) - this.calculatePercentage(this.structure.uValue),
         upgradePPR: (result.price_performance_ratio),
         structureTemplate: upgradeTemplate
