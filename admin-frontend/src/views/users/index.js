@@ -1,10 +1,12 @@
 import React from "react";
-import { Route } from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
 import GraphQLClient from "../../providers/graphql";
 import HeaderComponent from "../../components/header";
 import FilterableSubheaderComponent from "../../components/filterable-subheader";
 import UserCardComponent from "../../components/user-card";
 import UserCreateModal from "../../modals/user-create";
+import UserEditModal from "../../modals/user-edit";
+import UserDeleteModal from "../../modals/user-delete";
 import { Button, H5, Text, Spinner, NonIdealState, Icon, Intent } from "@blueprintjs/core";
 import "./styles.scss";
 
@@ -25,12 +27,23 @@ class UsersView extends React.Component {
     this.fetchUsers();
   }
 
+  getUserIndex(id) {
+    for (let i = 0; i < this.state.users.length; i++) {
+      if(this.state.users[i].id === id) return i;
+    }
+    return undefined;
+  }
+
   fetchUsers() {
     return new Promise((resolve, reject) => {
       this.setState({ isLoading: true, fetchError: null });
       GraphQLClient.request(`
         query {
-          users {
+          users(
+            query: {
+              sort: [{ id: "name", desc: false }]
+            }
+          ) {
             id
             name
             email
@@ -78,7 +91,9 @@ class UsersView extends React.Component {
         <UserCardComponent
           user={user}
           key={user.id}
-        ></UserCardComponent>
+          onEditClick={() => this.props.history.replace(this.props.match.url+'/edit/'+user.id, { user: user })}
+          onDeleteClick={() => this.props.history.replace(this.props.match.url+'/delete/'+user.id, { user: user })}
+        />
       )}</div>;
     }
 
@@ -113,14 +128,60 @@ class UsersView extends React.Component {
                   let newUsers = [...this.state.users];
                   newUsers.push(user);
                   newUsers.sort(function(a, b) {
-                    if(a.name < b.name) { return -1; }
-                    if(a.name > b.name) { return 1; }
-                    return 0;
+                    return ('' + a.name).localeCompare(b.name);
                   });
                   this.setState({users: newUsers});
                 }}
               />
             );
+          }}
+        />
+
+        <Route
+          path={`${this.props.match.url}/edit/:userId`}
+          render={({location, match}) => {
+            let user = undefined;
+            let userIndex = this.getUserIndex(match.params.userId);
+            if(userIndex !== undefined) user = this.state.users[userIndex];
+            return (user) ? (
+              <UserEditModal
+                user={user}
+                isOpen={true}  
+                onClose={() => { this.props.history.replace(this.props.match.url) }}
+                onEdited={(user) => {
+                  if(userIndex !== undefined) {
+                    let newUsers = [...this.state.users];
+                    newUsers[userIndex] = user;
+                    this.setState({ users: newUsers });
+                  }
+                  this.props.history.replace(this.props.match.url);
+                }}
+              />
+            ) : ( <Redirect to={{ pathname: this.props.match.url }} /> );
+          }}
+        />
+
+        <Route
+          path={`${this.props.match.url}/delete/:userId`}
+          render={({location, match}) => {
+            let user = undefined;
+            let userIndex = this.getUserIndex(match.params.userId);
+            if(userIndex !== undefined) user = this.state.users[userIndex];
+            return (user) ? (
+              <UserDeleteModal
+                user={user}
+                isOpen={true}  
+                onClose={() => { this.props.history.replace(this.props.match.url) }}
+                onDeleted={(data) => {
+                  if(userIndex !== undefined) {
+                    let newUsers = [...this.state.users];
+                    newUsers.splice(userIndex, 1);
+                    this.setState({ users: newUsers });
+                  }
+                  this.props.history.replace(this.props.match.url);
+                }}
+              />
+            ) : ( <Redirect to={{ pathname: this.props.match.url }} /> );
           }}
         />
       </div>

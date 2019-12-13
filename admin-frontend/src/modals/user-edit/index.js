@@ -4,7 +4,7 @@ import { AppToaster } from '../../App';
 import { Button, Intent, Dialog, Classes, FormGroup, InputGroup, Tooltip, HTMLSelect } from "@blueprintjs/core";
 import "./styles.scss";
 
-class UserCreateModal extends React.Component {
+class UserEditModal extends React.Component {
   constructor(props) {
     super(props);
 
@@ -12,7 +12,7 @@ class UserCreateModal extends React.Component {
       isOpen: props.isOpen || false,
       isLoading: false,
       showPassword: false,
-      values: {},
+      values: props.user, // {},
       errors: {}
     };
 
@@ -28,7 +28,7 @@ class UserCreateModal extends React.Component {
   reset() {
     this.setState({
       isLoading: false,
-      values: {},
+      values: this.props.user, // {},
       errors: {}
     });
   }
@@ -38,8 +38,9 @@ class UserCreateModal extends React.Component {
     return new Promise((resolve, reject) => {
       this.setState({ isLoading: true, errors: {} });
       GraphQLClient.request(`
-      mutation($name: String!, $email: String!, $password: String!, $role: String!) {
-        createUser(
+      mutation($id: ID!, $name: String, $email: String, $password: String, $role: String) {
+        updateUser(
+          id: $id,
           name: $name,
           email: $email,
           password: $password,
@@ -56,8 +57,8 @@ class UserCreateModal extends React.Component {
       }
     `, this.state.values)
         .then(data => {
-          if(this.props.onCreated) this.props.onCreated(data.createUser);
-          AppToaster.show({ icon: "tick", intent: Intent.SUCCESS, message: "Successfully created user \""+data.createUser.name+"\"!" });
+          if(this.props.onEdited) this.props.onEdited(data.updateUser);
+          AppToaster.show({ icon: "tick", intent: Intent.SUCCESS, message: "Saved changes to \""+data.updateUser.name+"\"!" });
           resolve(data);
         })
         .catch(err => {
@@ -65,10 +66,7 @@ class UserCreateModal extends React.Component {
           let errors = {};
           if(err.response) {
             err.response.errors.forEach(error => {
-              if(error.message.includes("name")) errors.name = error.message;
-              if(error.message.includes("email")) errors.email = error.message;
-              if(error.message.includes("password")) errors.password = error.message;
-              if(error.message.includes("role")) errors.role = error.message;
+              if(error.message.includes("title")) errors.title = error.message;
             });
           }
           this.setState({ errors: errors });
@@ -82,11 +80,11 @@ class UserCreateModal extends React.Component {
   render() {
     return (
       <Dialog
-        className="UserCreateModal Modal"
-        icon="new-person"
+        className="UserEditModal Modal"
+        icon="layer"
         onOpening={this.reset}
         onClose={this.props.onClose || undefined}
-        title="New User"
+        title="Edit User"
         {...this.state}
       >
         <div className={Classes.DIALOG_BODY}>
@@ -157,7 +155,6 @@ class UserCreateModal extends React.Component {
             <FormGroup
               label="Password"
               labelFor="password"
-              labelInfo="(required)"
               disabled={this.state.isLoading}
               helperText={this.state.errors.password}
               intent={this.state.errors.password ? Intent.DANGER : Intent.NONE }
@@ -166,7 +163,7 @@ class UserCreateModal extends React.Component {
                 id="password"
                 type={this.state.showPassword ? "text" : "password"}
                 value={this.state.values.password || ""}
-                placeholder="Password"
+                placeholder="Password (hidden)"
                 disabled={this.state.isLoading}
                 onChange={(e) => { e.persist(); this.setState({values: {...this.state.values, password: e.target.value}}) }}
                 intent={this.state.errors.password ? Intent.DANGER : Intent.NONE }
@@ -197,7 +194,7 @@ class UserCreateModal extends React.Component {
               intent={Intent.SUCCESS}
               onClick={this.handleSubmit}
               loading={this.state.isLoading}
-            >Submit User</Button>
+            >Save changes</Button>
           </div>
         </div>
       </Dialog>
@@ -205,4 +202,4 @@ class UserCreateModal extends React.Component {
   }
 }
 
-export default UserCreateModal;
+export default UserEditModal;

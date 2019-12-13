@@ -10,7 +10,8 @@ const RootQuery = new GraphQLObjectType({
     users: {
       type: new GraphQLList(UserType),
       args: {
-        id: { type: GraphQLID }
+        id: { type: GraphQLID },
+        query: { type: QueryType }
       },
       resolve(_, args, { auth }) {
         if(!auth.user) throw new Error("You must be logged in to perform this action.");
@@ -20,10 +21,11 @@ const RootQuery = new GraphQLObjectType({
           }
           return [ User.getOne(args.id) ];
         } else {
+          let query = (args.query) ? new APIQuery(args.query) : null;
           if(!checkPermission(auth.user.role, "user_query_other")) {
             throw new Error("You don't have sufficient permissions to query other users.");
           }
-          return User.getAny();
+          return User.getAny(query);
         }
       }
     },

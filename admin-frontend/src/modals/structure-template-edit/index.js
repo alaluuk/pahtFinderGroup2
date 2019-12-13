@@ -166,7 +166,7 @@ class StructureTemplateEditModal extends React.Component {
                 value={this.state.values.uValue || ""}
                 placeholder="U-Value"
                 disabled={this.state.isLoading}
-                onValueChange={(value, valueString) => { this.setState({values: {...this.state.values, uValue: (valueString === '') ? value : null}}) }}
+                onValueChange={(value, valueString) => { this.setState({values: {...this.state.values, uValue: (valueString !== '') ? value : null}}) }}
                 intent={this.state.errors.uValue ? Intent.DANGER : Intent.NONE }
                 majorStepSize={1}
                 stepSize={0.1}
@@ -189,7 +189,7 @@ class StructureTemplateEditModal extends React.Component {
                 value={this.state.values.price || ""}
                 placeholder="Price (€)"
                 disabled={this.state.isLoading}
-                onValueChange={(value, valueString) => { this.setState({values: {...this.state.values, price: (valueString === '') ? value : null}}) }}
+                onValueChange={(value, valueString) => { this.setState({values: {...this.state.values, price: (valueString !== '') ? value : null}}) }}
                 intent={this.state.errors.price ? Intent.DANGER : Intent.NONE }
                 min={0}
                 fill={true}
@@ -246,7 +246,7 @@ class StructureTemplateEditModal extends React.Component {
                 value={this.state.values.productionYear || ""}
                 placeholder="Production Year"
                 disabled={this.state.isLoading}
-                onValueChange={(value, valueString) => { this.setState({values: {...this.state.values, productionYear: (valueString === '') ? value : null}}) }}
+                onValueChange={(value, valueString) => { this.setState({values: {...this.state.values, productionYear: (valueString !== '') ? value : null}}) }}
                 intent={this.state.errors.productionYear ? Intent.DANGER : Intent.NONE }
                 min={0}
                 max={new Date().getFullYear()}

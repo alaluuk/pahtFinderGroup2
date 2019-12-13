@@ -1,0 +1,13 @@
+.UserEditModal {
+    max-width: 375px;
+}
+.UserEditModal .bp3-dialog-body form {
+    display: grid;
+    grid-gap: 0 1rem;
+}
+.UserEditModal .bp3-dialog-body form .bp3-form-group {
+    grid-column: span 2;
+}
+.UserEditModal .bp3-dialog-body form .bp3-form-group.grid-l-half {
+    grid-column: span 1;
+}
