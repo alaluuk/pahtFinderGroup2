@@ -63,10 +63,6 @@ const GET_SINGLE_BUILDING = gql`
   
   }
 
-  return coor;
-  console.log(coor)
-
-}
 
 
 
@@ -129,41 +125,7 @@ useEffect(async () => {
 
 
 
-  return (
-
-
-    const PrettoSlider = withStyles({
-      root: {
-        color: "dimgray",
-        height: 8
-      },
-      thumb: {
-        height: 24,
-        width: 24,
-        backgroundColor: "dimgray",
-        border: "2px solid white",
-        marginTop: -8,
-        marginLeft: -12,
-        "&:focus,&:hover,&$active": {
-          boxShadow: "inherit"
-        }
-      },
-      active: {},
-      valueLabel: {
-        left: "calc(-50% + 4px)"
-      },
-      track: {
-        borderRadius: 4
-      },
-      rail: {
-        borderRadius: 4
-      }
-    })(Slider);
-
-    
-    
-    return (
-      
+  return (      
       <div className="bodyBuilding">
         {data.houses.map((house, index) => {
           return (
