@@ -83,17 +83,8 @@ export default function Body(props) {
     variables: { id }
   });
 
-
-
   if (loading) return <p>Loading...</p>
   if (error) return `Error! ${error}`;
-
-  {/* 
-const fullAddress = data.houses[0].addressStreet + "+" + data.houses[0].addressCity + "+" + data.houses[0].addressCountry;
-useEffect(async () => {
-  setCoordi(getCoordinates(fullAddress))
-});
-*/}
 
   const PrettoSlider = withStyles({
     root: {

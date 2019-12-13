@@ -74,9 +74,10 @@ class EditBuilding extends Component {
               <h1 className="addBuildHeaderText">Add a new building</h1>
             </div>
             {/* Display general information form.
-                Callback is used for a new house to retrieve its house id. */}
+                Callback is used to retrieve the id of a newly created house. */}
             <GeneralInformation
               triggerSave={this.state.triggerSave}
+              houseId = {this.state.houseId}
               callbackFromParent={this.houseIdCallback}>
             </GeneralInformation>
             {/* Display all available structure types
@@ -93,7 +94,8 @@ class EditBuilding extends Component {
                 <Button
                   variant="contained"
                   color="primary"
-                  className="saveBuildButton">
+                  className="saveBuildButton"
+                  onClick={() => this.setState({ triggerSave: !this.state.triggerSave })}>
                   Show Result
                 </Button>
             </div>

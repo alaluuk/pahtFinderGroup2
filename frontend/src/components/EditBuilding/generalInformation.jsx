@@ -40,39 +40,54 @@ class GeneralInformation extends Component {
 
     
     componentDidUpdate(prevProps) {
-      //execute create new House mutation
       if (this.props.triggerSave !== prevProps.triggerSave) {
-        console.log("save House Clicked!")
-        this.props.client.mutate({
-          mutation: CREATE_HOUSE,
-          variables: {
-              name: this.state.name,
-              ownerId: localStorage.getItem(CURRENT_USER_ID),
-              addressStreet: this.state.addressStreet,
-              addressCountry: this.state.addressCountry,
-              addressCity: this.state.addressCity,
-              constructionYear: this.state.constructionYear,
-              heatingSystem: this.state.heatingSystem,
-              costOfHeating: this.state.costOfHeating,
-              warmWaterPipe: this.state.warmWaterPipe
-          },
-        }).then(results => {
-            console.log("House Created:", results);
-            this.props.callbackFromParent(results.data.createHouse.id)
-            this.setState({errorMessage: ''})
-        })
-        .catch(error => {
-            console.log("Creat House Error: ", error);
-            var err = error.graphQLErrors[0];
-            if(err){
-              this.setState({errorMessage: err.message})
-            }else{
-              err = "House could not be saved. Please fill out every field" +
-              "and check your internet connection.";
-              this.setState({errorMessage: err})
-            }
-        });
+        if(this.props.houseId){
+          //update house if it has already been created
+          this.updateHouse();
+        }else{
+          //create a new House when that house has not been created
+          this.createHouse();
+        }
       }
+    }
+
+    
+    
+    createHouse(){
+      console.log("save House Clicked!")
+      this.props.client.mutate({
+        mutation: CREATE_HOUSE,
+        variables: {
+            name: this.state.name,
+            ownerId: localStorage.getItem(CURRENT_USER_ID),
+            addressStreet: this.state.addressStreet,
+            addressCountry: this.state.addressCountry,
+            addressCity: this.state.addressCity,
+            constructionYear: this.state.constructionYear,
+            heatingSystem: this.state.heatingSystem,
+            costOfHeating: this.state.costOfHeating,
+            warmWaterPipe: this.state.warmWaterPipe
+        },
+      }).then(results => {
+          console.log("House Created:", results);
+          this.props.callbackFromParent(results.data.createHouse.id)
+          this.setState({errorMessage: ''})
+      })
+      .catch(error => {
+          console.log("Creat House Error: ", error);
+          var err = error.graphQLErrors[0];
+          if(err){
+            this.setState({errorMessage: err.message})
+          }else{
+            err = "House could not be saved. Please fill out every field" +
+            "and check your internet connection.";
+            this.setState({errorMessage: err})
+          }
+      });
+    }
+
+    updateHouse(){
+
     }
 
     render() { 

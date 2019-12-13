@@ -11,7 +11,6 @@ import { AUTH_TOKEN } from './constants'
 /**
  * GraphQL Settings
  */
-const cache = new InMemoryCache();
 const client = new ApolloClient({
   uri: 'https://oamk-pathfinder.herokuapp.com/graphql',
   request: (operation) => {
@@ -22,13 +21,9 @@ const client = new ApolloClient({
       }
     })
   }
-})
-cache.writeData({
-  data: {
-    isLoggedIn: !!localStorage.getItem('token'),
-    cartItems: [],
-  },
 });
+
+
 
 
 
