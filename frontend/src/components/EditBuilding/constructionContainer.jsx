@@ -11,9 +11,8 @@ import { CURRENT_USER_ID } from '../../constants';
 
 
 const GET_CONSTRUCTIONS = gql`
-  query GET_CONSTRUCTIONS($id: ID!) {
-    houses(id: $id) {
-      structures {
+  query GET_CONSTRUCTIONS($houseID: ID!, $structureTypeID: ID!) {
+    houseStructures(houseID: $houseID, structureTypeID: $structureTypeID) {
         id
         title
         manufacturer
@@ -21,8 +20,11 @@ const GET_CONSTRUCTIONS = gql`
         uValue
         serialNumber
         price
-        efficiencyReport
-      }
+        efficiencyReport{
+          ranking{
+            percentage
+          }
+        }
     }
   }
 `;
@@ -39,20 +41,33 @@ class ConstructionContainer extends Component {
   }
 
   componentDidMount() {
-    //retrieve constructions via withAollo
+    this.retrieveConstructions();
+  }
+
+  constructionCallback = () => {
+    this.retrieveConstructions();
+  }
+
+  /**
+   * retrieve constructions of this construction type via withAollo
+   */
+  retrieveConstructions() {
     console.log("retrieving " + this.props.constructionTypeTitle);
     this.props.client.query({
       query: GET_CONSTRUCTIONS,
-      variables: { id: this.props.houseId },
+      variables: {
+        houseID: this.props.houseId,
+        structureTypeID: this.props.constructionTypeId
+      },
     }).then(results => {
       console.log(this.props.constructionTypeTitle + " retrieved:", results);
       this.setState({ errorMessage: '' })
-      this.setState({ constructions: results.data.houses[0].structures });
+      this.setState({ constructions: results.data.houseStructures });
     })
       .catch(error => {
         console.log("error at retrieving constructions: ", error);
-        var err = error.graphQLErrors[0];
-        let msg = "Could not retrieve constructions. Please check your internet connection. ("
+        var err = error.graphQLErrors;
+        let msg = "Could not retrieve " + this.props.constructionTypeTitle + ". Please check your internet connection. ("
         if (err) {
           this.setState({ errorMessage: msg + err.message + ")" })
         } else {
@@ -71,15 +86,17 @@ class ConstructionContainer extends Component {
       );
     }
     if (this.state.constructions === null) { return "loading ..." }
-    {   /* Displaying main form*/ }
+    { /* Displaying main form*/}
     return (
       <div className="addStructureComp">
         <div className="addStructureHead">
           <h2 className="addBuildText"> {this.props.constructionTypeTitle}</h2>
+          { /*callbackFromParent makes sure to fetch and display new structures here*/}
           <AddConstruction
             constructionTypeTitle={this.props.constructionTypeTitle}
             constructionTypeId={this.props.constructionTypeId}
-            houseId={this.props.houseId}>
+            houseId={this.props.houseId}
+            callbackFromParent={this.constructionCallback}>
           </AddConstruction>
         </div>
 
@@ -91,11 +108,12 @@ class ConstructionContainer extends Component {
             disabled={true}
           />
         </div>
-
+        { /* Iterater over all constructions of this type
+            and display them if array is not empty*/}
         {this.state.constructions ? (
-            <div className="scrollBar">
-              {this.state.constructions.map((data) => (
-                <div className="scrollItem">
+          <div className="scrollBar">
+            {this.state.constructions.map((data) => (
+              <div className="scrollItem">
                 <ConstructionCard
                   title={data.title}
                   amount="1"
@@ -105,18 +123,18 @@ class ConstructionContainer extends Component {
                   u_value={data.uValue}
                   production_year={data.productionYear}
                   price={data.price}
-                  EE={data.efficiencyReport}
+                  EE={data.efficiencyReport.ranking.percentage}
                 ></ConstructionCard>
-                </div>
-              ))}
-            </div>
-          
+              </div>
+            ))}
+          </div>
+
         ) : (
             <div>
             </div>
           )}
       </div>
-      
+
 
 
     );
