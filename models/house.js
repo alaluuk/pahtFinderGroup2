@@ -91,8 +91,8 @@ class House {
   save() {
     let house = this;
     return new Promise(function(resolve, reject) {
-      house.updateAddressLatLng()
-      .then(coords => {
+      // house.updateAddressLatLng()
+      // .then(coords => {
         db
         .result(`UPDATE houses SET id=$1,
           name=$2,
@@ -127,8 +127,8 @@ class House {
           resolve((res.rowCount > 0));
         })
         .catch(err => reject(err));
-      })
-      .catch(err => reject(err));
+      // })
+      // .catch(err => reject(err));
     });
   }
 
@@ -180,7 +180,7 @@ class House {
       throw new Error("Invalid country code (must be 2 characters long).");
     }
     this._address_country = addressCountry;
-    this.updateAddressCoordinates();
+    // this.updateAddressCoordinates();
   }
   get addressCountry() {
     return this._address_country;
@@ -188,7 +188,7 @@ class House {
 
   set addressCity(addressCity) {
     this._address_city = addressCity;
-    this.updateAddressCoordinates();
+    // this.updateAddressCoordinates();
   }
   get addressCity() {
     return this._address_city;
@@ -196,7 +196,7 @@ class House {
 
   set addressStreet(addressStreet) {
     this._address_street = addressStreet;
-    this.updateAddressCoordinates();
+    // this.updateAddressCoordinates();
   }
   get addressStreet() {
     return this._address_street;
