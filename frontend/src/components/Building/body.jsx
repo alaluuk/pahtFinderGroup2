@@ -80,7 +80,8 @@ export default function Body(props) {
   const [coordi, setCoordi] = React.useState('');
 
   const { data, loading, error } = useQuery(GET_SINGLE_BUILDING, {
-    variables: { id }
+    variables: { id },
+    fetchPolicy: "no-cache",
   });
 
   if (loading) return <p>Loading...</p>

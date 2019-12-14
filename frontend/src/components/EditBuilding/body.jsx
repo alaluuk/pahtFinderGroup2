@@ -4,6 +4,7 @@ import GeneralInformation from "./generalInformation";
 import ConstructionContainer from "./constructionContainer";
 import gql from "graphql-tag";
 import { withApollo } from "react-apollo";
+import { withRouter } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import "../../styles/addConstruction.scss";
 import "../../styles/addBuilding.scss";
@@ -61,7 +62,11 @@ class EditBuilding extends Component {
       this.setState({houseId: dataFromChild});
       console.log("House ID",this.state.houseId)
     }else{
-      this.props.history.push(`/result`)
+      //this.props.history.push(`/result`)
+      this.props.history.push({
+        pathname: '/result',
+        state: {buildingID: this.props.houseId}  
+    })
     }
   }
 
@@ -125,4 +130,4 @@ class EditBuilding extends Component {
   }
 }
 
-export default withApollo(EditBuilding);
+export default withRouter(withApollo(EditBuilding));
