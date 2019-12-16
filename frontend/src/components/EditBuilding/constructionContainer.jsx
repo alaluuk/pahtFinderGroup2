@@ -125,7 +125,7 @@ class ConstructionContainer extends Component {
                   u_value={data.uValue}
                   production_year={data.productionYear}
                   price={data.price}
-                  EE={(data.efficiencyReport.ranking.percentage).toFixed(0)}
+                  EE={data.efficiencyReport.ranking.percentage}
                 ></ConstructionCard>
               </div>
             ))}

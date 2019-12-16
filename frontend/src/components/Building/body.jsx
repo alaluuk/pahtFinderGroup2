@@ -14,7 +14,7 @@ import { useQuery } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 import axios from 'axios';
 import { Link } from 'react-router-dom'
-import { useLazyQuery } from '@apollo/react-hooks';
+import Typography from '@material-ui/core/Typography';
 import "../../styles/building.scss";
 
 
@@ -102,12 +102,7 @@ async function getCoordinates(address) {
 export default function Body(props) {
 
   const [id, setId] = React.useState(props.id);
-  const [image, setImage] = React.useState(props.image)
-  const [EE, setEE] = React.useState(props.EE);
-  const [uValue, setUValue] = React.useState();
-  const [possibleUValue, setPossibleUValue] = React.useState();
-  const [costOfHeating, setCostOfHeating] = React.useState();
-  const [possibleCostOfHeating, setPossibleCostOfHeating] = React.useState();
+  const [image, setImage] = React.useState(props.image);
   const [coordi, setCoordi] = React.useState('');
 
   const { data, loading, error } = useQuery(GET_SINGLE_BUILDING, {
@@ -178,7 +173,7 @@ export default function Body(props) {
                     className="material-Slider"
                     valueLabelDisplay="on"
                     aria-label="pretto slider"
-                    defaultValue={(data.houses[0].efficiencyReport.total.percentage).toFixed(0)}
+                    defaultValue={Math.round((data.houses[0].efficiencyReport.total.percentage))}
                     disabled={true}
                   />
                 </div>
@@ -271,92 +266,101 @@ export default function Body(props) {
                   </div>
                 </div>
 
-                <div className="potenials">
+                {/* Show recommendations only if there is an efficiencyReport available*/ }
+                {data.houses[0].efficiencyReport.total.costOfHeating ? (
+                  <div>
+                    <div className="potenials">
+                      <div className="potConsum">
+                        <h4 className="potTitle">Present U-Value</h4>
+                        <h2 className="potText">{data.houses[0].efficiencyReport.total.uValue}</h2>
+                      </div>
+
+                      <div className="potConsum">
+                        <h4 className="potTitle">Present Yearly Heating Costs</h4>
+                        <h2 className="potText"> {(data.houses[0].efficiencyReport.total.costOfHeating).toFixed(0)} €</h2>
+                      </div>
+
+                      <div className="potLosts">
+                        <h4 className="potTitle">Potential U-Value </h4>
+                        <h2 className="potText"> {data.houses[0].efficiencyReport.total.possibleUValue} </h2>
+                      </div>
+                      <div className="potSavings">
+                        <h4 className="potTitle">Potential Yearly Savings </h4>
+                        <h2 className="potText"> {(data.houses[0].efficiencyReport.total.costOfHeating - data.houses[0].efficiencyReport.total.possibleCostOfHeating).toFixed(0)} €</h2>
+                      </div>
+
+                    </div>
+
+                    <div className="buildingRecommendations">
+                      <div className="buildingRecoHeader">
+                        <h2 className="recoSingleHead"> Currently Installed</h2>
+                        <h2 className="recoSingleHeadReco">Recommendations</h2>
+                        <h2 className="recoSingleHead"> DIY Tips</h2>
+                      </div>
+                      <div className="recoContentAll">
+
+                        {house.structures.map((structure) => {
+                          return (
+                            <div className="recoSingleRow">
+                              <div className="currentlyCard">
+                                <ConstructionCard
+                                  title={structure.title}
+                                  amount="1"
+                                  type={structure.type.title}
+                                  manufacture={structure.manufacturer}
+                                  serial_number={structure.serialNumber}
+                                  u_value={structure.uValue}
+                                  production_year={structure.productionYear}
+                                  price={structure.price}
+                                  EE={structure.efficiencyReport.ranking.percentage}
+                                  image="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-1.2.1&auto=format&fit=facearea&w=800&h=2000"
+                                ></ConstructionCard>
+                              </div>
 
 
-                  <div className="potConsum">
-                    <h4 className="potTitle">Present U-Value</h4>
-                    <h2 className="potText">{data.houses[0].efficiencyReport.total.uValue}</h2>
+                              <div className="recoSpace">
+                                <br></br>
+                                <br></br>
+                                <br></br>
+                                <br></br>
+                                <br></br>
+                                <br></br>
+                                <br></br>
+                                <p className="recoImproveText">+ 21 %</p>
+                                <DoubleArrowIcon className="recoImproveIcon"></DoubleArrowIcon>
+                              </div>
+                              <div className="recoCard">
+                                <RecommendationCard
+                                  title="Roof Y6798 Vollholz"
+                                  amount="1"
+                                  type={structure.type.title}
+                                  manufacture="Roof GmbH"
+                                  serial_number="1"
+                                  u_value="1.2"
+                                  area="2"
+                                  production_year="1984"
+                                  price=""
+                                  EE="71"
+                                  isReco="false"
+                                ></RecommendationCard>
+                              </div>
+                              <div className="diy">
+                                <DiyCard></DiyCard>{" "}
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+
+                    </div>
                   </div>
-
-                  <div className="potConsum">
-                    <h4 className="potTitle">Present Yearly Heating Costs</h4>
-                    <h2 className="potText"> {(data.houses[0].efficiencyReport.total.costOfHeating).toFixed(0)} €</h2>
-                  </div>
-
-                  <div className="potLosts">
-                    <h4 className="potTitle">Potential U-Value </h4>
-                    <h2 className="potText"> {data.houses[0].efficiencyReport.total.possibleUValue} </h2>
-                  </div>
-                  <div className="potSavings">
-                    <h4 className="potTitle">Potential Yearly Savings </h4>
-                    <h2 className="potText"> {(data.houses[0].efficiencyReport.total.costOfHeating-data.houses[0].efficiencyReport.total.possibleCostOfHeating).toFixed(0)} €</h2>
-                  </div>
-
-                </div>
-
-                <div className="buildingRecommendations">
-                  <div className="buildingRecoHeader">
-                    <h2 className="recoSingleHead"> Currently Installed</h2>
-                    <h2 className="recoSingleHeadReco">Recommendations</h2>
-                    <h2 className="recoSingleHead"> DIY Tips</h2>
-                  </div>
-                  <div className="recoContentAll">
-
-                    {house.structures.map((structure) => {
-                      return (
-                        <div className="recoSingleRow">
-                          <div className="currentlyCard">
-                            <ConstructionCard
-                              title={structure.title}
-                              amount="1"
-                              type={structure.type.title}
-                              manufacture={structure.manufacturer}
-                              serial_number={structure.serialNumber}
-                              u_value={structure.uValue}
-                              production_year={structure.productionYear}
-                              price={structure.price}
-                              EE={structure.efficiencyReport.ranking.percentage}
-                              image="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-1.2.1&auto=format&fit=facearea&w=800&h=2000"
-                            ></ConstructionCard>
-                          </div>
-
-
-                          <div className="recoSpace">
-                            <br></br>
-                            <br></br>
-                            <br></br>
-                            <br></br>
-                            <br></br>
-                            <br></br>
-                            <br></br>
-                            <p className="recoImproveText">+ 21 %</p>
-                            <DoubleArrowIcon className="recoImproveIcon"></DoubleArrowIcon>
-                          </div>
-                          <div className="recoCard">
-                            <RecommendationCard
-                              title="Roof Y6798 Vollholz"
-                              amount="1"
-                              type={structure.type.title}
-                              manufacture="Roof GmbH"
-                              serial_number="1"
-                              u_value="1.2"
-                              area="2"
-                              production_year="1984"
-                              price=""
-                              EE="71"
-                              isReco="false"
-                            ></RecommendationCard>
-                          </div>
-                          <div className="diy">
-                            <DiyCard></DiyCard>{" "}
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-
-                </div>
+                ) : (
+                    <div>
+                      <Typography variant="h6" component="p" style={{ color: 'grey' }} >
+                        This house has not got any constructions. To view the result, please edit this house first.
+                      </Typography>
+                    </div>
+                  )}
               </div>
             </div>
           </div>
