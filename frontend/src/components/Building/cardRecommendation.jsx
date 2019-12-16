@@ -93,7 +93,7 @@ renderImage(){
             <h4>{this.state.title}</h4>
             <h4>{this.state.manufacture}</h4>
             <h4>U-Value: {this.state.u_value}</h4>
-            <h4>Size: {this.state.area} qm2</h4>
+            <h4>Price: {this.state.price} €</h4>
           </div>
           <div className="recoRight">
             <div
@@ -103,8 +103,7 @@ renderImage(){
               {this.state.EE}%
             </div>
             <h3 className="recoTitle"> {this.state.amount}x</h3>
-            <h4> {this.state.production_year}</h4>
-            <h4> {this.state.price}</h4>
+            <h4> Year: {this.state.production_year}</h4>
           </div>
         </div>
       </div>

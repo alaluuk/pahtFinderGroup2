@@ -65,14 +65,14 @@ class GeneralInformation extends Component {
 
   //retrieve general information from existing house
   componentDidMount(){
-    if (this.props.houseId) {
+    if (this.props.houseId != 0) {
       this.getHouse();
     }
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.triggerSave !== prevProps.triggerSave) {
-      if (this.props.houseId) {
+      if (this.props.houseId != 0) {
         //update house if it has already been created
         this.updateHouse();
       } else {

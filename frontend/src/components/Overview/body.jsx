@@ -97,7 +97,13 @@ export default function Body() {
           <div className="headLine">
             <div className="overviewHeadLeft">
               <h1 className="overviewHeader">My buildings</h1>
-              <Link to="/addBuilding" className="addNewPlusLink">
+              <Link to={{
+                pathname: '/addBuilding',
+                state: {
+                  houseId: 0,
+                }
+              }}
+                className="addNewPlusLink">
                 <Button variant="outlined" className="addNewPlusButton">
                   <AddIcon></AddIcon> &nbsp; Add New
                 </Button>

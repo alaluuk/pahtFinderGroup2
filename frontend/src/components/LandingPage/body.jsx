@@ -5,13 +5,16 @@ import Typography from '@material-ui/core/Typography';
 import { Mutation } from 'react-apollo'
 import { withRouter } from 'react-router-dom';
 import gql from 'graphql-tag'
-import { AUTH_TOKEN } from '../../constants'
+import { AUTH_TOKEN, CURRENT_USER_ID } from '../../constants'
 
 
 const SIGNUP_MUTATION = gql`
-  mutation SignupMutation($email: String!, $password: String!, $name: String!) {
+  mutation signup($email: String!, $password: String!, $name: String!) {
     signup(email: $email, password: $password, name: $name) {
-      token
+        token,
+        user {
+            id
+        }
     }
   }
 `
@@ -84,8 +87,9 @@ class Body extends Component {
 
     _saveNewUser = async data => {
         localStorage.removeItem(AUTH_TOKEN)
-        const { token } = data.signup
-        localStorage.setItem(AUTH_TOKEN, token)
+        localStorage.removeItem(CURRENT_USER_ID)
+        localStorage.setItem(AUTH_TOKEN, data.signup.token)
+        localStorage.setItem(CURRENT_USER_ID, data.signup.user.id);
         this.props.history.push(`/overview`)
     }
 }

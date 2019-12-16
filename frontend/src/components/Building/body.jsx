@@ -266,8 +266,8 @@ export default function Body(props) {
                   </div>
                 </div>
 
-                {/* Show recommendations only if there is an efficiencyReport available*/ }
-                {data.houses[0].efficiencyReport.total.costOfHeating ? (
+                {/* Show recommendations only if there are any structures */ }
+                {data.houses[0].structures[0] ? (
                   <div>
                     <div className="potenials">
                       <div className="potConsum">
@@ -302,6 +302,7 @@ export default function Body(props) {
                         {house.structures.map((structure) => {
                           return (
                             <div className="recoSingleRow">
+                              {structure.efficiencyReport.recommendations[0] ? (
                               <div className="currentlyCard">
                                 <ConstructionCard
                                   title={structure.title}
@@ -316,8 +317,11 @@ export default function Body(props) {
                                   image="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-1.2.1&auto=format&fit=facearea&w=800&h=2000"
                                 ></ConstructionCard>
                               </div>
-
-
+                              ) : (
+                                <div>
+                                </div>
+                                )}
+                              {structure.efficiencyReport.recommendations[0] ? (
                               <div className="recoSpace">
                                 <br></br>
                                 <br></br>
@@ -326,27 +330,41 @@ export default function Body(props) {
                                 <br></br>
                                 <br></br>
                                 <br></br>
-                                <p className="recoImproveText">+ 21 %</p>
+                                <p className="recoImproveText">+ {Math.round(structure.efficiencyReport.recommendations[0].upgradePercentage)} %</p>
                                 <DoubleArrowIcon className="recoImproveIcon"></DoubleArrowIcon>
                               </div>
+                              ) : (
+                                <div>
+                                </div>
+                                )} 
                               <div className="recoCard">
+                              {structure.efficiencyReport.recommendations[0] ? (
                                 <RecommendationCard
-                                  title="Roof Y6798 Vollholz"
+                                  title={structure.efficiencyReport.recommendations[0].structureTemplate.title}
                                   amount="1"
                                   type={structure.type.title}
-                                  manufacture="Roof GmbH"
-                                  serial_number="1"
-                                  u_value="1.2"
-                                  area="2"
-                                  production_year="1984"
-                                  price=""
-                                  EE="71"
+                                  manufacture={structure.efficiencyReport.recommendations[0].structureTemplate.manufacturer}
+                                  serial_number={structure.efficiencyReport.recommendations[0].structureTemplate.serialNumber}
+                                  u_value={structure.efficiencyReport.recommendations[0].structureTemplate.uValue}
+                                  production_year={structure.efficiencyReport.recommendations[0].structureTemplate.productionYear}
+                                  price={structure.efficiencyReport.recommendations[0].structureTemplate.price}
+                                  EE={Math.round(structure.efficiencyReport.recommendations[0].upgradePercentage
+                                     + structure.efficiencyReport.ranking.percentage)}
                                   isReco="false"
                                 ></RecommendationCard>
+                                ) : (
+                                  <div>
+                                  </div>
+                                  )} 
                               </div>
+                              {structure.efficiencyReport.recommendations[0] ? (
                               <div className="diy">
                                 <DiyCard></DiyCard>{" "}
                               </div>
+                              ) : (
+                                  <div>
+                                  </div>
+                                  )} 
                             </div>
                           );
                         })}

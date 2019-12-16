@@ -8,13 +8,12 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import EditIcon from "@material-ui/icons/Edit";
-import Structure from '../../objects/structure.js'
 
 
 export default function EditConstruction({ parentState }) {
 
-
   const [open, setOpen] = React.useState(false);
+  const [editingDisabled] = React.useState((window.location.pathname == "/result"));
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -28,7 +27,7 @@ export default function EditConstruction({ parentState }) {
 
   return (
     <div>
-      <Button className="conEdit" variant="outlined" onClick={handleClickOpen}>
+      <Button className="conEdit" variant="outlined" disabled={editingDisabled} onClick={handleClickOpen}>
         <EditIcon /> &nbsp; Edit
           </Button>
 
