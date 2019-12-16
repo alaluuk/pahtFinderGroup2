@@ -4,10 +4,11 @@ const { House } = require(".");
 const { Roles, getPermissions } = require("../permissions");
 
 class User {
-  static getAny() {
+  static getAny(query = null) {
     return new Promise(function(resolve, reject) {
+      let suffix = (query !== null) ? query.constructSuffix() : { query: '', fields: '' };
       db
-        .any(`SELECT * FROM users`)
+        .any(`SELECT *`+suffix.fields+` FROM users`+suffix.query)
         .then(res => {
           let users = [];
           res.forEach(user_data => {
