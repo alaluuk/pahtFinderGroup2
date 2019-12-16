@@ -4,50 +4,6 @@
 
 Participants: [Tim Pachmann](https://github.com/tpachmann), [Jakob Benkö](https://github.com/JakobBenkoe), [Simon Janik](https://github.com/simonjanik)
 
-User Frontend: [https://oamk-pathfinder.herokuapp.com/](https://oamk-pathfinder.herokuapp.com/)
-
-Admin Frontend: [https://oamk-pathfinder.herokuapp.com/admin](https://oamk-pathfinder.herokuapp.com/admin)
+Web-URL: [https://oamk-pathfinder.herokuapp.com/](https://oamk-pathfinder.herokuapp.com/)
 
 GraphQL: [https://oamk-pathfinder.herokuapp.com/graphql](https://oamk-pathfinder.herokuapp.com/graphql)
-
-Mockups: [https://drive.google.com/open?id=1-ovEb5N5-0p5QjVqm4tiOC4_cZ_SIU5l](https://drive.google.com/open?id=1-ovEb5N5-0p5QjVqm4tiOC4_cZ_SIU5l)
-
-Video for presentation (Design / Simon Janik): [https://youtu.be/62xGC1gRD2o](https://youtu.be/62xGC1gRD2o)
-
-Video for presentation (Design / Simon Janik): [https://youtu.be/62xGC1gRD2o](https://youtu.be/62xGC1gRD2o)
-
-## Local Deployment
-
-### Database
-The database schema is described in [this file](database/dump.sql).
-The schema contains some sample data, including some types/templates and one admin user with the following credentials:
-
-E-Mail: `admin@pathfinder-demo.com`
-
-Password: `testpw`
-
-### Docker setup
-For an easy to use deployment you can use the pre-build Docker container containing the application and the database with the following command:
-```
-docker-compose up --build
-```
-
-### Manual setup
-1. Add a `.env` file containing the required environment variables to the root folder:
-```
-NODE_ENV=development
-PORT=8000
-DATABASE_URL=postgres://zbxafoncbcpmyz:[HIDDEN]@ec2-54-247-171-30.eu-west-1.compute.amazonaws.com:5432/d1cjs992d8sbtq?ssl=true
-JWT_SECRET=jrhQqUZ4h7zxZJ2AGkvTZTt4edXER4Nd
-JWT_AUDIENCE=http://localhost:8000/graphql
-JWT_ISSUER=http://localhost:8000
-```
-
-2. Install all the NPM dependencies: 
-``` npm install ```
-
-3. Build the user & admin frontend: 
-``` npm run build ```
-
-4. Start the application: 
-``` npm start ```
