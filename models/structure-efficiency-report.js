@@ -139,11 +139,10 @@ class StructureEfficiencyReport {
 
   async getUpgradeRecommendations(limit = 3) {
     let recommendations = [];
-    let results = await db.any(`SELECT *, (price / (u_value - $1)) AS price_performance_ratio FROM structure_templates WHERE type_id = $2 AND u_value < $3 AND u_value >= $4 ORDER BY price_performance_ratio DESC LIMIT $5`, [
+    let results = await db.any(`SELECT *, (price / (u_value - $1)) AS price_performance_ratio FROM structure_templates WHERE type_id = $2 AND u_value < $3 ORDER BY price_performance_ratio DESC LIMIT $4`, [
       this.structure.uValue,
       this.structure._type_id,
       this.structure.uValue,
-      this.leastEfficientOfType.uValue,
       limit
     ]);
     for (let i = 0; i < results.length; i++) {
