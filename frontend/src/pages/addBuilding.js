@@ -5,12 +5,15 @@ import Footer from '../components/footer';
 import EditBuilding from '../components/EditBuilding/body';
 
 
+
+
 class EditBuildingPage extends React.Component {
+
     render() {
         return (
             <div className="AddBuilding">   
               <Header></Header>
-              <EditBuilding></EditBuilding>
+              <EditBuilding houseId = {this.props.location.state.houseId}></EditBuilding>
               <Footer></Footer>
             </div>
           );

@@ -4,7 +4,6 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
-import Slider from '@material-ui/core/Slider';
 import { Link } from 'react-router-dom'
 import '../../styles/cardBuilding.scss';
 
@@ -19,7 +18,7 @@ class MediaCard extends Component {
     country: "",
     EE: "",
     color: "",
-    green: "darkgreen",
+    green: "limegreen",
     orange: "orange",
     red: "red"
 
@@ -48,9 +47,12 @@ class MediaCard extends Component {
     return ( <Link to={{
       pathname: '/result',
       state: {
-        buildingID: this.state.id
+        buildingID: this.state.id,
+        buildingImage: this.state.image,
+        EEValue: this.state.EE
+        
       }
-    }}  >
+    }}>
     <Card className="card" >
       <CardActionArea>
         <CardMedia
