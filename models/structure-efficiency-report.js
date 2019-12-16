@@ -131,18 +131,19 @@ class StructureEfficiencyReport {
     }
     return {
       percentage: percentage,
-      rank: await db.one(`SELECT COUNT(DISTINCT id) AS count FROM structure_templates WHERE type_id = $1 AND u_value < $2`, [ this.structure._type_id, this.structure.uValue ]).then(res => parseInt(res.count)+1),
-      count: await db.one(`SELECT COUNT(DISTINCT id) AS count FROM structure_templates WHERE type_id = $1`, [ this.structure._type_id ]).then(res => res.count),
+      rank: await db.one(`SELECT COUNT(DISTINCT u_value) AS count FROM structure_templates WHERE type_id = $1 AND u_value < $2`, [ this.structure._type_id, this.structure.uValue ]).then(res => parseInt(res.count)+1),
+      count: await db.one(`SELECT COUNT(DISTINCT u_value) AS count FROM structure_templates WHERE type_id = $1`, [ this.structure._type_id ]).then(res => res.count),
       rankedSegment: segment
     };
   }
 
   async getUpgradeRecommendations(limit = 3) {
     let recommendations = [];
-    let results = await db.any(`SELECT *, (price / (u_value - $1)) AS price_performance_ratio FROM structure_templates WHERE type_id = $2 AND u_value < $3 ORDER BY price_performance_ratio DESC LIMIT $4`, [
+    let results = await db.any(`SELECT *, (price / (u_value - $1)) AS price_performance_ratio FROM structure_templates WHERE type_id = $2 AND u_value < $3 AND u_value >= $4 ORDER BY price_performance_ratio DESC LIMIT $5`, [
       this.structure.uValue,
       this.structure._type_id,
       this.structure.uValue,
+      this.leastEfficientOfType.uValue,
       limit
     ]);
     for (let i = 0; i < results.length; i++) {

@@ -81,7 +81,7 @@ class UserEditModal extends React.Component {
     return (
       <Dialog
         className="UserEditModal Modal"
-        icon="layer"
+        icon="person"
         onOpening={this.reset}
         onClose={this.props.onClose || undefined}
         title="Edit User"
