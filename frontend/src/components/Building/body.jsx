@@ -101,9 +101,9 @@ async function getCoordinates(address) {
 
 export default function Body(props) {
 
-  const [id, setId] = React.useState(props.id);
-  const [image, setImage] = React.useState(props.image);
-  const [coordi, setCoordi] = React.useState('');
+  const [id] = React.useState(props.id);
+  const [image] = React.useState(props.image);
+  const [coordi] = React.useState('');
 
   const { data, loading, error } = useQuery(GET_SINGLE_BUILDING, {
     variables: { id },

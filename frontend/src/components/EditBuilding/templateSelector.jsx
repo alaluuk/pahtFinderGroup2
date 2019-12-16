@@ -19,20 +19,37 @@ const useStyles = makeStyles(theme => ({
 
 
 const GET_STRUCTURE_TEMPLATES = gql`
-  query structureTemplates($houseID: ID!, $structureTypeID: ID!) {
-    structureTemplates(houseID: $houseID, structureTypeID: $structureTypeID) {
+query(
+    $id: String!,
+    $type: QueryFilterType!,
+    $value: String!,
+    $pageSize: Int!,
+    $page: Int!
+  ) {
+    structureTemplates(
+      query: {
+        filter: {
+            id: $id,
+            type: $type,
+            value: $value
+        }
+        pagination: {
+          pageSize: $pageSize,
+          page: $page
+        }
+      }
+    ) {
         id
         title
-        manufacturer
-        productionYear
-        uValue
-        serialNumber
-        price
-        efficiencyReport{
-          ranking{
-            percentage
-          }
+        type {
+            title
+            id
         }
+        uValue
+        price
+        manufacturer
+        serialNumber
+        productionYear
     }
   }
 `;
@@ -43,12 +60,22 @@ export default function TemplateSelector(props) {
     const handleChange = event => {
 
     };
+
+    const id = "type_id"
+    const type = "EQUAL";
+    const value = props.typeId;
+    const pageSize = 5;
+    const page = 1;
+
+
     const { data, loading, error } = useQuery(GET_STRUCTURE_TEMPLATES, {
+        variables: { id, type, value, pageSize, page },
         fetchPolicy: "no-cache",
       });
     
       if (loading) return <p>Loading...</p>
       if (error) return `Error! ${error}`;
+      if (data)console.log("Templates received",data)
 
     return (
         <div>

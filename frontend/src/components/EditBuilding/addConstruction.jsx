@@ -106,7 +106,7 @@ export default function AddConstruction(props) {
           </DialogContentText>
             <div className="addConstructionContent">
               <div>
-              <TemplateSelector></TemplateSelector>
+              <TemplateSelector typeId={typeId}></TemplateSelector>
                 <TextField
                   autoFocus
                   id="outlined-basic-title"
