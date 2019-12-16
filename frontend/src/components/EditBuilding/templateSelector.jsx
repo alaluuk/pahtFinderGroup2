@@ -7,7 +7,12 @@ import Select from '@material-ui/core/Select';
 import { useQuery } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 
+
 const useStyles = makeStyles(theme => ({
+    container: {
+        display: 'flex',
+        flexWrap: 'wrap',
+    },
     formControl: {
         margin: theme.spacing(1),
         minWidth: 120,
@@ -16,7 +21,6 @@ const useStyles = makeStyles(theme => ({
         marginTop: theme.spacing(2),
     },
 }));
-
 
 const GET_STRUCTURE_TEMPLATES = gql`
 query(
@@ -54,31 +58,35 @@ query(
   }
 `;
 
-
+{/* Return drop down selector with matching construction templates to choose from */ }
 export default function TemplateSelector(props) {
+    const [templates, setTemplates] = React.useState("u");
     const classes = useStyles();
-    const handleChange = event => {
-
-    };
-
     const id = "type_id"
     const type = "EQUAL";
-    const value = props.typeId;
+    const [value] = React.useState(props.typeId);
     const pageSize = 5;
     const page = 1;
 
-
+    //send selected template to parent component
+    const handleChange = event => {
+        setTemplates(event.target.value);
+        props.callbackFromParent(templates)
+    };
+    //fetch structure templates
     const { data, loading, error } = useQuery(GET_STRUCTURE_TEMPLATES, {
-        variables: { id, type, value, pageSize, page },
-        fetchPolicy: "no-cache",
-      });
-    
-      if (loading) return <p>Loading...</p>
-      if (error) return `Error! ${error}`;
-      if (data)console.log("Templates received",data)
+        variables: { id, type, value, pageSize, page }
+    });
+
+    if (loading) return <p>Loading...</p>
+    if (error) return `Error! ${error}`;
+    if (data) console.log("Templates received", data)
+
+    {/* Return no selector if there are no matching templates*/ }
+    if (!data.structureTemplates[0]) { return "" }
 
     return (
-        <div>
+        <form className={classes.container}>
             <FormControl className={classes.formControl}>
                 <InputLabel id="demo-simple-select-label">Template</InputLabel>
                 <Select
@@ -86,11 +94,11 @@ export default function TemplateSelector(props) {
                     id="demo-simple-select"
                     onChange={handleChange}
                 >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    {data.structureTemplates.map((structureTemplate) => (
+                        <MenuItem value={structureTemplate} key={structureTemplate.id}>{structureTemplate.title}</MenuItem>
+                    ))}
                 </Select>
             </FormControl>
-        </div>
+        </form>
     );
 }
