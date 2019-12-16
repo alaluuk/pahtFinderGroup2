@@ -82,7 +82,8 @@ export default function Body() {
   const [ownerID] = React.useState(owner);
   const [refresh, setRefresh] = React.useState(false);
   const { data, loading, error } = useQuery(GET_BUILDINGS, {
-    variables: { ownerID }
+    variables: { ownerID },
+    fetchPolicy: "no-cache"
   });
 
   if (loading) return <p>LOADING</p>;

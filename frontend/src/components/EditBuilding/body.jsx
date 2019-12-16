@@ -62,7 +62,6 @@ class EditBuilding extends Component {
       this.setState({houseId: dataFromChild});
       console.log("House ID",this.state.houseId)
     }else{
-      //this.props.history.push(`/result`)
       this.props.history.push({
         pathname: '/result',
         state: {buildingID: this.props.houseId}  
