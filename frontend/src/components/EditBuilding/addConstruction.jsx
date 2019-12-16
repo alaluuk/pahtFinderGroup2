@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import React from "react";
+import TemplateSelector from "./templateSelector"
 import "../../styles/addConstruction.scss";
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -105,6 +106,7 @@ export default function AddConstruction(props) {
           </DialogContentText>
             <div className="addConstructionContent">
               <div>
+              <TemplateSelector></TemplateSelector>
                 <TextField
                   autoFocus
                   id="outlined-basic-title"

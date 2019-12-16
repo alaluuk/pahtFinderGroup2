@@ -19,6 +19,20 @@ const GET_STRUCTURE_TYPES = gql`
   }
   `;
 
+/* Randomised Pictures */
+function randomizeImage(number) {
+  if (number == 1) {
+    return "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80";
+  }
+  else if (number == 2) {
+    return "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80";
+  }
+  else if (number == 3) {
+    return "https://images.unsplash.com/photo-1518780664697-55e3ad937233?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=701&q=80";
+
+  }
+}
+
 class EditBuilding extends Component {
   state = {
     structureTypes: null, //all available structures types
@@ -66,7 +80,10 @@ class EditBuilding extends Component {
       if(!houseId || houseId == 0)houseId = this.state.houseId;
       this.props.history.push({
         pathname: '/result',
-        state: { buildingID: houseId }
+        state: { 
+          buildingID: houseId, 
+          buildingImage: randomizeImage(Math.ceil(Math.random() * 3))
+        }
       })
     }
   }

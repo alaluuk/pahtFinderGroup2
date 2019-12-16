@@ -84,9 +84,6 @@ class MediaCard extends Component {
 
           </div>
           </div>
-          
-         
-            
         </CardContent>
       </CardActionArea>
     </Card>
