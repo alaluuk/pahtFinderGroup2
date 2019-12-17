@@ -82,7 +82,8 @@ export default function Body() {
   const [ownerID] = React.useState(owner);
   const [refresh, setRefresh] = React.useState(false);
   const { data, loading, error } = useQuery(GET_BUILDINGS, {
-    variables: { ownerID }
+    variables: { ownerID },
+    fetchPolicy: "no-cache"
   });
 
   if (loading) return <p>LOADING</p>;
@@ -96,7 +97,13 @@ export default function Body() {
           <div className="headLine">
             <div className="overviewHeadLeft">
               <h1 className="overviewHeader">My buildings</h1>
-              <Link to="/addBuilding" className="addNewPlusLink">
+              <Link to={{
+                pathname: '/addBuilding',
+                state: {
+                  houseId: 0,
+                }
+              }}
+                className="addNewPlusLink">
                 <Button variant="outlined" className="addNewPlusButton">
                   <AddIcon></AddIcon> &nbsp; Add New
                 </Button>

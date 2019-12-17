@@ -11,6 +11,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 
 export default function Delete ({ id, parentType, parentTitle }){
     const [open, setOpen] = React.useState(false);
+    const [editingDisabled] = React.useState((window.location.pathname == "/result"));
 
     const handleClickOpen = () => {
       setOpen(true);
@@ -22,7 +23,7 @@ export default function Delete ({ id, parentType, parentTitle }){
   
     return (
       <div>
-          <Button className="buildingDelete" variant="outlined" onClick={handleClickOpen}>
+          <Button className="buildingDelete" variant="outlined" onClick={handleClickOpen} disabled={editingDisabled}>
                 <DeleteIcon />  &nbsp; Delete
               </Button>
         <Dialog

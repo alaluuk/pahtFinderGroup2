@@ -45,6 +45,7 @@ class ConstructionContainer extends Component {
   }
 
   constructionCallback = () => {
+    console.log("Construction created, callback reached, fetch new construction.")
     this.retrieveConstructions();
   }
 
@@ -55,6 +56,7 @@ class ConstructionContainer extends Component {
     console.log("retrieving " + this.props.constructionTypeTitle);
     this.props.client.query({
       query: GET_CONSTRUCTIONS,
+      fetchPolicy: "no-cache",
       variables: {
         houseID: this.props.houseId,
         structureTypeID: this.props.constructionTypeId
@@ -86,7 +88,7 @@ class ConstructionContainer extends Component {
       );
     }
     if (this.state.constructions === null) { return "loading ..." }
-    { /* Displaying main form*/}
+    { /* Displaying main form*/ }
     return (
       <div className="addStructureComp">
         <div className="addStructureHead">
