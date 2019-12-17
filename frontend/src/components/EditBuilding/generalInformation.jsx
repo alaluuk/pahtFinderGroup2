@@ -64,7 +64,7 @@ class GeneralInformation extends Component {
 
 
   //retrieve general information from existing house
-  componentDidMount(){
+  componentDidMount() {
     if (this.props.houseId != 0) {
       this.getHouse();
     }
@@ -148,33 +148,33 @@ class GeneralInformation extends Component {
       });
   }
 
-  getHouse(){
+  getHouse() {
     console.log("retrieving general information from house ", this.props.houseId);
     this.props.client.query({
       query: GET_SINGLE_BUILDING,
-      variables: { id: this.props.houseId},
+      variables: { id: this.props.houseId },
     }).then(results => {
-        console.log("General information retrieved:", results);
-        this.setState({errorMessage: ''})
-        this.setState({name: results.data.houses[0].name});
-        this.setState({addressStreet: results.data.houses[0].addressStreet});
-        this.setState({addressCountry: results.data.houses[0].addressCountry});
-        this.setState({addressCity: results.data.houses[0].addressCity});
-        this.setState({constructionYear: results.data.houses[0].constructionYear});
-        this.setState({heatingSystem: results.data.houses[0].heatingSystem});
-        this.setState({costOfHeating: results.data.houses[0].costOfHeating});
-        this.setState({warmWaterPipe: results.data.houses[0].warmWaterPipe});
+      console.log("General information retrieved:", results);
+      this.setState({ errorMessage: '' })
+      this.setState({ name: results.data.houses[0].name });
+      this.setState({ addressStreet: results.data.houses[0].addressStreet });
+      this.setState({ addressCountry: results.data.houses[0].addressCountry });
+      this.setState({ addressCity: results.data.houses[0].addressCity });
+      this.setState({ constructionYear: results.data.houses[0].constructionYear });
+      this.setState({ heatingSystem: results.data.houses[0].heatingSystem });
+      this.setState({ costOfHeating: results.data.houses[0].costOfHeating });
+      this.setState({ warmWaterPipe: results.data.houses[0].warmWaterPipe });
     })
-    .catch(error => {
+      .catch(error => {
         console.log("error at retrieving general information: ", error);
         var err = error.graphQLErrors[0];
         let msg = "Could not retrieve general information. Please check your internet connection. ("
-        if(err){
-          this.setState({errorMessage: msg + err.message + ")"})
-        }else{
-          this.setState({errorMessage: msg + error.toString()  + ")"})
+        if (err) {
+          this.setState({ errorMessage: msg + err.message + ")" })
+        } else {
+          this.setState({ errorMessage: msg + error.toString() + ")" })
         }
-    });
+      });
   }
 
 
@@ -268,6 +268,8 @@ class GeneralInformation extends Component {
               onChange={e => this.setState({ costOfHeating: parseFloat(e.target.value) })}
             />
             <br></br>
+          </div>
+          <div className="right">
             <TextField
               id="outlined-basic"
               className="addBuildField"
@@ -278,8 +280,7 @@ class GeneralInformation extends Component {
               onChange={e => this.setState({ warmWaterPipe: (e.target.value === 'true') })}
             />
             <br></br>
-          </div>
-          <div className="right">
+            <br></br>
             <Map></Map>
           </div>
           <Typography variant="subtitle1" component="p" style={{ color: 'red' }} >

@@ -88,7 +88,7 @@ class ConstructionContainer extends Component {
       );
     }
     if (this.state.constructions === null) { return "loading ..." }
-    { /* Displaying main form*/}
+    { /* Displaying main form*/ }
     return (
       <div className="addStructureComp">
         <div className="addStructureHead">

@@ -4,10 +4,10 @@ import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react";
 
 class MapContainer extends Component {
   state = {
-    
+
   };
 
- 
+
   render() {
     const style = {
       width: '2010px',
@@ -15,21 +15,21 @@ class MapContainer extends Component {
     }
     return (
       <Map google={this.props.google}
-      style={style}
-      initialCenter={{
-        lat: 55.676098,
-        lng: 12.568337
+        style={style}
+        initialCenter={{
+          lat: 55.676098,
+          lng: 12.568337
 
-      }}
-      zoom={4}
-      onClick={this.onMapClicked}
-      
-    >
-      
+        }}
+        zoom={4}
+        onClick={this.onMapClicked}
+
+      >
 
 
-        
-<Marker
+
+
+        <Marker
           title={"Helsinki, Finland "}
           name={"Helsinki"}
           position={{ lat: 60.192059, lng: 24.945831 }}
@@ -69,20 +69,20 @@ class MapContainer extends Component {
           name={"Ibiza"}
           position={{ lat: 38.9067339, lng: 1.4205982999999378 }}
         />
-      
-        
 
-      
-        
+
+
+
+
       </Map>
-      
+
     );
-    
+
   }
 }
 
 export default GoogleApiWrapper({
-  apiKey:  process.env.GOOGLE_MAP_API_KEY 
+  apiKey: process.env.GOOGLE_MAP_API_KEY
 })(MapContainer);
 
 

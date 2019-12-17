@@ -1,4 +1,4 @@
-import React, { Component} from "react";
+import React, { Component } from "react";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -15,92 +15,92 @@ class Card extends Component {
     header: "How to fix door by sfhsifuifherbferfouieiufeihufiuewfiuew",
     likes: 1212,
     date: "Mar 3 '13",
-    
-    
+
+
   };
 
-  
+
 
   render() {
 
- 
+
 
     return (
-      <div className = "diyCard">
+      <div className="diyCard">
         <List component="nav" className="" aria-label="contacts">
-          <ListItem id = {this.state.id}  button>
-          <ListItemText primary={this.state.likes} secondary = "Likes" />
-            <ListItemText primary={this.state.type} secondary = "Type"/>
-            <ListItemText id primary={this.state.header} secondary = "Description"/>
-            <ListItemText id primary={this.state.date} secondary = "Added on"/>
+          <ListItem id={this.state.id} button>
+            <ListItemText primary={this.state.likes} secondary="Likes" />
+            <ListItemText primary={this.state.type} secondary="Type" />
+            <ListItemText id primary={this.state.header} secondary="Description" />
+            <ListItemText id primary={this.state.date} secondary="Added on" />
             <IconButton>
-                <FavoriteIcon/>
+              <FavoriteIcon />
             </IconButton>
           </ListItem>
-          <ListItem id = {this.state.id} button>
-          <ListItemText primary={this.state.likes} secondary = "Likes" />
-            <ListItemText primary={this.state.type} secondary = "Type"/>
-            <ListItemText id primary={this.state.header} secondary = "Description"/>
-            <ListItemText id primary={this.state.date} secondary = "Added on"/>
+          <ListItem id={this.state.id} button>
+            <ListItemText primary={this.state.likes} secondary="Likes" />
+            <ListItemText primary={this.state.type} secondary="Type" />
+            <ListItemText id primary={this.state.header} secondary="Description" />
+            <ListItemText id primary={this.state.date} secondary="Added on" />
             <IconButton>
-                <FavoriteIcon/>
+              <FavoriteIcon />
             </IconButton>
           </ListItem>
-          <ListItem id = {this.state.id} button>
-          <ListItemText primary={this.state.likes} secondary = "Likes" />
-            <ListItemText primary={this.state.type} secondary = "Type"/>
-            <ListItemText id primary={this.state.header} secondary = "Description"/>
-            <ListItemText id primary={this.state.date} secondary = "Added on"/>
+          <ListItem id={this.state.id} button>
+            <ListItemText primary={this.state.likes} secondary="Likes" />
+            <ListItemText primary={this.state.type} secondary="Type" />
+            <ListItemText id primary={this.state.header} secondary="Description" />
+            <ListItemText id primary={this.state.date} secondary="Added on" />
             <IconButton>
-                <FavoriteIcon/>
+              <FavoriteIcon />
             </IconButton>
           </ListItem>
-          <ListItem id = {this.state.id} button>
-          <ListItemText primary={this.state.likes} secondary = "Likes" />
-            <ListItemText primary={this.state.type} secondary = "Type"/>
-            <ListItemText id primary={this.state.header} secondary = "Description"/>
-            <ListItemText id primary={this.state.date} secondary = "Added on"/>
+          <ListItem id={this.state.id} button>
+            <ListItemText primary={this.state.likes} secondary="Likes" />
+            <ListItemText primary={this.state.type} secondary="Type" />
+            <ListItemText id primary={this.state.header} secondary="Description" />
+            <ListItemText id primary={this.state.date} secondary="Added on" />
             <IconButton>
-                <FavoriteIcon/>
+              <FavoriteIcon />
             </IconButton>
           </ListItem>
-          <ListItem id = {this.state.id} button>
-          <ListItemText primary={this.state.likes} secondary = "Likes" />
-            <ListItemText primary={this.state.type} secondary = "Type"/>
-            <ListItemText id primary={this.state.header} secondary = "Description"/>
-            <ListItemText id primary={this.state.date} secondary = "Added on"/>
+          <ListItem id={this.state.id} button>
+            <ListItemText primary={this.state.likes} secondary="Likes" />
+            <ListItemText primary={this.state.type} secondary="Type" />
+            <ListItemText id primary={this.state.header} secondary="Description" />
+            <ListItemText id primary={this.state.date} secondary="Added on" />
             <IconButton>
-                <FavoriteIcon/>
+              <FavoriteIcon />
             </IconButton>
           </ListItem>
-          <ListItem id = {this.state.id} button>
-          <ListItemText primary={this.state.likes} secondary = "Likes" />
-            <ListItemText primary={this.state.type} secondary = "Type"/>
-            <ListItemText id primary={this.state.header} secondary = "Description"/>
-            <ListItemText id primary={this.state.date} secondary = "Added on"/>
+          <ListItem id={this.state.id} button>
+            <ListItemText primary={this.state.likes} secondary="Likes" />
+            <ListItemText primary={this.state.type} secondary="Type" />
+            <ListItemText id primary={this.state.header} secondary="Description" />
+            <ListItemText id primary={this.state.date} secondary="Added on" />
             <IconButton>
-                <FavoriteIcon/>
+              <FavoriteIcon />
             </IconButton>
           </ListItem>
-          <ListItem id = {this.state.id} button>
-          <ListItemText primary={this.state.likes} secondary = "Likes" />
-            <ListItemText primary={this.state.type} secondary = "Type"/>
-            <ListItemText id primary={this.state.header} secondary = "Description"/>
-            <ListItemText id primary={this.state.date} secondary = "Added on"/>
+          <ListItem id={this.state.id} button>
+            <ListItemText primary={this.state.likes} secondary="Likes" />
+            <ListItemText primary={this.state.type} secondary="Type" />
+            <ListItemText id primary={this.state.header} secondary="Description" />
+            <ListItemText id primary={this.state.date} secondary="Added on" />
             <IconButton>
-                <FavoriteIcon/>
+              <FavoriteIcon />
             </IconButton>
           </ListItem>
-          <ListItem id = {this.state.id} button>
-          <ListItemText primary={this.state.likes} secondary = "Likes" />
-            <ListItemText primary={this.state.type} secondary = "Type"/>
-            <ListItemText id primary={this.state.header} secondary = "Description"/>
-            <ListItemText id primary={this.state.date} secondary = "Added on"/>
+          <ListItem id={this.state.id} button>
+            <ListItemText primary={this.state.likes} secondary="Likes" />
+            <ListItemText primary={this.state.type} secondary="Type" />
+            <ListItemText id primary={this.state.header} secondary="Description" />
+            <ListItemText id primary={this.state.date} secondary="Added on" />
             <IconButton>
-                <FavoriteIcon/>
+              <FavoriteIcon />
             </IconButton>
           </ListItem>
-   
+
         </List>
 
 

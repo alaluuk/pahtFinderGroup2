@@ -156,8 +156,8 @@ export default function Body(props) {
                   pathname: '/addBuilding',
                   state: {
                     houseId: props.id,
-                  }
-                }}>
+                  } 
+                }} style={{ textDecoration: 'none' }}>
                   <Button className="buildingEdit" variant="outlined">
                     <EditIcon /> &nbsp; Edit
               </Button>
@@ -272,7 +272,7 @@ export default function Body(props) {
                     <div className="potenials">
                       <div className="potConsum">
                         <h4 className="potTitle">Present U-Value</h4>
-                        <h2 className="potText">{data.houses[0].efficiencyReport.total.uValue}</h2>
+                        <h2 className="potText">{(data.houses[0].efficiencyReport.total.uValue).toFixed(2)}</h2>
                       </div>
 
                       <div className="potConsum">
@@ -282,7 +282,7 @@ export default function Body(props) {
 
                       <div className="potLosts">
                         <h4 className="potTitle">Potential U-Value </h4>
-                        <h2 className="potText"> {data.houses[0].efficiencyReport.total.possibleUValue} </h2>
+                        <h2 className="potText"> {(data.houses[0].efficiencyReport.total.possibleUValue).toFixed(2)} </h2>
                       </div>
                       <div className="potSavings">
                         <h4 className="potTitle">Potential Yearly Savings </h4>
@@ -363,6 +363,9 @@ export default function Body(props) {
                               </div>
                               ) : (
                                   <div>
+                                    <Typography variant="h6" component="p" style={{ color: 'green' }} >
+                                          Your structure {structure.title} is as good as or better than the best template. Congratulations!
+                                      </Typography>
                                   </div>
                                   )} 
                             </div>

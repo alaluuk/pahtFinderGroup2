@@ -38,7 +38,7 @@ class Card extends Component {
     this.state.production_year = this.props.production_year;
     this.state.price = this.props.price;
     this.state.EE = this.props.EE;
-    this.state.isReco = this.props.isReco;  
+    this.state.isReco = this.props.isReco;
 
     if (this.state.EE <= 35) {
       this.state.color = this.state.red;
@@ -46,45 +46,45 @@ class Card extends Component {
       this.state.color = this.state.orange;
     } else if (this.state.EE >= 70) {
       this.state.color = this.state.green;
-   
-    }  
 
-}
+    }
 
-renderImage(){
-  var image = "";
-  if(this.state.type == "Roof construction"){
-    image = "https://images.unsplash.com/photo-1528223871781-8f4c984f6164?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80";
-  }else if(this.state.type == "Windows"){
-    image ="https://images.unsplash.com/photo-1551524163-d00af9f12253?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=625&q=80";
-  }else if(this.state.type == "Doors"){
-    image = "https://images.unsplash.com/photo-1500281781950-6cd80847ebcd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80";
-  }else if(this.state.type == "Ground floor"){
-    image ="https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Foundation-M2325.jpg/1200px-Foundation-M2325.jpg";
   }
-  return image;
-}
+
+  renderImage() {
+    var image = "";
+    if (this.state.type == "Roof construction") {
+      image = "https://images.unsplash.com/photo-1528223871781-8f4c984f6164?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80";
+    } else if (this.state.type == "Windows") {
+      image = "https://images.unsplash.com/photo-1551524163-d00af9f12253?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=625&q=80";
+    } else if (this.state.type == "Doors") {
+      image = "https://images.unsplash.com/photo-1500281781950-6cd80847ebcd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80";
+    } else if (this.state.type == "Ground floor") {
+      image = "https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Foundation-M2325.jpg/1200px-Foundation-M2325.jpg";
+    }
+    return image;
+  }
 
   render() {
 
-   
+
     return (
       <div className="recommendationCard">
         <img
           className="recommendationPicture"
           src={this.renderImage()}
           alt="recommendationPicture"
-          
+
         ></img>
 
         <div className="recoButtons">
           <Button className="recoOffer" variant="outlined">
             <LocalGroceryStoreIcon></LocalGroceryStoreIcon> &nbsp; Show on marketplace
           </Button>
-          <Button className="recoLike" variant="outlined" onClick = {this.like}>
-            <FavoriteIcon color={this.state.likeColor}/>  &nbsp; Like
+          <Button className="recoLike" variant="outlined" onClick={this.like}>
+            <FavoriteIcon color={this.state.likeColor} />  &nbsp; Like
           </Button>
-          
+
         </div>
 
         <div className="recoContent">

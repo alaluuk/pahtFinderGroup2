@@ -61,6 +61,7 @@ query(
 {/* Return drop down selector with matching construction templates to choose from */ }
 export default function TemplateSelector(props) {
     const [templates, setTemplates] = React.useState("u");
+    const [templateCounter, setTemplateCounter] = React.useState(0);
     const classes = useStyles();
     const id = "type_id"
     const type = "EQUAL";
@@ -71,7 +72,7 @@ export default function TemplateSelector(props) {
     //send selected template to parent component
     const handleChange = event => {
         setTemplates(event.target.value);
-        props.callbackFromParent(templates)
+        props.callbackFromParent(event.target.value)
     };
     //fetch structure templates
     const { data, loading, error } = useQuery(GET_STRUCTURE_TEMPLATES, {
@@ -85,6 +86,8 @@ export default function TemplateSelector(props) {
     {/* Return no selector if there are no matching templates*/ }
     if (!data.structureTemplates[0]) { return "" }
 
+
+
     return (
         <form className={classes.container}>
             <FormControl className={classes.formControl}>
@@ -95,7 +98,7 @@ export default function TemplateSelector(props) {
                     onChange={handleChange}
                 >
                     {data.structureTemplates.map((structureTemplate) => (
-                        <MenuItem value={structureTemplate} key={structureTemplate.id}>{structureTemplate.title}</MenuItem>
+                        <MenuItem value={structureTemplate}>{structureTemplate.title}</MenuItem>
                     ))}
                 </Select>
             </FormControl>

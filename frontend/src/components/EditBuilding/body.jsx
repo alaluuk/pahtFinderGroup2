@@ -77,11 +77,11 @@ class EditBuilding extends Component {
       console.log("House ID", this.state.houseId)
     } else {
       var houseId = this.props.houseId;
-      if(!houseId || houseId == 0)houseId = this.state.houseId;
+      if (!houseId || houseId == 0) houseId = this.state.houseId;
       this.props.history.push({
         pathname: '/result',
-        state: { 
-          buildingID: houseId, 
+        state: {
+          buildingID: houseId,
           buildingImage: randomizeImage(Math.ceil(Math.random() * 3))
         }
       })

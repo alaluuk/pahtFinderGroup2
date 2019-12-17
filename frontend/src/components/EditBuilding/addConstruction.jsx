@@ -114,7 +114,9 @@ export default function AddConstruction(props) {
         fullWidth="md"
         maxWidth="md"
         minWidth="md"
-        open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+        minHeight="md"
+        maxHeight="md"
+        open={open} onClose={handleClose}>
 
         <div className="addConstructionDialog">
           <DialogTitle id="form-dialog-title">
