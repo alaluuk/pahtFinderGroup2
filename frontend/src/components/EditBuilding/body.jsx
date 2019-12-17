@@ -46,8 +46,10 @@ class EditBuilding extends Component {
     //retrieve construction types via withAollo
     console.log("retrieving construction types");
     this.props.client.query({
+      
       query: GET_STRUCTURE_TYPES,
       variables: {},
+      fetchpolicy: "no-cache",
     }).then(results => {
       console.log("Construction types retrieved:", results);
       this.setState({ errorMessage: '' })
