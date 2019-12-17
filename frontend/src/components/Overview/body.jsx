@@ -92,7 +92,7 @@ export default function Body() {
 
   return (
     <div className="bodyOverview" >
-      <div className="overlay">
+      <div>
         <div className="content">
           <div className="headLine">
             <div className="overviewHeadLeft">
