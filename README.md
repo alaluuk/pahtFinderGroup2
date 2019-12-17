@@ -12,9 +12,9 @@ GraphQL: [https://oamk-pathfinder.herokuapp.com/graphql](https://oamk-pathfinder
 
 Mockups: [https://drive.google.com/open?id=1-ovEb5N5-0p5QjVqm4tiOC4_cZ_SIU5l](https://drive.google.com/open?id=1-ovEb5N5-0p5QjVqm4tiOC4_cZ_SIU5l)
 
-Video for presentation (Design / Simon Janik): [https://youtu.be/62xGC1gRD2o](https://youtu.be/62xGC1gRD2o)
+Presentation of the User Frontend/Design (by Simon): [https://youtu.be/62xGC1gRD2o](https://youtu.be/62xGC1gRD2o)
 
-Video for presentation (Design / Simon Janik): [https://youtu.be/62xGC1gRD2o](https://youtu.be/62xGC1gRD2o)
+Presentation of the Admin Frontend (by Tim): [https://youtu.be/XIN6rlQ29ew](https://youtu.be/XIN6rlQ29ew)
 
 ## Local Deployment
 
