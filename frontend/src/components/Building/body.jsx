@@ -148,7 +148,7 @@ export default function Body(props) {
     <div className="bodyBuilding">
       {data.houses.map((house, index) => {
         return (
-          <div className="overlay">
+          <div>
             <div className="building" key={house.name + "-" + index}>
               <div className="buildingHeader">
                 <h1 className="buildingHeaderText">{house.name}</h1>

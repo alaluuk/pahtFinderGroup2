@@ -46,7 +46,7 @@ class EditBuilding extends Component {
     //retrieve construction types via withAollo
     console.log("retrieving construction types");
     this.props.client.query({
-      
+
       query: GET_STRUCTURE_TYPES,
       variables: {},
       fetchpolicy: "no-cache",
@@ -103,7 +103,7 @@ class EditBuilding extends Component {
     {/* Displaying main form*/ }
     return (
       <div className="bodyAdd">
-        <div className="overlay">
+        <div>
           <div className="addBuildingComp">
             <div className="addBuildHeader">
               {this.state.houseId ? (
